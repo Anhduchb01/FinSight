@@ -1,0 +1,1576 @@
+<template>
+  <div class="widget-content searchable-container gird">
+    <div class="row">
+      <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 text-sm-right text-center layout-spacing align-self-center">
+        <div class="d-flex justify-content-sm-start justify-content-center">
+          <div class="widget-heading">
+            <h5 class>Websites</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center layout-spacing align-self-center">
+        <div class="d-flex justify-content-sm-end justify-content-center">
+          <div style="width: auto;height: auto;" class="switch align-self-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid view-grid active-view">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rss searchable-items gird" style="display: flex;flex-wrap: wrap;">
+      <!-- GSI -->
+      <div class="items" v-if="posts.length">
+        <div class="item-content rss-page">
+          <div style="display: none;">
+            <label class="switch s-icons s-outline s-outline-info">
+              <input class="input-address" id="addressgsi" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="user-email address-page">
+            <div class="user-meta-info">
+              <p class="user-name">GSI</p>
+              <p class="user-work">https://www.gsj.jp</p>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Date:</p>
+            <p class="date-time-crawler-rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span id="time-update-addressgsi" class="bs-tooltip" data-placement="right" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[0]}}</span>
+            </p>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Post:</p>
+            <div class="box-status-post" style="margin:0;width: auto;">
+              <div class="item-timeline timeline-success">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-addressgsi">{{sumPost[0]}} Post (+{{increasedPost[0]}})</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-warning">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-block-addressgsi">{{sumPostBlock[0]}} Post (+0)</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-danger">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-skip-addressgsi">{{sumPostSkip[0]}} Post (+0)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Status:</p>
+            <p class="usr-ph-no">
+              <span :class="classData[0]" id="status-addressgsi">{{status[0]}}</span>
+            </p>
+          </div>
+          <div class="action-btn d-flex justify-content-center">
+            <button id="btn-crawl-addressgsi" v-on:click="searchInformation('addressgsi')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-addressgsi" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg> Crawl
+            </button>
+            <button v-on:click="showModalEdit('addressgsi','GSI','www.gsj.jp')" class="btn btn-warning mt-2 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- //ENV -->
+      <div class="items" v-if="posts.length">
+        <div class="item-content rss-page">
+          <div style="display: none;" class="box-switch">
+            <label class="switch s-icons s-outline s-outline-info">
+              <input class="input-address" id="addressenv" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div class="user-email address-page">
+            <div class="user-meta-info">
+              <p class="user-name" data-name="Alan Green">ENV</p>
+              <p class="user-work" data-occupation="Web Developer">https://www.env.go.jp</p>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Date:</p>
+            <p class="date-time-crawler-rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span class="bs-tooltip" data-placement="right" id="time-update-addressenv" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[1]}}</span>
+            </p>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Post:</p>
+            <div class="box-status-post" style="margin:0;width: auto;">
+              <div class="item-timeline timeline-success">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-addressenv">{{sumPost[1]}} Post (+{{increasedPost[1]}})</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-warning">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-block-addressenv">{{sumPostBlock[1]}} Post (+0)</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-danger">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-skip-addressenv">{{sumPostSkip[1]}} Post (+0)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Status:</p>
+            <p class="usr-ph-no">
+              <span :class="classData[1]" id="status-addressenv">{{status[1]}}</span>
+            </p>
+          </div>
+          <div class="action-btn d-flex justify-content-center">
+            <button id="btn-crawl-addressenv" v-on:click="searchInformation('addressenv')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-addressenv" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg> Crawl
+            </button>
+            <button v-on:click="showModalEdit('addressenv','ENV','www.env.go.jp')" class="btn btn-warning mt-2 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- //COB -->
+      <div class="items" v-if="posts.length">
+        <div class="item-content rss-page">
+          <div style="display: none;" class="box-switch">
+            <label class="switch s-icons s-outline s-outline-info">
+              <input class="input-address" id="addresscob" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+
+          <div class="user-email address-page">
+            <div class="user-meta-info">
+              <p class="user-name" data-name="Alan Green">COB</p>
+              <p class="user-work" data-occupation="Web Developer">https://www.circleofblue.org</p>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Date:</p>
+            <p class="date-time-crawler-rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span class="bs-tooltip" data-placement="right" id="time-update-addresscob" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[2]}}</span>
+            </p>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Post:</p>
+            <div class="box-status-post" style="margin:0;width: auto;">
+              <div class="item-timeline timeline-success">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-addresscob">{{sumPost[2]}} Post (+{{increasedPost[2]}})</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-warning">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-block-addresscob">{{sumPostBlock[2]}} Post (+0)</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-danger">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-skip-addresscob">{{sumPostSkip[2]}} Post (+0)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Status:</p>
+            <p class="usr-ph-no">
+              <span :class="classData[2]" id="status-addresscob">{{status[2]}}</span>
+            </p>
+          </div>
+          <div class="action-btn d-flex justify-content-center">
+            <button id="btn-crawl-addresscob" v-on:click="searchInformation('addresscob')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-addresscob" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg> Crawl
+            </button>
+            <button v-on:click="showModalEdit('addresscob','COB','www.circleofblue.org')" class="btn btn-warning mt-2 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- //USGS -->
+      <div class="items" v-if="posts.length">
+        <div class="item-content rss-page">
+          <div style="display: none;" class="box-switch">
+            <label class="switch s-icons s-outline s-outline-info">
+              <input class="input-address" id="addressusgs" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="user-email address-page">
+            <div class="user-meta-info">
+              <p class="user-name" data-name="Alan Green">USGS</p>
+              <p class="user-work" data-occupation="Web Developer">https://waterdata.usgs.gov</p>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Date:</p>
+            <p class="date-time-crawler-rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span class="bs-tooltip" data-placement="right" id="time-update-addressusgs" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[3]}}</span>
+            </p>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Post:</p>
+            <div class="box-status-post" style="margin:0;width: auto;">
+              <div class="item-timeline timeline-success">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-addressusgs">{{sumPost[3]}} Post (+{{increasedPost[3]}})</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-warning">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-block-addressusgs">{{sumPostBlock[3]}} Post (+0)</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-danger">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-skip-addressusgs">{{sumPostSkip[3]}} Post (+0)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Status:</p>
+            <p class="usr-ph-no">
+              <span :class="classData[3]" id="status-addressusgs">{{status[3]}}</span>
+            </p>
+          </div>
+          <div class="action-btn d-flex justify-content-center">
+            <button id="btn-crawl-addressusgs" v-on:click="searchInformation('addressusgs')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-addressusgs" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg> Crawl
+            </button>
+            <button v-on:click="showModalEdit('addressusgs','USGS','waterdata.usgs.gov')" class="btn btn-warning mt-2 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- //NASA -->
+      <div class="items" v-if="posts.length">
+        <div class="item-content rss-page">
+          <div style="display: none;" class="box-switch">
+            <label class="switch s-icons s-outline s-outline-info">
+              <input class="input-address" id="addressnasa" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="user-email address-page">
+            <div class="user-meta-info">
+              <p class="user-name" data-name="Alan Green">NASA</p>
+              <p class="user-work" data-occupation="Web Developer">https://www.nasa.gov</p>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Date:</p>
+            <p class="date-time-crawler-rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span class="bs-tooltip" data-placement="right" id="time-update-addressnasa" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[4]}}</span>
+            </p>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Post:</p>
+            <div class="box-status-post" style="margin:0;width: auto;">
+              <div class="item-timeline timeline-success">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-addressnasa">{{sumPost[4]}} Post (+{{increasedPost[4]}})</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-warning">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-block-addressnasa">{{sumPostBlock[4]}} Post (+0)</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-danger">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-skip-addressnasa">{{sumPostSkip[4]}} Post (+0)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Status:</p>
+            <p class="usr-ph-no">
+              <span :class="classData[4]" id="status-addressnasa">{{status[4]}}</span>
+            </p>
+          </div>
+          <div class="action-btn d-flex justify-content-center">
+            <button id="btn-crawl-addressnasa" v-on:click="searchInformation('addressnasa')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-addressnasa" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg> Crawl
+            </button>
+            <button v-on:click="showModalEdit('addressnasa','NASA','www.nasa.gov')" class="btn btn-warning mt-2 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal Website  -->
+    <modal name="modal-edit-page-website" class="test" height="271px" width="500px" styles="overflow: initial">
+      <div style="max-width: 700px !important;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <svg v-on:click="closeModalEdit()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="modal">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+            <div class="compose-box">
+              <div class="compose-content">
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <h5 style="font-weight: bold;color: #4361ee !important;" class="modal-title text-center">
+                      Edit Page
+                      Crawl
+                    </h5>
+                  </div>
+                </div>
+                <ul class="nav nav-tabs mb-3 mt-3" id="simpletab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Simple</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Advanced</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="query-tab" data-toggle="tab" href="#query" role="tab" aria-controls="query" aria-selected="false">Query</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="simpletabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="d-flex mb-4 mail-to">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-type">
+                              <polyline points="4 7 4 4 20 4 20 7" />
+                              <line x1="9" y1="20" x2="15" y2="20" />
+                              <line x1="12" y1="4" x2="12" y2="20" />
+                            </svg>
+                            <div style="display: none;" class="w-100">
+                              <input disabled type="text" id="address-page-crawl" class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                            <div class="w-100">
+                              <input disabled type="text" id="edit-name-page" :placeholder="nameModel" class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex mb-4 mail-subject">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                          <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        <div class="w-100">
+                          <input disabled type="text" id="edit-url-page" :placeholder="'https://' + urlModel" class="form-control" />
+                          <span class="validation-text"></span>
+                        </div>
+                      </div>
+                      <div style="text-align: left;" class="d-flex mail-subject">
+                        <div class="box-switch">
+                          <label class="switch s-icons s-outline s-outline-primary">
+                            <input v-on:click="validated =! validated" class="input-edit-address" id="edit-check-time" type="checkbox" />
+                            <span class="slider round">
+                              <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Schedule Crawl</p>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="d-flex mail-subject">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search align-self-center pl-0">
+                          <button :disabled="validated" data-toggle="modal" id="btn-create-schedule" data-target="#scheduleModal" type="button" class="btn btn-primary">Schedule Crawl</button>
+                        </div>
+                      </div>
+                      <small style="text-align: left;margin-left: 36px;" id="emailHelp1" class="form-text text-muted mb-4">
+                        Select time
+                        for schedule
+                      </small>
+                      <div>
+                        <div style="text-align: left;" class="box-switch">
+                          <label class="switch s-icons s-outline s-outline-primary">
+                            <input class="input-edit-address" id="edit-check-display" type="checkbox" />
+                            <span class="slider round">
+                              <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Public Post</p>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <form>
+                      <div class="d-flex">
+                        <div style="width: 50%;">
+                          <div style="text-align: left;" class="box-switch">
+                            <label class="switch s-icons s-outline s-outline-primary">
+                              <input :checked="validatedCokkies" v-on:click="validatedCokkies =! validatedCokkies" class="input-edit-address" id="edit-cookies-page" type="checkbox" />
+                              <span class="slider round">
+                                <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Allow Cookies</p>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                        <div style="width: 50%;">
+                          <div style="text-align: left;" class="box-switch">
+                            <label class="switch s-icons s-outline s-outline-primary">
+                              <input :checked="modeRobotsParser" class="input-edit-address" id="edit-robot-txt-page" type="checkbox" />
+                              <span class="slider round">
+                                <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Follow robots.txt file</p>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex mail-subject mb-3">
+                        <svg style="margin-bottom: 20px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        <div class="d-flex">
+                          <div>
+                            <div>
+                              <input v-model="timeOutCrawl" type="number" placeholder id="timeout-page" class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                            <small class="form-text text-muted">Setting timeout</small>
+                          </div>
+                          <div style="padding: 0px 10px;">
+                            <div>
+                              <input v-model="timeRetryCrawl" type="number" placeholder id="time-retry-page" class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                            <small class="form-text text-muted">Setting time retry</small>
+                          </div>
+                          <div>
+                            <div>
+                              <input v-model="timeDelayCrawl" type="number" id="time-delay-page" placeholder class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                            <small class="form-text text-muted">Setting time delay</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex mail-subject mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <div style="width: 100%;">
+                          <input v-model="userAgent" type="text" id="edit-user-agent-page" placeholder="User-Agent" class="form-control" />
+                          <span class="validation-text"></span>
+                        </div>
+                      </div>
+                      <div class="d-flex mail-subject mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-aperture">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
+                          <line x1="9.69" y1="8" x2="21.17" y2="8" />
+                          <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
+                          <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
+                          <line x1="14.31" y1="16" x2="2.83" y2="16" />
+                          <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
+                        </svg>
+                        <div style="width: 100%;">
+                          <input v-model="cookies" :disabled="!validatedCokkies" type="text" id="edit-input-cookie-page" placeholder="Cookies" class="form-control" />
+                          <span class="validation-text"></span>
+                        </div>
+                      </div>
+                      <div class="table-responsive table-list-key">
+                        <table class="table table-bordered mb-4">
+                          <thead>
+                            <tr>
+                              <th style="width: 40%;">Header</th>
+                              <th style="width: 40%;">Value</th>
+                              <th style="text-align: center;width: 20%;">
+                                <button type="button" v-on:click="addRowTableHttpHeader()" style="height:25px;padding: 0px 10px;margin: 0px;" class="btn btn-outline-success">Add</button>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="tbody-http-header">
+                            <tr v-for="(results,index) of httpHeader" :key="results.id">
+                              <td>
+                                <input v-model="results.header" type="text" class="form-control row-key" />
+                              </td>
+                              <td>
+                                <input v-model="results.value" type="text" class="form-control row-value" />
+                              </td>
+                              <td class="box-remove-row" style="text-align: center;">
+                                <svg v-on:click="removeRowTableHttpHeader(index)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete-multiple remove-row-table-header">
+                                  <polyline points="3 6 5 6 21 6" />
+                                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                  <line x1="10" y1="11" x2="10" y2="17" />
+                                  <line x1="14" y1="11" x2="14" y2="17" />
+                                </svg>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane fade" id="query" role="tabpanel" aria-labelledby="query-tab">
+                    <div class="d-flex" style="justify-content: space-between;">
+                      <div class="nav nav-pills mb-sm-0 mb-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active mb-2" id="query-en-tab" data-toggle="pill" href="#query-en" role="tab" aria-controls="query-en" aria-selected="true">
+                          <img src="/img/gbr.png" class="flag-width" /> English
+                        </a>
+                        <a v-if="UrlQueryJP != ''" class="nav-link mb-2" id="query-jp-tab" data-toggle="pill" href="#query-jp" role="tab" aria-controls="query-jp" aria-selected="false">
+                          <img style="width: 25px;height: 25px;" src="/img/japan.png" class="flag-width" /> Japan
+                        </a>
+                      </div>
+                      <div>
+                        <button type="button" onclick="useQueryDefault()" class="btn btn-info">Default</button>
+                      </div>
+                    </div>
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div class="tab-pane fade show active" id="query-en" role="tabpanel" aria-labelledby="query-en-tab">
+                        <form>
+                          <label for="basic-url">Go to page</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">URL</span>
+                                </div>
+                                <input v-model="UrlQueryEN" type="text" class="form-control" id="query-url-en" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                          <label for="basic-url">Paging navigate & crawl data</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Article URL</span>
+                                </div>
+                                <input v-model="articleUrlEN" type="text" class="form-control" id="article-url-en" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                          <label for="basic-url">Get data</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Title</span>
+                                </div>
+                                <input v-model="articleTitleEN" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Description</span>
+                                </div>
+                                <input v-model="desArticleEN" type="text" class="form-control" id="des-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Image</span>
+                                </div>
+                                <input v-model="imageArticleEN" type="text" class="form-control" id="image-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Post Date</span>
+                                </div>
+                                <input v-model="dateArticleEN" type="text" class="form-control" id="date-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Content</span>
+                                </div>
+                                <input v-model="contentArticleEN" type="text" class="form-control" id="content-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                          <label for="basic-url">Remove element</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Remove rules</span>
+                                </div>
+                                <input v-model="removeElementArticleEN" type="text" class="form-control" id="remove-element-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="tab-pane fade" id="query-jp" role="tabpanel" aria-labelledby="query-jp-tab">
+                        <form>
+                          <label for="basic-url">Go to page</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">URL</span>
+                                </div>
+                                <input v-model="UrlQueryJP" type="text" class="form-control" id="query-url-jp" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                          <label for="basic-url">Paging navigate & crawl data</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Article URL</span>
+                                </div>
+                                <input v-model="articleUrlJP" type="text" class="form-control" id="article-url-jp" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                          <label for="basic-url">Get data</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Title</span>
+                                </div>
+                                <input v-model="articleTitleJP" type="text" class="form-control" id="article-title-jp" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Description</span>
+                                </div>
+                                <input v-model="desArticleJP" type="text" class="form-control" id="des-article-jp" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Image</span>
+                                </div>
+                                <input v-model="imageArticleJP" type="text" class="form-control" id="image-article-jp" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Post Date</span>
+                                </div>
+                                <input v-model="dateArticleJP" type="text" class="form-control" id="date-article-jp" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Content</span>
+                                </div>
+                                <input v-model="contentArticleJP" type="text" class="form-control" id="content-article-jp" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                          <label for="basic-url">Remove element</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Remove rules</span>
+                                </div>
+                                <input v-model="removeElementArticleJP" type="text" class="form-control" id="remove-element-article-jp" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button v-on:click="saveEditCrawlPage()" id="btn-save-edit" class="btn btn-success float-left">
+              <svg style="display:none" id="edit-icon-loadding" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg>
+              <svg id="edit-icon-crawl" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Save
+            </button>
+            <button class="btn" data-dismiss="modal">
+              <i class="flaticon-delete-1"></i> Discard
+            </button>
+          </div>
+        </div>
+      </div>
+    </modal>
+    <ScheduleCrawl />
+  </div>
+</template>
+<script>
+import Snackbar from "awesome-snackbar";
+import { HTTP } from "../../../static/baseAPIAdmin.js";
+import ScheduleCrawl from "~/components/admin/crawler/ScheduleCrawlComponent.vue";
+import moment from "moment";
+export default {
+  components: {
+    ScheduleCrawl,
+  },
+  data() {
+    return {
+      //Iconloading
+      loadingAddressgsi: true,
+      loadingAddressenv: true,
+      loadingAddresscob: true,
+      loadingAddressusgs: true,
+      loadingAddressnasa: true,
+      //validate
+      validated: true,
+      validatedCokkies: true,
+      modePublic: false,
+      //
+      nameEle: [],
+      posts: [],
+      status: [],
+      classData: [],
+      sumPost: [],
+      increasedPost: [],
+      sumPostBlock: [],
+      sumPostSkip: [],
+      LastDateCrawler: [],
+      arrDataConfig: [],
+
+      //Edit model
+      urlModel: null,
+      nameModel: null,
+      namePage: null,
+      titlePage: null,
+      urlPage: null,
+      modeSchedule: null,
+
+      timeOutCrawl: null,
+      timeRetryCrawl: null,
+      timeDelayCrawl: null,
+      userAgent: null,
+      cookies: null,
+      modeRobotsParser: null,
+
+      //UrlEn
+      UrlQueryEN: null,
+      articleUrlEN: null,
+      articleTitleEN: null,
+      desArticleEN: null,
+      imageArticleEN: null,
+      dateArticleEN: null,
+      contentArticleEN: null,
+      removeElementArticleEN: null,
+      //UrlJp
+      UrlQueryJP: null,
+      articleUrlJP: null,
+      articleTitleJP: null,
+      desArticleJP: null,
+      imageArticleJP: null,
+      dateArticleJP: null,
+      contentArticleJP: null,
+      removeElementArticleJP: null,
+      //
+      httpHeader: [],
+      test: 1,
+    };
+  },
+  methods: {
+    getTimeAgo(value) {
+      if (value === "--/--/----" || value === "") {
+        return "--/--/----";
+      }
+      let timeAgo = moment(new Date(value)).fromNow();
+      timeAgo = timeAgo.replace(/\b\w/g, function (l) {
+        return l.toUpperCase();
+      });
+      return timeAgo;
+    },
+    showModalEdit(address, nameModel, urlModel) {
+      this.validated = true;
+      this.urlModel = urlModel;
+      this.nameModel = nameModel;
+      for (let index = 0; index < this.arrDataConfig.length; index++) {
+        if (this.arrDataConfig[index].namePage === address) {
+          let results = this.arrDataConfig[index];
+          this.namePage = results.namePage;
+          this.showModalSchedule();
+          this.titlePage = results.titlePage;
+          this.urlPage = results.urlPage;
+          this.modePublic = results.modePublic;
+          this.modeRobotsParser = results.modeRobotsParser;
+          this.timeOutCrawl = results.timeOutCrawl;
+          this.timeRetryCrawl = results.timeRetryCrawl;
+          this.timeDelayCrawl = results.timeDelayCrawl;
+          this.userAgent = results.userAgent;
+          this.cookies = results.cookies;
+
+          this.httpHeader = results.httpHeader;
+
+          //En
+          this.UrlQueryEN = results.UrlQuery.EN;
+          this.articleUrlEN = results.articleUrlQuery.EN;
+          this.articleTitleEN = results.titleQuery.EN;
+          this.desArticleEN = results.descriptionQuery.EN;
+          this.imageArticleEN = results.imageQuery.EN;
+          this.dateArticleEN = results.postDateQuery.EN;
+          this.contentArticleEN = results.contentQuery.EN;
+          let valueRemoveen = "";
+          for (
+            let index = 0;
+            index < results.removeRuleQuery.EN.length;
+            index++
+          ) {
+            let element = results.removeRuleQuery.EN[index];
+            valueRemoveen += element + ",";
+          }
+          this.removeElementArticleEN = valueRemoveen;
+          //JP
+          this.UrlQueryJP = results.UrlQuery.JP;
+          this.articleUrlJP = results.articleUrlQuery.JP;
+          this.articleTitleJP = results.titleQuery.JP;
+          this.desArticleJP = results.descriptionQuery.JP;
+          this.imageArticleJP = results.imageQuery.JP;
+          this.dateArticleJP = results.postDateQuery.JP;
+          this.contentArticleJP = results.contentQuery.JP;
+          let valueRemoveen1 = "";
+          for (
+            let index = 0;
+            index < results.removeRuleQuery.JP.length;
+            index++
+          ) {
+            let element1 = results.removeRuleQuery.JP[index];
+            valueRemoveen1 += element1 + ",";
+          }
+          this.removeElementArticleJP = valueRemoveen1;
+        }
+      }
+      this.$modal.show("modal-edit-page-website");
+    },
+    addRowTableHttpHeader() {
+      let newHttpHeader = {
+        header: "",
+        value: "",
+      };
+      this.httpHeader.push(newHttpHeader);
+    },
+    removeRowTableHttpHeader(index) {
+      this.httpHeader.splice(index, 1);
+    },
+    showModalSchedule() {
+      let arrayInput = document.querySelectorAll(".select-customers-info");
+      for (let e = 0; e < arrayInput.length; e++) {
+        arrayInput[e].checked = false;
+      }
+      for (let i = 0; i < this.arrDataConfig.length; i++) {
+        if (this.arrDataConfig[i].namePage === this.namePage) {
+          let addressPage = this.arrDataConfig[i];
+          for (let j = 0; j < addressPage.timeSchedule.length; j++) {
+            let day = "";
+            let flagDay = addressPage.timeSchedule[j];
+            if (flagDay.day === "0") day = "sunday";
+            if (flagDay.day === "1") day = "monday";
+            if (flagDay.day === "2") day = "tuesday";
+            if (flagDay.day === "3") day = "wednesday";
+            if (flagDay.day === "4") day = "thursday";
+            if (flagDay.day === "5") day = "friday";
+            if (flagDay.day === "6") day = "saturday";
+            if (flagDay.hour.length) {
+              for (let k = 0; k < flagDay.hour.length; k++) {
+                if (
+                  document.querySelector(".select-customers-info." + day) !==
+                  null
+                ) {
+                  let arr = document.querySelectorAll(
+                    ".select-customers-info." + day
+                  );
+                  for (let index = 0; index < arr.length; index++) {
+                    if (arr[index].value * 1 === flagDay.hour[k] * 1) {
+                      arr[index].checked = true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    searchInformation(address) {
+      $("#icon-loading-btn-" + address).show();
+      $("#btn-crawl-" + address).prop("disabled", true);
+      $("#status-" + address).removeClass();
+      $("#status-" + address).addClass("badge badge-warning");
+      $("#status-" + address).html("Pending");
+      let objDataConfig;
+      for (let index = 0; index < this.arrDataConfig.length; index++) {
+        if (this.arrDataConfig[index].namePage === address)
+          objDataConfig = this.arrDataConfig[index];
+      }
+      if (address === "addressgsi") this.crawPageGSI(objDataConfig, address);
+      if (address === "addressenv") this.crawpageENV(objDataConfig, address);
+      if (address === "addresscob") this.crawPageCOB(objDataConfig, address);
+      if (address === "addressusgs") this.crawPageUSGS(objDataConfig, address);
+      if (address === "addressnasa") this.crawPageNASA(objDataConfig, address);
+    },
+    crawPageGSI(objDataConfig, address) {
+      HTTP.post(`crawpage-gsi`, {
+        address: "gsi",
+        UrlQuery: objDataConfig.UrlQuery,
+        articleUrlQuery: objDataConfig.articleUrlQuery,
+        contentQuery: objDataConfig.contentQuery,
+        cookies: objDataConfig.cookies,
+        descriptionQuery: objDataConfig.descriptionQuery,
+        httpHeader: objDataConfig.httpHeader,
+        imageQuery: objDataConfig.imageQuery,
+        modeCookies: objDataConfig.modeCookies,
+        modePublic: objDataConfig.modePublic,
+        modeRobotsParser: objDataConfig.modeRobotsParser,
+        modeSchedule: objDataConfig.modeSchedule,
+        namePage: objDataConfig.namePage,
+        postDateQuery: objDataConfig.postDateQuery,
+        removeRuleQuery: objDataConfig.removeRuleQuery,
+        timeDelayCrawl: objDataConfig.timeDelayCrawl,
+        timeOutCrawl: objDataConfig.timeOutCrawl,
+        timeRetryCrawl: objDataConfig.timeRetryCrawl,
+        timeSchedule: objDataConfig.timeSchedule,
+        titlePage: objDataConfig.titlePage,
+        titleQuery: objDataConfig.titleQuery,
+        urlPage: objDataConfig.urlPage,
+        userAgent: objDataConfig.userAgent,
+        __v: objDataConfig.__v,
+        _id: objDataConfig._id,
+        // objDataConfig: objDataConfig,
+      }).then(() => {
+        this.getAllData();
+        $("#icon-loading-btn-" + address).hide();
+      });
+    },
+    crawpageENV(objDataConfig, address) {
+      HTTP.post(`crawpage-env`, {
+        address: "env",
+        UrlQuery: objDataConfig.UrlQuery,
+        articleUrlQuery: objDataConfig.articleUrlQuery,
+        contentQuery: objDataConfig.contentQuery,
+        cookies: objDataConfig.cookies,
+        descriptionQuery: objDataConfig.descriptionQuery,
+        httpHeader: objDataConfig.httpHeader,
+        imageQuery: objDataConfig.imageQuery,
+        modeCookies: objDataConfig.modeCookies,
+        modePublic: objDataConfig.modePublic,
+        modeRobotsParser: objDataConfig.modeRobotsParser,
+        modeSchedule: objDataConfig.modeSchedule,
+        namePage: objDataConfig.namePage,
+        postDateQuery: objDataConfig.postDateQuery,
+        removeRuleQuery: objDataConfig.removeRuleQuery,
+        timeDelayCrawl: objDataConfig.timeDelayCrawl,
+        timeOutCrawl: objDataConfig.timeOutCrawl,
+        timeRetryCrawl: objDataConfig.timeRetryCrawl,
+        timeSchedule: objDataConfig.timeSchedule,
+        titlePage: objDataConfig.titlePage,
+        titleQuery: objDataConfig.titleQuery,
+        urlPage: objDataConfig.urlPage,
+        userAgent: objDataConfig.userAgent,
+        __v: objDataConfig.__v,
+        _id: objDataConfig._id,
+      }).then((response) => {
+        this.getAllData();
+        $("#icon-loading-btn-" + address).hide();
+      });
+    },
+    crawPageCOB(objDataConfig, address) {
+      HTTP.post(`crawpage-cob`, {
+        address: "cob",
+        UrlQuery: objDataConfig.UrlQuery,
+        articleUrlQuery: objDataConfig.articleUrlQuery,
+        contentQuery: objDataConfig.contentQuery,
+        cookies: objDataConfig.cookies,
+        descriptionQuery: objDataConfig.descriptionQuery,
+        httpHeader: objDataConfig.httpHeader,
+        imageQuery: objDataConfig.imageQuery,
+        modeCookies: objDataConfig.modeCookies,
+        modePublic: objDataConfig.modePublic,
+        modeRobotsParser: objDataConfig.modeRobotsParser,
+        modeSchedule: objDataConfig.modeSchedule,
+        namePage: objDataConfig.namePage,
+        postDateQuery: objDataConfig.postDateQuery,
+        removeRuleQuery: objDataConfig.removeRuleQuery,
+        timeDelayCrawl: objDataConfig.timeDelayCrawl,
+        timeOutCrawl: objDataConfig.timeOutCrawl,
+        timeRetryCrawl: objDataConfig.timeRetryCrawl,
+        timeSchedule: objDataConfig.timeSchedule,
+        titlePage: objDataConfig.titlePage,
+        titleQuery: objDataConfig.titleQuery,
+        urlPage: objDataConfig.urlPage,
+        userAgent: objDataConfig.userAgent,
+        __v: objDataConfig.__v,
+        _id: objDataConfig._id,
+      }).then((response) => {
+        this.getAllData();
+        $("#icon-loading-btn-" + address).hide();
+      });
+    },
+    crawPageUSGS(objDataConfig, address) {
+      HTTP.post(`crawpage-usgs`, {
+        address: "usgs",
+        UrlQuery: objDataConfig.UrlQuery,
+        articleUrlQuery: objDataConfig.articleUrlQuery,
+        contentQuery: objDataConfig.contentQuery,
+        cookies: objDataConfig.cookies,
+        descriptionQuery: objDataConfig.descriptionQuery,
+        httpHeader: objDataConfig.httpHeader,
+        imageQuery: objDataConfig.imageQuery,
+        modeCookies: objDataConfig.modeCookies,
+        modePublic: objDataConfig.modePublic,
+        modeRobotsParser: objDataConfig.modeRobotsParser,
+        modeSchedule: objDataConfig.modeSchedule,
+        namePage: objDataConfig.namePage,
+        postDateQuery: objDataConfig.postDateQuery,
+        removeRuleQuery: objDataConfig.removeRuleQuery,
+        timeDelayCrawl: objDataConfig.timeDelayCrawl,
+        timeOutCrawl: objDataConfig.timeOutCrawl,
+        timeRetryCrawl: objDataConfig.timeRetryCrawl,
+        timeSchedule: objDataConfig.timeSchedule,
+        titlePage: objDataConfig.titlePage,
+        titleQuery: objDataConfig.titleQuery,
+        urlPage: objDataConfig.urlPage,
+        userAgent: objDataConfig.userAgent,
+        __v: objDataConfig.__v,
+        _id: objDataConfig._id,
+      }).then((response) => {
+        this.getAllData();
+        $("#icon-loading-btn-" + address).hide();
+      });
+    },
+    crawPageNASA(objDataConfig, address) {
+      HTTP.post(`crawpage-nasa`, {
+        address: "nasa",
+        UrlQuery: objDataConfig.UrlQuery,
+        articleUrlQuery: objDataConfig.articleUrlQuery,
+        contentQuery: objDataConfig.contentQuery,
+        cookies: objDataConfig.cookies,
+        descriptionQuery: objDataConfig.descriptionQuery,
+        httpHeader: objDataConfig.httpHeader,
+        imageQuery: objDataConfig.imageQuery,
+        modeCookies: objDataConfig.modeCookies,
+        modePublic: objDataConfig.modePublic,
+        modeRobotsParser: objDataConfig.modeRobotsParser,
+        modeSchedule: objDataConfig.modeSchedule,
+        namePage: objDataConfig.namePage,
+        postDateQuery: objDataConfig.postDateQuery,
+        removeRuleQuery: objDataConfig.removeRuleQuery,
+        timeDelayCrawl: objDataConfig.timeDelayCrawl,
+        timeOutCrawl: objDataConfig.timeOutCrawl,
+        timeRetryCrawl: objDataConfig.timeRetryCrawl,
+        timeSchedule: objDataConfig.timeSchedule,
+        titlePage: objDataConfig.titlePage,
+        titleQuery: objDataConfig.titleQuery,
+        urlPage: objDataConfig.urlPage,
+        userAgent: objDataConfig.userAgent,
+        __v: objDataConfig.__v,
+        _id: objDataConfig._id,
+      }).then((response) => {
+        this.getAllData();
+        $("#icon-loading-btn-" + address).hide();
+      });
+    },
+    getAllData() {
+      this.getCrawler();
+      // this.getDataAllKeywordCrawl();
+    },
+    saveEditCrawlPage() {
+      let ArticleEN = this.removeElementArticleEN.split(",");
+      var newArrEleEN = ArticleEN.filter(Boolean);
+      let ArticleJP = this.removeElementArticleJP.split(",");
+      var newArrEleJP = ArticleJP.filter(Boolean);
+
+      let objDataEdit = {};
+      objDataEdit.titlePage = this.nameModel;
+      objDataEdit.modeSchedule = !this.validated;
+      objDataEdit.timeSchedule = this.tableScheduleHasTick();
+      objDataEdit.modePublic = this.modePublic;
+      objDataEdit.modeCookies = this.validatedCokkies;
+      objDataEdit.modeRobotsParser = this.modeRobotsParser;
+      objDataEdit.timeOutCrawl = this.timeOutCrawl;
+      objDataEdit.timeRetryCrawl = this.timeRetryCrawl;
+      objDataEdit.timeDelayCrawl = this.timeDelayCrawl;
+      objDataEdit.userAgent = this.userAgent;
+      objDataEdit.cookies = this.cookies;
+      objDataEdit.httpHeader = this.httpHeader;
+      objDataEdit.UrlQuery = { EN: this.UrlQueryEN, JP: this.UrlQueryJP };
+      objDataEdit.articleUrlQuery = {
+        EN: this.articleUrlEN,
+        JP: this.articleUrlJP,
+      };
+      objDataEdit.titleQuery = {
+        EN: this.articleTitleEN,
+        JP: this.articleTitleJP,
+      };
+      objDataEdit.descriptionQuery = {
+        EN: this.desArticleEN,
+        JP: this.desArticleJP,
+      };
+      objDataEdit.imageQuery = {
+        EN: this.imageArticleEN,
+        JP: this.imageArticleJP,
+      };
+      objDataEdit.postDateQuery = {
+        EN: this.dateArticleEN,
+        JP: this.dateArticleJP,
+      };
+      objDataEdit.contentQuery = {
+        EN: this.contentArticleEN,
+        JP: this.contentArticleJP,
+      };
+      objDataEdit.removeRuleQuery = { EN: newArrEleEN, JP: newArrEleJP };
+      HTTP.post(`save-edit-crawl`, {
+        titlePage: objDataEdit.titlePage,
+        modeSchedule: objDataEdit.modeSchedule,
+        timeSchedule: objDataEdit.timeSchedule,
+        modePublic: objDataEdit.modePublic,
+        modeCookies: objDataEdit.modeCookies,
+        modeRobotsParser: objDataEdit.modeRobotsParser,
+        timeOutCrawl: objDataEdit.timeOutCrawl,
+        timeRetryCrawl: objDataEdit.timeRetryCrawl,
+        timeDelayCrawl: objDataEdit.timeDelayCrawl,
+        userAgent: objDataEdit.userAgent,
+        cookies: objDataEdit.cookies,
+        httpHeader: objDataEdit.httpHeader,
+        UrlQuery: objDataEdit.UrlQuery,
+        articleUrlQuery: objDataEdit.articleUrlQuery,
+        titleQuery: objDataEdit.titleQuery,
+        descriptionQuery: objDataEdit.descriptionQuery,
+        imageQuery: objDataEdit.imageQuery,
+        postDateQuery: objDataEdit.postDateQuery,
+        contentQuery: objDataEdit.contentQuery,
+        removeRuleQuery: objDataEdit.removeRuleQuery,
+      }).then((response) => {
+        new Snackbar(`Saved succesfully`, {
+          position: "bottom-right",
+          theme: "light",
+          style: {
+            container: [
+              ["background-color", "#1abc9c"],
+              ["border-radius", "5px"],
+            ],
+            message: [["color", "#fff"]],
+          },
+        });
+        this.getAllDataConfig();
+      });
+    },
+    tableScheduleHasTick() {
+      let arrData = [];
+      let sunday = { day: "0", hour: [] };
+      let monday = { day: "1", hour: [] };
+      let tuesday = { day: "2", hour: [] };
+      let wednesday = { day: "3", hour: [] };
+      let thursday = { day: "4", hour: [] };
+      let friday = { day: "5", hour: [] };
+      let saturday = { day: "6", hour: [] };
+      let arrayInput = document.querySelectorAll(".select-customers-info");
+      for (let index = 0; index < arrayInput.length; index++) {
+        let element = arrayInput[index];
+        if (element.checked === true) {
+          if (element.classList[3] === "sunday")
+            sunday.hour.push(element.value * 1);
+          if (element.classList[3] === "monday")
+            monday.hour.push(element.value * 1);
+          if (element.classList[3] === "tuesday")
+            tuesday.hour.push(element.value * 1);
+          if (element.classList[3] === "wednesday")
+            wednesday.hour.push(element.value * 1);
+          if (element.classList[3] === "thursday")
+            thursday.hour.push(element.value * 1);
+          if (element.classList[3] === "friday")
+            friday.hour.push(element.value * 1);
+          if (element.classList[3] === "saturday")
+            saturday.hour.push(element.value * 1);
+        }
+      }
+      arrData = [
+        sunday,
+        monday,
+        tuesday,
+        wednesday,
+        thursday,
+        friday,
+        saturday,
+      ];
+      return arrData;
+    },
+    closeModalEdit() {
+      this.$modal.hide("modal-edit-page-website");
+    },
+    getAllDataConfig() {
+      HTTP.get(`get-data-edit-crawl`).then((response) => {
+        this.arrDataConfig = response.data;
+      });
+    },
+    getCrawler() {
+      let arrayeleAddress = [
+        "addressgsi",
+        "addressenv",
+        "addresscob",
+        "addressusgs",
+        "addressnasa",
+      ];
+      HTTP.get(`crawler-information`, {
+        params: {
+          arrayeleAddress: arrayeleAddress,
+        },
+      }).then((response) => {
+        this.posts = response.data;
+        for (let i = 0; i < this.posts.length; i++) {
+          //GSI
+          if (this.posts[i].addressPage === "addressgsi") {
+            this.sumPost[0] = this.posts[i].sumPost;
+            this.increasedPost[0] = this.posts[i].increasePost;
+            this.sumPostBlock[0] = this.posts[i].sumPostBlock;
+            this.sumPostSkip[0] = this.posts[i].sumPostSkip;
+            this.LastDateCrawler[0] = this.getTimeAgo(
+              this.posts[i].dateLastCrawler
+            );
+
+            if (this.posts[i].statusPageCrawl === "Pending") {
+              this.status[0] = "Pending";
+              this.classData[0] = "badge badge-warning";
+            } else {
+              if (this.posts[i].statusPageCrawl === "Success") {
+                this.status[0] = "Success";
+                this.classData[0] = "badge color-badge-success";
+              } else if (this.posts[i].statusPageCrawl === "Off") {
+                this.status[0] = "Off";
+                this.classData[0] = "badge color-badge-dark";
+              } else {
+                this.status[0] = "Error";
+                this.classData[0] = "badge color-badge-danger";
+              }
+            }
+          }
+          //ENV
+          if (this.posts[i].addressPage === "addressenv") {
+            this.sumPost[1] = this.posts[i].sumPost;
+            this.increasedPost[1] = this.posts[i].increasePost;
+            this.sumPostBlock[1] = this.posts[i].sumPostBlock;
+            this.sumPostSkip[1] = this.posts[i].sumPostSkip;
+            this.LastDateCrawler[1] = this.getTimeAgo(
+              this.posts[i].dateLastCrawler
+            );
+            if (this.posts[i].statusPageCrawl === "Pending") {
+              this.status[1] = "Pending";
+              this.classData[1] = "badge badge-warning";
+            } else {
+              if (this.posts[i].statusPageCrawl === "Success") {
+                this.status[1] = "Success";
+                this.classData[1] = "badge color-badge-success";
+              } else if (this.posts[i].statusPageCrawl === "Off") {
+                this.status[1] = "Off";
+                this.classData[1] = "badge color-badge-dark";
+              } else {
+                this.status[1] = "Error";
+                this.classData[1] = "badge color-badge-danger";
+              }
+            }
+          }
+          //COB
+          if (this.posts[i].addressPage === "addresscob") {
+            this.sumPost[2] = this.posts[i].sumPost;
+            this.increasedPost[2] = this.posts[i].increasePost;
+            this.sumPostBlock[2] = this.posts[i].sumPostBlock;
+            this.sumPostSkip[2] = this.posts[i].sumPostSkip;
+
+            this.LastDateCrawler[2] = this.getTimeAgo(
+              this.posts[i].dateLastCrawler
+            );
+            if (this.posts[i].statusPageCrawl === "Pending") {
+              this.status[2] = "Pending";
+              this.classData[2] = "badge badge-warning";
+            } else {
+              if (this.posts[i].statusPageCrawl === "Success") {
+                this.status[2] = "Success";
+                this.classData[2] = "badge color-badge-success";
+              } else if (this.posts[i].statusPageCrawl === "Off") {
+                this.status[2] = "Off";
+                this.classData[2] = "badge color-badge-dark";
+              } else {
+                this.status[2] = "Error";
+                this.classData[2] = "badge color-badge-danger";
+              }
+            }
+          }
+          //USGS
+          if (this.posts[i].addressPage === "addressusgs") {
+            this.sumPost[3] = this.posts[i].sumPost;
+            this.increasedPost[3] = this.posts[i].increasePost;
+            this.sumPostBlock[3] = this.posts[i].sumPostBlock;
+            this.sumPostSkip[3] = this.posts[i].sumPostSkip;
+
+            this.LastDateCrawler[3] = this.getTimeAgo(
+              this.posts[i].dateLastCrawler
+            );
+            if (this.posts[i].statusPageCrawl === "Pending") {
+              this.status[2] = "Pending";
+              this.classData[2] = "badge badge-warning";
+            } else {
+              if (this.posts[i].statusPageCrawl === "Success") {
+                this.status[3] = "Success";
+                this.classData[3] = "badge color-badge-success";
+              } else if (this.posts[i].statusPageCrawl === "Off") {
+                this.status[3] = "Off";
+                this.classData[3] = "badge color-badge-dark";
+              } else {
+                this.status[3] = "Error";
+                this.classData[3] = "badge color-badge-danger";
+              }
+            }
+          }
+          //NASA
+          if (this.posts[i].addressPage === "addressnasa") {
+            this.sumPost[4] = this.posts[i].sumPost;
+            this.increasedPost[4] = this.posts[i].increasePost;
+            this.sumPostBlock[4] = this.posts[i].sumPostBlock;
+            this.sumPostSkip[4] = this.posts[i].sumPostSkip;
+
+            this.LastDateCrawler[4] = this.getTimeAgo(
+              this.posts[i].dateLastCrawler
+            );
+            if (this.posts[i].statusPageCrawl === "Pending") {
+              this.status[4] = "Pending";
+              this.classData[4] = "badge badge-warning";
+            } else {
+              if (this.posts[i].statusPageCrawl === "Success") {
+                this.status[4] = "Success";
+                this.classData[4] = "badge color-badge-success";
+              } else if (this.posts[i].statusPageCrawl === "Off") {
+                this.status[4] = "Off";
+                this.classData[4] = "badge color-badge-dark";
+              } else {
+                this.status[4] = "Error";
+                this.classData[4] = "badge color-badge-danger";
+              }
+            }
+          }
+        }
+      });
+    },
+  },
+  mounted() {
+    this.getAllDataConfig();
+    this.getCrawler();
+  },
+};
+</script>
+<style>
+p.usr-ph-no {
+  margin-bottom: 11px;
+  font-size: 13px;
+}
+p.date-time-crawler-rss {
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+p.dark.date-time-crawler-rss {
+  font-size: 13px;
+  margin-bottom: 0px;
+}
+.btn-info,
+.btn-warning {
+  padding: 0.4375rem 1.25rem !important;
+  font-size: 14px!important;
+}
+.dark p.user-name {
+  color: #009688 !important;
+}
+.dark p.user-work {
+  color: #bfc9d4;
+}
+.dark .item-content.rss-page {
+  background-color: #0e1726;
+  border: 1px solid #0e1726;
+}
+input#edit-name-page {
+  color: #bfc9d4;
+}
+.vm--modal {
+  top: 80px !important;
+  left: 600px !important;
+  width: 700px !important;
+  height: 271px !important;
+}
+.crawler-component .user-email {
+  width: 100% !important;
+}
+p.user-name {
+  font-size: 21px;
+  font-weight: 600;
+  margin-bottom: 0;
+  color: #2196f3;
+}
+p.user-work {
+  font-weight: 700;
+  font-size: 13px;
+  color: #888ea8;
+}
+.user-meta-info {
+  margin-top: 10px;
+}
+.searchable-container .searchable-items.grid .items .user-email {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.user-email.address-page {
+  display: block !important;
+}
+p.info-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3b3f5c;
+  margin-bottom: 11px;
+}
+.action-btn.d-flex.justify-content-center {
+  width: 100% !important;
+  margin: 20px 0;
+}
+.user-email {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+.items {
+  margin-bottom: 30px;
+  border-radius: 6px;
+  width: 100%;
+  color: #0e1726;
+  transition: all 0.35s ease;
+  width: 33%;
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+  position: relative;
+  width: 100%;
+  /* background: white; */
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.item-content.rss-page {
+  background-color: #fff;
+  padding: 13px 18px;
+  border-radius: 6px;
+  border: 1px solid #e0e6ed;
+  box-shadow: 0 0 40px 0 rgb(94 92 154 / 6%);
+}
+.btn-info {
+  background-color: #2196f3 !important;
+  border-color: #2196f3 !important;
+}
+.rss.searchable-items.grid .action-btn.d-flex {
+  width: 100% !important;
+}
+</style>
