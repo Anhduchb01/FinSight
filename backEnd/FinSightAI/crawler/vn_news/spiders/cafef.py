@@ -40,8 +40,12 @@ class CafefSpider(Spider):
         title = " ".join(title.split())
         title = self.formatString(title)
         timeCreatePostOrigin = response.css('span.pdate::text').get()
+
+        
         try:
-            datetime_object = datetime.strptime(timeCreatePostOrigin, '%d-%m-%Y - %I:%M %p ')
+            timeCreatePostOrigin = ''.join(timeCreatePostOrigin).strip()
+            timeCreatePostOrigin = timeCreatePostOrigin.split()[0]
+            datetime_object = datetime.strptime(timeCreatePostOrigin, '%d-%m-%Y')
             timeCreatePostOrigin = datetime_object.strftime('%Y/%m/%d')
         except:
             print('Do Not convert to datetime')
@@ -68,6 +72,5 @@ class CafefSpider(Spider):
             urlPageCrawl= 'cafef',
             url=response.url
         )
-        
         # Return the item
         yield item

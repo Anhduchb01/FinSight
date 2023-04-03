@@ -1,5 +1,5 @@
 import scrapy
-from vn_news.items import VnNewsItem
+from ..items import VnNewsItem
 from datetime import datetime
 
 class BaodautuSpider(scrapy.Spider):
@@ -25,7 +25,7 @@ class BaodautuSpider(scrapy.Spider):
         current_page = int(response.url.split('/p')[-1])
         next_page = current_page + 1
 
-        if next_page <= 10:
+        if next_page <= 2:
             next_page_link = response.url.replace(f"p{current_page}", f"p{next_page}")
             yield scrapy.Request(next_page_link, callback=self.parse)
     def formatString(self, text):

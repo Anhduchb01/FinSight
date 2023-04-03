@@ -1,5 +1,5 @@
 import scrapy
-from vn_news.items import VnNewsItem
+from ..items import VnNewsItem
 from datetime import datetime
 
 class CafebizSpider(scrapy.Spider):
@@ -23,7 +23,7 @@ class CafebizSpider(scrapy.Spider):
         current_page = int(response.url.split('/')[-1].split('.')[0])
         next_page = current_page + 1
 
-        if next_page <= 10:
+        if next_page <= 2:
             next_page_link = response.url.replace(f"/{current_page}.htm", f"/{next_page}.htm")
             yield scrapy.Request(next_page_link, callback=self.parse)
     def formatString(self, text):

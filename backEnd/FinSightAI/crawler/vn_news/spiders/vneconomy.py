@@ -1,5 +1,5 @@
 import scrapy
-from vn_news.items import VnNewsItem
+from ..items import VnNewsItem
 from datetime import datetime
 class VneconomySpider(scrapy.Spider):
     name = "vneconomy"

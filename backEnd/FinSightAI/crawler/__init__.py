@@ -1,85 +1,65 @@
 
 from flask import Flask, request, jsonify ,Blueprint
 from apscheduler.schedulers.background import BackgroundScheduler
-from scrapy.crawler import CrawlerProcess
+from scrapy.crawler import CrawlerProcess, CrawlerRunner
 from scrapy.utils.project import get_project_settings
 from crawler.vn_news.spiders.cafef import CafefSpider
+from crawler.vn_news.spiders.cafebiz import CafebizSpider
+from crawler.vn_news.spiders.baodautu import BaodautuSpider
+from crawler.vn_news.spiders.vneconomy import VneconomySpider
 import json
-from crochet import setup
-setup()
+from pymongo import MongoClient
+from scrapy import signals
+from scrapy.signalmanager import dispatcher
 
-# scheduler = BackgroundScheduler()
 crawler = Blueprint('crawler', __name__)
+import crochet
+crochet.setup()
+output_data = []
+crawl_runner = CrawlerRunner()
+client = MongoClient("mongodb://localhost:27017/")
+db = client.FinSight
 
-# crawl_runner = CrawlerProcess()      # requires the Twisted reactor to run
-# quotes_list = []                    # store quotes
-# scrape_in_progress = False
-# scrape_complete = False
-
-@crawler.route('/crawl/cafef', methods=['POST'])
+@crawler.route("/crawl/cafef")
 def crawl_cafef():
-    """
-    Scrape for quotes
-    """
-    global scrape_in_progress
-    global scrape_complete
+    # run crawler in twisted reactor synchronously
+    scrape_with_crochet(CafefSpider)
+    return 'crawl cafef successfully'
+@crawler.route("/crawl/cafebiz")
+def crawl_cafebiz():
+    # run crawler in twisted reactor synchronously
+    scrape_with_crochet(CafebizSpider)
+    return 'crawl cafebiz successfully'
 
-    if not scrape_in_progress:
-        scrape_in_progress = True
-        global quotes_list
-        # start the crawler and execute a callback when complete
-        scrape_with_crochet(quotes_list)
-        return 'SCRAPING'
-    elif scrape_complete:
-        return 'SCRAPE COMPLETE'
-    return 'SCRAPE IN PROGRESS'
-    # Get the number of pages to crawl from the request parameters
-    
-
-    # items = []
-    # def collect_items(item, response, spider):
-    #     items.append(item)
-    # try:
-    #     settings = get_project_settings()
-    #     process = CrawlerProcess(settings)
-        
-    #     process.crawl(cafef.CafefSpider, num_pages=num_pages, callback=collect_items)
-    #     process.start()
-    #     print(items)
-    #     return jsonify({'success': True, 'message': f'Crawled {num_pages} pages successfully.'})
-    # except Exception as e:
-    #     return jsonify({'success': False, 'message': str(e)})
-    
-
-@crochet.run_in_reactor
-def scrape_with_crochet(_list):
-    print(CafefSpider())
-    print('ok')
-    items = []
-    def collect_items(item, response, spider):
-        items.append(item)
-    eventual = crawl_runner.crawl(CafefSpider(),callback=collect_items, quotes_list=_list)
-    eventual.addCallback(finished_scrape)
-
-def finished_scrape(null):
-    """
-    A callback that is fired after the scrape has completed.
-    Set a flag to allow display the results from /results
-    """
-    global scrape_complete
-    scrape_complete = True
+@crawler.route("/crawl/baodautu")
+def crawl_baodautu():
+    # run crawler in twisted reactor synchronously
+    scrape_with_crochet(BaodautuSpider)
+    return 'crawl baodautu successfully'
+@crawler.route("/crawl/vneconomy")
+def crawl_vneconomy():
+    # run crawler in twisted reactor synchronously
+    scrape_with_crochet(VneconomySpider)
+    return 'crawl vneconomy successfully'
 
 
-@crawler.route('/results')
-def get_results():
+
+@crochet.wait_for(timeout=60.0)
+def scrape_with_crochet(spider):
+    # signal fires when single item is processed
+    # and calls _crawler_result to append that item
+    dispatcher.connect(_crawler_result, signal=signals.item_scraped)
+    eventual = crawl_runner.crawl(
+        spider)
+    return eventual  # returns a twisted.internet.defer.Deferred
+
+def _crawler_result(item, response, spider):
     """
-    Get the results only if a spider has results
+    We're using dict() to decode the items.
+    Ideally this should be done using a proper export pipeline.
     """
-    global scrape_complete
-    print(quotes_list)
-    if scrape_complete:
-        return json.dumps(quotes_list)
-    return 'Scrape Still Progress'
+    db.posts.insert_one(dict(item))
+    # output_data.append(dict(item))
 
 
 # @crawler.route('/schedule/cafef', methods=['POST'])
