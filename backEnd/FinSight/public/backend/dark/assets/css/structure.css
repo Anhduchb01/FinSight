@@ -254,12 +254,12 @@ code {
   .navbar.expand-header {
     margin: 0; }
   .navbar .nav-logo a.navbar-brand img {
-    width: 40px;
-    height: 40px; }
+    width: 70px;
+    height: 60px; }
   .navbar .nav-logo a.navbar-brand .navbar-brand-name {
     font-weight: 600;
     letter-spacing: 1px;
-    color: #e3e4eb;
+    color: #3a6886;
     font-size: 26px;
     vertical-align: middle;
     padding-left: 12.8px; }
@@ -1668,8 +1668,8 @@ code {
     #topbar .theme-brand li.theme-logo {
       align-self: center; }
       #topbar .theme-brand li.theme-logo img {
-        width: 40px;
-        height: 40px;
+        width: 70px;
+        height: 60px;
         border-radius: 6px; }
     #topbar .theme-brand li.theme-text a {
       font-size: 25px !important;

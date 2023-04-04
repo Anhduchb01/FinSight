@@ -1,0 +1,53 @@
+[{
+  "_id": {
+    "$oid": "63ad6c8d34aa7741b8d0b50b"
+  },
+  "addressPage": "cafef",
+  "dateLastCrawler": "--/--/----",
+  "sumPost": "58",
+  "statusPageCrawl": "Off",
+  "modePage": "on",
+  "increasePost": "0",
+  "__v": 0,
+  "sumPostBlock": "0",
+  "sumPostSkip": "0"
+},{
+  "_id": {
+    "$oid": "63ad6c8d34aa7741b8d0b50c"
+  },
+  "addressPage": "cafebiz",
+  "dateLastCrawler": "--/--/----",
+  "sumPost": "59",
+  "statusPageCrawl": "Off",
+  "modePage": "on",
+  "increasePost": "0",
+  "__v": 0,
+  "sumPostBlock": "0",
+  "sumPostSkip": "0"
+},{
+  "_id": {
+    "$oid": "63ad6c8d34aa7741b8d0b50d"
+  },
+  "addressPage": "baodautu",
+  "dateLastCrawler": "--/--/----",
+  "sumPost": "36",
+  "statusPageCrawl": "Off",
+  "modePage": "on",
+  "increasePost": "0",
+  "__v": 0,
+  "sumPostBlock": "0",
+  "sumPostSkip": "0"
+},{
+  "_id": {
+    "$oid": "63ad6c8d34aa7741b8d0b50e"
+  },
+  "addressPage": "vneconomy",
+  "dateLastCrawler": "--/--/----",
+  "sumPost": "50",
+  "statusPageCrawl": "Off",
+  "modePage": "on",
+  "increasePost": "0",
+  "__v": 0,
+  "sumPostBlock": "0",
+  "sumPostSkip": "0"
+}]

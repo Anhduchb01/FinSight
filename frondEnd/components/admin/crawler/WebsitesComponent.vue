@@ -33,8 +33,8 @@
           </div>
           <div class="user-email address-page">
             <div class="user-meta-info">
-              <p class="user-name">GSI</p>
-              <p class="user-work">https://www.gsj.jp</p>
+              <p class="user-name">CafeF</p>
+              <p class="user-work">https://cafef.vn</p>
             </div>
           </div>
           <div class="user-email">
@@ -91,7 +91,7 @@
                 <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
               </svg> Crawl
             </button>
-            <button v-on:click="showModalEdit('addressgsi','GSI','www.gsj.jp')" class="btn btn-warning mt-2 mr-2">
+            <button v-on:click="showModalEdit('cafef','CafeF','http://cafef.vn')" class="btn btn-warning mt-2 mr-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
               </svg> Edit
@@ -111,8 +111,8 @@
 
           <div class="user-email address-page">
             <div class="user-meta-info">
-              <p class="user-name" data-name="Alan Green">ENV</p>
-              <p class="user-work" data-occupation="Web Developer">https://www.env.go.jp</p>
+              <p class="user-name" data-name="Alan Green">CafeBiz</p>
+              <p class="user-work" data-occupation="Web Developer">http://cafebiz.vn</p>
             </div>
           </div>
           <div class="user-email">
@@ -169,7 +169,7 @@
                 <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
               </svg> Crawl
             </button>
-            <button v-on:click="showModalEdit('addressenv','ENV','www.env.go.jp')" class="btn btn-warning mt-2 mr-2">
+            <button v-on:click="showModalEdit('cafebiz','CafeBiz','http://cafebiz.vn')" class="btn btn-warning mt-2 mr-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
               </svg> Edit
@@ -189,8 +189,8 @@
 
           <div class="user-email address-page">
             <div class="user-meta-info">
-              <p class="user-name" data-name="Alan Green">COB</p>
-              <p class="user-work" data-occupation="Web Developer">https://www.circleofblue.org</p>
+              <p class="user-name" data-name="Alan Green">BaoDauTu</p>
+              <p class="user-work" data-occupation="Web Developer">http://baodautu.vn</p>
             </div>
           </div>
           <div class="user-email">
@@ -247,7 +247,7 @@
                 <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
               </svg> Crawl
             </button>
-            <button v-on:click="showModalEdit('addresscob','COB','www.circleofblue.org')" class="btn btn-warning mt-2 mr-2">
+            <button v-on:click="showModalEdit('baodautu','BaoDauTu','http://baodautu.vn')" class="btn btn-warning mt-2 mr-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
               </svg> Edit
@@ -266,8 +266,8 @@
           </div>
           <div class="user-email address-page">
             <div class="user-meta-info">
-              <p class="user-name" data-name="Alan Green">USGS</p>
-              <p class="user-work" data-occupation="Web Developer">https://waterdata.usgs.gov</p>
+              <p class="user-name" data-name="Alan Green">VnEconomy</p>
+              <p class="user-work" data-occupation="Web Developer">http://vneconomy.vn</p>
             </div>
           </div>
           <div class="user-email">
@@ -324,7 +324,7 @@
                 <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
               </svg> Crawl
             </button>
-            <button v-on:click="showModalEdit('addressusgs','USGS','waterdata.usgs.gov')" class="btn btn-warning mt-2 mr-2">
+            <button v-on:click="showModalEdit('vneconomy','VnEconomy','http://vneconomy.vn')" class="btn btn-warning mt-2 mr-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
               </svg> Edit
@@ -333,7 +333,7 @@
         </div>
       </div>
       <!-- //NASA -->
-      <div class="items" v-if="posts.length">
+      <!-- <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
             <label class="switch s-icons s-outline s-outline-info">
@@ -408,7 +408,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <!-- modal Website  -->
     <modal name="modal-edit-page-website" class="test" height="271px" width="500px" styles="overflow: initial">
@@ -619,7 +619,7 @@
                     </form>
                   </div>
                   <div class="tab-pane fade" id="query" role="tabpanel" aria-labelledby="query-tab">
-                    <div class="d-flex" style="justify-content: space-between;">
+                    <!-- <div class="d-flex" style="justify-content: space-between;">
                       <div class="nav nav-pills mb-sm-0 mb-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active mb-2" id="query-en-tab" data-toggle="pill" href="#query-en" role="tab" aria-controls="query-en" aria-selected="true">
                           <img src="/img/gbr.png" class="flag-width" /> English
@@ -631,7 +631,7 @@
                       <div>
                         <button type="button" onclick="useQueryDefault()" class="btn btn-info">Default</button>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="tab-content" id="v-pills-tabContent">
                       <div class="tab-pane fade show active" id="query-en" role="tabpanel" aria-labelledby="query-en-tab">
                         <form>
@@ -1314,11 +1314,10 @@ export default {
     },
     getCrawler() {
       let arrayeleAddress = [
-        "addressgsi",
-        "addressenv",
-        "addresscob",
-        "addressusgs",
-        "addressnasa",
+        "cafef",
+        "cafebiz",
+        "baodautu",
+        "vneconomy",
       ];
       HTTP.get(`crawler-information`, {
         params: {
@@ -1328,7 +1327,7 @@ export default {
         this.posts = response.data;
         for (let i = 0; i < this.posts.length; i++) {
           //GSI
-          if (this.posts[i].addressPage === "addressgsi") {
+          if (this.posts[i].addressPage === "cafef") {
             this.sumPost[0] = this.posts[i].sumPost;
             this.increasedPost[0] = this.posts[i].increasePost;
             this.sumPostBlock[0] = this.posts[i].sumPostBlock;
@@ -1354,7 +1353,7 @@ export default {
             }
           }
           //ENV
-          if (this.posts[i].addressPage === "addressenv") {
+          if (this.posts[i].addressPage === "cafebiz") {
             this.sumPost[1] = this.posts[i].sumPost;
             this.increasedPost[1] = this.posts[i].increasePost;
             this.sumPostBlock[1] = this.posts[i].sumPostBlock;
@@ -1379,7 +1378,7 @@ export default {
             }
           }
           //COB
-          if (this.posts[i].addressPage === "addresscob") {
+          if (this.posts[i].addressPage === "baodautu") {
             this.sumPost[2] = this.posts[i].sumPost;
             this.increasedPost[2] = this.posts[i].increasePost;
             this.sumPostBlock[2] = this.posts[i].sumPostBlock;
@@ -1405,7 +1404,7 @@ export default {
             }
           }
           //USGS
-          if (this.posts[i].addressPage === "addressusgs") {
+          if (this.posts[i].addressPage === "vneconomy") {
             this.sumPost[3] = this.posts[i].sumPost;
             this.increasedPost[3] = this.posts[i].increasePost;
             this.sumPostBlock[3] = this.posts[i].sumPostBlock;
@@ -1431,37 +1430,13 @@ export default {
             }
           }
           //NASA
-          if (this.posts[i].addressPage === "addressnasa") {
-            this.sumPost[4] = this.posts[i].sumPost;
-            this.increasedPost[4] = this.posts[i].increasePost;
-            this.sumPostBlock[4] = this.posts[i].sumPostBlock;
-            this.sumPostSkip[4] = this.posts[i].sumPostSkip;
-
-            this.LastDateCrawler[4] = this.getTimeAgo(
-              this.posts[i].dateLastCrawler
-            );
-            if (this.posts[i].statusPageCrawl === "Pending") {
-              this.status[4] = "Pending";
-              this.classData[4] = "badge badge-warning";
-            } else {
-              if (this.posts[i].statusPageCrawl === "Success") {
-                this.status[4] = "Success";
-                this.classData[4] = "badge color-badge-success";
-              } else if (this.posts[i].statusPageCrawl === "Off") {
-                this.status[4] = "Off";
-                this.classData[4] = "badge color-badge-dark";
-              } else {
-                this.status[4] = "Error";
-                this.classData[4] = "badge color-badge-danger";
-              }
-            }
-          }
+          
         }
       });
     },
   },
   mounted() {
-    this.getAllDataConfig();
+    // this.getAllDataConfig();
     this.getCrawler();
   },
 };

@@ -318,14 +318,14 @@ body.dark .navbar.expand-header {
 }
 
 body.dark .navbar .nav-logo a.navbar-brand img {
-	width: 40px;
-	height: 40px;
+	width: 70px;
+	height: 60px;
 }
 
 body.dark .navbar .nav-logo a.navbar-brand .navbar-brand-name {
 	font-weight: 600;
 	letter-spacing: 1px;
-	color: #e3e4eb;
+	color: #3a6886;
 	font-size: 26px;
 	vertical-align: middle;
 	padding-left: 12.8px;
@@ -2255,8 +2255,8 @@ body.dark .fadeInUp {
 	}
 
 	body.dark #topbar .theme-brand li.theme-logo img {
-		width: 40px;
-		height: 40px;
+		width: 70px;
+		height: 60px;
 		border-radius: 6px;
 	}
 

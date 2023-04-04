@@ -10,10 +10,9 @@
       </a>
       <div class="nav-logo align-self-center">
         <a class="navbar-brand" href="/">
-          <img class="navbar-logo" alt="logo" src="~/static/assetsAdmin/img/logo-w-black.svg" />
-          <span class="navbar-brand-name">
-            WATER
-            <span style="color: #00997d">PORTAL</span>
+          <img class="navbar-logo" alt="logo" src="~/static/assetsAdmin/img/logo.png" />
+          <span class="navbar-brand-name">FIN
+            <span style="color: #47b5ff">SIGHT</span>
           </span>
         </a>
       </div>
@@ -25,11 +24,11 @@
               <ul class="navbar-nav theme-brand flex-row text-center">
                 <li class="nav-item theme-logo">
                   <a href="/">
-                    <img src="~/static/assetsAdmin/img/logo-w-black.svg" class="navbar-logo" alt="logo" />
+                    <img src="~/static/assetsAdmin/img/logo.png" class="navbar-logo" alt="logo" />
                   </a>
                 </li>
                 <li class="nav-item theme-text">
-                  <a href="/" class="nav-link sub-nav-link">WATER PORTAL</a>
+                  <a href="/" class="nav-link sub-nav-link">FINSIGHT</a>
                 </li>
               </ul>
             </div>
@@ -88,7 +87,7 @@
                 <a href="/admin/classification" class="dropdown-toggle">
                   <div style="display: flex" class="hover-content">
                     <img style="width: 23px; height: 23px" class="image-logo-header logo-classification" src="~/static/assetsAdmin/img/classification.png" />
-                    <span>Classification</span>
+                    <span>Sentiment</span>
                   </div>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
                     <polyline points="6 9 12 15 18 9" />
@@ -220,14 +219,14 @@
         <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
           <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="user-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media">
-              <img src="~/static/assetsAdmin/img/logo-sinka.png" class="img-fluid" alt="admin-profile" />
+              <img src="~/static/assetsAdmin/img/admin.jpg" class="img-fluid" alt="admin-profile" />
             </div>
           </a>
           <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
             <div class="user-profile-section">
               <div class="media mx-auto">
                 <div class="media-body">
-                  <h5 id="check-login">SinkaVN</h5>
+                  <h5 id="check-login">Admin</h5>
                   <p>Administrator</p>
                 </div>
               </div>
@@ -334,10 +333,10 @@ export default {
     let getcorkThemeObject = localStorage.getItem("theme");
   }, 
   mounted() {   
-    this.$root.$on("LoadNotify", () => {      
-      this.LoadNotify();
-    })  
-    this.LoadNotify()
+    // this.$root.$on("LoadNotify", () => {      
+    //   this.LoadNotify();
+    // })  
+    // this.LoadNotify()
     let checkLogin = this.$cookies.get("username");
     if (checkLogin == null) {
       window.location.href = "/admin/login";

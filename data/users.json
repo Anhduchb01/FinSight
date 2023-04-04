@@ -1,0 +1,10 @@
+[{
+  "_id": {
+    "$oid": "642ab012983dd65af8b74785"
+  },
+  "email": "admin@gmail.com",
+  "password": "$2b$08$wOsX3.caipOB66CGB7O0kuKQHIoqNHln3cFR5oCsJxSgLPzq5Vok.",
+  "role": "admin",
+  "timeCreate": "2023/04/04 13:28:35",
+  "username": "admin@finsight.vn"
+}]

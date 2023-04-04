@@ -327,8 +327,8 @@ code {
 }
 
 .navbar .nav-logo a.navbar-brand img {
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 60px;
 }
 
 .navbar .nav-logo a.navbar-brand .navbar-brand-name {
@@ -2272,8 +2272,8 @@ code {
   }
 
   #topbar .theme-brand li.theme-logo img {
-    width: 40px;
-    height: 40px;
+    width: 70px;
+    height: 60px;
     border-radius: 6px;
   }
 
