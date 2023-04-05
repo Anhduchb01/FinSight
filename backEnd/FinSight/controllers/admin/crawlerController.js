@@ -13,37 +13,32 @@ router.get("/admin/crawler", (req, res) => {
   res.render("admin/main/crawler", { title: 'Crawler' });
 });
 // Crawl By Website
-router.post("/crawpage-gsi", async (req, res) => {
+router.post("/crawpage-cafef", async (req, res) => {
   let address = req.body.address;
   let objDataConfig = req.body.objDataConfig;
   await pageCrawler(address,objDataConfig);
-  res.send("addressgsi");
+  res.send("cafef");
 });
-router.post("/crawpage-env", async (req, res) => {
+router.post("/crawpage-cafebiz", async (req, res) => {
   console.log('dan an button crawl')
   let address = req.body.address;
   let objDataConfig = req.body.objDataConfig;
   await pageCrawler(address,objDataConfig);
-  res.send("addressenv");
+  res.send("cafebiz");
 });
-router.post("/crawpage-cob", async (req, res) => {
+router.post("/crawpage-baodautu", async (req, res) => {
   let address = req.body.address;
   let objDataConfig = req.body.objDataConfig;
   await pageCrawler(address,objDataConfig);
-  res.send("addresscob");
+  res.send("baodautu");
 });
-router.post("/crawpage-usgs", async (req, res) => {
+router.post("/crawpage-vneconomy", async (req, res) => {
   let address = req.body.address;
   let objDataConfig = req.body.objDataConfig;
   await pageCrawler(address,objDataConfig);
-  res.send("addressusgs");
+  res.send("vneconomy");
 });
-router.post("/crawpage-nasa", async (req, res) => {
-  let address = req.body.address;
-  let objDataConfig = req.body.objDataConfig;
-  await pageCrawler(address,objDataConfig);
-  res.send("addressnasa");
-});
+
 //Crawl By Keyword Analysis
 router.post("/crawdata-by-keyword", async (req, res) => {
   let objCrawl = req.body.objCrawl;

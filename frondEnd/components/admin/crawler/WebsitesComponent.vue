@@ -857,25 +857,17 @@ export default {
       cookies: null,
       modeRobotsParser: null,
 
-      //UrlEn
-      UrlQueryEN: null,
-      articleUrlEN: null,
-      articleTitleEN: null,
-      desArticleEN: null,
-      imageArticleEN: null,
-      dateArticleEN: null,
-      contentArticleEN: null,
-      removeElementArticleEN: null,
-      //UrlJp
-      UrlQueryJP: null,
-      articleUrlJP: null,
-      articleTitleJP: null,
-      desArticleJP: null,
-      imageArticleJP: null,
-      dateArticleJP: null,
-      contentArticleJP: null,
-      removeElementArticleJP: null,
-      //
+
+      number_page_query: null,
+      article_url_query: null,
+      title_query: null,
+      timeCreatePostOrigin_query: null,
+      category_query: null,
+      author_query: null,
+      content_title_query: null,
+      content_des_query: null,
+      image_url_query:null,
+     
       httpHeader: [],
       test: 1,
     };
@@ -912,42 +904,16 @@ export default {
 
           this.httpHeader = results.httpHeader;
 
-          //En
-          this.UrlQueryEN = results.UrlQuery.EN;
+          this.number_page_query = results.number_page_query
+          this.article_url_query = results.article_url_query;
           this.articleUrlEN = results.articleUrlQuery.EN;
           this.articleTitleEN = results.titleQuery.EN;
           this.desArticleEN = results.descriptionQuery.EN;
           this.imageArticleEN = results.imageQuery.EN;
           this.dateArticleEN = results.postDateQuery.EN;
           this.contentArticleEN = results.contentQuery.EN;
-          let valueRemoveen = "";
-          for (
-            let index = 0;
-            index < results.removeRuleQuery.EN.length;
-            index++
-          ) {
-            let element = results.removeRuleQuery.EN[index];
-            valueRemoveen += element + ",";
-          }
-          this.removeElementArticleEN = valueRemoveen;
-          //JP
-          this.UrlQueryJP = results.UrlQuery.JP;
-          this.articleUrlJP = results.articleUrlQuery.JP;
-          this.articleTitleJP = results.titleQuery.JP;
-          this.desArticleJP = results.descriptionQuery.JP;
-          this.imageArticleJP = results.imageQuery.JP;
-          this.dateArticleJP = results.postDateQuery.JP;
-          this.contentArticleJP = results.contentQuery.JP;
-          let valueRemoveen1 = "";
-          for (
-            let index = 0;
-            index < results.removeRuleQuery.JP.length;
-            index++
-          ) {
-            let element1 = results.removeRuleQuery.JP[index];
-            valueRemoveen1 += element1 + ",";
-          }
-          this.removeElementArticleJP = valueRemoveen1;
+          
+
         }
       }
       this.$modal.show("modal-edit-page-website");
@@ -1326,7 +1292,7 @@ export default {
       }).then((response) => {
         this.posts = response.data;
         for (let i = 0; i < this.posts.length; i++) {
-          //GSI
+          //cafef
           if (this.posts[i].addressPage === "cafef") {
             this.sumPost[0] = this.posts[i].sumPost;
             this.increasedPost[0] = this.posts[i].increasePost;
@@ -1352,7 +1318,7 @@ export default {
               }
             }
           }
-          //ENV
+          //cafebiz
           if (this.posts[i].addressPage === "cafebiz") {
             this.sumPost[1] = this.posts[i].sumPost;
             this.increasedPost[1] = this.posts[i].increasePost;
@@ -1377,7 +1343,7 @@ export default {
               }
             }
           }
-          //COB
+          //baodautu
           if (this.posts[i].addressPage === "baodautu") {
             this.sumPost[2] = this.posts[i].sumPost;
             this.increasedPost[2] = this.posts[i].increasePost;
@@ -1403,7 +1369,7 @@ export default {
               }
             }
           }
-          //USGS
+          //vneconomy
           if (this.posts[i].addressPage === "vneconomy") {
             this.sumPost[3] = this.posts[i].sumPost;
             this.increasedPost[3] = this.posts[i].increasePost;

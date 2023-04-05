@@ -6,15 +6,31 @@ class CafebizSpider(scrapy.Spider):
     name = "cafebiz"
     allowed_domains = ["cafebiz.vn"]
 
-    origin_doamin = 'http://cafebiz.vn'
-    start_urls = [
-        'https://cafebiz.vn/timelinelist/17647/1.htm',  # kinh doanh
-        'https://cafebiz.vn/timelinelist/176114/1.htm',  # kinh tế vĩ mô
-    ]
+    
+    def __init__(self,config=None, *args, **kwargs):
+        super(CafebizSpider, self).__init__(*args, **kwargs)
+        self.number_page_query = config['number_page_query']
+        self.article_url_query = config['article_url_query']
+        self.title_query = config['title_query']
+        self.timeCreatePostOrigin_query = config['timeCreatePostOrigin_query']
+        self.category_query = config['category_query']
+        self.author_query = config['author_query']
+        self.content_title_query =config['content_title_query']
+        self.content_des_query = config['content_des_query']
+        self.content_html_title_query = config['content_html_title_query']
+        self.content_html_des_query = config['content_html_des_query']
+        self.image_url_query = config['image_url_query']
+
+
+        self.origin_doamin = 'http://cafebiz.vn'
+        self.start_urls = [
+            'https://cafebiz.vn/timelinelist/17647/1.htm',  # kinh doanh
+            'https://cafebiz.vn/timelinelist/176114/1.htm',  # kinh tế vĩ mô
+        ]
 
     def parse(self, response):
         # Extract news article URLs from the page
-        article_links = response.css('a.cfbiznews_title.show-popup::attr(href)').getall()
+        article_links = response.css(self.article_url_query+'::attr(href)').getall()
         # Follow each article URL and parse the article page
         for link in article_links:
             yield scrapy.Request(self.origin_doamin + link, callback=self.parse_article)
@@ -23,7 +39,7 @@ class CafebizSpider(scrapy.Spider):
         current_page = int(response.url.split('/')[-1].split('.')[0])
         next_page = current_page + 1
 
-        if next_page <= 2:
+        if next_page <= int(self.number_page_query):
             next_page_link = response.url.replace(f"/{current_page}.htm", f"/{next_page}.htm")
             yield scrapy.Request(next_page_link, callback=self.parse)
     def formatString(self, text):
@@ -33,14 +49,14 @@ class CafebizSpider(scrapy.Spider):
         return text
     def parse_article(self, response):
         # Extract information from the news article page
-        title = response.css('h1.title::text').get()
+        title = response.css(self.title_query+'::text').get()
         try:
             title = " ".join(title.split())
             title = self.formatString(title)
         except:
             print('not split title')
         
-        timeCreatePostOrigin = response.css('div.timeandcatdetail span.time::text').get()
+        timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
         try :
             timeCreatePostOrigin  = timeCreatePostOrigin.strip()
             datetime_object = datetime.strptime(timeCreatePostOrigin, '%d/%m/%Y %H:%M %p')
@@ -48,21 +64,21 @@ class CafebizSpider(scrapy.Spider):
             timeCreatePostOrigin = datetime_object.strftime('%Y/%m/%d')
         except:
             print('Do Not convert to datetime')
-        category = response.css('div.timeandcatdetail a::text').get()
+        category = response.css(self.category_query+'::text').get()
 
-        author = response.css('p.p-author strong::text').get()
+        author = response.css(self.author_query+'::text').get()
         author = author.replace('Theo','')
         author = " ".join(author.split())
 
-        content_sum = response.css('h2.sapo::text').get()
-        content_des = response.css('div.detail-content p ::text').getall()
+        content_sum = response.css(self.content_title_query+'::text').get()
+        content_des = response.css(self.content_des_query+' ::text').getall()
         content =str(content_sum)  + str(content_des)
         content = self.formatString(content)
 
-        content_sum_html = response.css('h2.h2.sapo').get()
-        content_des_html = response.css('div.detail-content').get()
+        content_sum_html = response.css(self.content_html_title_query).get()
+        content_des_html = response.css(self.content_html_des_query).get()
         content_html =str(content_sum_html)+str(content_des_html)
-        image_url = response.css('div.detail-content img::attr(src)').get()
+        image_url = response.css(self.image_url_query+'::attr(src)').get()
         responseURL = response.url
         
         # Create a CafefItem instance containing the information

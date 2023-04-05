@@ -5,45 +5,70 @@ dotenv.config();
 let itemsCrawler = [];
 let itemsEditCrawler = [];
 let arrAddress = [
-  "addressgsi",
-  "addressenv",
-  "addresscob",
-  "addressusgs",
-  "addressnasa",
+  "cafef",
+  "cafebiz",
+  "baodautu",
+  "vneconomy",
+
 ];
-let arrTitlePage = ['GSI', 'ENV', 'COB', 'USGS', 'NASA']
-let arrTitleURLPage = ['https://www.gsj.jp', 'https://www.env.go.jp', 'https://www.circleofblue.org', 'https://waterdata.usgs.gov', 'https://www.nasa.gov']
-let objQueryGSI = { UrlQuery: { EN: 'https://www.gsj.jp/en/archives/index.html', JP: 'https://www.gsj.jp/info/index.html' }, articleUrlQuery: { EN: '.thumbnail .news a', JP: '.thumbnail strong a' }, titleQuery: { EN: '#main h3', JP: '#main h1' }, descriptionQuery: { EN: '#main p', JP: '#main p' }, imageQuery: { EN: '#main img', JP: '#main img' }, postDateQuery: { EN: 'p.e-date', JP: 'p.date' }, contentQuery: { EN: '#main', JP: '#main' }, removeRuleQuery: { EN: [".sign", ".linkIcon02"], JP: [".sign", ".linkIcon02"] }, }
-let objQueryENV = { UrlQuery: { EN: 'https://www.env.go.jp/en/headline/water/index.php', JP: 'https://www.env.go.jp/press/index.html' }, articleUrlQuery: { EN: '#main .headline a', JP: '#main #result #result_list li a' }, titleQuery: { EN: '#main .well h1', JP: '#main h1' }, descriptionQuery: { EN: '#main p', JP: '#main p' }, imageQuery: { EN: '#main img', JP: '#main img' }, postDateQuery: { EN: '#main .well p.date', JP: '#main .date' }, contentQuery: { EN: '#main', JP: '#main' }, removeRuleQuery: { EN: [".for-jp", ".attach", ".plugin_install", ".well", "#main .cor-ttl"], JP: [".box_notice",".contact",".plugin_install",".box_info",".tag_set",".print"] }, }
-let objQueryCOB = {
-  UrlQuery: { EN: 'https://www.circleofblue.org/tag/frontpage/', JP: '' }, articleUrlQuery: { EN: 'main.content article.post-entry > a', JP: '' }, titleQuery: { EN: '#main h1', JP: '' }, descriptionQuery: { EN: '#main .post-entry', JP: '' }, imageQuery: { EN: '#main .wp-caption img', JP: '' }, postDateQuery: { EN: '#main time', JP: '' }, contentQuery: { EN: '#main', JP: '' }, removeRuleQuery: {
-    EN: ["#jp-relatedposts",
-      ".addtoany_share_save_container.addtoany_content.addtoany_content_bottom",
-      ".saboxplugin-wrap",
-      ".av-related-style-full",
-      ".comment_container",
-      ".comment_meta_container",
-      "aside",
-      "#footer",
-      ".hidden",
-      "#av_player-0",
-      ".blog-tags.minor-meta",
-      "#after_section_1",
-      ".avia-builder-widget-area",
-      ".flex_column.av_one_third",
-      ".av-special-heading.av-special-heading-h3.avia-builder-el-9", ".avia-content-slider-inner"], JP: []
-  },
+let arrTitlePage = ['CafeF', 'CafeBiz', 'BaoDauTu', 'VnEconomy']
+let arrTitleURLPage = ['https:/cafef.vn', 'https://cafebiz.vn', 'https://baodautu.vn', 'https://vneconomy.vn']
+let objQueryCafef = {
+  number_page_query: 2,
+  article_url_query: "div.tlitem.box-category-item  h3  a",
+  title_query:"h1.title",
+  timeCreatePostOrigin_query: "span.pdate",
+  category_query: "a.category-page__name.cat",
+  author_query: "p.author",
+  content_title_query: "h2.sapo",
+  content_des_query: "div.detail-content.afcbc-body p",
+  content_html_title_query:"h2.sapo",
+  content_html_des_query:"div.contentdetail",
+  image_url_query:"div.media img"
 }
-
-let objQueryUSGS = { UrlQuery: { EN: "https://www.usgs.gov/news/news-releases", JP: '' }, articleUrlQuery: { EN: '.view-content .views-column .list-title a', JP: '' }, titleQuery: { EN: '.main-container h1.page-header', JP: '' }, descriptionQuery: { EN: '.main-container .sub-content .usgs-body', JP: '' }, imageQuery: { EN: '.main-container img.img-responsive', JP: '' }, postDateQuery: { EN: '.main-container span.date-display-single', JP: '' }, contentQuery: { EN: '.main-container .region', JP: '' }, removeRuleQuery: { EN: [".right-column", "#node-carousel",".node-related-content"], JP: [] }, }
-
-let objQueryNASA = { UrlQuery: { EN: 'https://www.nasa.gov/content/water-and-ice', JP: '' }, articleUrlQuery: { EN: '#cards .card', JP: '' }, titleQuery: { EN: '.article-body h1.title', JP: '' }, descriptionQuery: { EN: '.article-body section .text', JP: '' }, imageQuery: { EN: '.article-body img', JP: '' }, postDateQuery: { EN: '.article-body .pr-promo-date-time', JP: '' }, contentQuery: { EN: '.article-body', JP: '' }, removeRuleQuery: { EN: [ ".feature-credits",
-".editor-info",
-".addthis-wrap.pull-right",".ui-draggable"], JP: [] }, }
+let objQueryCafebiz = {
+  number_page_query: 2,
+  article_url_query: "a.cfbiznews_title.show-popup",
+  title_query:"h1.title",
+  timeCreatePostOrigin_query: "div.timeandcatdetail span.time",
+  category_query: "div.timeandcatdetail a",
+  author_query: "p.p-author strong",
+  content_title_query: "div.detail-content p",
+  content_des_query: "div.detail-content.afcbc-body p",
+  content_html_title_query:"h2.sapo",
+  content_html_des_query:"div.detail-content",
+  image_url_query:"div.detail-content img"
+}
+let objQueryBaodautu ={
+  number_page_query: 2,
+  article_url_query: "ul.list_news_home a.fs22.fbold",
+  title_query:"div.title-detail",
+  timeCreatePostOrigin_query: "span.post-time",
+  category_query: "div.fs16.text-uppercase a",
+  author_query: "a.author.cl_green",
+  content_title_query: "div.sapo_detail",
+  content_des_query: "div#content_detail_news",
+  content_html_title_query:"div.sapo_detail",
+  content_html_des_query:"div#content_detail_news",
+  image_url_query:"ul.list_news_home a.thumbblock img"
+}
+let objQueryVneconomy = {
+  number_page_query: 2,
+  article_url_query: "article.story.story--featured.story--timeline header a",
+  title_query:"article.detail-wrap header h1",
+  timeCreatePostOrigin_query: "article.detail-wrap header div.detail__meta",
+  category_query: "h1.category-main a",
+  author_query: "div.detail__author strong",
+  content_title_query: "h2.detail__summary",
+  content_des_query: "div.detail__content",
+  content_html_title_query:"h2.detail__summary",
+  content_html_des_query:"div.detail__content",
+  image_url_query:"figure.detail__avatar img"
+}
 
 let dataHTTPHeader = [{ header: '', value: '' }]
 
-let arrObjQuery = [objQueryGSI, objQueryENV, objQueryCOB, objQueryUSGS, objQueryNASA]
+let arrObjQuery = [objQueryCafef, objQueryCafebiz, objQueryBaodautu, objQueryVneconomy]
 
 let timeSchedule = [{day:"0",hour:[1]},{day:"1",hour:[1]},{day:"2",hour:[1]},{day:"3",hour:[1]},{day:"4",hour:[1]},{day:"5",hour:[1]},{day:"6",hour:[1]}]
 
@@ -72,37 +97,44 @@ for (i = 0; i < arrAddress.length; i++) {
     cookies: "",
     userAgent: "",
     httpHeader: dataHTTPHeader,
-    UrlQuery: { EN: arrObjQuery[i].UrlQuery.EN, JP: arrObjQuery[i].UrlQuery.JP },
-    articleUrlQuery: { EN: arrObjQuery[i].articleUrlQuery.EN, JP: arrObjQuery[i].articleUrlQuery.JP },
-    titleQuery: { EN: arrObjQuery[i].titleQuery.EN, JP: arrObjQuery[i].titleQuery.JP },
-    descriptionQuery: { EN: arrObjQuery[i].descriptionQuery.EN, JP: arrObjQuery[i].descriptionQuery.JP },
-    imageQuery: { EN: arrObjQuery[i].imageQuery.EN, JP: arrObjQuery[i].imageQuery.JP },
-    postDateQuery: { EN: arrObjQuery[i].postDateQuery.EN, JP: arrObjQuery[i].postDateQuery.JP },
-    contentQuery: { EN: arrObjQuery[i].contentQuery.EN, JP: arrObjQuery[i].contentQuery.JP },
-    removeRuleQuery: { EN: arrObjQuery[i].removeRuleQuery.EN, JP: arrObjQuery[i].removeRuleQuery.JP },
+    number_page_query: arrObjQuery[i].number_page_query,
+    article_url_query: arrObjQuery[i].article_url_query,
+    title_query: arrObjQuery[i].title_query,
+    timeCreatePostOrigin_query: arrObjQuery[i].timeCreatePostOrigin_query,
+    category_query: arrObjQuery[i].category_query,
+    author_query: arrObjQuery[i].author_query,
+    content_title_query: arrObjQuery[i].content_title_query,
+    content_des_query: arrObjQuery[i].content_des_query,
+    content_html_title_query: arrObjQuery[i].content_html_title_query,
+    content_html_des_query: arrObjQuery[i].content_html_des_query,
+    image_url_query: arrObjQuery[i].image_url_query,
+    
   });
 }
 let itemsQueryDefault = []
 for (i = 0; i < arrAddress.length; i++) {
   itemsQueryDefault.push({
     titlePage: arrTitlePage[i],
-    UrlQuery: { EN: arrObjQuery[i].UrlQuery.EN, JP: arrObjQuery[i].UrlQuery.JP },
-    articleUrlQuery: { EN: arrObjQuery[i].articleUrlQuery.EN, JP: arrObjQuery[i].articleUrlQuery.JP },
-    titleQuery: { EN: arrObjQuery[i].titleQuery.EN, JP: arrObjQuery[i].titleQuery.JP },
-    descriptionQuery: { EN: arrObjQuery[i].descriptionQuery.EN, JP: arrObjQuery[i].descriptionQuery.JP },
-    imageQuery: { EN: arrObjQuery[i].imageQuery.EN, JP: arrObjQuery[i].imageQuery.JP },
-    postDateQuery: { EN: arrObjQuery[i].postDateQuery.EN, JP: arrObjQuery[i].postDateQuery.JP },
-    contentQuery: { EN: arrObjQuery[i].contentQuery.EN, JP: arrObjQuery[i].contentQuery.JP },
-    removeRuleQuery: { EN: arrObjQuery[i].removeRuleQuery.EN, JP: arrObjQuery[i].removeRuleQuery.JP },
+    number_page_query: arrObjQuery[i].number_page_query,
+    article_url_query: arrObjQuery[i].article_url_query,
+    title_query: arrObjQuery[i].title_query,
+    timeCreatePostOrigin_query: arrObjQuery[i].timeCreatePostOrigin_query,
+    category_query: arrObjQuery[i].category_query,
+    author_query: arrObjQuery[i].author_query,
+    content_title_query: arrObjQuery[i].content_title_query,
+    content_des_query: arrObjQuery[i].content_des_query,
+    content_html_title_query: arrObjQuery[i].content_html_title_query,
+    content_html_des_query: arrObjQuery[i].content_html_des_query,
+    image_url_query: arrObjQuery[i].image_url_query,
   });
 }
-let itemsCategory = [];
-let arrCategory = ["other", "circleofblue", "nasa"];
-for (i = 0; i < arrCategory.length; i++) {
-  itemsCategory.push({
-    name: arrCategory[i],
-  });
-}
+// let itemsCategory = [];
+// let arrCategory = ["other", "circleofblue", "nasa"];
+// for (i = 0; i < arrCategory.length; i++) {
+//   itemsCategory.push({
+//     name: arrCategory[i],
+//   });
+// }
 
 letItemsUser = [{
   username: 'admin@finsight.vn',
@@ -118,10 +150,10 @@ let data = [
     model: "Crawler",
     documents: itemsCrawler,
   },
-  {
-    model: "Category",
-    documents: itemsCategory,
-  },
+  // {
+  //   model: "Category",
+  //   documents: itemsCategory,
+  // },
   {
     model: "User",
     documents: letItemsUser,
@@ -135,18 +167,17 @@ let data = [
     documents: itemsQueryDefault,
   },
 ];
-
 // connect mongodb
 seeder.connect(`${process.env.DB_URL}`, function () {
   console.log('MongoDB Connection Succeeded Seed.'+`${process.env.DB_URL}`)
   seeder.loadModels([
     "models/crawler.model",
-    "models/category.model",
-    "models/users.model",
+    // "models/category.model",
+    "models/user.model",
     "models/configcrawler.model",
     "models/configquerydefault.model", // load mongoose model
   ]);
-  seeder.clearModels(["Crawler", "Category", "ConfigCrawler",'ConfigDefaultCrawler'], function () {
+  seeder.clearModels(["Crawler","User","ConfigCrawler",'ConfigDefaultCrawler'], function () {
     seeder.populateModels(data, function () {
       seeder.disconnect();
     });
