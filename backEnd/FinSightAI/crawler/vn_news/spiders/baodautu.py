@@ -98,7 +98,7 @@ class BaodautuSpider(scrapy.Spider):
             urlPageCrawl= 'baodautu',
             url=response.url
         )
-        
+
         # Return the item
         yield item
 

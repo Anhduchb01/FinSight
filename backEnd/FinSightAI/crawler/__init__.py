@@ -50,9 +50,9 @@ def crawl_cafef():
 
     # run crawler in twisted reactor synchronously
     scrape_with_crochet(CafefSpider,config_crawl)
-    # return 'crawl cafef successfully'
-    print(len(output_data))
-    return jsonify(output_data)
+    return 'crawl cafef successfully'
+    # print(len(output_data))
+    # return jsonify(output_data)
 @crawler.route("/crawl/cafebiz", methods=['GET', 'POST'])
 def crawl_cafebiz():
     data = request.json
@@ -164,8 +164,8 @@ def _crawler_result(item, response, spider):
     We're using dict() to decode the items.
     Ideally this should be done using a proper export pipeline.
     """
-    # db.posts.insert_one(dict(item))
-    output_data.append(dict(item))
+    db.posts.insert_one(dict(item))
+    # output_data.append(dict(item))
 
 
 # @crawler.route('/schedule/cafef', methods=['POST'])

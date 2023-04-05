@@ -867,6 +867,26 @@ export default {
       content_title_query: null,
       content_des_query: null,
       image_url_query:null,
+
+      //UrlEn
+      UrlQueryEN: null,
+      articleUrlEN: null,
+      articleTitleEN: null,
+      desArticleEN: null,
+      imageArticleEN: null,
+      dateArticleEN: null,
+      contentArticleEN: null,
+      removeElementArticleEN: null,
+      //UrlJp
+      UrlQueryJP: null,
+      articleUrlJP: null,
+      articleTitleJP: null,
+      desArticleJP: null,
+      imageArticleJP: null,
+      dateArticleJP: null,
+      contentArticleJP: null,
+      removeElementArticleJP: null,
+      //
      
       httpHeader: [],
       test: 1,
@@ -906,12 +926,12 @@ export default {
 
           this.number_page_query = results.number_page_query
           this.article_url_query = results.article_url_query;
-          this.articleUrlEN = results.articleUrlQuery.EN;
-          this.articleTitleEN = results.titleQuery.EN;
-          this.desArticleEN = results.descriptionQuery.EN;
-          this.imageArticleEN = results.imageQuery.EN;
-          this.dateArticleEN = results.postDateQuery.EN;
-          this.contentArticleEN = results.contentQuery.EN;
+          this.articleUrlEN = results.articleUrlQuery;
+          this.articleTitleEN = results.titleQuery;
+          this.desArticleEN = results.descriptionQuery;
+          this.imageArticleEN = results.imageQuery;
+          this.dateArticleEN = results.postDateQuery;
+          this.contentArticleEN = results.contentQuery;
           
 
         }
@@ -1402,7 +1422,7 @@ export default {
     },
   },
   mounted() {
-    // this.getAllDataConfig();
+    this.getAllDataConfig();
     this.getCrawler();
   },
 };
