@@ -9,6 +9,7 @@ class CafebizSpider(scrapy.Spider):
     
     def __init__(self,config=None, *args, **kwargs):
         super(CafebizSpider, self).__init__(*args, **kwargs)
+        self.last_date = config["last_date"]
         self.number_page_query = config['number_page_query']
         self.article_url_query = config['article_url_query']
         self.title_query = config['title_query']
@@ -55,45 +56,44 @@ class CafebizSpider(scrapy.Spider):
             title = self.formatString(title)
         except:
             print('not split title')
-        
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
-        try :
-            timeCreatePostOrigin  = timeCreatePostOrigin.strip()
-            datetime_object = datetime.strptime(timeCreatePostOrigin, '%d/%m/%Y %H:%M %p')
-
-            timeCreatePostOrigin = datetime_object.strftime('%Y/%m/%d')
-        except:
-            print('Do Not convert to datetime')
-        category = response.css(self.category_query+'::text').get()
-
-        author = response.css(self.author_query+'::text').get()
-        author = author.replace('Theo','')
-        author = " ".join(author.split())
-
-        content_sum = response.css(self.content_title_query+'::text').get()
-        content_des = response.css(self.content_des_query+' ::text').getall()
-        content =str(content_sum)  + str(content_des)
-        content = self.formatString(content)
-
-        content_sum_html = response.css(self.content_html_title_query).get()
-        content_des_html = response.css(self.content_html_des_query).get()
-        content_html =str(content_sum_html)+str(content_des_html)
-        image_url = response.css(self.image_url_query+'::attr(src)').get()
-        responseURL = response.url
-        
-        # Create a CafefItem instance containing the information
-        item = VnNewsItem(
-            title=title,
-            timeCreatePostOrigin=timeCreatePostOrigin,
-            category=category,
-            author=author,
-            content=content,
-            content_html= content_html,
-            image_url=image_url,
-            urlPageCrawl= 'cafebiz',
-            url=response.url
-        )
-        
-        # Return the item
-        yield item
+        timeCreatePostOrigin  = timeCreatePostOrigin.strip()
+        timeCreatePostOrigin_compare = datetime.strptime(timeCreatePostOrigin, '%d/%m/%Y %H:%M %p')
+        timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%d/%m/%Y')
+        if self.last_date == "--/--/----":
+            check_crawl_item = True
+        else :
+            last_timeCreatePostOrigin = datetime.strptime(self.last_date, '%d/%m/%Y')
+            if timeCreatePostOrigin_compare.date()> last_timeCreatePostOrigin.date():
+                check_crawl_item = True 
+            else:
+                check_crawl_item = False        
+        if check_crawl_item:
+            category = response.css(self.category_query+'::text').get()
+            author = response.css(self.author_query+'::text').get()
+            author = author.replace('Theo','')
+            author = " ".join(author.split())
+            content_sum = response.css(self.content_title_query+'::text').get()
+            content_des = response.css(self.content_des_query+' ::text').getall()
+            content =str(content_sum)  + str(content_des)
+            content = self.formatString(content)
+            content_sum_html = response.css(self.content_html_title_query).get()
+            content_des_html = response.css(self.content_html_des_query).get()
+            content_html =str(content_sum_html)+str(content_des_html)
+            image_url = response.css(self.image_url_query+'::attr(src)').get()
+            item = VnNewsItem(
+                title=title,
+                timeCreatePostOrigin=str(timeCreatePostOrigin),
+                category=category,
+                author=author,
+                content=content,
+                content_html= content_html,
+                image_url=image_url,
+                urlPageCrawl= 'cafebiz',
+                url=response.url,
+                status="0",
+            )
+            yield item
+        else:
+            yield None
 

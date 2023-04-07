@@ -7,36 +7,226 @@ const ConfigCrawler = mongoose.model("ConfigCrawler");
 const ConfigDefaultCrawler = mongoose.model("ConfigDefaultCrawler");
 const Post = mongoose.model("Post");
 const KeywordCrawler = mongoose.model("KeywordCrawler");
-
+const axios = require("axios");
 
 router.get("/admin/crawler", (req, res) => {
   res.render("admin/main/crawler", { title: 'Crawler' });
 });
 // Crawl By Website
 router.post("/crawpage-cafef", async (req, res) => {
-  let address = req.body.address;
-  let objDataConfig = req.body.objDataConfig;
-  await pageCrawler(address,objDataConfig);
-  res.send("cafef");
+  
+  let config = await ConfigCrawler.find({"namePage":"cafef"});
+  await Crawler.updateOne(
+    { addressPage: "cafef"},
+    {
+      $set: {
+        statusPageCrawl: "Pending",
+      },
+    }
+  );
+  let crawler = await Crawler.find({"addressPage":"cafef"});
+
+  const data = {
+    "last_date":crawler[0].dateLastCrawler,
+    "number_page_query": config[0].number_page_query,
+    "article_url_query": config[0].article_url_query,
+    "title_query":config[0].title_query,
+    "timeCreatePostOrigin_query":config[0].timeCreatePostOrigin_query,
+    "category_query": config[0].category_query,
+    "author_query": config[0].author_query,
+    "content_title_query": config[0].content_title_query,
+    "content_des_query": config[0].content_des_query,
+    "content_html_title_query":config[0].content_html_title_query,
+    "content_html_des_query":config[0].content_html_des_query,
+    "image_url_query":config[0].image_url_query
+  }
+  
+  const currentDate = new Date();
+  const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
+  try{
+    axios.post("http://127.0.0.1:5000/crawl/cafef", data).then(async (response) =>  {
+      console.log("Request cafef successful!");
+      let msg = response.data
+      console.log({"msg":msg})
+      await Crawler.updateOne(
+        { addressPage: "cafef"},
+        {
+          $set: {
+            statusPageCrawl: "Success",
+            dateLastCrawler:Date_now,
+          },
+        }
+      );
+    });;
+    
+  } catch (error) {
+    if (error.response) {
+      console.log(error.reponse.status);
+    } else {
+      console.log(error.message);  
+    }
+  }
+  let msg = "Request Crawl CafeF successfull"
+  res.send({"msg":msg})
+  
+
 });
 router.post("/crawpage-cafebiz", async (req, res) => {
-  console.log('dan an button crawl')
-  let address = req.body.address;
-  let objDataConfig = req.body.objDataConfig;
-  await pageCrawler(address,objDataConfig);
-  res.send("cafebiz");
+  let config = await ConfigCrawler.find({"namePage":"cafebiz"});
+  await Crawler.updateOne(
+    { addressPage: "cafebiz"},
+    {
+      $set: {
+        statusPageCrawl: "Pending",
+      },
+    }
+  );
+  let crawler = await Crawler.find({"addressPage":"cafebiz"});
+  const data = {
+    "last_date":crawler[0].dateLastCrawler,
+    "number_page_query": config[0].number_page_query,
+    "article_url_query": config[0].article_url_query,
+    "title_query":config[0].title_query,
+    "timeCreatePostOrigin_query":config[0].timeCreatePostOrigin_query,
+    "category_query": config[0].category_query,
+    "author_query": config[0].author_query,
+    "content_title_query": config[0].content_title_query,
+    "content_des_query": config[0].content_des_query,
+    "content_html_title_query":config[0].content_html_title_query,
+    "content_html_des_query":config[0].content_html_des_query,
+    "image_url_query":config[0].image_url_query
+  }
+  const currentDate = new Date();
+  const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
+  try{
+    axios.post("http://127.0.0.1:5000/crawl/cafebiz", data).then(async (response) => {
+      let msg = response.data
+      console.log({"msg":msg})
+      await Crawler.updateOne(
+        { addressPage: "cafebiz"},
+        {
+          $set: {
+            statusPageCrawl: "Success",
+            dateLastCrawler:Date_now,
+          },
+        }
+      );
+    });;
+  } catch (error) {
+    if (error.response) {
+      console.log(error.reponse.status);
+    } else {
+      console.log(error.message);
+    }
+  }
+  let msg = "Request Crawl CafeBiz successfull"
+  res.send({"msg":msg})
 });
 router.post("/crawpage-baodautu", async (req, res) => {
-  let address = req.body.address;
-  let objDataConfig = req.body.objDataConfig;
-  await pageCrawler(address,objDataConfig);
-  res.send("baodautu");
+  let config = await ConfigCrawler.find({"namePage":"baodautu"});
+  await Crawler.updateOne(
+    { addressPage: "baodautu"},
+    {
+      $set: {
+        statusPageCrawl: "Pending",
+      },
+    }
+  );
+  let crawler = await Crawler.find({"addressPage":"baodautu"});
+  const data = {
+    "last_date":crawler[0].dateLastCrawler,
+    "number_page_query": config[0].number_page_query,
+    "article_url_query": config[0].article_url_query,
+    "title_query":config[0].title_query,
+    "timeCreatePostOrigin_query":config[0].timeCreatePostOrigin_query,
+    "category_query": config[0].category_query,
+    "author_query": config[0].author_query,
+    "content_title_query": config[0].content_title_query,
+    "content_des_query": config[0].content_des_query,
+    "content_html_title_query":config[0].content_html_title_query,
+    "content_html_des_query":config[0].content_html_des_query,
+    "image_url_query":config[0].image_url_query
+  }
+  const currentDate = new Date();
+  const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
+
+  try{
+    axios.post("http://127.0.0.1:5000/crawl/baodautu", data).then(async (response) => {
+      let msg = response.data
+      console.log({"msg":msg})
+      await Crawler.updateOne(
+        { addressPage: "baodautu"},
+        {
+          $set: {
+            statusPageCrawl: "Success",
+            dateLastCrawler:Date_now,
+          },
+        }
+      );
+    });
+  } catch (error) {
+    if (error.response) {
+      console.log(error.reponse.status);
+    } else {
+      console.log(error.message);
+    }
+  }
+  let msg = "Request Crawl baodautu successfull"
+  res.send({"msg":msg})
 });
 router.post("/crawpage-vneconomy", async (req, res) => {
-  let address = req.body.address;
-  let objDataConfig = req.body.objDataConfig;
-  await pageCrawler(address,objDataConfig);
-  res.send("vneconomy");
+  let config = await ConfigCrawler.find({"namePage":"vneconomy"});
+  await Crawler.updateOne(
+    { addressPage: "vneconomy"},
+    {
+      $set: {
+        statusPageCrawl: "Pending",
+      },
+    }
+  );
+  let crawler = await Crawler.find({"addressPage":"vneconomy"});
+  const data = {
+    "last_date":crawler[0].dateLastCrawler,
+    "number_page_query": config[0].number_page_query,
+    "article_url_query": config[0].article_url_query,
+    "title_query":config[0].title_query,
+    "timeCreatePostOrigin_query":config[0].timeCreatePostOrigin_query,
+    "category_query": config[0].category_query,
+    "author_query": config[0].author_query,
+    "content_title_query": config[0].content_title_query,
+    "content_des_query": config[0].content_des_query,
+    "content_html_title_query":config[0].content_html_title_query,
+    "content_html_des_query":config[0].content_html_des_query,
+    "image_url_query":config[0].image_url_query
+  }
+  const currentDate = new Date();
+  const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
+
+  try{
+    axios.post("http://127.0.0.1:5000/crawl/vneconomy", data).then(async (response) => {
+      console.log("Request vneconomy successful!");
+      let msg = response.data
+      console.log({"msg":msg})
+      await Crawler.updateOne(
+        { addressPage: "vneconomy"},
+        {
+          $set: {
+            statusPageCrawl: "Success",
+            dateLastCrawler:Date_now,
+          },
+        }
+      );
+    });
+  } catch (error) {
+    if (error.response) {
+      console.log(error.reponse.status);
+    } else {
+      console.log(error.message);
+    }
+  }
+  let msg = "Request Crawl vneconomy successfull"
+  res.send({"msg":msg})
+
 });
 
 //Crawl By Keyword Analysis
@@ -162,8 +352,6 @@ router.get("/get-data-default-edit-crawl", (req, res) => {
 
 router.post("/save-edit-crawl", async (req, res) => {
   let objDataEdit = req.body.objDataEdit;
-  objDataEdit.removeRuleQuery.EN = objDataEdit.removeRuleQuery.EN || []
-  objDataEdit.removeRuleQuery.JP = objDataEdit.removeRuleQuery.JP || []
   for (let i = 0; i < objDataEdit.timeSchedule.length; i++) {
     objDataEdit.timeSchedule[i].hour = objDataEdit.timeSchedule[i].hour || []
     if( objDataEdit.timeSchedule[i].hour.length !== 0)objDataEdit.timeSchedule[i].hour.map(j=>Number(j))
@@ -183,19 +371,22 @@ router.post("/save-edit-crawl", async (req, res) => {
         userAgent: objDataEdit.userAgent,
         cookies: objDataEdit.cookies,
         httpHeader: objDataEdit.httpHeader,
-        UrlQuery: objDataEdit.UrlQuery,
-        articleUrlQuery: objDataEdit.articleUrlQuery,
-        titleQuery: objDataEdit.titleQuery,
-        descriptionQuery: objDataEdit.descriptionQuery,
-        imageQuery: objDataEdit.imageQuery,
-        postDateQuery: objDataEdit.postDateQuery,
-        contentQuery: objDataEdit.contentQuery,
-        removeRuleQuery: objDataEdit.removeRuleQuery,
+        number_page_query: objDataEdit.number_page_query,
+        article_url_query: objDataEdit.article_url_query,
+        title_query: objDataEdit.title_query,
+        timeCreatePostOrigin_query: objDataEdit.timeCreatePostOrigin_query,
+        category_query: objDataEdit.category_query,
+        author_query: objDataEdit.author_query,
+        content_title_query: objDataEdit.content_title_query,
+        content_des_query: objDataEdit.content_des_query,
+        // content_html_title_query: objDataEdit.content_html_title_query,
+        // content_html_des_query: objDataEdit.content_html_des_query,
+        image_url_query: objDataEdit.image_url_query,
       },
     }
   );
-    await scheduleCrawler(objDataEdit);
-   await res.send("success");
+
+  res.send("success edit config");
 });
 
 // crawl keyword

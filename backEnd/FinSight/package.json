@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "seeder": "node models/seeder/crawler_seeder",
-    "start": "node --max-old-space-size=4096 server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",

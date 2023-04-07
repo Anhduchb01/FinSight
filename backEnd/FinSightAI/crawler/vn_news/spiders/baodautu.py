@@ -8,6 +8,7 @@ class BaodautuSpider(scrapy.Spider):
     
     def __init__(self,config=None, *args, **kwargs):
         super(BaodautuSpider, self).__init__(*args, **kwargs)
+        self.last_date = config["last_date"]
         self.number_page_query = config['number_page_query']
         self.article_url_query = config['article_url_query']
         self.title_query = config['title_query']
@@ -19,8 +20,6 @@ class BaodautuSpider(scrapy.Spider):
         self.content_html_title_query = config['content_html_title_query']
         self.content_html_des_query = config['content_html_des_query']
         self.image_url_query = config['image_url_query']
-
-
         self.origin_doamin = 'http://baodautu.vn'
         self.start_urls = [
             'https://baodautu.vn/dau-tu-d2/p1',  # đầu tư
@@ -29,7 +28,6 @@ class BaodautuSpider(scrapy.Spider):
             'https://baodautu.vn/tai-chinh-chung-khoan-d6/p1' , # tài chính- chứng khoán
 
         ]
-
     def parse(self, response):
         # Extract news article URLs from the page
         article_links = response.css(self.article_url_query+'::attr(href)').getall()
@@ -59,46 +57,45 @@ class BaodautuSpider(scrapy.Spider):
             title = self.formatString(title)
         except:
             print('not split title')
-        
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
-        try:
-            timeCreatePostOrigin = timeCreatePostOrigin.replace('-','')
-            timeCreatePostOrigin = " ".join(timeCreatePostOrigin.split())
-            datetime_object = datetime.strptime(timeCreatePostOrigin, '%d/%m/%Y %H:%M')
-            timeCreatePostOrigin = datetime_object.strftime('%Y/%m/%d')
-        except:
-            print('Do Not convert to datetime')
-        category = response.css(self.category_query+'::text').get()
-
-        author = response.css(self.author_query+'::text').get()
-        author = author.replace('-','')
-        author = " ".join(author.split())
-
-        content_sum = response.css(self.content_title_query+'::text').get()
-
-        content_des = response.css(self.content_des_query+' ::text').getall()
-        content =str(content_sum)  + str(content_des)
-        content = self.formatString(content)
-
-        content_sum_html = response.css(self.content_html_title_query).get()
-        content_des_html = response.css(self.content_html_des_query).get()
-        content_html =str(content_sum_html)+str(content_des_html)
-        image_url = response.meta['image_url']
-        
-        
-        # Create a CafefItem instance containing the information
-        item = VnNewsItem(
-            title=title,
-            timeCreatePostOrigin=timeCreatePostOrigin,
-            category=category,
-            author=author,
-            content=content,
-            content_html= content_html,
-            image_url=image_url,
-            urlPageCrawl= 'baodautu',
-            url=response.url
-        )
-
-        # Return the item
-        yield item
+        timeCreatePostOrigin = timeCreatePostOrigin.replace('-','')
+        timeCreatePostOrigin = " ".join(timeCreatePostOrigin.split())
+        timeCreatePostOrigin_compare = datetime.strptime(timeCreatePostOrigin, '%d/%m/%Y %H:%M')
+        timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%d/%m/%Y')
+        if self.last_date == "--/--/----":
+            check_crawl_item = True
+        else :
+            last_timeCreatePostOrigin = datetime.strptime(self.last_date, '%d/%m/%Y')
+            if timeCreatePostOrigin_compare.date() > last_timeCreatePostOrigin.date():
+                check_crawl_item = True 
+            else:
+                check_crawl_item = False        
+        if check_crawl_item:
+            category = response.css(self.category_query+'::text').get()
+            author = response.css(self.author_query+'::text').get()
+            author = author.replace('-','')
+            author = " ".join(author.split())
+            content_sum = response.css(self.content_title_query+'::text').get()
+            content_des = response.css(self.content_des_query+' ::text').getall()
+            content =str(content_sum)  + str(content_des)
+            content = self.formatString(content)
+            content_sum_html = response.css(self.content_html_title_query).get()
+            content_des_html = response.css(self.content_html_des_query).get()
+            content_html =str(content_sum_html)+str(content_des_html)
+            image_url = response.meta['image_url']
+            item = VnNewsItem(
+                title=title,
+                timeCreatePostOrigin=str(timeCreatePostOrigin),
+                category=category,
+                author=author,
+                content=content,
+                content_html= content_html,
+                image_url=image_url,
+                urlPageCrawl= 'baodautu',
+                url=response.url,
+                status="0",
+            )
+            yield item
+        else:
+            yield None
 

@@ -7,7 +7,8 @@
         </div>
       </div>
     </div>-->   
-    <client-only>      
+    <client-only> 
+      
       <Header :showSideBar="showSideBar" @showSideBar ="showSideBarAdmin" />     
       <div class="main-container" id="container">
         <div v-on:click="closeSideBar()" class="overlay" :class="{'show' : showSideBar}"></div>       
@@ -21,9 +22,7 @@
           </div>
         </div>
         <Footer />
-      </div>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+      </div>   
     </client-only>
   </div>
 </template>

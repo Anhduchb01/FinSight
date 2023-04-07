@@ -27,7 +27,7 @@
         <div class="item-content rss-page">
           <div style="display: none;">
             <label class="switch s-icons s-outline s-outline-info">
-              <input class="input-address" id="addressgsi" type="checkbox" />
+              <input class="input-address" id="cafef" type="checkbox" />
               <span class="slider round"></span>
             </label>
           </div>
@@ -46,7 +46,7 @@
                 <line x1="8" y1="2" x2="8" y2="6" />
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
-              <span id="time-update-addressgsi" class="bs-tooltip" data-placement="right" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[0]}}</span>
+              <span id="time-update-cafef" class="bs-tooltip" data-placement="right" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[0]}}</span>
             </p>
           </div>
           <div class="user-email">
@@ -55,19 +55,19 @@
               <div class="item-timeline timeline-success">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-addressgsi">{{sumPost[0]}} Post (+{{increasedPost[0]}})</p>
+                  <p class="usr-location" id="count-post-cafef">{{sumPost[0]}} Post (+{{increasedPost[0]}})</p>
                 </div>
               </div>
               <div class="item-timeline timeline-warning">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-block-addressgsi">{{sumPostBlock[0]}} Post (+0)</p>
+                  <p class="usr-location" id="count-post-block-cafef">{{sumPostBlock[0]}} Post (+0)</p>
                 </div>
               </div>
               <div class="item-timeline timeline-danger">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-skip-addressgsi">{{sumPostSkip[0]}} Post (+0)</p>
+                  <p class="usr-location" id="count-post-skip-cafef">{{sumPostSkip[0]}} Post (+0)</p>
                 </div>
               </div>
             </div>
@@ -75,12 +75,12 @@
           <div class="user-email">
             <p class="info-title">Status:</p>
             <p class="usr-ph-no">
-              <span :class="classData[0]" id="status-addressgsi">{{status[0]}}</span>
+              <span :class="classData[0]" id="status-cafef">{{status[0]}}</span>
             </p>
           </div>
           <div class="action-btn d-flex justify-content-center">
-            <button id="btn-crawl-addressgsi" v-on:click="searchInformation('addressgsi')" class="btn btn-info mt-2 mr-2">
-              <svg style="display: none;" id="icon-loading-btn-addressgsi" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+            <button id="btn-crawl-cafef" v-on:click="searchInformation('cafef')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-cafef" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
                 <line x1="12" y1="2" x2="12" y2="6" />
                 <line x1="12" y1="18" x2="12" y2="22" />
                 <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
@@ -104,7 +104,7 @@
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
             <label class="switch s-icons s-outline s-outline-info">
-              <input class="input-address" id="addressenv" type="checkbox" />
+              <input class="input-address" id="cafebiz" type="checkbox" />
               <span class="slider round"></span>
             </label>
           </div>
@@ -124,7 +124,7 @@
                 <line x1="8" y1="2" x2="8" y2="6" />
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
-              <span class="bs-tooltip" data-placement="right" id="time-update-addressenv" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[1]}}</span>
+              <span class="bs-tooltip" data-placement="right" id="time-update-cafebiz" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[1]}}</span>
             </p>
           </div>
           <div class="user-email">
@@ -133,19 +133,19 @@
               <div class="item-timeline timeline-success">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-addressenv">{{sumPost[1]}} Post (+{{increasedPost[1]}})</p>
+                  <p class="usr-location" id="count-post-cafebiz">{{sumPost[1]}} Post (+{{increasedPost[1]}})</p>
                 </div>
               </div>
               <div class="item-timeline timeline-warning">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-block-addressenv">{{sumPostBlock[1]}} Post (+0)</p>
+                  <p class="usr-location" id="count-post-block-cafebiz">{{sumPostBlock[1]}} Post (+0)</p>
                 </div>
               </div>
               <div class="item-timeline timeline-danger">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-skip-addressenv">{{sumPostSkip[1]}} Post (+0)</p>
+                  <p class="usr-location" id="count-post-skip-cafebiz">{{sumPostSkip[1]}} Post (+0)</p>
                 </div>
               </div>
             </div>
@@ -153,12 +153,12 @@
           <div class="user-email">
             <p class="info-title">Status:</p>
             <p class="usr-ph-no">
-              <span :class="classData[1]" id="status-addressenv">{{status[1]}}</span>
+              <span :class="classData[1]" id="status-cafebiz">{{status[1]}}</span>
             </p>
           </div>
           <div class="action-btn d-flex justify-content-center">
-            <button id="btn-crawl-addressenv" v-on:click="searchInformation('addressenv')" class="btn btn-info mt-2 mr-2">
-              <svg style="display: none;" id="icon-loading-btn-addressenv" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+            <button id="btn-crawl-cafebiz" v-on:click="searchInformation('cafebiz')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-cafebiz" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
                 <line x1="12" y1="2" x2="12" y2="6" />
                 <line x1="12" y1="18" x2="12" y2="22" />
                 <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
@@ -182,7 +182,7 @@
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
             <label class="switch s-icons s-outline s-outline-info">
-              <input class="input-address" id="addresscob" type="checkbox" />
+              <input class="input-address" id="baodautu" type="checkbox" />
               <span class="slider round"></span>
             </label>
           </div>
@@ -202,7 +202,7 @@
                 <line x1="8" y1="2" x2="8" y2="6" />
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
-              <span class="bs-tooltip" data-placement="right" id="time-update-addresscob" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[2]}}</span>
+              <span class="bs-tooltip" data-placement="right" id="time-update-baodautu" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[2]}}</span>
             </p>
           </div>
           <div class="user-email">
@@ -211,19 +211,19 @@
               <div class="item-timeline timeline-success">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-addresscob">{{sumPost[2]}} Post (+{{increasedPost[2]}})</p>
+                  <p class="usr-location" id="count-post-baodautu">{{sumPost[2]}} Post (+{{increasedPost[2]}})</p>
                 </div>
               </div>
               <div class="item-timeline timeline-warning">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-block-addresscob">{{sumPostBlock[2]}} Post (+0)</p>
+                  <p class="usr-location" id="count-post-block-baodautu">{{sumPostBlock[2]}} Post (+0)</p>
                 </div>
               </div>
               <div class="item-timeline timeline-danger">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-skip-addresscob">{{sumPostSkip[2]}} Post (+0)</p>
+                  <p class="usr-location" id="count-post-skip-baodautu">{{sumPostSkip[2]}} Post (+0)</p>
                 </div>
               </div>
             </div>
@@ -231,12 +231,12 @@
           <div class="user-email">
             <p class="info-title">Status:</p>
             <p class="usr-ph-no">
-              <span :class="classData[2]" id="status-addresscob">{{status[2]}}</span>
+              <span :class="classData[2]" id="status-baodautu">{{status[2]}}</span>
             </p>
           </div>
           <div class="action-btn d-flex justify-content-center">
-            <button id="btn-crawl-addresscob" v-on:click="searchInformation('addresscob')" class="btn btn-info mt-2 mr-2">
-              <svg style="display: none;" id="icon-loading-btn-addresscob" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+            <button id="btn-crawl-baodautu" v-on:click="searchInformation('baodautu')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-baodautu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
                 <line x1="12" y1="2" x2="12" y2="6" />
                 <line x1="12" y1="18" x2="12" y2="22" />
                 <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
@@ -260,7 +260,7 @@
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
             <label class="switch s-icons s-outline s-outline-info">
-              <input class="input-address" id="addressusgs" type="checkbox" />
+              <input class="input-address" id="vneconomy" type="checkbox" />
               <span class="slider round"></span>
             </label>
           </div>
@@ -279,7 +279,7 @@
                 <line x1="8" y1="2" x2="8" y2="6" />
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
-              <span class="bs-tooltip" data-placement="right" id="time-update-addressusgs" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[3]}}</span>
+              <span class="bs-tooltip" data-placement="right" id="time-update-vneconomy" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[3]}}</span>
             </p>
           </div>
           <div class="user-email">
@@ -288,19 +288,19 @@
               <div class="item-timeline timeline-success">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-addressusgs">{{sumPost[3]}} Post (+{{increasedPost[3]}})</p>
+                  <p class="usr-location" id="count-post-vneconomy">{{sumPost[3]}} Post (+{{increasedPost[3]}})</p>
                 </div>
               </div>
               <div class="item-timeline timeline-warning">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-block-addressusgs">{{sumPostBlock[3]}} Post (+0)</p>
+                  <p class="usr-location" id="count-post-block-vneconomy">{{sumPostBlock[3]}} Post (+0)</p>
                 </div>
               </div>
               <div class="item-timeline timeline-danger">
                 <div class="t-dot" data-original-title title></div>
                 <div class="t-text">
-                  <p class="usr-location" id="count-post-skip-addressusgs">{{sumPostSkip[3]}} Post (+0)</p>
+                  <p class="usr-location" id="count-post-skip-vneconomy">{{sumPostSkip[3]}} Post (+0)</p>
                 </div>
               </div>
             </div>
@@ -308,12 +308,12 @@
           <div class="user-email">
             <p class="info-title">Status:</p>
             <p class="usr-ph-no">
-              <span :class="classData[3]" id="status-addressusgs">{{status[3]}}</span>
+              <span :class="classData[3]" id="status-vneconomy">{{status[3]}}</span>
             </p>
           </div>
           <div class="action-btn d-flex justify-content-center">
-            <button id="btn-crawl-addressusgs" v-on:click="searchInformation('addressusgs')" class="btn btn-info mt-2 mr-2">
-              <svg style="display: none;" id="icon-loading-btn-addressusgs" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+            <button id="btn-crawl-vneconomy" v-on:click="searchInformation('vneconomy')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-vneconomy" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
                 <line x1="12" y1="2" x2="12" y2="6" />
                 <line x1="12" y1="18" x2="12" y2="22" />
                 <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
@@ -332,83 +332,6 @@
           </div>
         </div>
       </div>
-      <!-- //NASA -->
-      <!-- <div class="items" v-if="posts.length">
-        <div class="item-content rss-page">
-          <div style="display: none;" class="box-switch">
-            <label class="switch s-icons s-outline s-outline-info">
-              <input class="input-address" id="addressnasa" type="checkbox" />
-              <span class="slider round"></span>
-            </label>
-          </div>
-          <div class="user-email address-page">
-            <div class="user-meta-info">
-              <p class="user-name" data-name="Alan Green">NASA</p>
-              <p class="user-work" data-occupation="Web Developer">https://www.nasa.gov</p>
-            </div>
-          </div>
-          <div class="user-email">
-            <p class="info-title">Date:</p>
-            <p class="date-time-crawler-rss">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              <span class="bs-tooltip" data-placement="right" id="time-update-addressnasa" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[4]}}</span>
-            </p>
-          </div>
-          <div class="user-email">
-            <p class="info-title">Post:</p>
-            <div class="box-status-post" style="margin:0;width: auto;">
-              <div class="item-timeline timeline-success">
-                <div class="t-dot" data-original-title title></div>
-                <div class="t-text">
-                  <p class="usr-location" id="count-post-addressnasa">{{sumPost[4]}} Post (+{{increasedPost[4]}})</p>
-                </div>
-              </div>
-              <div class="item-timeline timeline-warning">
-                <div class="t-dot" data-original-title title></div>
-                <div class="t-text">
-                  <p class="usr-location" id="count-post-block-addressnasa">{{sumPostBlock[4]}} Post (+0)</p>
-                </div>
-              </div>
-              <div class="item-timeline timeline-danger">
-                <div class="t-dot" data-original-title title></div>
-                <div class="t-text">
-                  <p class="usr-location" id="count-post-skip-addressnasa">{{sumPostSkip[4]}} Post (+0)</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="user-email">
-            <p class="info-title">Status:</p>
-            <p class="usr-ph-no">
-              <span :class="classData[4]" id="status-addressnasa">{{status[4]}}</span>
-            </p>
-          </div>
-          <div class="action-btn d-flex justify-content-center">
-            <button id="btn-crawl-addressnasa" v-on:click="searchInformation('addressnasa')" class="btn btn-info mt-2 mr-2">
-              <svg style="display: none;" id="icon-loading-btn-addressnasa" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
-                <line x1="12" y1="2" x2="12" y2="6" />
-                <line x1="12" y1="18" x2="12" y2="22" />
-                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
-                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
-                <line x1="2" y1="12" x2="6" y2="12" />
-                <line x1="18" y1="12" x2="22" y2="12" />
-                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
-                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
-              </svg> Crawl
-            </button>
-            <button v-on:click="showModalEdit('addressnasa','NASA','www.nasa.gov')" class="btn btn-warning mt-2 mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
-                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-              </svg> Edit
-            </button>
-          </div>
-        </div>
-      </div> -->
     </div>
     <!-- modal Website  -->
     <modal name="modal-edit-page-website" class="test" height="271px" width="500px" styles="overflow: initial">
@@ -619,23 +542,15 @@
                     </form>
                   </div>
                   <div class="tab-pane fade" id="query" role="tabpanel" aria-labelledby="query-tab">
-                    <!-- <div class="d-flex" style="justify-content: space-between;">
-                      <div class="nav nav-pills mb-sm-0 mb-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active mb-2" id="query-en-tab" data-toggle="pill" href="#query-en" role="tab" aria-controls="query-en" aria-selected="true">
-                          <img src="/img/gbr.png" class="flag-width" /> English
-                        </a>
-                        <a v-if="UrlQueryJP != ''" class="nav-link mb-2" id="query-jp-tab" data-toggle="pill" href="#query-jp" role="tab" aria-controls="query-jp" aria-selected="false">
-                          <img style="width: 25px;height: 25px;" src="/img/japan.png" class="flag-width" /> Japan
-                        </a>
-                      </div>
-                      <div>
+                    <div class="d-flex" style="justify-content: space-between;">
+                      <div >
                         <button type="button" onclick="useQueryDefault()" class="btn btn-info">Default</button>
                       </div>
-                    </div> -->
+                    </div>
                     <div class="tab-content" id="v-pills-tabContent">
                       <div class="tab-pane fade show active" id="query-en" role="tabpanel" aria-labelledby="query-en-tab">
                         <form>
-                          <label for="basic-url">Go to page</label>
+                          <!-- <label for="basic-url">Go to page</label>
                           <div class="row">
                             <div class="col-md-12">
                               <div class="input-group mb-2">
@@ -645,7 +560,7 @@
                                 <input v-model="UrlQueryEN" type="text" class="form-control" id="query-url-en" aria-describedby="basic-addon3" />
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                           <label for="basic-url">Paging navigate & crawl data</label>
                           <div class="row">
                             <div class="col-md-12">
@@ -653,7 +568,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon7">Article URL</span>
                                 </div>
-                                <input v-model="articleUrlEN" type="text" class="form-control" id="article-url-en" aria-describedby="basic-addon3" />
+                                <input v-model="article_url_query" type="text" class="form-control" id="article-url-en" aria-describedby="basic-addon3" />
                               </div>
                             </div>
                           </div>
@@ -662,121 +577,58 @@
                             <div class="col-md-12">
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Number Page</span>
+                                </div>
+                                <input v-model="number_page_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon7">Title</span>
                                 </div>
-                                <input v-model="articleTitleEN" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
-                              </div>
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Description</span>
-                                </div>
-                                <input v-model="desArticleEN" type="text" class="form-control" id="des-article-en" aria-describedby="basic-addon3" />
-                              </div>
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Image</span>
-                                </div>
-                                <input v-model="imageArticleEN" type="text" class="form-control" id="image-article-en" aria-describedby="basic-addon3" />
+                                <input v-model="title_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
                               </div>
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon7">Post Date</span>
                                 </div>
-                                <input v-model="dateArticleEN" type="text" class="form-control" id="date-article-en" aria-describedby="basic-addon3" />
+                                <input v-model="timeCreatePostOrigin_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
                               </div>
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Content</span>
+                                  <span class="input-group-text" id="basic-addon7">Category</span>
                                 </div>
-                                <input v-model="contentArticleEN" type="text" class="form-control" id="content-article-en" aria-describedby="basic-addon3" />
-                              </div>
-                            </div>
-                          </div>
-                          <label for="basic-url">Remove element</label>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Remove rules</span>
-                                </div>
-                                <input v-model="removeElementArticleEN" type="text" class="form-control" id="remove-element-article-en" aria-describedby="basic-addon3" />
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="tab-pane fade" id="query-jp" role="tabpanel" aria-labelledby="query-jp-tab">
-                        <form>
-                          <label for="basic-url">Go to page</label>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">URL</span>
-                                </div>
-                                <input v-model="UrlQueryJP" type="text" class="form-control" id="query-url-jp" aria-describedby="basic-addon3" />
-                              </div>
-                            </div>
-                          </div>
-                          <label for="basic-url">Paging navigate & crawl data</label>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Article URL</span>
-                                </div>
-                                <input v-model="articleUrlJP" type="text" class="form-control" id="article-url-jp" aria-describedby="basic-addon3" />
-                              </div>
-                            </div>
-                          </div>
-                          <label for="basic-url">Get data</label>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Title</span>
-                                </div>
-                                <input v-model="articleTitleJP" type="text" class="form-control" id="article-title-jp" aria-describedby="basic-addon3" />
+                                <input v-model="category_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
                               </div>
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Description</span>
+                                  <span class="input-group-text" id="basic-addon7">Author</span>
                                 </div>
-                                <input v-model="desArticleJP" type="text" class="form-control" id="des-article-jp" aria-describedby="basic-addon3" />
+                                <input v-model="author_query" type="text" class="form-control" id="des-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Sum Description</span>
+                                </div>
+                                <input v-model="content_title_query" type="text" class="form-control" id="image-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Detail Description</span>
+                                </div>
+                                <input v-model="content_des_query" type="text" class="form-control" id="date-article-en" aria-describedby="basic-addon3" />
                               </div>
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="basic-addon7">Image</span>
                                 </div>
-                                <input v-model="imageArticleJP" type="text" class="form-control" id="image-article-jp" aria-describedby="basic-addon3" />
-                              </div>
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Post Date</span>
-                                </div>
-                                <input v-model="dateArticleJP" type="text" class="form-control" id="date-article-jp" aria-describedby="basic-addon3" />
-                              </div>
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Content</span>
-                                </div>
-                                <input v-model="contentArticleJP" type="text" class="form-control" id="content-article-jp" aria-describedby="basic-addon3" />
+                                <input v-model="image_url_query" type="text" class="form-control" id="content-article-en" aria-describedby="basic-addon3" />
                               </div>
                             </div>
                           </div>
-                          <label for="basic-url">Remove element</label>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Remove rules</span>
-                                </div>
-                                <input v-model="removeElementArticleJP" type="text" class="form-control" id="remove-element-article-jp" aria-describedby="basic-addon3" />
-                              </div>
-                            </div>
-                          </div>
+                          
                         </form>
                       </div>
+                    
                     </div>
                   </div>
                 </div>
@@ -821,10 +673,10 @@ export default {
   data() {
     return {
       //Iconloading
-      loadingAddressgsi: true,
-      loadingAddressenv: true,
-      loadingAddresscob: true,
-      loadingAddressusgs: true,
+      loadingcafef: true,
+      loadingcafebiz: true,
+      loadingbaodautu: true,
+      loadingvneconomy: true,
       loadingAddressnasa: true,
       //validate
       validated: true,
@@ -868,25 +720,7 @@ export default {
       content_des_query: null,
       image_url_query:null,
 
-      //UrlEn
-      UrlQueryEN: null,
-      articleUrlEN: null,
-      articleTitleEN: null,
-      desArticleEN: null,
-      imageArticleEN: null,
-      dateArticleEN: null,
-      contentArticleEN: null,
-      removeElementArticleEN: null,
-      //UrlJp
-      UrlQueryJP: null,
-      articleUrlJP: null,
-      articleTitleJP: null,
-      desArticleJP: null,
-      imageArticleJP: null,
-      dateArticleJP: null,
-      contentArticleJP: null,
-      removeElementArticleJP: null,
-      //
+      
      
       httpHeader: [],
       test: 1,
@@ -897,7 +731,7 @@ export default {
       if (value === "--/--/----" || value === "") {
         return "--/--/----";
       }
-      let timeAgo = moment(new Date(value)).fromNow();
+      let timeAgo = moment(value, 'DD/MM/YYYY').fromNow();
       timeAgo = timeAgo.replace(/\b\w/g, function (l) {
         return l.toUpperCase();
       });
@@ -926,12 +760,13 @@ export default {
 
           this.number_page_query = results.number_page_query
           this.article_url_query = results.article_url_query;
-          this.articleUrlEN = results.articleUrlQuery;
-          this.articleTitleEN = results.titleQuery;
-          this.desArticleEN = results.descriptionQuery;
-          this.imageArticleEN = results.imageQuery;
-          this.dateArticleEN = results.postDateQuery;
-          this.contentArticleEN = results.contentQuery;
+          this.title_query = results.title_query;
+          this.timeCreatePostOrigin_query = results.timeCreatePostOrigin_query;
+          this.category_query = results.category_query;
+          this.author_query = results.author_query;
+          this.content_title_query = results.content_title_query;
+          this.content_des_query = results.content_des_query;
+          this.image_url_query = results.image_url_query;
           
 
         }
@@ -993,176 +828,33 @@ export default {
       $("#status-" + address).removeClass();
       $("#status-" + address).addClass("badge badge-warning");
       $("#status-" + address).html("Pending");
-      let objDataConfig;
-      for (let index = 0; index < this.arrDataConfig.length; index++) {
-        if (this.arrDataConfig[index].namePage === address)
-          objDataConfig = this.arrDataConfig[index];
-      }
-      if (address === "addressgsi") this.crawPageGSI(objDataConfig, address);
-      if (address === "addressenv") this.crawpageENV(objDataConfig, address);
-      if (address === "addresscob") this.crawPageCOB(objDataConfig, address);
-      if (address === "addressusgs") this.crawPageUSGS(objDataConfig, address);
-      if (address === "addressnasa") this.crawPageNASA(objDataConfig, address);
+      if (address === "cafef") this.crawPageCafef( address);
+      if (address === "cafebiz") this.crawpageCafebiz(address);
+      if (address === "baodautu") this.crawPageBaodautu(address);
+      if (address === "vneconomy") this.crawPageVneconomy(address);
     },
-    crawPageGSI(objDataConfig, address) {
-      HTTP.post(`crawpage-gsi`, {
-        address: "gsi",
-        UrlQuery: objDataConfig.UrlQuery,
-        articleUrlQuery: objDataConfig.articleUrlQuery,
-        contentQuery: objDataConfig.contentQuery,
-        cookies: objDataConfig.cookies,
-        descriptionQuery: objDataConfig.descriptionQuery,
-        httpHeader: objDataConfig.httpHeader,
-        imageQuery: objDataConfig.imageQuery,
-        modeCookies: objDataConfig.modeCookies,
-        modePublic: objDataConfig.modePublic,
-        modeRobotsParser: objDataConfig.modeRobotsParser,
-        modeSchedule: objDataConfig.modeSchedule,
-        namePage: objDataConfig.namePage,
-        postDateQuery: objDataConfig.postDateQuery,
-        removeRuleQuery: objDataConfig.removeRuleQuery,
-        timeDelayCrawl: objDataConfig.timeDelayCrawl,
-        timeOutCrawl: objDataConfig.timeOutCrawl,
-        timeRetryCrawl: objDataConfig.timeRetryCrawl,
-        timeSchedule: objDataConfig.timeSchedule,
-        titlePage: objDataConfig.titlePage,
-        titleQuery: objDataConfig.titleQuery,
-        urlPage: objDataConfig.urlPage,
-        userAgent: objDataConfig.userAgent,
-        __v: objDataConfig.__v,
-        _id: objDataConfig._id,
-        // objDataConfig: objDataConfig,
-      }).then(() => {
+    crawPageCafef(address) {
+      HTTP.post(`crawpage-cafef`).then(() => {
         this.getAllData();
-        $("#icon-loading-btn-" + address).hide();
+        $("#btn-crawl-" + address).prop("disabled", false);
       });
     },
-    crawpageENV(objDataConfig, address) {
-      HTTP.post(`crawpage-env`, {
-        address: "env",
-        UrlQuery: objDataConfig.UrlQuery,
-        articleUrlQuery: objDataConfig.articleUrlQuery,
-        contentQuery: objDataConfig.contentQuery,
-        cookies: objDataConfig.cookies,
-        descriptionQuery: objDataConfig.descriptionQuery,
-        httpHeader: objDataConfig.httpHeader,
-        imageQuery: objDataConfig.imageQuery,
-        modeCookies: objDataConfig.modeCookies,
-        modePublic: objDataConfig.modePublic,
-        modeRobotsParser: objDataConfig.modeRobotsParser,
-        modeSchedule: objDataConfig.modeSchedule,
-        namePage: objDataConfig.namePage,
-        postDateQuery: objDataConfig.postDateQuery,
-        removeRuleQuery: objDataConfig.removeRuleQuery,
-        timeDelayCrawl: objDataConfig.timeDelayCrawl,
-        timeOutCrawl: objDataConfig.timeOutCrawl,
-        timeRetryCrawl: objDataConfig.timeRetryCrawl,
-        timeSchedule: objDataConfig.timeSchedule,
-        titlePage: objDataConfig.titlePage,
-        titleQuery: objDataConfig.titleQuery,
-        urlPage: objDataConfig.urlPage,
-        userAgent: objDataConfig.userAgent,
-        __v: objDataConfig.__v,
-        _id: objDataConfig._id,
-      }).then((response) => {
+    crawpageCafebiz(address) {
+      HTTP.post(`crawpage-cafebiz`).then(() => {
         this.getAllData();
-        $("#icon-loading-btn-" + address).hide();
+        $("#btn-crawl-" + address).prop("disabled", false);
       });
     },
-    crawPageCOB(objDataConfig, address) {
-      HTTP.post(`crawpage-cob`, {
-        address: "cob",
-        UrlQuery: objDataConfig.UrlQuery,
-        articleUrlQuery: objDataConfig.articleUrlQuery,
-        contentQuery: objDataConfig.contentQuery,
-        cookies: objDataConfig.cookies,
-        descriptionQuery: objDataConfig.descriptionQuery,
-        httpHeader: objDataConfig.httpHeader,
-        imageQuery: objDataConfig.imageQuery,
-        modeCookies: objDataConfig.modeCookies,
-        modePublic: objDataConfig.modePublic,
-        modeRobotsParser: objDataConfig.modeRobotsParser,
-        modeSchedule: objDataConfig.modeSchedule,
-        namePage: objDataConfig.namePage,
-        postDateQuery: objDataConfig.postDateQuery,
-        removeRuleQuery: objDataConfig.removeRuleQuery,
-        timeDelayCrawl: objDataConfig.timeDelayCrawl,
-        timeOutCrawl: objDataConfig.timeOutCrawl,
-        timeRetryCrawl: objDataConfig.timeRetryCrawl,
-        timeSchedule: objDataConfig.timeSchedule,
-        titlePage: objDataConfig.titlePage,
-        titleQuery: objDataConfig.titleQuery,
-        urlPage: objDataConfig.urlPage,
-        userAgent: objDataConfig.userAgent,
-        __v: objDataConfig.__v,
-        _id: objDataConfig._id,
-      }).then((response) => {
+    crawPageBaodautu(address) {
+      HTTP.post(`crawpage-baodautu`).then(() => {
         this.getAllData();
-        $("#icon-loading-btn-" + address).hide();
+        $("#btn-crawl-" + address).prop("disabled", false);
       });
     },
-    crawPageUSGS(objDataConfig, address) {
-      HTTP.post(`crawpage-usgs`, {
-        address: "usgs",
-        UrlQuery: objDataConfig.UrlQuery,
-        articleUrlQuery: objDataConfig.articleUrlQuery,
-        contentQuery: objDataConfig.contentQuery,
-        cookies: objDataConfig.cookies,
-        descriptionQuery: objDataConfig.descriptionQuery,
-        httpHeader: objDataConfig.httpHeader,
-        imageQuery: objDataConfig.imageQuery,
-        modeCookies: objDataConfig.modeCookies,
-        modePublic: objDataConfig.modePublic,
-        modeRobotsParser: objDataConfig.modeRobotsParser,
-        modeSchedule: objDataConfig.modeSchedule,
-        namePage: objDataConfig.namePage,
-        postDateQuery: objDataConfig.postDateQuery,
-        removeRuleQuery: objDataConfig.removeRuleQuery,
-        timeDelayCrawl: objDataConfig.timeDelayCrawl,
-        timeOutCrawl: objDataConfig.timeOutCrawl,
-        timeRetryCrawl: objDataConfig.timeRetryCrawl,
-        timeSchedule: objDataConfig.timeSchedule,
-        titlePage: objDataConfig.titlePage,
-        titleQuery: objDataConfig.titleQuery,
-        urlPage: objDataConfig.urlPage,
-        userAgent: objDataConfig.userAgent,
-        __v: objDataConfig.__v,
-        _id: objDataConfig._id,
-      }).then((response) => {
+    crawPageVneconomy(address) {
+      HTTP.post(`crawpage-vneconomy`).then(() => {
         this.getAllData();
-        $("#icon-loading-btn-" + address).hide();
-      });
-    },
-    crawPageNASA(objDataConfig, address) {
-      HTTP.post(`crawpage-nasa`, {
-        address: "nasa",
-        UrlQuery: objDataConfig.UrlQuery,
-        articleUrlQuery: objDataConfig.articleUrlQuery,
-        contentQuery: objDataConfig.contentQuery,
-        cookies: objDataConfig.cookies,
-        descriptionQuery: objDataConfig.descriptionQuery,
-        httpHeader: objDataConfig.httpHeader,
-        imageQuery: objDataConfig.imageQuery,
-        modeCookies: objDataConfig.modeCookies,
-        modePublic: objDataConfig.modePublic,
-        modeRobotsParser: objDataConfig.modeRobotsParser,
-        modeSchedule: objDataConfig.modeSchedule,
-        namePage: objDataConfig.namePage,
-        postDateQuery: objDataConfig.postDateQuery,
-        removeRuleQuery: objDataConfig.removeRuleQuery,
-        timeDelayCrawl: objDataConfig.timeDelayCrawl,
-        timeOutCrawl: objDataConfig.timeOutCrawl,
-        timeRetryCrawl: objDataConfig.timeRetryCrawl,
-        timeSchedule: objDataConfig.timeSchedule,
-        titlePage: objDataConfig.titlePage,
-        titleQuery: objDataConfig.titleQuery,
-        urlPage: objDataConfig.urlPage,
-        userAgent: objDataConfig.userAgent,
-        __v: objDataConfig.__v,
-        _id: objDataConfig._id,
-      }).then((response) => {
-        this.getAllData();
-        $("#icon-loading-btn-" + address).hide();
+        $("#btn-crawl-" + address).prop("disabled", false);
       });
     },
     getAllData() {
@@ -1170,10 +862,10 @@ export default {
       // this.getDataAllKeywordCrawl();
     },
     saveEditCrawlPage() {
-      let ArticleEN = this.removeElementArticleEN.split(",");
-      var newArrEleEN = ArticleEN.filter(Boolean);
-      let ArticleJP = this.removeElementArticleJP.split(",");
-      var newArrEleJP = ArticleJP.filter(Boolean);
+      // let ArticleEN = this.removeElementArticleEN.split(",");
+      // var newArrEleEN = ArticleEN.filter(Boolean);
+      // let ArticleJP = this.removeElementArticleJP.split(",");
+      // var newArrEleJP = ArticleJP.filter(Boolean);
 
       let objDataEdit = {};
       objDataEdit.titlePage = this.nameModel;
@@ -1188,54 +880,16 @@ export default {
       objDataEdit.userAgent = this.userAgent;
       objDataEdit.cookies = this.cookies;
       objDataEdit.httpHeader = this.httpHeader;
-      objDataEdit.UrlQuery = { EN: this.UrlQueryEN, JP: this.UrlQueryJP };
-      objDataEdit.articleUrlQuery = {
-        EN: this.articleUrlEN,
-        JP: this.articleUrlJP,
-      };
-      objDataEdit.titleQuery = {
-        EN: this.articleTitleEN,
-        JP: this.articleTitleJP,
-      };
-      objDataEdit.descriptionQuery = {
-        EN: this.desArticleEN,
-        JP: this.desArticleJP,
-      };
-      objDataEdit.imageQuery = {
-        EN: this.imageArticleEN,
-        JP: this.imageArticleJP,
-      };
-      objDataEdit.postDateQuery = {
-        EN: this.dateArticleEN,
-        JP: this.dateArticleJP,
-      };
-      objDataEdit.contentQuery = {
-        EN: this.contentArticleEN,
-        JP: this.contentArticleJP,
-      };
-      objDataEdit.removeRuleQuery = { EN: newArrEleEN, JP: newArrEleJP };
-      HTTP.post(`save-edit-crawl`, {
-        titlePage: objDataEdit.titlePage,
-        modeSchedule: objDataEdit.modeSchedule,
-        timeSchedule: objDataEdit.timeSchedule,
-        modePublic: objDataEdit.modePublic,
-        modeCookies: objDataEdit.modeCookies,
-        modeRobotsParser: objDataEdit.modeRobotsParser,
-        timeOutCrawl: objDataEdit.timeOutCrawl,
-        timeRetryCrawl: objDataEdit.timeRetryCrawl,
-        timeDelayCrawl: objDataEdit.timeDelayCrawl,
-        userAgent: objDataEdit.userAgent,
-        cookies: objDataEdit.cookies,
-        httpHeader: objDataEdit.httpHeader,
-        UrlQuery: objDataEdit.UrlQuery,
-        articleUrlQuery: objDataEdit.articleUrlQuery,
-        titleQuery: objDataEdit.titleQuery,
-        descriptionQuery: objDataEdit.descriptionQuery,
-        imageQuery: objDataEdit.imageQuery,
-        postDateQuery: objDataEdit.postDateQuery,
-        contentQuery: objDataEdit.contentQuery,
-        removeRuleQuery: objDataEdit.removeRuleQuery,
-      }).then((response) => {
+      objDataEdit.number_page_query = this.number_page_query;
+      objDataEdit.article_url_query = this.article_url_query;
+      objDataEdit.title_query = this.title_query;
+      objDataEdit.timeCreatePostOrigin_query = this.timeCreatePostOrigin_query;
+      objDataEdit.category_query = this.category_query;
+      objDataEdit.author_query = this.author_query;
+      objDataEdit.content_title_query = this.content_title_query;
+      objDataEdit.content_des_query = this.content_des_query;
+      objDataEdit.image_url_query = this.image_url_query;
+      HTTP.post(`save-edit-crawl`, {objDataEdit}).then((response) => {
         new Snackbar(`Saved succesfully`, {
           position: "bottom-right",
           theme: "light",
@@ -1325,6 +979,8 @@ export default {
             if (this.posts[i].statusPageCrawl === "Pending") {
               this.status[0] = "Pending";
               this.classData[0] = "badge badge-warning";
+              // $("#icon-loading-btn-"+String(this.posts[i].addressPage)).show();
+              // $("#btn-crawl-" + String(this.posts[i].addressPage)).prop("disabled", true);
             } else {
               if (this.posts[i].statusPageCrawl === "Success") {
                 this.status[0] = "Success";
@@ -1350,6 +1006,8 @@ export default {
             if (this.posts[i].statusPageCrawl === "Pending") {
               this.status[1] = "Pending";
               this.classData[1] = "badge badge-warning";
+              // $("#icon-loading-btn-"+String(this.posts[i].addressPage)).show();
+              // $("#btn-crawl-" + String(this.posts[i].addressPage)).prop("disabled", true);
             } else {
               if (this.posts[i].statusPageCrawl === "Success") {
                 this.status[1] = "Success";
@@ -1376,6 +1034,8 @@ export default {
             if (this.posts[i].statusPageCrawl === "Pending") {
               this.status[2] = "Pending";
               this.classData[2] = "badge badge-warning";
+              // $("#icon-loading-btn-"+String(this.posts[i].addressPage)).show();
+              // $("#btn-crawl-" + String(this.posts[i].addressPage)).prop("disabled", true);
             } else {
               if (this.posts[i].statusPageCrawl === "Success") {
                 this.status[2] = "Success";
@@ -1400,8 +1060,10 @@ export default {
               this.posts[i].dateLastCrawler
             );
             if (this.posts[i].statusPageCrawl === "Pending") {
-              this.status[2] = "Pending";
-              this.classData[2] = "badge badge-warning";
+              this.status[3] = "Pending";
+              this.classData[3] = "badge badge-warning";
+              // $("#icon-loading-btn-"+String(this.posts[i].addressPage)).show();
+              // $("#btn-crawl-" + String(this.posts[i].addressPage)).prop("disabled", true);
             } else {
               if (this.posts[i].statusPageCrawl === "Success") {
                 this.status[3] = "Success";
@@ -1415,8 +1077,6 @@ export default {
               }
             }
           }
-          //NASA
-          
         }
       });
     },

@@ -16,5 +16,6 @@ class VnNewsItem(scrapy.Item):
     image_url = scrapy.Field()
     urlPageCrawl = scrapy.Field()
     url = scrapy.Field()
+    status = scrapy.Field()
 class CafefItem(scrapy.Item):
     pass

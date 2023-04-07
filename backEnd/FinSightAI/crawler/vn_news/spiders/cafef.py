@@ -9,6 +9,8 @@ class CafefSpider(Spider):
     
     def __init__(self,config=None, *args, **kwargs):
         super(CafefSpider, self).__init__(*args, **kwargs)
+        self.items_crawled = 0
+        self.last_date = config["last_date"]
         self.number_page_query = config['number_page_query']
         self.article_url_query = config['article_url_query']
         self.title_query = config['title_query']
@@ -48,47 +50,55 @@ class CafefSpider(Spider):
         return text
     def parse_article(self, response):
         # Extract information from the news article page
-        title = response.css(self.title_query+'::text').get()
-        title = " ".join(title.split())
-        title = self.formatString(title)
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get() 
-        try:
-            timeCreatePostOrigin = ''.join(timeCreatePostOrigin).strip()
-            timeCreatePostOrigin = timeCreatePostOrigin.split()[0]
-            datetime_object = datetime.strptime(timeCreatePostOrigin, '%d-%m-%Y')
-            timeCreatePostOrigin = datetime_object.strftime('%Y/%m/%d')
-        except:
-            print('Do Not convert to datetime')
+        timeCreatePostOrigin = ''.join(timeCreatePostOrigin).strip()
+        timeCreatePostOrigin = timeCreatePostOrigin.split()[0]
+        timeCreatePostOrigin_compare = datetime.strptime(timeCreatePostOrigin, '%d-%m-%Y')
+        timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%d/%m/%Y')
+        if self.last_date == "--/--/----":
+            check_crawl_item = True
+        else :
+            last_timeCreatePostOrigin = datetime.strptime(self.last_date, '%d/%m/%Y')
+            if timeCreatePostOrigin_compare.date() > last_timeCreatePostOrigin.date():
+                check_crawl_item = True 
+            else:
+                check_crawl_item = False        
+        if check_crawl_item:
+            title = response.css(self.title_query+'::text').get()
+            title = " ".join(title.split())
+            title = self.formatString(title)
+            category = response.css(self.category_query+'::text').get()
+            author = response.css(self.author_query+'::text').get()
+            author = author.replace('Theo','')
+            author = " ".join(author.split())
+            content_title = response.css(self.content_title_query+'::text').get()
+            content_des = response.css(self.content_des_query+'::text').getall()
+            content = str(content_title)+str(content_des)
+            content = ''.join(content).strip()
+            content = self.formatString(content)
+            try:
+                content_html_title = response.css(self.content_html_title_query).get()
+                content_html_des = response.css(self.content_html_des_query).get()
+                content_html = str(content_html_title)+str(content_html_des)
+            except:
+                content_html = ""
+            image_url = response.css(self.image_url_query+'::attr(src)').get()
+            item = VnNewsItem(
+                title=title,
+                timeCreatePostOrigin=str(timeCreatePostOrigin),
+                category=category,
+                author=author,
+                content=content,
+                content_html= content_html,
+                image_url=image_url,
+                urlPageCrawl= 'cafef',
+                url=response.url,
+                status="0",
+            )
+            self.items_crawled += 1
+            yield item
+            
+        else:
+            yield None
+            
 
-        category = response.css(self.category_query+'::text').get()
-        author = response.css(self.author_query+'::text').get()
-        author = author.replace('Theo','')
-        author = " ".join(author.split())
-        
-        content_title = response.css(self.content_title_query+'::text').get()
-        content_des = response.css(self.content_des_query+'::text').getall()
-        content = str(content_title)+str(content_des)
-        content = ''.join(content).strip()
-        content = self.formatString(content)
-        content_html_title = response.css(self.content_html_title_query).get()
-        content_html_des = response.css(self.content_html_des_query).get()
-        content_html = str(content_html_title)+str(content_html_des)
-
-        image_url = response.css(self.image_url_query+'::attr(src)').get()
-
-        
-        # Create a CafefItem instance containing the information
-        item = VnNewsItem(
-            title=title,
-            timeCreatePostOrigin=timeCreatePostOrigin,
-            category=category,
-            author=author,
-            content=content,
-            content_html= content_html,
-            image_url=image_url,
-            urlPageCrawl= 'cafef',
-            url=response.url
-        )
-       
-        # Return the item
-        yield item

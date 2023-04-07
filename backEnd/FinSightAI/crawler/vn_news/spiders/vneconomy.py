@@ -1,6 +1,7 @@
 import scrapy
 from ..items import VnNewsItem
 from datetime import datetime
+import re
 class VneconomySpider(scrapy.Spider):
     name = "vneconomy"
     allowed_domains = ["vneconomy.vn"]
@@ -8,6 +9,7 @@ class VneconomySpider(scrapy.Spider):
     
     def __init__(self,config=None, *args, **kwargs):
         super(VneconomySpider, self).__init__(*args, **kwargs)
+        self.last_date = config["last_date"]
         self.number_page_query = config['number_page_query']
         self.article_url_query = config['article_url_query']
         self.title_query = config['title_query']
@@ -19,8 +21,6 @@ class VneconomySpider(scrapy.Spider):
         self.content_html_title_query = config['content_html_title_query']
         self.content_html_des_query = config['content_html_des_query']
         self.image_url_query = config['image_url_query']
-
-
         self.origin_doamin = 'http://vneconomy.vn'
         self.start_urls = [
             'https://vneconomy.vn/dau-tu.htm?trang=1',  # đầu tư
@@ -30,7 +30,6 @@ class VneconomySpider(scrapy.Spider):
             'https://vneconomy.vn/thi-truong.htm?trang=1', # thị trường
 
         ]
-
     def parse(self, response):
         # Extract news article URLs from the page
         article_links = response.css(self.article_url_query+'::attr(href)').getall()
@@ -46,54 +45,59 @@ class VneconomySpider(scrapy.Spider):
             next_page_link = response.url.replace(f"trang={current_page}", f"trang={next_page}")
             yield scrapy.Request(next_page_link, callback=self.parse)
     def formatString(self, text):
-        text =  text.replace('"', '\"')  # escape double quotes
-        text = text.replace("'", "\'")  # escape single quotes
-        text = text.replace('/', '\/')  # escape forward slashes
+        text = text.replace("'","")
+        text = re.sub('\W+',' ', text)
         return text
     def parse_article(self, response):
         # Extract information from the news article page
-        title = response.css(self.title_query+'::text').get()
         try:
-            title = " ".join(title.split())
+            title = response.css(self.title_query+'::text').get()
             title = self.formatString(title)
+            title = " ".join(title.split())
+            
         except:
+            title = ""
+            print(title)
+            print(response.url)
             print('not split title')
         
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
-        try:
-            datetime_object = datetime.strptime(timeCreatePostOrigin, '%H:%M %d/%m/%Y')
-            timeCreatePostOrigin = datetime_object.strftime('%Y/%m/%d')
-        except:
-            print('Do Not convert to datetime')
-        category = response.css(self.category_query+'::text').get()
-
-        author = response.css(self.author_query+'::text').get()
-        author = author.replace('-','')
-        author = " ".join(author.split())
-        content_sum = response.css(self.content_title_query+'::text').get()
-
-        content_des = response.css(self.content_des_query+' ::text').getall()
-        content =str(content_sum)  + str(content_des)
-        content = self.formatString(content)
-
-        content_sum_html = response.css(self.content_html_title_query).get()
-        content_des_html = response.css(self.content_html_des_query).get()
-        content_html =str(content_sum_html)+str(content_des_html)
-        image_url = response.css(self.image_url_query+'::attr(src)').get()
-        
-        
-        # Create a CafefItem instance containing the information
-        item = VnNewsItem(
-            title=title,
-            timeCreatePostOrigin=timeCreatePostOrigin,
-            category=category,
-            author=author,
-            content=content,
-            content_html= content_html,
-            image_url=image_url,
-            urlPageCrawl= 'vneconomy',
-            url=response.url
-        )
-        
-        # Return the item
-        yield item
+        timeCreatePostOrigin = timeCreatePostOrigin.replace('-','')
+        timeCreatePostOrigin_compare = datetime.strptime(timeCreatePostOrigin, '%H:%M %d/%m/%Y')
+        timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%d/%m/%Y')
+        if self.last_date == "--/--/----":
+            check_crawl_item = True
+        else :
+            last_timeCreatePostOrigin = datetime.strptime(self.last_date, '%d/%m/%Y')
+            if timeCreatePostOrigin_compare.date() > last_timeCreatePostOrigin.date():
+                check_crawl_item = True 
+            else:
+                check_crawl_item = False        
+        if check_crawl_item:
+            category = response.css(self.category_query+'::text').get()
+            author = response.css(self.author_query+'::text').get()
+            author = author.replace('-','')
+            author = " ".join(author.split())
+            content_sum = response.css(self.content_title_query+'::text').get()
+            content_des = response.css(self.content_des_query+' ::text').getall()
+            content =str(content_sum)  + str(content_des)
+            content = self.formatString(content)
+            content_sum_html = response.css(self.content_html_title_query).get()
+            content_des_html = response.css(self.content_html_des_query).get()
+            content_html =str(content_sum_html)+str(content_des_html)
+            image_url = response.css(self.image_url_query+'::attr(src)').get()
+            item = VnNewsItem(
+                title=title,
+                timeCreatePostOrigin=str(timeCreatePostOrigin),
+                category=category,
+                author=author,
+                content=content,
+                content_html= content_html,
+                image_url=image_url,
+                urlPageCrawl= 'vneconomy',
+                url=response.url,
+                status="0",
+            )
+            yield item
+        else :
+            yield None
