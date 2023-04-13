@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const HTTP = axios.create({
-  baseURL :`http://localhost:80/`,
+  baseURL :`http://localhost:1234/`,
   headers: {
   },
   responseType: "json",
