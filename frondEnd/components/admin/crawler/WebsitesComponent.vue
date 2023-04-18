@@ -398,7 +398,7 @@
                       <div style="text-align: left;" class="d-flex mail-subject">
                         <div class="box-switch">
                           <label class="switch s-icons s-outline s-outline-primary">
-                            <input v-on:click="validated =! validated" class="input-edit-address" id="edit-check-time" type="checkbox" />
+                            <input v-on:click="validated =! validated" :checked="validated" class="input-edit-address" id="edit-check-time" type="checkbox" />
                             <span class="slider round">
                               <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Schedule Crawl</p>
                             </span>
@@ -411,7 +411,7 @@
                           <polyline points="12 6 12 12 16 14" />
                         </svg>
                         <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search align-self-center pl-0">
-                          <button :disabled="validated" data-toggle="modal" id="btn-create-schedule" data-target="#scheduleModal" type="button" class="btn btn-primary">Schedule Crawl</button>
+                          <button :disabled="!validated" data-toggle="modal" id="btn-create-schedule" data-target="#scheduleModal" type="button" class="btn btn-primary">Schedule Crawl</button>
                         </div>
                       </div>
                       <small style="text-align: left;margin-left: 36px;" id="emailHelp1" class="form-text text-muted mb-4">

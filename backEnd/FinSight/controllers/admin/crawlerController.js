@@ -8,7 +8,7 @@ const ConfigDefaultCrawler = mongoose.model("ConfigDefaultCrawler");
 const Post = mongoose.model("Post");
 const KeywordCrawler = mongoose.model("KeywordCrawler");
 const axios = require("axios");
-
+const scheduleCrawler = require("../../service/admin/scheduleCrawler")
 router.get("/admin/crawler", (req, res) => {
   res.render("admin/main/crawler", { title: 'Crawler' });
 });
@@ -385,7 +385,7 @@ router.post("/save-edit-crawl", async (req, res) => {
       },
     }
   );
-
+  scheduleCrawler(objDataEdit)
   res.send("success edit config");
 });
 
