@@ -9,19 +9,33 @@ mongoose.connect(`${process.env.DB_URL}`, {
     else { console.log('Error in DB connection : ' + err) }
 });
 
+
+require('./post.model');
+require('./logger.model');
+require('./crawler.model');
+require('./schedule.model');
+require('./tag.model');
+require('./tagmap.model');
+require('./tagai.model');
+require('./tagmapai.model');
 require('./category.model');
 require('./categorymap.model');
+require('./contacts.model');
+require('./rsscontrol.model');
+require('./rsspost.model');
+require('./keywordcrawler.model');
+require('./newsletter.model');
+require('./users.model');
 require('./configcrawler.model');
 require('./configquerydefault.model');
-require('./contacts.model');
-require('./crawler.model');
-require('./keywordcrawler.model');
-require('./logger.model');
+require('./osmetric.model')
+require('./osday.model')
+require('./osmonth.model')
 require('./model.model')
-require('./post.model');
-require('./schedule.model');
-require('./user.model');
-
+require('./sorting.model')
+require('./historygeneratetag.model')
+require('./taghistory.model')
+require('./historyclassification.model')
 
 
 

@@ -3,229 +3,381 @@ const express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const Crawler = mongoose.model("Crawler");
+const Logger = mongoose.model("Logger");
 const ConfigCrawler = mongoose.model("ConfigCrawler");
 const ConfigDefaultCrawler = mongoose.model("ConfigDefaultCrawler");
 const Post = mongoose.model("Post");
 const KeywordCrawler = mongoose.model("KeywordCrawler");
 const axios = require("axios");
+var dayjs = require("dayjs");
 const scheduleCrawler = require("../../service/admin/scheduleCrawler")
 router.get("/admin/crawler", (req, res) => {
   res.render("admin/main/crawler", { title: 'Crawler' });
 });
 // Crawl By Website
 router.post("/crawpage-cafef", async (req, res) => {
-  
-  let config = await ConfigCrawler.find({"namePage":"cafef"});
+  let config = await ConfigCrawler.find({ "namePage": "cafef" });
   await Crawler.updateOne(
-    { addressPage: "cafef"},
+    { addressPage: "cafef" },
     {
       $set: {
         statusPageCrawl: "Pending",
       },
     }
   );
-  let crawler = await Crawler.find({"addressPage":"cafef"});
-
+  let crawler = await Crawler.find({ "addressPage": "cafef" });
   const data = {
-    "last_date":crawler[0].dateLastCrawler,
+    "last_date": crawler[0].dateLastCrawler,
     "number_page_query": config[0].number_page_query,
     "article_url_query": config[0].article_url_query,
-    "title_query":config[0].title_query,
-    "timeCreatePostOrigin_query":config[0].timeCreatePostOrigin_query,
+    "title_query": config[0].title_query,
+    "timeCreatePostOrigin_query": config[0].timeCreatePostOrigin_query,
     "category_query": config[0].category_query,
     "author_query": config[0].author_query,
     "content_title_query": config[0].content_title_query,
     "content_des_query": config[0].content_des_query,
-    "content_html_title_query":config[0].content_html_title_query,
-    "content_html_des_query":config[0].content_html_des_query,
-    "image_url_query":config[0].image_url_query
+    "content_html_title_query": config[0].content_html_title_query,
+    "content_html_des_query": config[0].content_html_des_query,
+    "image_url_query": config[0].image_url_query
   }
-  
   const currentDate = new Date();
   const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
-  try{
-    axios.post("http://127.0.0.1:5000/crawl/cafef", data).then(async (response) =>  {
+  try {
+    axios.post("http://127.0.0.1:5000/crawl/cafef", data).then(async (response) => {
       console.log("Request cafef successful!");
       let msg = response.data
-      console.log({"msg":msg})
-      await Crawler.updateOne(
-        { addressPage: "cafef"},
-        {
-          $set: {
-            statusPageCrawl: "Success",
-            dateLastCrawler:Date_now,
-          },
-        }
-      );
-    });;
-    
+      console.log({ "msg": msg })
+      if (msg == 'Success') {
+        saveLogAction('cafef', 'Success')
+        await Crawler.updateOne(
+          { addressPage: "cafef" },
+          {
+            $set: {
+              statusPageCrawl: "Success",
+              dateLastCrawler: Date_now,
+            },
+          }
+        );
+      } else {
+        saveLogAction('cafef', 'Error', msg)
+        await Crawler.updateOne(
+          { addressPage: "cafef" },
+          {
+            $set: {
+              statusPageCrawl: "Error",
+              dateLastCrawler: Date_now,
+            },
+          }
+        );
+      }
+    })
+      .catch(async (error) => {
+        console.log(error.response.data.error)
+        console.log(error.response.data.error)
+        saveLogAction('cafef', 'Error', error.response.data.error)
+        await Crawler.updateOne(
+          { addressPage: "cafef" },
+          {
+            $set: {
+              statusPageCrawl: "Error",
+              dateLastCrawler: Date_now,
+            },
+          }
+        );
+      });
+
   } catch (error) {
     if (error.response) {
       console.log(error.reponse.status);
     } else {
-      console.log(error.message);  
+      console.log(error.message);
     }
+    saveLogAction('cafef', 'Error', error.message)
+    await Crawler.updateOne(
+      { addressPage: "cafef" },
+      {
+        $set: {
+          statusPageCrawl: "Error",
+          dateLastCrawler: Date_now,
+        },
+      }
+    );
   }
-  let msg = "Request Crawl CafeF successfull"
-  res.send({"msg":msg})
   
-
+  let result = "Request Crawl CafeF successfull"
+  res.send({ "msg": result })
 });
 router.post("/crawpage-cafebiz", async (req, res) => {
-  let config = await ConfigCrawler.find({"namePage":"cafebiz"});
+  let config = await ConfigCrawler.find({ "namePage": "cafebiz" });
   await Crawler.updateOne(
-    { addressPage: "cafebiz"},
+    { addressPage: "cafebiz" },
     {
       $set: {
         statusPageCrawl: "Pending",
       },
     }
   );
-  let crawler = await Crawler.find({"addressPage":"cafebiz"});
+  let crawler = await Crawler.find({ "addressPage": "cafebiz" });
   const data = {
-    "last_date":crawler[0].dateLastCrawler,
+    "last_date": crawler[0].dateLastCrawler,
     "number_page_query": config[0].number_page_query,
     "article_url_query": config[0].article_url_query,
-    "title_query":config[0].title_query,
-    "timeCreatePostOrigin_query":config[0].timeCreatePostOrigin_query,
+    "title_query": config[0].title_query,
+    "timeCreatePostOrigin_query": config[0].timeCreatePostOrigin_query,
     "category_query": config[0].category_query,
     "author_query": config[0].author_query,
     "content_title_query": config[0].content_title_query,
     "content_des_query": config[0].content_des_query,
-    "content_html_title_query":config[0].content_html_title_query,
-    "content_html_des_query":config[0].content_html_des_query,
-    "image_url_query":config[0].image_url_query
+    "content_html_title_query": config[0].content_html_title_query,
+    "content_html_des_query": config[0].content_html_des_query,
+    "image_url_query": config[0].image_url_query
   }
   const currentDate = new Date();
   const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
-  try{
+  try {
     axios.post("http://127.0.0.1:5000/crawl/cafebiz", data).then(async (response) => {
+      console.log("Request cafebiz successful!");
       let msg = response.data
-      console.log({"msg":msg})
-      await Crawler.updateOne(
-        { addressPage: "cafebiz"},
-        {
-          $set: {
-            statusPageCrawl: "Success",
-            dateLastCrawler:Date_now,
-          },
-        }
-      );
-    });;
+      console.log({ "msg": msg })
+      if (msg == 'Success') {
+        saveLogAction('cafebiz', 'Success')
+        await Crawler.updateOne(
+          { addressPage: "cafebiz" },
+          {
+            $set: {
+              statusPageCrawl: "Success",
+              dateLastCrawler: Date_now,
+            },
+          }
+        );
+      } else {
+        saveLogAction('cafebiz', 'Error', msg)
+        await Crawler.updateOne(
+          { addressPage: "cafebiz" },
+          {
+            $set: {
+              statusPageCrawl: "Error",
+              dateLastCrawler: Date_now,
+            },
+          }
+        );
+      }
+    })
+      .catch(async (error) => {
+        console.log(error.response.data.error)
+        console.log(error.response.data.error)
+        saveLogAction('cafebiz', 'Error', error.response.data.error)
+        await Crawler.updateOne(
+          { addressPage: "cafebiz" },
+          {
+            $set: {
+              statusPageCrawl: "Error",
+              dateLastCrawler: Date_now,
+            },
+          }
+        );
+      });
   } catch (error) {
     if (error.response) {
       console.log(error.reponse.status);
     } else {
       console.log(error.message);
     }
+    saveLogAction('cafebiz', 'Error', error.message)
+    await Crawler.updateOne(
+      { addressPage: "cafebiz" },
+      {
+        $set: {
+          statusPageCrawl: "Error",
+          dateLastCrawler: Date_now,
+        },
+      }
+    );
   }
-  let msg = "Request Crawl CafeBiz successfull"
-  res.send({"msg":msg})
+  let result = "Request Crawl CafeBiz successfull"
+  res.send({ "msg": result })
 });
 router.post("/crawpage-baodautu", async (req, res) => {
-  let config = await ConfigCrawler.find({"namePage":"baodautu"});
+  let config = await ConfigCrawler.find({ "namePage": "baodautu" });
   await Crawler.updateOne(
-    { addressPage: "baodautu"},
+    { addressPage: "baodautu" },
     {
       $set: {
         statusPageCrawl: "Pending",
       },
     }
   );
-  let crawler = await Crawler.find({"addressPage":"baodautu"});
+  let crawler = await Crawler.find({ "addressPage": "baodautu" });
   const data = {
-    "last_date":crawler[0].dateLastCrawler,
+    "last_date": crawler[0].dateLastCrawler,
     "number_page_query": config[0].number_page_query,
     "article_url_query": config[0].article_url_query,
-    "title_query":config[0].title_query,
-    "timeCreatePostOrigin_query":config[0].timeCreatePostOrigin_query,
+    "title_query": config[0].title_query,
+    "timeCreatePostOrigin_query": config[0].timeCreatePostOrigin_query,
     "category_query": config[0].category_query,
     "author_query": config[0].author_query,
     "content_title_query": config[0].content_title_query,
     "content_des_query": config[0].content_des_query,
-    "content_html_title_query":config[0].content_html_title_query,
-    "content_html_des_query":config[0].content_html_des_query,
-    "image_url_query":config[0].image_url_query
+    "content_html_title_query": config[0].content_html_title_query,
+    "content_html_des_query": config[0].content_html_des_query,
+    "image_url_query": config[0].image_url_query
   }
   const currentDate = new Date();
   const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
-
-  try{
-    axios.post("http://127.0.0.1:5000/crawl/baodautu", data).then(async (response) => {
-      let msg = response.data
-      console.log({"msg":msg})
-      await Crawler.updateOne(
-        { addressPage: "baodautu"},
-        {
-          $set: {
-            statusPageCrawl: "Success",
-            dateLastCrawler:Date_now,
-          },
+  try {
+    axios.post("http://127.0.0.1:5000/crawl/baodautu", data)
+      .then(async (response) => {
+        console.log("Request baodautu successful!");
+        let msg = response.data
+        console.log({ "msg": msg })
+        if (msg == 'Success') {
+          saveLogAction('baodautu', 'Success')
+          await Crawler.updateOne(
+            { addressPage: "baodautu" },
+            {
+              $set: {
+                statusPageCrawl: "Success",
+                dateLastCrawler: Date_now,
+              },
+            }
+          );
+        } else {
+          saveLogAction('baodautu', 'Error', msg)
+          await Crawler.updateOne(
+            { addressPage: "baodautu" },
+            {
+              $set: {
+                statusPageCrawl: "Error",
+                dateLastCrawler: Date_now,
+              },
+            }
+          );
         }
-      );
-    });
+      })
+      .catch(async (error) => {
+        console.log(error.response.data.error)
+        console.log(error.response.data.error)
+        saveLogAction('baodautu', 'Error', error.response.data.error)
+        await Crawler.updateOne(
+          { addressPage: "baodautu" },
+          {
+            $set: {
+              statusPageCrawl: "Error",
+              dateLastCrawler: Date_now,
+            },
+          }
+        );
+      });
   } catch (error) {
     if (error.response) {
       console.log(error.reponse.status);
     } else {
       console.log(error.message);
     }
+    saveLogAction('baodautu', 'Error', error.message)
+    await Crawler.updateOne(
+      { addressPage: "baodautu" },
+      {
+        $set: {
+          statusPageCrawl: "Error",
+          dateLastCrawler: Date_now,
+        },
+      }
+    );
   }
-  let msg = "Request Crawl baodautu successfull"
-  res.send({"msg":msg})
+  let result = "Request Crawl baodautu successfull"
+  res.send({ "msg": result })
 });
 router.post("/crawpage-vneconomy", async (req, res) => {
-  let config = await ConfigCrawler.find({"namePage":"vneconomy"});
+  let config = await ConfigCrawler.find({ "namePage": "vneconomy" });
   await Crawler.updateOne(
-    { addressPage: "vneconomy"},
+    { addressPage: "vneconomy" },
     {
       $set: {
         statusPageCrawl: "Pending",
       },
     }
   );
-  let crawler = await Crawler.find({"addressPage":"vneconomy"});
+  let crawler = await Crawler.find({ "addressPage": "vneconomy" });
   const data = {
-    "last_date":crawler[0].dateLastCrawler,
+    "last_date": crawler[0].dateLastCrawler,
     "number_page_query": config[0].number_page_query,
     "article_url_query": config[0].article_url_query,
-    "title_query":config[0].title_query,
-    "timeCreatePostOrigin_query":config[0].timeCreatePostOrigin_query,
+    "title_query": config[0].title_query,
+    "timeCreatePostOrigin_query": config[0].timeCreatePostOrigin_query,
     "category_query": config[0].category_query,
     "author_query": config[0].author_query,
     "content_title_query": config[0].content_title_query,
     "content_des_query": config[0].content_des_query,
-    "content_html_title_query":config[0].content_html_title_query,
-    "content_html_des_query":config[0].content_html_des_query,
-    "image_url_query":config[0].image_url_query
+    "content_html_title_query": config[0].content_html_title_query,
+    "content_html_des_query": config[0].content_html_des_query,
+    "image_url_query": config[0].image_url_query
   }
   const currentDate = new Date();
   const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
-
-  try{
-    axios.post("http://127.0.0.1:5000/crawl/vneconomy", data).then(async (response) => {
-      console.log("Request vneconomy successful!");
-      let msg = response.data
-      console.log({"msg":msg})
-      await Crawler.updateOne(
-        { addressPage: "vneconomy"},
-        {
-          $set: {
-            statusPageCrawl: "Success",
-            dateLastCrawler:Date_now,
-          },
+  try {
+    axios.post("http://127.0.0.1:5000/crawl/vneconomy", data)
+      .then(async (response) => {
+        console.log("Request vneconomy successful!");
+        let msg = response.data
+        console.log({ "msg": msg })
+        if (msg == 'Success') {
+          saveLogAction('vneconomy', 'Success')
+          await Crawler.updateOne(
+            { addressPage: "vneconomy" },
+            {
+              $set: {
+                statusPageCrawl: "Success",
+                dateLastCrawler: Date_now,
+              },
+            }
+          );
+        } else {
+          saveLogAction('vneconomy', 'Error', msg)
+          await Crawler.updateOne(
+            { addressPage: "vneconomy" },
+            {
+              $set: {
+                statusPageCrawl: "Error",
+                dateLastCrawler: Date_now,
+              },
+            }
+          );
         }
-      );
-    });
+      })
+      .catch(async (error) => {
+        console.log(error.response.data.error)
+        console.log(error.response.data.error)
+        saveLogAction('vneconomy', 'Error', error.response.data.error)
+        await Crawler.updateOne(
+          { addressPage: "vneconomy" },
+          {
+            $set: {
+              statusPageCrawl: "Error",
+              dateLastCrawler: Date_now,
+            },
+          }
+        );
+      });
   } catch (error) {
     if (error.response) {
       console.log(error.reponse.status);
     } else {
       console.log(error.message);
     }
+    saveLogAction('vneconomy', 'Error', error.message)
+    await Crawler.updateOne(
+      { addressPage: "vneconomy" },
+      {
+        $set: {
+          statusPageCrawl: "Error",
+          dateLastCrawler: Date_now,
+        },
+      }
+    );
   }
-  let msg = "Request Crawl vneconomy successfull"
-  res.send({"msg":msg})
+  let result = "Request Crawl vneconomy successfull"
+  res.send({ "msg": result })
 
 });
 
@@ -261,12 +413,12 @@ router.get("/crawler-information", async (req, res) => {
     await Post.find(
       {
         urlPageCrawl: urlPageCrawl,
-        status:'0',
+        status: '0',
       },
       async (err, docs) => {
         if (!err) {
           await Crawler.updateOne(
-            { addressPage: urlPageCrawl},
+            { addressPage: urlPageCrawl },
             {
               $set: {
                 sumPost: docs.length,
@@ -282,12 +434,12 @@ router.get("/crawler-information", async (req, res) => {
     await Post.find(
       {
         urlPageCrawl: urlPageCrawl,
-        status:'1',
+        status: '1',
       },
       async (err, docs) => {
         if (!err) {
           await Crawler.updateOne(
-            { addressPage: urlPageCrawl},
+            { addressPage: urlPageCrawl },
             {
               $set: {
                 sumPostBlock: docs.length,
@@ -303,12 +455,12 @@ router.get("/crawler-information", async (req, res) => {
     await Post.find(
       {
         urlPageCrawl: urlPageCrawl,
-        status:'2',
+        status: '2',
       },
       async (err, docs) => {
         if (!err) {
           await Crawler.updateOne(
-            { addressPage: urlPageCrawl},
+            { addressPage: urlPageCrawl },
             {
               $set: {
                 sumPostSkip: docs.length,
@@ -354,7 +506,7 @@ router.post("/save-edit-crawl", async (req, res) => {
   let objDataEdit = req.body.objDataEdit;
   for (let i = 0; i < objDataEdit.timeSchedule.length; i++) {
     objDataEdit.timeSchedule[i].hour = objDataEdit.timeSchedule[i].hour || []
-    if( objDataEdit.timeSchedule[i].hour.length !== 0)objDataEdit.timeSchedule[i].hour.map(j=>Number(j))
+    if (objDataEdit.timeSchedule[i].hour.length !== 0) objDataEdit.timeSchedule[i].hour.map(j => Number(j))
   }
   await ConfigCrawler.updateOne(
     { titlePage: objDataEdit.titlePage },
@@ -448,6 +600,21 @@ router.post("/edit-keyword-crawl", async (req, res) => {
   await res.send("success");
 });
 
-
+function saveLogAction(page, action, message) {
+  let timeCrawlPage = dayjs().format("YYYY/MM/DD h:mm:ss");
+  let stringMessage = "";
+  if (message === null) {
+    if (action === "Create") stringMessage = "Start Crawler Page :";
+    if (action === "Success") stringMessage = "Crawler Success :";
+  } else {
+    if (action === "Error") stringMessage = message;
+  }
+  var logger = new Logger();
+  logger.status = action;
+  logger.page = page;
+  logger.message = stringMessage;
+  logger.timelog = timeCrawlPage;
+  logger.save();
+}
 
 module.exports = router;

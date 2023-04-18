@@ -27,13 +27,14 @@ const crawlerController = require('./controllers/admin/crawlerController');
 const loginController = require('./controllers/admin/loginController');
 
 const pagesErrorController = require('./controllers/admin/pagesErrorController')
-
+const dashboardController =require('./controllers/admin/dashboardController')
+const osUtilsController = require('./controllers/admin/osUtilsController')
 // front-end Controller
 
 
 // admin service
 
-
+const { collectOsMetric, averageFiveMinutes, removeOsMetricData } = require('./service/admin/osUtil')
 
 
 app.use(cookieParser())
@@ -78,14 +79,14 @@ server.listen(port, () => {
 app.use(cors())
 app.use('/', loginController);
 // app.use('/', middleware);
-// app.use('/', dashboardController);
+app.use('/', dashboardController);
 app.use('/', crawlerController);
 // app.use('/', rssFetcherController);
 // app.use('/', contactUsController);
 // app.use('/', classificationController);
 // app.use('/', sortingController)
 // app.use('/', settingController);
-// app.use('/', osUtilsController);
+app.use('/', osUtilsController);
 // app.use('/', manageTagController);
 
 // app.use('/', homePageController);

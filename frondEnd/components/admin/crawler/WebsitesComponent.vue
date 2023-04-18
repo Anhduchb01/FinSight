@@ -728,14 +728,18 @@ export default {
   },
   methods: {
     getTimeAgo(value) {
-      if (value === "--/--/----" || value === "") {
-        return "--/--/----";
+      if (value === "----/--/--" || value === "") {
+        return "----/--/--";
       }
-      let timeAgo = moment(value, 'DD/MM/YYYY').fromNow();
-      timeAgo = timeAgo.replace(/\b\w/g, function (l) {
-        return l.toUpperCase();
-      });
-      return timeAgo;
+      else{
+        let timeAgo = moment(value, 'DD/MM/YYYY').fromNow();
+        timeAgo = timeAgo.replace(/\b\w/g, function (l) {
+          return l.toUpperCase();
+        });
+        return timeAgo;
+
+      }
+      
     },
     showModalEdit(address, nameModel, urlModel) {
       this.validated = true;

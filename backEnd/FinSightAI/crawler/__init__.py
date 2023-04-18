@@ -53,7 +53,7 @@ def crawl_cafef():
 	try:
 	# Run the crawl
 		scrape_with_crochet(CafefSpider,config_crawl,'cafef')
-		return 'crawl cafef successfully'
+		return 'Success'
 	except Exception as e:
 		print(f"Error occurred during crawl: {e}")
 		return str(e)
@@ -91,7 +91,7 @@ def crawl_cafebiz():
 	}
 	try:
 		scrape_with_crochet(CafebizSpider,config_crawl,'cafebiz')
-		return 'crawl cafebiz successfully'
+		return 'Success'
 	except Exception as e:
 		error = str(e).replace("'","")
 		msg = f"Error occurred during crawl: {error}"
@@ -131,7 +131,7 @@ def crawl_baodautu():
 	}
 	try:
 		scrape_with_crochet(BaodautuSpider,config_crawl,"baodautu")
-		return 'crawl baodautu successfully'
+		return 'Success'
 	except Exception as e:
 		error = str(e).replace("'","")
 		msg = f"Error occurred during crawl: {error}"
@@ -170,7 +170,7 @@ def crawl_vneconomy():
 
 	try:
 		scrape_with_crochet(VneconomySpider,config_crawl,"vneconomy")
-		return 'crawl vneconomy successfully'
+		return 'Success'
 	except Exception as e:
 		error = str(e).replace("'","")
 		msg = f"Error occurred during crawl: {error}"

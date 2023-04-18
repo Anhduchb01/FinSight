@@ -64,11 +64,11 @@ class VneconomySpider(scrapy.Spider):
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
         timeCreatePostOrigin = timeCreatePostOrigin.replace('-','')
         timeCreatePostOrigin_compare = datetime.strptime(timeCreatePostOrigin, '%H:%M %d/%m/%Y')
-        timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%d/%m/%Y')
-        if self.last_date == "--/--/----":
+        timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%Y/%m/%d')
+        if self.last_date == "----/--/--":
             check_crawl_item = True
         else :
-            last_timeCreatePostOrigin = datetime.strptime(self.last_date, '%d/%m/%Y')
+            last_timeCreatePostOrigin = datetime.strptime(self.last_date, '%Y/%m/%d')
             if timeCreatePostOrigin_compare.date() > last_timeCreatePostOrigin.date():
                 check_crawl_item = True 
             else:

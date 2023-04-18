@@ -61,11 +61,11 @@ class BaodautuSpider(scrapy.Spider):
         timeCreatePostOrigin = timeCreatePostOrigin.replace('-','')
         timeCreatePostOrigin = " ".join(timeCreatePostOrigin.split())
         timeCreatePostOrigin_compare = datetime.strptime(timeCreatePostOrigin, '%d/%m/%Y %H:%M')
-        timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%d/%m/%Y')
-        if self.last_date == "--/--/----":
+        timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%Y/%m/%d')
+        if self.last_date == "----/--/--":
             check_crawl_item = True
         else :
-            last_timeCreatePostOrigin = datetime.strptime(self.last_date, '%d/%m/%Y')
+            last_timeCreatePostOrigin = datetime.strptime(self.last_date, '%Y/%m/%d')
             if timeCreatePostOrigin_compare.date() > last_timeCreatePostOrigin.date():
                 check_crawl_item = True 
             else:

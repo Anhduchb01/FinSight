@@ -76,7 +76,7 @@ let timeSchedule = [{day:"0",hour:[1]},{day:"1",hour:[1]},{day:"2",hour:[1]},{da
 for (i = 0; i < arrAddress.length; i++) {
   itemsCrawler.push({
     addressPage: arrAddress[i],
-    dateLastCrawler: "--/--/----",
+    dateLastCrawler: "----/--/--",
     sumPost: "0",
     statusPageCrawl: "Off",
     modePage: "on",
