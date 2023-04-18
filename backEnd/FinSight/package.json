@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "seeder": "node models/seeder/crawler_seeder",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",

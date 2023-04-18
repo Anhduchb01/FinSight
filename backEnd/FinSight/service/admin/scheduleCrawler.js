@@ -30,10 +30,7 @@ const HTTP = axios.create({
 })
 function scheduleCrawler(objDataEdit) {
   if (objDataEdit.titlePage === 'CafeF') {
-    console.log('schedule cafef')
     let address = objDataEdit.titlePage.toLowerCase()
-    console.log(typeof objDataEdit.modeSchedule)
-    console.log(objDataEdit.modeSchedule)
     if (objDataEdit.modeSchedule == true) {
       console.log('schedule true cafe')
       for (let i = 0; i < objDataEdit.timeSchedule.length; i++) {
@@ -55,7 +52,8 @@ function scheduleCrawler(objDataEdit) {
 
   if (objDataEdit.titlePage === 'CafeBiz') {
     let address = objDataEdit.titlePage.toLowerCase()
-    if (objDataEdit.modeSchedule === 'true') {
+    if (objDataEdit.modeSchedule == true) {
+      console.log('schedule true cafebiz')
       for (let i = 0; i < objDataEdit.timeSchedule.length; i++) {
         if (objDataEdit.timeSchedule[i].hour.length === 0) continue;
         const configCafebiz = new schedule.RecurrenceRule();
@@ -63,6 +61,7 @@ function scheduleCrawler(objDataEdit) {
         configCafebiz.hour = objDataEdit.timeSchedule[i].hour;
         configCafebiz.minute = 0;
         const CrawlCafebiz = schedule.scheduleJob(configCafebiz, function () {
+          console.log('start crawl cafebiz schedule')
           HTTP.post(`crawpage-cafebiz`).then(() => {
             console.log('crawl schedule cafebiz cussses')
           });
@@ -77,7 +76,8 @@ function scheduleCrawler(objDataEdit) {
 
   if (objDataEdit.titlePage === 'BaoDauTu') {
     let address = objDataEdit.titlePage.toLowerCase()
-    if (objDataEdit.modeSchedule === 'true') {
+    if (objDataEdit.modeSchedule == true ) {
+      console.log('schedule true baodautu')
       for (let i = 0; i < objDataEdit.timeSchedule.length; i++) {
         if (objDataEdit.timeSchedule[i].hour.length === 0) continue;
         const configBaodautu = new schedule.RecurrenceRule();
@@ -85,6 +85,7 @@ function scheduleCrawler(objDataEdit) {
         configBaodautu.hour = objDataEdit.timeSchedule[i].hour;
         configBaodautu.minute = 0;
         const CrawlBaodautu = schedule.scheduleJob(configBaodautu, function () {
+          console.log('start crawl baodautu schedule')
           HTTP.post(`crawpage-baodautu`).then(() => {
             console.log('crawl schedule baodautu cussses')
           });
@@ -97,7 +98,8 @@ function scheduleCrawler(objDataEdit) {
 
   if (objDataEdit.titlePage === 'VnEconomy') {
     let address = objDataEdit.titlePage.toLowerCase()
-    if (objDataEdit.modeSchedule === 'true') {
+    if (objDataEdit.modeSchedule == true ) {
+      console.log('schedule true vneconomy')
       for (let i = 0; i < objDataEdit.timeSchedule.length; i++) {
         if (objDataEdit.timeSchedule[i].hour.length === 0) continue;
         const configVneconomy = new schedule.RecurrenceRule();
@@ -105,6 +107,7 @@ function scheduleCrawler(objDataEdit) {
         configVneconomy.hour = objDataEdit.timeSchedule[i].hour;
         configVneconomy.minute = 0;
         const CrawlVneconomy = schedule.scheduleJob(configVneconomy, function () {
+          console.log('start crawl vneconomy schedule')
           HTTP.post(`crawpage-vneconomy`).then(() => {
             console.log('crawl schedule vneconomy cussses')
           });
