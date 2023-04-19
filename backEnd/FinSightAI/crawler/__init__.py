@@ -17,7 +17,7 @@ import crochet
 crochet.setup()
 output_data = []
 crawl_runner = CrawlerRunner()
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/")
 db = client.FinSight
 spider_counters = {}
 @crawler.route("/crawl/cafef", methods=['GET', 'POST'])
