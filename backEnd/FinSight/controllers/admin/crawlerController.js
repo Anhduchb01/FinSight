@@ -40,8 +40,12 @@ router.post("/crawpage-cafef", async (req, res) => {
     "content_html_des_query": config[0].content_html_des_query,
     "image_url_query": config[0].image_url_query
   }
+  
   const currentDate = new Date();
-  const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
+  const formattedDate = new Intl.DateTimeFormat('en-CA').format(currentDate); // format date as "Y-M-D"
+  const [year, month, day] = formattedDate.split('-'); // split date into year, month, and day
+  const Date_now = `${year}/${month}/${day}`; // reformat date as "Y/M/D"
+
   try {
     axios.post("http://127.0.0.1:5000/crawl/cafef", data).then(async (response) => {
       console.log("Request cafef successful!");
@@ -133,7 +137,9 @@ router.post("/crawpage-cafebiz", async (req, res) => {
     "image_url_query": config[0].image_url_query
   }
   const currentDate = new Date();
-  const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
+  const formattedDate = new Intl.DateTimeFormat('en-CA').format(currentDate); // format date as "Y-M-D"
+  const [year, month, day] = formattedDate.split('-'); // split date into year, month, and day
+  const Date_now = `${year}/${month}/${day}`; // reformat date as "Y/M/D"
   try {
     axios.post("http://127.0.0.1:5000/crawl/cafebiz", data).then(async (response) => {
       console.log("Request cafebiz successful!");
@@ -223,7 +229,9 @@ router.post("/crawpage-baodautu", async (req, res) => {
     "image_url_query": config[0].image_url_query
   }
   const currentDate = new Date();
-  const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
+  const formattedDate = new Intl.DateTimeFormat('en-CA').format(currentDate); // format date as "Y-M-D"
+  const [year, month, day] = formattedDate.split('-'); // split date into year, month, and day
+  const Date_now = `${year}/${month}/${day}`; // reformat date as "Y/M/D"
   try {
     axios.post("http://127.0.0.1:5000/crawl/baodautu", data)
       .then(async (response) => {
@@ -314,7 +322,9 @@ router.post("/crawpage-vneconomy", async (req, res) => {
     "image_url_query": config[0].image_url_query
   }
   const currentDate = new Date();
-  const Date_now = new Intl.DateTimeFormat('en-GB').format(currentDate);
+  const formattedDate = new Intl.DateTimeFormat('en-CA').format(currentDate); // format date as "Y-M-D"
+  const [year, month, day] = formattedDate.split('-'); // split date into year, month, and day
+  const Date_now = `${year}/${month}/${day}`; // reformat date as "Y/M/D"
   try {
     axios.post("http://127.0.0.1:5000/crawl/vneconomy", data)
       .then(async (response) => {
@@ -607,7 +617,7 @@ function saveLogAction(page, action, message) {
     if (action === "Create") stringMessage = "Start Crawler Page :";
     if (action === "Success") stringMessage = "Crawler Success :";
   } else {
-    if (action === "Error") stringMessage = message;
+    if (action === "Error") stringMessage = message.replace(/['"()]/g, '');
   }
   var logger = new Logger();
   logger.status = action;

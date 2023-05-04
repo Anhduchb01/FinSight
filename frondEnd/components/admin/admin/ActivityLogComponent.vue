@@ -11,11 +11,7 @@
           <div v-if="result.status === 'Create'" class="item-timeline timeline-new">
             <div class="t-dot">
               <div class="t-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="
-                    -ms-transform: rotate(360deg);
-                    -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
-                  " preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style=" -ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg); " preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                   <path d="M21.29 16.71l1.42-1.42l-3.21-3.18l-3-.85l1.91-.26l4.19-3.2l-1.2-1.6l-3.81 2.85l-2.68.45l3.2-3.19L17 1.76l-2 .48l.86 3.45l-1.1 1.14a3 3 0 0 0-5.52 0L8.11 5.69L9 2.24l-2-.48l-1.11 4.55l3.2 3.19l-2.69-.45L2.6 6.2L1.4 7.8L5.6 11l1.86.31l-3 .85l-3.17 3.13l1.42 1.42l2.79-2.82l2.37-.67L4 16.54V22h2v-4.54l1.56-1.34a4.5 4.5 0 0 0 8.88 0L18 17.46V22h2v-5.46l-3.87-3.32l2.37.67z" fill="white" />
                 </svg>
               </div>
@@ -84,7 +80,7 @@
             </div>
 
             <div class="td-content" style="align-self: center">
-              <a href="javascript:void(0);" @click="showError()" class="text-danger">
+              <a href="javascript:void(0);" @click="showError(result.message)" class="text-danger">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                   <polyline points="22,6 12,13 2,6" />
@@ -128,11 +124,11 @@ export default {
     });
   },
   methods: {
-    showError() {
+    showError(msg) {
       this.$swal({
         icon: "error",
         title: "Error",
-        text: "TypeError: Cannot read properties of undefined reading toString",
+        text: msg,
         padding: "2em",
       });
     },

@@ -732,7 +732,7 @@ export default {
         return "----/--/--";
       }
       else{
-        let timeAgo = moment(value, 'DD/MM/YYYY').fromNow();
+        let timeAgo = moment(value, 'YYYY/MM/DD/').fromNow();
         timeAgo = timeAgo.replace(/\b\w/g, function (l) {
           return l.toUpperCase();
         });

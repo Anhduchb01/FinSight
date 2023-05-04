@@ -7,7 +7,7 @@ const Logger = mongoose.model("Logger");
 const { getPostByDay, getTotalPost, getLogCrawler, getPercentArticleSuccess } = require('../../service/admin/dashboard/dashboard.js')
 
 router.get('/admin', (req, res) => {
-  res.render('admin/main/admin', { title: 'Dashboard' })
+  res.send('Admin API')
 })
 
 router.get("/post-by-day", async (req, res) => {

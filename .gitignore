@@ -1,2 +1,6 @@
 __pycache__
 # *.json
+env/**
+myenv
+.env
+env
