@@ -1,0 +1,35 @@
+[{
+  "_id": {
+    "$oid": "6459f0016bf78f1d10f58546"
+  },
+  "articleHasTraining": [],
+  "time": "2023/04/11 18:00:55",
+  "name": "AI Sentiment Analysis Base",
+  "language": "en",
+  "status": 0,
+  "score": 95,
+  "isAi": 1,
+  "isSystem": 0,
+  "source": "classification",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6459f02a6bf78f1d10f58547"
+  },
+  "time": "2021/12/06 17:42:30",
+  "name": "AI NER Base",
+  "language": "en",
+  "status": 1,
+  "score": 95,
+  "isAi": 1,
+  "isSystem": 0,
+  "source": "tag",
+  "__v": 0,
+  "articleHasTraining": [
+    ""
+  ],
+  "lastScore": 0,
+  "lastTotalTag": 0,
+  "totalTag": 0,
+  "isPlayGround": 1
+}]
