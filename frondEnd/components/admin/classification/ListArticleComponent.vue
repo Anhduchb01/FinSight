@@ -7,10 +7,23 @@
           <div class="box-inline" style="width: 50%;">
             <div style="width: 100%;align-items: center;display: flex;justify-content: space-between;height: 46px;">
               <h5 class="m-0">List Article</h5>
-              <select v-model="language" @change="changeLanguage" style="width: 200px;;margin-left: 10px;height: calc(1.4em + 1.4rem + 2px);padding: 0.375rem 0.75rem" id="select-language" class="placeholder js-states form-control">
+              <!-- <select v-model="language" @change="changeLanguage" style="width: 200px;;margin-left: 10px;height: calc(1.4em + 1.4rem + 2px);padding: 0.375rem 0.75rem" id="select-language" class="placeholder js-states form-control">
                 <option selected value="en">English</option>
                 <option value="jp">Japanese</option>
-              </select>
+              </select> -->
+              <button style="height: 45px;white-space: nowrap;width:135px;" class="btn btn-primary btn-block">
+                  <svg style="display: none;" id="icon-loading-btn-apply-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                    <line x1="12" y1="2" x2="12" y2="6" />
+                    <line x1="12" y1="18" x2="12" y2="22" />
+                    <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                    <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                    <line x1="2" y1="12" x2="6" y2="12" />
+                    <line x1="18" y1="12" x2="22" y2="12" />
+                    <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                    <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+                  </svg>
+                  <span class="text-button-apply-2">Export Data</span>
+                </button>
               <div style="cursor: pointer;">
                 <svg v-on:click="openSettingModel" class="icon-model m-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="3" />
@@ -131,7 +144,6 @@
         </div>
         <div v-else class="d-flex box-list w-100" id="box-list" v-on:scroll.passive="handleScrollBoxList">
           <div class="table-tag box-inline" style="width: 50%">
-            <!-- <div>{{result}}</div> -->
             <div v-for="(result,index) of result" :key="'a'+result._id" class="d-flex" style="height: 100px">
               <div class="border-item-tag"></div>
               <div class="box-element-tag align-self-center" style="width: 48%;">
@@ -177,13 +189,6 @@
                 <span v-else-if="result.category =='publications'" style="color: #2196f3" :id="'value-score-article-'+result._id" :class="'discount-pricing pl-0 ' ">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
                 <span v-else style="color: #805dca !important" :id="'value-score-article-'+result._id" :class="'discount-pricing pl-0 ' ">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
               </div>
-              <!-- <div class="box-element-tag align-self-center" style="width: 17%;">
-                <select @change="setColorSelectStatus('${result._id}')" :id="'value-status-article-'+result._id" :class="'placeholder js-states form-control select-status-article ' +colorStatus[index]">
-                  <option class="text-success" value="0">Verify</option>
-                  <option class="text-warning" value="1">Pending</option>
-                  <option class="text-danger" value="2">Ignore</option>
-                </select>
-              </div>-->
               <div class="box-element-tag align-self-center" style="width: 17%;">
                 <select v-if="result.classificationStatus == 0" v-model="result.classificationStatus" style="color: #1abc9c !important" class="placeholder js-states form-control m-0 select-category-article text-select-category" :id="'status-tag-selected-' +(index +1)">
                   <option selected style=" color: #1abc9c !important" value="0">Verify</option>

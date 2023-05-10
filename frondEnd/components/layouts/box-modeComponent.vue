@@ -145,7 +145,7 @@ export default {
         return "Tag";
       }
       if (this.namePage1 === "admin-classification___en") {
-        return "Classification";
+        return "Sentiment";
       }
       if (this.namePage1 === "admin-sorting___en") {
         return "Sorting";

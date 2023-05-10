@@ -15,7 +15,7 @@
           <div v-for="(listModel,index) of listModelBase" :key="listModel.id" class="summary-list summary-profit">
             <div v-if="data[index].language == 'en'" class="summery-info">
               <div class="w-icon">
-                <img class="img--contain image-en" src="~/static/assetsAdmin/img/gbr.png" alt="img" />
+                <img class="img--contain image-en" style="    width: 100%;height: 100%;" src="~/static/assetsAdmin/img/model1.png" alt="img" />
               </div>
               <div class="w-summary-details">
                 <div class="w-summary-info">

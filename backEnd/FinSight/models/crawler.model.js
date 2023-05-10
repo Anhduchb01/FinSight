@@ -9,6 +9,7 @@ var crawler = new mongoose.Schema({
   increasePost: { type: String },
   sumPostBlock: { type: String },
   sumPostSkip: { type: String },
+  type:  { type: String },
 });
 
 mongoose.model("Crawler", crawler);

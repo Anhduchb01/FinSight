@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="rss searchable-items gird" style="display: flex;flex-wrap: wrap;">
-      <!-- GSI -->
+      <!-- cafef -->
       <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;">
@@ -99,7 +99,7 @@
           </div>
         </div>
       </div>
-      <!-- //ENV -->
+      <!-- //cafebiz -->
       <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
@@ -177,7 +177,7 @@
           </div>
         </div>
       </div>
-      <!-- //COB -->
+      <!-- //baodautu -->
       <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
@@ -255,7 +255,7 @@
           </div>
         </div>
       </div>
-      <!-- //USGS -->
+      <!-- //vneconomy -->
       <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
@@ -332,9 +332,410 @@
           </div>
         </div>
       </div>
+      <!-- //cafefpdf -->
+      <div class="items" v-if="posts.length">
+        <div class="item-content rss-page">
+          <div style="display: none;" class="box-switch">
+            <label class="switch s-icons s-outline s-outline-info">
+              <input class="input-address" id="vneconomy" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="user-email address-page">
+            <div class="user-meta-info">
+              <p class="user-name" data-name="Alan Green">CafeF_PDF</p>
+              <p class="user-work" data-occupation="Web Developer">http://s.cafef.vn/phan-tich-bao-cao.chn</p>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Date:</p>
+            <p class="date-time-crawler-rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span class="bs-tooltip" data-placement="right" id="time-update-cafefpdf" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[4]}}</span>
+            </p>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Report:</p>
+            <div class="box-status-post" style="margin:0;width: auto;">
+              <div class="item-timeline timeline-success">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-cafefpdf">{{sumPost[4]}} Report (+{{increasedPost[4]}})</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-warning">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-block-cafefpdf">{{sumPostBlock[4]}} Report (+0)</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-danger">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-skip-cafefpdf">{{sumPostSkip[4]}} Report (+0)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Status:</p>
+            <p class="usr-ph-no">
+              <span :class="classData[4]" id="status-cafefpdf">{{status[4]}}</span>
+            </p>
+          </div>
+          <div class="action-btn d-flex justify-content-center">
+            <button id="btn-crawl-cafefpdf" v-on:click="searchInformation('cafefpdf')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-cafefpdf" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg> Crawl
+            </button>
+            <button v-on:click="showModalEdit('cafefpdf','cafefPDF','http://s.cafef.vn/phan-tich-bao-cao.chn')" class="btn btn-warning mt-2 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Edit
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- modal Website  -->
     <modal name="modal-edit-page-website" class="test" height="271px" width="500px" styles="overflow: initial">
+      <div style="max-width: 700px !important;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <svg v-on:click="closeModalEdit()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="modal">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+            <div class="compose-box">
+              <div class="compose-content">
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <h5 style="font-weight: bold;color: #4361ee !important;" class="modal-title text-center">
+                      Edit Page
+                      Crawl
+                    </h5>
+                  </div>
+                </div>
+                <ul class="nav nav-tabs mb-3 mt-3" id="simpletab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Simple</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Advanced</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="query-tab" data-toggle="tab" href="#query" role="tab" aria-controls="query" aria-selected="false">Query</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="simpletabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="d-flex mb-4 mail-to">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-type">
+                              <polyline points="4 7 4 4 20 4 20 7" />
+                              <line x1="9" y1="20" x2="15" y2="20" />
+                              <line x1="12" y1="4" x2="12" y2="20" />
+                            </svg>
+                            <div style="display: none;" class="w-100">
+                              <input disabled type="text" id="address-page-crawl" class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                            <div class="w-100">
+                              <input disabled type="text" id="edit-name-page" :placeholder="nameModel" class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex mb-4 mail-subject">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                          <polyline points="9 22 9 12 15 12 15 22" />
+                        </svg>
+                        <div class="w-100">
+                          <input disabled type="text" id="edit-url-page" :placeholder="'https://' + urlModel" class="form-control" />
+                          <span class="validation-text"></span>
+                        </div>
+                      </div>
+                      <div style="text-align: left;" class="d-flex mail-subject">
+                        <div class="box-switch">
+                          <label class="switch s-icons s-outline s-outline-primary">
+                            <input v-on:click="validated =! validated" :checked="validated" class="input-edit-address" id="edit-check-time" type="checkbox" />
+                            <span class="slider round">
+                              <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Schedule Crawl</p>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="d-flex mail-subject">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search align-self-center pl-0">
+                          <button :disabled="!validated" data-toggle="modal" id="btn-create-schedule" data-target="#scheduleModal" type="button" class="btn btn-primary">Schedule Crawl</button>
+                        </div>
+                      </div>
+                      <small style="text-align: left;margin-left: 36px;" id="emailHelp1" class="form-text text-muted mb-4">
+                        Select time
+                        for schedule
+                      </small>
+                      <div>
+                        <div style="text-align: left;" class="box-switch">
+                          <label class="switch s-icons s-outline s-outline-primary">
+                            <input class="input-edit-address" id="edit-check-display" type="checkbox" />
+                            <span class="slider round">
+                              <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Public Post</p>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <form>
+                      <div class="d-flex">
+                        <div style="width: 50%;">
+                          <div style="text-align: left;" class="box-switch">
+                            <label class="switch s-icons s-outline s-outline-primary">
+                              <input :checked="validatedCokkies" v-on:click="validatedCokkies =! validatedCokkies" class="input-edit-address" id="edit-cookies-page" type="checkbox" />
+                              <span class="slider round">
+                                <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Allow Cookies</p>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                        <div style="width: 50%;">
+                          <div style="text-align: left;" class="box-switch">
+                            <label class="switch s-icons s-outline s-outline-primary">
+                              <input :checked="modeRobotsParser" class="input-edit-address" id="edit-robot-txt-page" type="checkbox" />
+                              <span class="slider round">
+                                <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Follow robots.txt file</p>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex mail-subject mb-3">
+                        <svg style="margin-bottom: 20px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+                          <circle cx="12" cy="12" r="10" />
+                          <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        <div class="d-flex">
+                          <div>
+                            <div>
+                              <input v-model="timeOutCrawl" type="number" placeholder id="timeout-page" class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                            <small class="form-text text-muted">Setting timeout</small>
+                          </div>
+                          <div style="padding: 0px 10px;">
+                            <div>
+                              <input v-model="timeRetryCrawl" type="number" placeholder id="time-retry-page" class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                            <small class="form-text text-muted">Setting time retry</small>
+                          </div>
+                          <div>
+                            <div>
+                              <input v-model="timeDelayCrawl" type="number" id="time-delay-page" placeholder class="form-control" />
+                              <span class="validation-text"></span>
+                            </div>
+                            <small class="form-text text-muted">Setting time delay</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex mail-subject mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        <div style="width: 100%;">
+                          <input v-model="userAgent" type="text" id="edit-user-agent-page" placeholder="User-Agent" class="form-control" />
+                          <span class="validation-text"></span>
+                        </div>
+                      </div>
+                      <div class="d-flex mail-subject mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-aperture">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
+                          <line x1="9.69" y1="8" x2="21.17" y2="8" />
+                          <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
+                          <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
+                          <line x1="14.31" y1="16" x2="2.83" y2="16" />
+                          <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
+                        </svg>
+                        <div style="width: 100%;">
+                          <input v-model="cookies" :disabled="!validatedCokkies" type="text" id="edit-input-cookie-page" placeholder="Cookies" class="form-control" />
+                          <span class="validation-text"></span>
+                        </div>
+                      </div>
+                      <div class="table-responsive table-list-key">
+                        <table class="table table-bordered mb-4">
+                          <thead>
+                            <tr>
+                              <th style="width: 40%;">Header</th>
+                              <th style="width: 40%;">Value</th>
+                              <th style="text-align: center;width: 20%;">
+                                <button type="button" v-on:click="addRowTableHttpHeader()" style="height:25px;padding: 0px 10px;margin: 0px;" class="btn btn-outline-success">Add</button>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody class="tbody-http-header">
+                            <tr v-for="(results,index) of httpHeader" :key="results.id">
+                              <td>
+                                <input v-model="results.header" type="text" class="form-control row-key" />
+                              </td>
+                              <td>
+                                <input v-model="results.value" type="text" class="form-control row-value" />
+                              </td>
+                              <td class="box-remove-row" style="text-align: center;">
+                                <svg v-on:click="removeRowTableHttpHeader(index)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete-multiple remove-row-table-header">
+                                  <polyline points="3 6 5 6 21 6" />
+                                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                                  <line x1="10" y1="11" x2="10" y2="17" />
+                                  <line x1="14" y1="11" x2="14" y2="17" />
+                                </svg>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane fade" id="query" role="tabpanel" aria-labelledby="query-tab">
+                    <div class="d-flex" style="justify-content: space-between;">
+                      <div >
+                        <button type="button" onclick="useQueryDefault()" class="btn btn-info">Default</button>
+                      </div>
+                    </div>
+                    <div class="tab-content" id="v-pills-tabContent">
+                      <div class="tab-pane fade show active" id="query-en" role="tabpanel" aria-labelledby="query-en-tab">
+                        <form>
+                          <!-- <label for="basic-url">Go to page</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">URL</span>
+                                </div>
+                                <input v-model="UrlQueryEN" type="text" class="form-control" id="query-url-en" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div> -->
+                          <label for="basic-url">Paging navigate & crawl data</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Article URL</span>
+                                </div>
+                                <input v-model="article_url_query" type="text" class="form-control" id="article-url-en" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                          <label for="basic-url">Get data</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Number Page</span>
+                                </div>
+                                <input v-model="number_page_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Title</span>
+                                </div>
+                                <input v-model="title_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Post Date</span>
+                                </div>
+                                <input v-model="timeCreatePostOrigin_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Category</span>
+                                </div>
+                                <input v-model="category_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Author</span>
+                                </div>
+                                <input v-model="author_query" type="text" class="form-control" id="des-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Sum Description</span>
+                                </div>
+                                <input v-model="content_title_query" type="text" class="form-control" id="image-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Detail Description</span>
+                                </div>
+                                <input v-model="content_des_query" type="text" class="form-control" id="date-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Image</span>
+                                </div>
+                                <input v-model="image_url_query" type="text" class="form-control" id="content-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </form>
+                      </div>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button v-on:click="saveEditCrawlPage()" id="btn-save-edit" class="btn btn-success float-left">
+              <svg style="display:none" id="edit-icon-loadding" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg>
+              <svg id="edit-icon-crawl" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Save
+            </button>
+            <button class="btn" data-dismiss="modal">
+              <i class="flaticon-delete-1"></i> Discard
+            </button>
+          </div>
+        </div>
+      </div>
+    </modal>
+    <modal name="modal-edit-page-website-pdf" class="test" height="271px" width="500px" styles="overflow: initial">
       <div style="max-width: 700px !important;" class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-body">
@@ -836,6 +1237,7 @@ export default {
       if (address === "cafebiz") this.crawpageCafebiz(address);
       if (address === "baodautu") this.crawPageBaodautu(address);
       if (address === "vneconomy") this.crawPageVneconomy(address);
+      if (address === "cafefpdf") this.crawPageVneconomy(address);
     },
     crawPageCafef(address) {
       HTTP.post(`crawpage-cafef`).then(() => {
@@ -1078,6 +1480,33 @@ export default {
               } else {
                 this.status[3] = "Error";
                 this.classData[3] = "badge color-badge-danger";
+              }
+            }
+          }
+          if (this.posts[i].addressPage === "cafefPDF") {
+            this.sumPost[4] = this.posts[i].sumPost;
+            this.increasedPost[4] = this.posts[i].increasePost;
+            this.sumPostBlock[4] = this.posts[i].sumPostBlock;
+            this.sumPostSkip[4] = this.posts[i].sumPostSkip;
+
+            this.LastDateCrawler[4] = this.getTimeAgo(
+              this.posts[i].dateLastCrawler
+            );
+            if (this.posts[i].statusPageCrawl === "Pending") {
+              this.status[4] = "Pending";
+              this.classData[4] = "badge badge-warning";
+              // $("#icon-loading-btn-"+String(this.posts[i].addressPage)).show();
+              // $("#btn-crawl-" + String(this.posts[i].addressPage)).prop("disabled", true);
+            } else {
+              if (this.posts[i].statusPageCrawl === "Success") {
+                this.status[4] = "Success";
+                this.classData[4] = "badge color-badge-success";
+              } else if (this.posts[4].statusPageCrawl === "Off") {
+                this.status[4] = "Off";
+                this.classData[4] = "badge color-badge-dark";
+              } else {
+                this.status[4] = "Error";
+                this.classData[4] = "badge color-badge-danger";
               }
             }
           }

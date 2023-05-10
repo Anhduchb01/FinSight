@@ -16,37 +16,37 @@
         <div class="tag-item">
           <div class="item-container">
             <div class="item-icon success-gradient" id="pertotal"  @mouseover="hoverPertotal = true" @mouseout="hoverPertotal = false">
-              <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/news.png" />
+              <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/positive.png" />
             </div>
             <div>
               <h2 class="item-number" id="sum-per">{{valueNews}}</h2>
-              <div class="item-name">News</div>
+              <div class="item-name">Positive</div>
             </div>
           </div>
         </div>
         <div class="tag-item">
           <div class="item-container">
             <div class="item-icon info-gradient" id="orgtotal" @mouseover="hoverOrgtotal = true" @mouseout="hoverOrgtotal = false">
-              <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/event.png" />
+              <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/neutral.png" />
             </div>
             <div>
               <h2 class="item-number" id="sum-org">{{valueEvent}}</h2>
-              <div class="item-name">Event</div>
+              <div class="item-name">Neutral</div>
             </div>
           </div>
         </div>
         <div class="tag-item">
           <div class="item-container">
             <div class="item-icon location-gradient" id="loctotal" @mouseover="hoverLoctotal = true" @mouseout="hoverLoctotal = false">
-              <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/publish.png" />
+              <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/negative.png" />
             </div>
             <div>
               <h2 class="item-number" id="sum-loc">{{valuePublications}}</h2>
-              <div class="item-name">Publications</div>
+              <div class="item-name">Negative</div>
             </div>
           </div>
         </div>
-        <div class="tag-item">
+        <!-- <div class="tag-item">
           <div class="item-container">
             <div class="item-icon primary-gradient" id="misctotal" @mouseover="hoverMisctotal = true" @mouseout="hoverMisctotal = false">
               <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/other-news.png" />
@@ -56,7 +56,7 @@
               <div class="item-name">Other</div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="tag-item">
           <div class="item-container">
@@ -70,12 +70,13 @@
           </div>
         </div>
       </div>
-      <div id="flow-chart" style="height: 400px;" v-if="loading">
-        <div style="height: 10px; text-align: center;">
+      <!-- <div id="flow-chart" style="height: 400px;" v-if="loading"> -->
+       <div id="flow-chart-1" style="height: 400px;"> 
+        <!-- <div style="height: 10px; text-align: center;">
           <div id="loading-chart-overview" style=" margin-top: 95px;" class="spinner-border text-success align-self-center"></div>
-        </div>
+        </div> -->
       </div>
-      <div id="flow-chart" style="height: 400px;" v-else></div>
+      <!-- <div id="flow-chart" style="height: 400px;" v-else></div> -->
     </div>
   </div>
 </template>

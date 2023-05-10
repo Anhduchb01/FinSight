@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const Crawler = mongoose.model("Crawler");
 const Logger = mongoose.model("Logger");
 const ConfigCrawler = mongoose.model("ConfigCrawler");
+const ConfigCrawlerPDFs = mongoose.model("ConfigCrawlerPDFs");
 const ConfigDefaultCrawler = mongoose.model("ConfigDefaultCrawler");
 const Post = mongoose.model("Post");
 const KeywordCrawler = mongoose.model("KeywordCrawler");
@@ -484,7 +485,7 @@ router.get("/crawler-information", async (req, res) => {
     );
   }
 
-  await Crawler.find({}, (err, docs) => {
+  await Crawler.find({type:"post"}, (err, docs) => {
     if (!err) {
       res.send(docs);
     } else {
@@ -492,9 +493,28 @@ router.get("/crawler-information", async (req, res) => {
     }
   });
 });
-
+router.get("/crawler-pdf-information", async (req, res) => {
+  await Crawler.find({type:"pdf"}, (err, docs) => {
+    if (!err) {
+      res.send(docs);
+    } else {
+      console.log("Error in retrieving employee list :" + err);
+    }
+  });
+});
 router.get("/get-data-edit-crawl", (req, res) => {
   ConfigCrawler.find({}, (err, docs) => {
+    console.log(docs)
+    if (!err) {
+      res.send(docs);
+    } else {
+      console.log("Error in retrieving employee list :" + err);
+    }
+  });
+});
+router.get("/get-data-edit-pdf", (req, res) => {
+  ConfigCrawlerPDFs.find({}, (err, docs) => {
+    console.log(docs)
     if (!err) {
       res.send(docs);
     } else {

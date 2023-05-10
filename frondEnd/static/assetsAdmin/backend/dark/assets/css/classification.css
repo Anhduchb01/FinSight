@@ -34,13 +34,13 @@
 	 position: relative;
 }
  body.dark .classification-component .location-gradient {
-	 background: linear-gradient(#00ffe1 0%, #00bfe1 100%);
+	 background: linear-gradient(#2196f3 0%,#2196f3 100%);
 }
  body.dark .classification-component .warning-gradient {
 	 background: linear-gradient(#f0c24a 0%, #ef804b 100%);
 }
  body.dark .classification-component .info-gradient {
-	 background: linear-gradient(#6ab8f9 0%, #4970f6 100%);
+	 background: linear-gradient(#727474 0%, #727474 100%);
 }
  body.dark .classification-component .success-gradient {
 	 background: linear-gradient(#79db72 0%, #71cca4 100%);
@@ -85,12 +85,12 @@
  body.dark .classification-component .image-logo {
 	 height: 2rem;
 	 width: 2rem;
-	 filter: brightness(0) invert(1);
+	 
 }
  body.dark .classification-component .image-logo1 {
 	 height: 2rem;
 	 width: 2rem;
-	 filter: brightness(0) invert(1);
+	 
 }
  body.dark .classification-component .box-article-select {
 	 height: 470px;
