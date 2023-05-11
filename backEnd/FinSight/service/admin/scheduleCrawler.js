@@ -23,7 +23,7 @@ const axios =require("axios")
 // dayOfWeek (0-6) Starting with Sunday
 
 const HTTP = axios.create({
-  baseURL :`http://localhost:1234/`,
+  baseURL :`http://localhost:4000/`,
   headers: {
   },
   responseType: "json",
@@ -49,7 +49,6 @@ function scheduleCrawler(objDataEdit) {
       }
     }
   }
-
   if (objDataEdit.titlePage === 'CafeBiz') {
     let address = objDataEdit.titlePage.toLowerCase()
     if (objDataEdit.modeSchedule == true) {
@@ -70,10 +69,6 @@ function scheduleCrawler(objDataEdit) {
     }
 
   }
-
-
-
-
   if (objDataEdit.titlePage === 'BaoDauTu') {
     let address = objDataEdit.titlePage.toLowerCase()
     if (objDataEdit.modeSchedule == true ) {
@@ -94,8 +89,6 @@ function scheduleCrawler(objDataEdit) {
     }
 
   }
-
-
   if (objDataEdit.titlePage === 'VnEconomy') {
     let address = objDataEdit.titlePage.toLowerCase()
     if (objDataEdit.modeSchedule == true ) {

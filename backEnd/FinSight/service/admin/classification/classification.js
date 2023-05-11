@@ -302,14 +302,14 @@ async function getEditArticle(id, category, status) {
 
 async function createModelDefault(sourceModel) {
     let time = dayjs().format('YYYY/MM/DD HH:mm:ss')
-    let model_bert_en = await Model.findOne({'name': "AI Classification Base (English)", 'source': sourceModel, "isAi": 1, "isSystem": 0 })
+    let model_bert_en = await Model.findOne({'name': "AI Sentiment Analysis Base", 'source': sourceModel, "isAi": 1, "isSystem": 0 })
     if (model_bert_en == null) {
-        let model = { "time": time, "name": "AI Classification Base (English)", "language": "en", "status": 0, "score": 95, "isAi": 1, "isSystem": 0, 'source': sourceModel }
+        let model = { "time": time, "name": "AI Sentiment Analysis Base", "language": "en", "status": 0, "score": 95, "isAi": 1, "isSystem": 0, 'source': sourceModel }
         model_bert_en = await Model.create(model)
     }
-    let model_bert_jp = await Model.findOne({'name': "AI Classification Base (Japanese)", 'source': sourceModel, "isAi": 1, "isSystem": 0 })
+    let model_bert_jp = await Model.findOne({'name': "AI Sentiment Analysis Base", 'source': sourceModel, "isAi": 1, "isSystem": 0 })
     if (model_bert_jp == null) {
-        let model = { "time": time, "name": "AI Classification Base (Japanese)", "language": "jp", "status": 0, "score": 95, "isAi": 1, "isSystem": 0, 'source': sourceModel }
+        let model = { "time": time, "name": "AI Sentiment Analysis Base", "language": "jp", "status": 0, "score": 95, "isAi": 1, "isSystem": 0, 'source': sourceModel }
         model_bert_jp = await Model.create(model)
     }
     let message = { "message": "successfully" }
@@ -394,8 +394,7 @@ async function getListModelClassificationHistory() {
     for (let i = 0; i < data.length; i++) {
         let model_id = data[i]._id.model_id
         let lang
-        if (model_id === 'defaultEN') { lang = await Model.find({ name: 'AI Classification Base (English)' }) }
-        else if (model_id === 'defaultJP') { lang = await Model.find({ name: 'AI Classification Base (Japanese)' }) }
+        if (model_id === 'default') { lang = await Model.find({ name: 'AI Sentiment Analysis Base' }) }
         else { lang = await Model.find({ _id: ObjectID(model_id)  }) }
         let obj = { model_id: model_id, time: data[i]._id.time, name: lang[0].name,language:lang[0].language }
         array.push(obj)

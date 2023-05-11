@@ -28,7 +28,7 @@
                       <span  v-text="status[index]" :class="'badge color-badge-'+statusColor[index]+ ' inv-status'" :id="'status-bert-'+ data[index]._id + '-'+ data[index].language" style="margin-right: 30px;"></span>
                       <div>
                         <div style="display: block;">
-                          <svg :class="{'locked':lock}" class="icon-model play" v-on:click="executeModelBert(data.language,data._id,data.time)" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <svg :class="{'locked':lock}" class="icon-model play" v-on:click="executeModelBert(data._id,data.time)" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <title>Execute</title>
                             <polygon points="5 3 19 12 5 21 5 3" />
                           </svg>
@@ -67,7 +67,7 @@
                       <span v-text="status[index]" :class="'badge color-badge-'+ statusColor[index] + ' inv-status'" :id="'status-bert-'+data[index]._id+'-'+data[index].language" style="margin-right: 30px;"></span>
                       <div>
                         <div style="display: block;">
-                          <svg :class="{'locked':lock}" class="icon-model play" v-on:click="executeModelBert(data.language,data._id,data.time)" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <svg :class="{'locked':lock}" class="icon-model play" v-on:click="executeModelBert(data._id,data.time)" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <title>Execute</title>
                             <polygon points="5 3 19 12 5 21 5 3" />
                           </svg>
@@ -347,15 +347,14 @@ export default {
     };
   },
   methods: {
-    executeModelBert(language, id, time) {    
+    executeModelBert( id, time) {    
       this.lock = true  
       HTTP.get(
-        "https://api.waterportal.sinka.vn/models/classification/execute-model?id=default&time=2021/12/06 17:42:30&language=" +
-          language
+        "http://localhost:4000/models/classification/execute-model?id=default&time=2023/04/11 18:00:55" 
       )
         .then((response) => {
           for (let index = 0; index < this.data.length; index++) {
-            if (this.data[index].name === "AI Classification Base (English)") {
+            if (this.data[index].name === "AI Sentiment Analysis Base") {
               if (this.data[index].status == 1) {
                 this.status[index] = "In Process";
                 this.statusColor[index] = "warning";
@@ -369,7 +368,7 @@ export default {
                 this.statusColor = "danger";
               }
             }
-            if (this.data[index].name === "AI Classification Base (Japanese)") {
+            if (this.data[index].name === "AI Sentiment Analysis Base") {
               if (this.data[index].status == 1) {
                 this.status[index] = "In Process";
                 this.statusColor[index] = "warning";
