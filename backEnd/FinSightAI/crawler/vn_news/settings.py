@@ -18,7 +18,8 @@ NEWSPIDER_MODULE = "vn_news.spiders"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
-
+DOWNLOAD_MAXSIZE = 5368709120
+DOWNLOAD_TIMEOUT = 600
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 

@@ -9,6 +9,7 @@ const ConfigCrawlerPDFs = mongoose.model("ConfigCrawlerPDFs");
 const ConfigDefaultCrawler = mongoose.model("ConfigDefaultCrawler");
 const Post = mongoose.model("Post");
 const KeywordCrawler = mongoose.model("KeywordCrawler");
+const Report = mongoose.model("Report")
 const axios = require("axios");
 var dayjs = require("dayjs");
 const scheduleCrawler = require("../../service/admin/scheduleCrawler")
@@ -86,6 +87,93 @@ router.post("/crawpage-cafef", async (req, res) => {
             $set: {
               statusPageCrawl: "Error",
               dateLastCrawler: Date_now,
+            },
+          }
+        );
+      });
+
+  } catch (error) {
+    if (error.response) {
+      console.log(error.reponse.status);
+    } else {
+      console.log(error.message);
+    }
+    saveLogAction('cafef', 'Error', error.message)
+    await Crawler.updateOne(
+      { addressPage: "cafef" },
+      {
+        $set: {
+          statusPageCrawl: "Error",
+          dateLastCrawler: Date_now,
+        },
+      }
+    );
+  }
+  
+  let result = "Request Crawl CafeF successfull"
+  res.send({ "msg": result })
+});
+router.post("/crawpage-cafefpdf", async (req, res) => {
+  let config = await ConfigCrawlerPDFs.find({ "namePage": "cafefpdf" });
+  await Crawler.updateOne(
+    { addressPage: "cafefpdf" },
+    {
+      $set: {
+        statusPageCrawl: "Pending",
+      },
+    }
+  );
+  let crawler = await Crawler.find({ "addressPage": "cafefpdf" });
+  const data = {
+    "last_date": crawler[0].dateLastCrawler,
+    "number_page_query": config[0].number_page_query,
+    "article_url_query": config[0].article_url_query,
+    "article_url_query1": config[0].article_url_query1,
+    "title_query": config[0].title_query,
+    "timeCreatePostOrigin_query": config[0].timeCreatePostOrigin_query,
+    "source": config[0].source,
+    "number_CK": config[0].number_CK,
+    "id_pdf": config[0].id_pdf,
+  }
+  
+
+  
+  try {
+    axios.post("http://127.0.0.1:5000/crawl/cafefpdf", data).then(async (response) => {
+      console.log("Request cafefpdf successful!");
+      let msg = response.data
+      console.log({ "msg": msg })
+      if (msg == 'Success') {
+        saveLogAction('cafefpdf', 'Success')
+        await Crawler.updateOne(
+          { addressPage: "cafefpdf" },
+          {
+            $set: {
+              statusPageCrawl: "Success",
+            },
+          }
+        );
+      } else {
+        saveLogAction('cafefpdf', 'Error', msg)
+        await Crawler.updateOne(
+          { addressPage: "cafefpdf" },
+          {
+            $set: {
+              statusPageCrawl: "Error",
+            },
+          }
+        );
+      }
+    })
+      .catch(async (error) => {
+        console.log(error.response.data.error)
+        console.log(error.response.data.error)
+        saveLogAction('cafefpdf', 'Error', error.response.data.error)
+        await Crawler.updateOne(
+          { addressPage: "cafefpdf" },
+          {
+            $set: {
+              statusPageCrawl: "Error",
             },
           }
         );
@@ -420,72 +508,95 @@ router.get("/crawler-information", async (req, res) => {
 
   for (let index = 0; index < arrayeleAddress.length; index++) {
     let urlPageCrawl = arrayeleAddress[index];
-    //post success
-    await Post.find(
-      {
-        urlPageCrawl: urlPageCrawl,
-        status: '0',
-      },
-      async (err, docs) => {
-        if (!err) {
-          await Crawler.updateOne(
-            { addressPage: urlPageCrawl },
-            {
-              $set: {
-                sumPost: docs.length,
-              },
-            }
-          );
-        } else {
-          console.log("Error in retrieving employee list :" + err);
+    if(urlPageCrawl=='cafefpdf'){
+      await Report.find(
+        {},
+        async (err, docs) => {
+          if (!err) {
+            await Crawler.updateOne(
+              { addressPage: urlPageCrawl },
+              {
+                $set: {
+                  sumPost: docs.length,
+                },
+              }
+            );
+          } else {
+            console.log("Error in retrieving employee list :" + err);
+          }
         }
-      }
-    );
-    //post block
-    await Post.find(
-      {
-        urlPageCrawl: urlPageCrawl,
-        status: '1',
-      },
-      async (err, docs) => {
-        if (!err) {
-          await Crawler.updateOne(
-            { addressPage: urlPageCrawl },
-            {
-              $set: {
-                sumPostBlock: docs.length,
-              },
-            }
-          );
-        } else {
-          console.log("Error in retrieving employee list :" + err);
+      );
+
+    }
+    else{
+       //post success
+      await Post.find(
+        {
+          urlPageCrawl: urlPageCrawl,
+          status: '0',
+        },
+        async (err, docs) => {
+          if (!err) {
+            await Crawler.updateOne(
+              { addressPage: urlPageCrawl },
+              {
+                $set: {
+                  sumPost: docs.length,
+                },
+              }
+            );
+          } else {
+            console.log("Error in retrieving employee list :" + err);
+          }
         }
-      }
-    );
-    //post skip
-    await Post.find(
-      {
-        urlPageCrawl: urlPageCrawl,
-        status: '2',
-      },
-      async (err, docs) => {
-        if (!err) {
-          await Crawler.updateOne(
-            { addressPage: urlPageCrawl },
-            {
-              $set: {
-                sumPostSkip: docs.length,
-              },
-            }
-          );
-        } else {
-          console.log("Error in retrieving employee list :" + err);
+      );
+      //post block
+      await Post.find(
+        {
+          urlPageCrawl: urlPageCrawl,
+          status: '1',
+        },
+        async (err, docs) => {
+          if (!err) {
+            await Crawler.updateOne(
+              { addressPage: urlPageCrawl },
+              {
+                $set: {
+                  sumPostBlock: docs.length,
+                },
+              }
+            );
+          } else {
+            console.log("Error in retrieving employee list :" + err);
+          }
         }
-      }
-    );
+      );
+      //post skip
+      await Post.find(
+        {
+          urlPageCrawl: urlPageCrawl,
+          status: '2',
+        },
+        async (err, docs) => {
+          if (!err) {
+            await Crawler.updateOne(
+              { addressPage: urlPageCrawl },
+              {
+                $set: {
+                  sumPostSkip: docs.length,
+                },
+              }
+            );
+          } else {
+            console.log("Error in retrieving employee list :" + err);
+          }
+        }
+      );
+    }
+    
   }
 
-  await Crawler.find({type:"post"}, (err, docs) => {
+  await Crawler.find({}, (err, docs) => {
     if (!err) {
       res.send(docs);
     } else {
@@ -504,7 +615,6 @@ router.get("/crawler-pdf-information", async (req, res) => {
 });
 router.get("/get-data-edit-crawl", (req, res) => {
   ConfigCrawler.find({}, (err, docs) => {
-    console.log(docs)
     if (!err) {
       res.send(docs);
     } else {
@@ -514,7 +624,6 @@ router.get("/get-data-edit-crawl", (req, res) => {
 });
 router.get("/get-data-edit-pdf", (req, res) => {
   ConfigCrawlerPDFs.find({}, (err, docs) => {
-    console.log(docs)
     if (!err) {
       res.send(docs);
     } else {
@@ -569,6 +678,41 @@ router.post("/save-edit-crawl", async (req, res) => {
   );
   scheduleCrawler(objDataEdit)
   res.send("success edit config");
+});
+
+router.post("/save-edit-crawl-pdf", async (req, res) => {
+  let objDataEdit = req.body.objDataEdit;
+  for (let i = 0; i < objDataEdit.timeSchedule.length; i++) {
+    objDataEdit.timeSchedule[i].hour = objDataEdit.timeSchedule[i].hour || []
+    if (objDataEdit.timeSchedule[i].hour.length !== 0) objDataEdit.timeSchedule[i].hour.map(j => Number(j))
+  }
+  await ConfigCrawlerPDFs.updateOne(
+    { titlePage: objDataEdit.titlePage },
+    {
+      $set: {
+        modeSchedule: objDataEdit.modeSchedule,
+        timeSchedule: objDataEdit.timeSchedule,
+        modePublic: objDataEdit.modePublic,
+        modeCookies: objDataEdit.modeCookies,
+        modeRobotsParser: objDataEdit.modeRobotsParser,
+        timeOutCrawl: objDataEdit.timeOutCrawl,
+        timeRetryCrawl: objDataEdit.timeRetryCrawl,
+        timeDelayCrawl: objDataEdit.timeDelayCrawl,
+        userAgent: objDataEdit.userAgent,
+        cookies: objDataEdit.cookies,
+        httpHeader: objDataEdit.httpHeader,
+        number_page_query: objDataEdit.number_page_query,
+        article_url_query: objDataEdit.article_url_query,
+        title_query: objDataEdit.title_query,
+        timeCreatePostOrigin_query: objDataEdit.timeCreatePostOrigin_query,
+        source: objDataEdit.source,
+        number_CK: objDataEdit.number_CK,
+        id_pdf: objDataEdit.id_pdf,
+      },
+    }
+  );
+  scheduleCrawler(objDataEdit)
+  res.send("success edit pdf config");
 });
 
 // crawl keyword

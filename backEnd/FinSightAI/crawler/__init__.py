@@ -7,6 +7,7 @@ from crawler.vn_news.spiders.cafef import CafefSpider
 from crawler.vn_news.spiders.cafebiz import CafebizSpider
 from crawler.vn_news.spiders.baodautu import BaodautuSpider
 from crawler.vn_news.spiders.vneconomy import VneconomySpider
+from crawler.vn_news.spiders.baocaoCafef import BaoCaoCafefSpider
 import json
 from pymongo import MongoClient
 from scrapy import signals
@@ -17,7 +18,7 @@ import crochet
 crochet.setup()
 output_data = []
 crawl_runner = CrawlerRunner()
-client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/")
+client = MongoClient("mongodb://localhost:27017/")
 db = client.FinSight
 spider_counters = {}
 @crawler.route("/crawl/cafef", methods=['GET', 'POST'])
@@ -176,7 +177,39 @@ def crawl_vneconomy():
 		msg = f"Error occurred during crawl: {error}"
 		print(msg)
 		return str(msg)
+@crawler.route("/crawl/cafefpdf", methods=['GET', 'POST'])
+def crawl_cafefpdf():
+	data = request.json
+	last_date = data.get("last_date")
+	number_page_query = data.get('number_page_query')
+	article_url_query = data.get("article_url_query")
+	article_url_query1= data.get("article_url_query1")
+	title_query = data.get("title_query")
+	timeCreatePostOrigin_query = data.get("timeCreatePostOrigin_query")
+	source = data.get("source")
+	number_CK = data.get("number_CK")
+	id_pdf = data.get("id_pdf")
 
+	config_crawl = {
+		"last_date":last_date,
+		"number_page_query":number_page_query,
+		"article_url_query": article_url_query,
+		"article_url_query1": article_url_query1,
+		"title_query": title_query,
+		"timeCreatePostOrigin_query": timeCreatePostOrigin_query,
+		"source": source,
+		"number_CK": number_CK,
+		"id_pdf": id_pdf,
+	}
+	# run crawler in twisted reactor synchronously
+	try:
+	# Run the crawl
+		scrape_with_crochet(BaoCaoCafefSpider,config_crawl,'cafefpdf')
+		return 'Success'
+	except Exception as e:
+		print(f"Error occurred during crawl: {e}")
+		return str(e)
+	
 @crochet.wait_for(timeout=60.0)
 def scrape_with_crochet(spider,config_crawl,addressPage):
 	global spider_counters
@@ -202,7 +235,11 @@ def _crawler_result(item, response, spider):
 	spider_name = spider.name
 	# Increase the counter for the spider name
 	spider_counters[spider_name] += 1
-	db.posts.insert_one(dict(item))
+	print(spider_name)
+	if spider_name == 'cafefpdf':
+		db.reports.insert_one(dict(item))
+	else:
+		db.posts.insert_one(dict(item))
 	# output_data.append(dict(item))
 
 def _crawler_closed(spider):
@@ -212,6 +249,19 @@ def _crawler_closed(spider):
 	global spider_counters
 	spider_name = spider.name
 	db.crawlers.update_one({"addressPage":spider_name}, {'$set': {'increasePost': str(spider_counters[spider_name])}})
+	if str(spider_name) == 'cafefpdf':
+		print('ok')
+		print(list(db.reports.find({}).limit(1)))
+		print('sort')
+		try:
+			last_report = db.reports.find({}).sort([("date", -1)]).limit(1)
+			last_date = last_report[0]['date']
+			db.crawlers.update_one({"addressPage":spider_name}, {'$set': {'dateLastCrawler': last_date}})
+			print('update last date ok',last_date)
+		except Exception as e:
+			print('ERROR')
+			print(e)
+			
 	spider_counters[spider_name] = 0
 
 # @crawler.route('/schedule/cafef', methods=['POST'])

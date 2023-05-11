@@ -37,6 +37,6 @@ require('./historygeneratetag.model')
 require('./taghistory.model')
 require('./historyclassification.model')
 require('./configcrawlerpdf.model')
-
+require('./reports.model')
 
 

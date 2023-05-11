@@ -401,7 +401,7 @@
                 <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
               </svg> Crawl
             </button>
-            <button v-on:click="showModalEdit('cafefpdf','cafefPDF','http://s.cafef.vn/phan-tich-bao-cao.chn')" class="btn btn-warning mt-2 mr-2">
+            <button v-on:click="showModalEdit('cafefpdf','cafefpdf','http://s.cafef.vn/phan-tich-bao-cao.chn')" class="btn btn-warning mt-2 mr-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
               </svg> Edit
@@ -411,6 +411,7 @@
       </div>
     </div>
     <!-- modal Website  -->
+    
     <modal name="modal-edit-page-website" class="test" height="271px" width="500px" styles="overflow: initial">
       <div style="max-width: 700px !important;" class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -624,20 +625,10 @@
                         <button type="button" onclick="useQueryDefault()" class="btn btn-info">Default</button>
                       </div>
                     </div>
-                    <div class="tab-content" id="v-pills-tabContent">
+                    
+                    <div class="tab-content" id="v-pills-tabContent" v-if="this.type=='post'">
                       <div class="tab-pane fade show active" id="query-en" role="tabpanel" aria-labelledby="query-en-tab">
                         <form>
-                          <!-- <label for="basic-url">Go to page</label>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">URL</span>
-                                </div>
-                                <input v-model="UrlQueryEN" type="text" class="form-control" id="query-url-en" aria-describedby="basic-addon3" />
-                              </div>
-                            </div>
-                          </div> -->
                           <label for="basic-url">Paging navigate & crawl data</label>
                           <div class="row">
                             <div class="col-md-12">
@@ -650,7 +641,7 @@
                             </div>
                           </div>
                           <label for="basic-url">Get data</label>
-                          <div class="row">
+                          <div class="row" >
                             <div class="col-md-12">
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
@@ -703,265 +694,14 @@
                             </div>
                           </div>
                           
+                          
                         </form>
                       </div>
                     
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button v-on:click="saveEditCrawlPage()" id="btn-save-edit" class="btn btn-success float-left">
-              <svg style="display:none" id="edit-icon-loadding" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
-                <line x1="12" y1="2" x2="12" y2="6" />
-                <line x1="12" y1="18" x2="12" y2="22" />
-                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
-                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
-                <line x1="2" y1="12" x2="6" y2="12" />
-                <line x1="18" y1="12" x2="22" y2="12" />
-                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
-                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
-              </svg>
-              <svg id="edit-icon-crawl" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
-                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-              </svg> Save
-            </button>
-            <button class="btn" data-dismiss="modal">
-              <i class="flaticon-delete-1"></i> Discard
-            </button>
-          </div>
-        </div>
-      </div>
-    </modal>
-    <modal name="modal-edit-page-website-pdf" class="test" height="271px" width="500px" styles="overflow: initial">
-      <div style="max-width: 700px !important;" class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <svg v-on:click="closeModalEdit()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="modal">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-            <div class="compose-box">
-              <div class="compose-content">
-                <div class="row mb-4">
-                  <div class="col-md-12">
-                    <h5 style="font-weight: bold;color: #4361ee !important;" class="modal-title text-center">
-                      Edit Page
-                      Crawl
-                    </h5>
-                  </div>
-                </div>
-                <ul class="nav nav-tabs mb-3 mt-3" id="simpletab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Simple</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Advanced</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="query-tab" data-toggle="tab" href="#query" role="tab" aria-controls="query" aria-selected="false">Query</a>
-                  </li>
-                </ul>
-                <div class="tab-content" id="simpletabContent">
-                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <form>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="d-flex mb-4 mail-to">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-type">
-                              <polyline points="4 7 4 4 20 4 20 7" />
-                              <line x1="9" y1="20" x2="15" y2="20" />
-                              <line x1="12" y1="4" x2="12" y2="20" />
-                            </svg>
-                            <div style="display: none;" class="w-100">
-                              <input disabled type="text" id="address-page-crawl" class="form-control" />
-                              <span class="validation-text"></span>
-                            </div>
-                            <div class="w-100">
-                              <input disabled type="text" id="edit-name-page" :placeholder="nameModel" class="form-control" />
-                              <span class="validation-text"></span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex mb-4 mail-subject">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                          <polyline points="9 22 9 12 15 12 15 22" />
-                        </svg>
-                        <div class="w-100">
-                          <input disabled type="text" id="edit-url-page" :placeholder="'https://' + urlModel" class="form-control" />
-                          <span class="validation-text"></span>
-                        </div>
-                      </div>
-                      <div style="text-align: left;" class="d-flex mail-subject">
-                        <div class="box-switch">
-                          <label class="switch s-icons s-outline s-outline-primary">
-                            <input v-on:click="validated =! validated" :checked="validated" class="input-edit-address" id="edit-check-time" type="checkbox" />
-                            <span class="slider round">
-                              <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Schedule Crawl</p>
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                      <div class="d-flex mail-subject">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
-                          <circle cx="12" cy="12" r="10" />
-                          <polyline points="12 6 12 12 16 14" />
-                        </svg>
-                        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search align-self-center pl-0">
-                          <button :disabled="!validated" data-toggle="modal" id="btn-create-schedule" data-target="#scheduleModal" type="button" class="btn btn-primary">Schedule Crawl</button>
-                        </div>
-                      </div>
-                      <small style="text-align: left;margin-left: 36px;" id="emailHelp1" class="form-text text-muted mb-4">
-                        Select time
-                        for schedule
-                      </small>
-                      <div>
-                        <div style="text-align: left;" class="box-switch">
-                          <label class="switch s-icons s-outline s-outline-primary">
-                            <input class="input-edit-address" id="edit-check-display" type="checkbox" />
-                            <span class="slider round">
-                              <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Public Post</p>
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <form>
-                      <div class="d-flex">
-                        <div style="width: 50%;">
-                          <div style="text-align: left;" class="box-switch">
-                            <label class="switch s-icons s-outline s-outline-primary">
-                              <input :checked="validatedCokkies" v-on:click="validatedCokkies =! validatedCokkies" class="input-edit-address" id="edit-cookies-page" type="checkbox" />
-                              <span class="slider round">
-                                <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Allow Cookies</p>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                        <div style="width: 50%;">
-                          <div style="text-align: left;" class="box-switch">
-                            <label class="switch s-icons s-outline s-outline-primary">
-                              <input :checked="modeRobotsParser" class="input-edit-address" id="edit-robot-txt-page" type="checkbox" />
-                              <span class="slider round">
-                                <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Follow robots.txt file</p>
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex mail-subject mb-3">
-                        <svg style="margin-bottom: 20px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
-                          <circle cx="12" cy="12" r="10" />
-                          <polyline points="12 6 12 12 16 14" />
-                        </svg>
-                        <div class="d-flex">
-                          <div>
-                            <div>
-                              <input v-model="timeOutCrawl" type="number" placeholder id="timeout-page" class="form-control" />
-                              <span class="validation-text"></span>
-                            </div>
-                            <small class="form-text text-muted">Setting timeout</small>
-                          </div>
-                          <div style="padding: 0px 10px;">
-                            <div>
-                              <input v-model="timeRetryCrawl" type="number" placeholder id="time-retry-page" class="form-control" />
-                              <span class="validation-text"></span>
-                            </div>
-                            <small class="form-text text-muted">Setting time retry</small>
-                          </div>
-                          <div>
-                            <div>
-                              <input v-model="timeDelayCrawl" type="number" id="time-delay-page" placeholder class="form-control" />
-                              <span class="validation-text"></span>
-                            </div>
-                            <small class="form-text text-muted">Setting time delay</small>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex mail-subject mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                        <div style="width: 100%;">
-                          <input v-model="userAgent" type="text" id="edit-user-agent-page" placeholder="User-Agent" class="form-control" />
-                          <span class="validation-text"></span>
-                        </div>
-                      </div>
-                      <div class="d-flex mail-subject mb-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-aperture">
-                          <circle cx="12" cy="12" r="10" />
-                          <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
-                          <line x1="9.69" y1="8" x2="21.17" y2="8" />
-                          <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
-                          <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
-                          <line x1="14.31" y1="16" x2="2.83" y2="16" />
-                          <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
-                        </svg>
-                        <div style="width: 100%;">
-                          <input v-model="cookies" :disabled="!validatedCokkies" type="text" id="edit-input-cookie-page" placeholder="Cookies" class="form-control" />
-                          <span class="validation-text"></span>
-                        </div>
-                      </div>
-                      <div class="table-responsive table-list-key">
-                        <table class="table table-bordered mb-4">
-                          <thead>
-                            <tr>
-                              <th style="width: 40%;">Header</th>
-                              <th style="width: 40%;">Value</th>
-                              <th style="text-align: center;width: 20%;">
-                                <button type="button" v-on:click="addRowTableHttpHeader()" style="height:25px;padding: 0px 10px;margin: 0px;" class="btn btn-outline-success">Add</button>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody class="tbody-http-header">
-                            <tr v-for="(results,index) of httpHeader" :key="results.id">
-                              <td>
-                                <input v-model="results.header" type="text" class="form-control row-key" />
-                              </td>
-                              <td>
-                                <input v-model="results.value" type="text" class="form-control row-value" />
-                              </td>
-                              <td class="box-remove-row" style="text-align: center;">
-                                <svg v-on:click="removeRowTableHttpHeader(index)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete-multiple remove-row-table-header">
-                                  <polyline points="3 6 5 6 21 6" />
-                                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                  <line x1="10" y1="11" x2="10" y2="17" />
-                                  <line x1="14" y1="11" x2="14" y2="17" />
-                                </svg>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="tab-pane fade" id="query" role="tabpanel" aria-labelledby="query-tab">
-                    <div class="d-flex" style="justify-content: space-between;">
-                      <div >
-                        <button type="button" onclick="useQueryDefault()" class="btn btn-info">Default</button>
-                      </div>
-                    </div>
-                    <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-content" id="v-pills-tabContent" v-else>
                       <div class="tab-pane fade show active" id="query-en" role="tabpanel" aria-labelledby="query-en-tab">
                         <form>
-                          <!-- <label for="basic-url">Go to page</label>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">URL</span>
-                                </div>
-                                <input v-model="UrlQueryEN" type="text" class="form-control" id="query-url-en" aria-describedby="basic-addon3" />
-                              </div>
-                            </div>
-                          </div> -->
                           <label for="basic-url">Paging navigate & crawl data</label>
                           <div class="row">
                             <div class="col-md-12">
@@ -971,10 +711,16 @@
                                 </div>
                                 <input v-model="article_url_query" type="text" class="form-control" id="article-url-en" aria-describedby="basic-addon3" />
                               </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Article URL-1</span>
+                                </div>
+                                <input v-model="article_url_query1" type="text" class="form-control" id="article-url-en" aria-describedby="basic-addon3" />
+                              </div>s
                             </div>
                           </div>
                           <label for="basic-url">Get data</label>
-                          <div class="row">
+                          <div class="row" >
                             <div class="col-md-12">
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
@@ -996,36 +742,26 @@
                               </div>
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Category</span>
+                                  <span class="input-group-text" id="basic-addon7">Source</span>
                                 </div>
-                                <input v-model="category_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                                <input v-model="source" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
                               </div>
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Author</span>
+                                  <span class="input-group-text" id="basic-addon7">Stock Code</span>
                                 </div>
-                                <input v-model="author_query" type="text" class="form-control" id="des-article-en" aria-describedby="basic-addon3" />
+                                <input v-model="number_CK" type="text" class="form-control" id="des-article-en" aria-describedby="basic-addon3" />
                               </div>
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Sum Description</span>
+                                  <span class="input-group-text" id="basic-addon7">ID PDF</span>
                                 </div>
-                                <input v-model="content_title_query" type="text" class="form-control" id="image-article-en" aria-describedby="basic-addon3" />
+                                <input v-model="id_pdf" type="text" class="form-control" id="image-article-en" aria-describedby="basic-addon3" />
                               </div>
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Detail Description</span>
-                                </div>
-                                <input v-model="content_des_query" type="text" class="form-control" id="date-article-en" aria-describedby="basic-addon3" />
-                              </div>
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text" id="basic-addon7">Image</span>
-                                </div>
-                                <input v-model="image_url_query" type="text" class="form-control" id="content-article-en" aria-describedby="basic-addon3" />
-                              </div>
+                              
                             </div>
                           </div>
+                          
                           
                         </form>
                       </div>
@@ -1037,7 +773,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button v-on:click="saveEditCrawlPage()" id="btn-save-edit" class="btn btn-success float-left">
+            <button  v-on:click="saveEditCrawl()" id="btn-save-edit" class="btn btn-success float-left">
               <svg style="display:none" id="edit-icon-loadding" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
                 <line x1="12" y1="2" x2="12" y2="6" />
                 <line x1="12" y1="18" x2="12" y2="22" />
@@ -1094,6 +830,7 @@ export default {
       sumPostSkip: [],
       LastDateCrawler: [],
       arrDataConfig: [],
+      arrDataConfigPDF : [],
 
       //Edit model
       urlModel: null,
@@ -1113,6 +850,7 @@ export default {
 
       number_page_query: null,
       article_url_query: null,
+      article_url_query1: null,
       title_query: null,
       timeCreatePostOrigin_query: null,
       category_query: null,
@@ -1120,6 +858,10 @@ export default {
       content_title_query: null,
       content_des_query: null,
       image_url_query:null,
+      type : null,
+      source :null,
+      number_CK :null,
+      id_pdf:null,
 
       
      
@@ -1146,37 +888,77 @@ export default {
       this.validated = true;
       this.urlModel = urlModel;
       this.nameModel = nameModel;
-      for (let index = 0; index < this.arrDataConfig.length; index++) {
-        if (this.arrDataConfig[index].namePage === address) {
-          let results = this.arrDataConfig[index];
-          this.namePage = results.namePage;
-          this.showModalSchedule();
-          this.titlePage = results.titlePage;
-          this.urlPage = results.urlPage;
-          this.modePublic = results.modePublic;
-          this.modeRobotsParser = results.modeRobotsParser;
-          this.timeOutCrawl = results.timeOutCrawl;
-          this.timeRetryCrawl = results.timeRetryCrawl;
-          this.timeDelayCrawl = results.timeDelayCrawl;
-          this.userAgent = results.userAgent;
-          this.cookies = results.cookies;
+      console.log(address)
 
-          this.httpHeader = results.httpHeader;
+      if (address =='cafefpdf'){
+        this.type = "pdf"
+        console.log('ok')
+        console.log(this.arrDataConfigPDF)
+        for (let index = 0; index < this.arrDataConfigPDF.length; index++) {
 
-          this.number_page_query = results.number_page_query
-          this.article_url_query = results.article_url_query;
-          this.title_query = results.title_query;
-          this.timeCreatePostOrigin_query = results.timeCreatePostOrigin_query;
-          this.category_query = results.category_query;
-          this.author_query = results.author_query;
-          this.content_title_query = results.content_title_query;
-          this.content_des_query = results.content_des_query;
-          this.image_url_query = results.image_url_query;
-          
+          if (this.arrDataConfigPDF[index].namePage === address) {
+
+            let results = this.arrDataConfigPDF[index];
+            this.namePage = results.namePage;
+            this.showModalSchedule();
+            this.titlePage = results.titlePage;
+            this.urlPage = results.urlPage;
+            this.modePublic = results.modePublic;
+            this.modeRobotsParser = results.modeRobotsParser;
+            this.timeOutCrawl = results.timeOutCrawl;
+            this.timeRetryCrawl = results.timeRetryCrawl;
+            this.timeDelayCrawl = results.timeDelayCrawl;
+            this.userAgent = results.userAgent;
+            this.cookies = results.cookies;
+
+            this.httpHeader = results.httpHeader;
+
+            this.number_page_query = results.number_page_query
+            this.article_url_query = results.article_url_query;
+            this.article_url_query1 = results.article_url_query1;
+            this.title_query = results.title_query;
+            this.timeCreatePostOrigin_query = results.timeCreatePostOrigin_query;
+            this.source = results.source
+            this.number_CK =results.number_CK
+            this.id_pdf =results.id_pdf
 
         }
       }
+      }
+      else{
+        this.type = "post"
+        for (let index = 0; index < this.arrDataConfig.length; index++) {
+          if (this.arrDataConfig[index].namePage === address) {
+            let results = this.arrDataConfig[index];
+            this.namePage = results.namePage;
+            this.showModalSchedule();
+            this.titlePage = results.titlePage;
+            this.urlPage = results.urlPage;
+            this.modePublic = results.modePublic;
+            this.modeRobotsParser = results.modeRobotsParser;
+            this.timeOutCrawl = results.timeOutCrawl;
+            this.timeRetryCrawl = results.timeRetryCrawl;
+            this.timeDelayCrawl = results.timeDelayCrawl;
+            this.userAgent = results.userAgent;
+            this.cookies = results.cookies;
+
+            this.httpHeader = results.httpHeader;
+
+            this.number_page_query = results.number_page_query
+            this.article_url_query = results.article_url_query;
+            this.title_query = results.title_query;
+            this.timeCreatePostOrigin_query = results.timeCreatePostOrigin_query;
+            this.category_query = results.category_query;
+            this.author_query = results.author_query;
+            this.content_title_query = results.content_title_query;
+            this.content_des_query = results.content_des_query;
+            this.image_url_query = results.image_url_query;
+        }
+      }
+      }
       this.$modal.show("modal-edit-page-website");
+      console.log(this.type)
+      
     },
     addRowTableHttpHeader() {
       let newHttpHeader = {
@@ -1237,10 +1019,16 @@ export default {
       if (address === "cafebiz") this.crawpageCafebiz(address);
       if (address === "baodautu") this.crawPageBaodautu(address);
       if (address === "vneconomy") this.crawPageVneconomy(address);
-      if (address === "cafefpdf") this.crawPageVneconomy(address);
+      if (address === "cafefpdf") this.crawPageCafefpdf(address);
     },
     crawPageCafef(address) {
       HTTP.post(`crawpage-cafef`).then(() => {
+        this.getAllData();
+        $("#btn-crawl-" + address).prop("disabled", false);
+      });
+    },
+    crawPageCafefpdf(address) {
+      HTTP.post(`/crawpage-cafefpdf`).then(() => {
         this.getAllData();
         $("#btn-crawl-" + address).prop("disabled", false);
       });
@@ -1266,6 +1054,14 @@ export default {
     getAllData() {
       this.getCrawler();
       // this.getDataAllKeywordCrawl();
+    },
+    saveEditCrawl(){
+      console.log(this.number_page_query)
+      if (this.type =='post'){
+        this.saveEditCrawlPage()
+      }else{
+        this.saveEditCrawlPagePDF()
+      }
     },
     saveEditCrawlPage() {
       // let ArticleEN = this.removeElementArticleEN.split(",");
@@ -1308,6 +1104,42 @@ export default {
           },
         });
         this.getAllDataConfig();
+      });
+    },
+    saveEditCrawlPagePDF() {
+      let objDataEdit = {};
+      objDataEdit.titlePage = this.nameModel;
+      objDataEdit.modeSchedule = !this.validated;
+      objDataEdit.timeSchedule = this.tableScheduleHasTick();
+      objDataEdit.modePublic = this.modePublic;
+      objDataEdit.modeCookies = this.validatedCokkies;
+      objDataEdit.modeRobotsParser = this.modeRobotsParser;
+      objDataEdit.timeOutCrawl = this.timeOutCrawl;
+      objDataEdit.timeRetryCrawl = this.timeRetryCrawl;
+      objDataEdit.timeDelayCrawl = this.timeDelayCrawl;
+      objDataEdit.userAgent = this.userAgent;
+      objDataEdit.cookies = this.cookies;
+      objDataEdit.httpHeader = this.httpHeader;
+      objDataEdit.number_page_query = this.number_page_query;
+      objDataEdit.article_url_query = this.article_url_query;
+      objDataEdit.title_query = this.title_query;
+      objDataEdit.timeCreatePostOrigin_query = this.timeCreatePostOrigin_query;
+      objDataEdit.source = this.source;
+      objDataEdit.number_CK = this.number_CK;
+      objDataEdit.id_pdf = this.id_pdf;
+      HTTP.post(`save-edit-crawl-pdf`, {objDataEdit}).then((response) => {
+        new Snackbar(`Saved succesfully`, {
+          position: "bottom-right",
+          theme: "light",
+          style: {
+            container: [
+              ["background-color", "#1abc9c"],
+              ["border-radius", "5px"],
+            ],
+            message: [["color", "#fff"]],
+          },
+        });
+        this.getAllDataConfigPDF();
       });
     },
     tableScheduleHasTick() {
@@ -1358,12 +1190,18 @@ export default {
         this.arrDataConfig = response.data;
       });
     },
+    getAllDataConfigPDF(){
+      HTTP.get(`get-data-edit-pdf`).then((response) => {
+        this.arrDataConfigPDF = response.data;
+      });
+    },
     getCrawler() {
       let arrayeleAddress = [
         "cafef",
         "cafebiz",
         "baodautu",
         "vneconomy",
+        'cafefpdf',
       ];
       HTTP.get(`crawler-information`, {
         params: {
@@ -1483,7 +1321,7 @@ export default {
               }
             }
           }
-          if (this.posts[i].addressPage === "cafefPDF") {
+          if (this.posts[i].addressPage === "cafefpdf") {
             this.sumPost[4] = this.posts[i].sumPost;
             this.increasedPost[4] = this.posts[i].increasePost;
             this.sumPostBlock[4] = this.posts[i].sumPostBlock;
@@ -1516,6 +1354,7 @@ export default {
   },
   mounted() {
     this.getAllDataConfig();
+    this.getAllDataConfigPDF()
     this.getCrawler();
   },
 };
