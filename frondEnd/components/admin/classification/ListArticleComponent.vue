@@ -147,7 +147,7 @@
               <div class="box-element-tag align-self-center" style="width: 48%;">
                 <div class="product-name" v-on:click="getArticleSelectPopup(result.content_html)">
                   <div style="align-self: center;">
-                    <img style="width:30px;height:30px;box-shadow: none;margin-right: 10px;margin-right: 10px;" class="img--contain image-en" src="~/static/assetsAdmin/img/gbr.png" alt="img" />
+                    <img style="width:30px;height:30px;box-shadow: none;margin-right: 10px;margin-right: 10px;" class="img--contain image-en" src="~/static/assetsAdmin/img/new.png" alt="img" />
                   </div>
                   <div class="align-self-center title-article">
                     <p class="prd-name" :id="'name-'+ result._id" :title="result.title">{{result.title}}</p>

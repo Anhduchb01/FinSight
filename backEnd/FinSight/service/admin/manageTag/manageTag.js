@@ -19,11 +19,8 @@ async function getListGenerateHistory() {
     let array = []
     for (let i = 0; i < data.length; i++) {
         let model_id = data[i].model_id
-        let lang
-        if (model_id === 'Library (English)') { lang = await Model.find({ name: 'Library (English)' }) }
-        else if (model_id === 'Library (Japanese)') { lang = await Model.find({ name: 'Library (Japanese)' }) }
-        else if (model_id === 'defaultEN') { lang = await Model.find({ name: 'AI NER Base (English)' }) }
-        else if (model_id === 'defaultJP') { lang = await Model.find({ name: 'AI NER Base (Japanese)' }) }
+        if (model_id === 'Library') { lang = await Model.find({ name: 'Library' }) }
+        else if (model_id === 'default') { lang = await Model.find({ name: 'AI NER Base' }) }
         else { lang = await Model.find({ _id: ObjectID(model_id) }) }
 
         let obj = { model_id: data[i].model_id, lang: lang[0].language, time: data[i].time, name: lang[0].name ,isPlayGround:lang[0].isPlayGround}
@@ -36,7 +33,7 @@ async function getListTagHistory(idModel, time, charSelectFilter) {
     let data
     idModel = String(idModel)
     time = String(time)
-    if (idModel === 'Library (English)' || idModel === 'Library (Japanese)' || idModel === 'defaultEN' || idModel === 'defaultJP') {
+    if (idModel === 'Library' || idModel === 'default' ) {
         data = await TagHistory.find({ 'model_id': idModel, 'name': { '$regex': '^' + charSelectFilter, '$options': 'i' } })
     }
     else data = await TagHistory.find({ 'model_id': idModel, time: time, 'name': { '$regex': '^' + charSelectFilter, '$options': 'i' } })
