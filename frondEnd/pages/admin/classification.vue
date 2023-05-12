@@ -5,10 +5,10 @@
         <Models :listModelBaseOrigin="listModelBaseOrigin" :listModelCreateOrigin="listModelCreateOrigin" />
       </div>
       <div class="col-xl-7 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing" style="padding-bottom: 30px;">
-        <TotalArticles :results="results" :valueNews="valueNews" :valueEvent="valueEvent" :valuePublications="valuePublications" :valueOther="valueOther" :valueEmpty="valueEmpty" :error="error" :totalPost="totalPost" :totalArticleVerify="totalArticleVerify" />
+        <TotalArticles :results="results" :valuePOS="valuePOS" :valueNEG="valueNEG" :valueNEU="valueNEU" :valueEmpty="valueEmpty" :error="error" :totalPost="totalPost" :totalArticleVerify="totalArticleVerify" />
       </div>
     </div>
-    <ListArticle :listModelBaseOrigin="listModelBaseOrigin" :listModelCreateOrigin="listModelCreateOrigin" :results="results" :valueNews="valueNews" :valueEvent="valueEvent" :valuePublications="valuePublications" :valueOther="valueOther" :valueEmpty="valueEmpty" :error="error" :totalPost="totalPost" :totalArticleVerify="totalArticleVerify" />
+    <ListArticle :listModelBaseOrigin="listModelBaseOrigin" :listModelCreateOrigin="listModelCreateOrigin" :results="results" :valuePOS="valuePOS" :valueNEG="valueNEG" :valueNEU="valueNEU"  :valueEmpty="valueEmpty" :error="error" :totalPost="totalPost" :totalArticleVerify="totalArticleVerify" />
 
     <div class="modal fade" id="modal-create-model" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -221,10 +221,9 @@ export default {
       listModelBaseOrigin: [],
       listModelCreateOrigin: [],
       results: [],
-      valueNews: 0,
-      valueEvent: 0,
-      valuePublications: 0,
-      valueOther: 0,
+      valuePOS: 0,
+      valueNEG: 0,
+      valueNEU: 0,
       valueEmpty: 0,
       error: 0,
       totalPost: 0,
@@ -238,18 +237,16 @@ export default {
           this.results = response.data;
           for (let i = 0; i < this.results.length; i++) {
             if (this.results[i].value) {
-              if (this.results[i].to == "News") {
-                this.valueNews += this.results[i].value;
+              if (this.results[i].to == "Positive") {
+                this.valuePOS += this.results[i].value;
               }
-              if (this.results[i].to == "Event") {
-                this.valueEvent += this.results[i].value;
+              if (this.results[i].to == "Negative") {
+                this.valueNEG += this.results[i].value;
               }
-              if (this.results[i].to == "Publications") {
-                this.valuePublications += this.results[i].value;
+              if (this.results[i].to == "Neutral") {
+                this.valueNEU += this.results[i].value;
               }
-              if (this.results[i].to == "Other") {
-                this.valueOther += this.results[i].value;
-              }
+ 
               if (this.results[i].to == "Un-process") {
                 this.valueEmpty += this.results[i].value;
               }
@@ -259,16 +256,15 @@ export default {
             }
           }
           this.totalPost =
-            this.valueNews +
-            this.valueEvent +
-            this.valuePublications +
-            this.valueOther +
+            this.valuePOS +
+            this.valueNEG +
+            this.valueNEU
+
             this.valueEmpty;
           this.totalArticleVerify =
-            this.valueNews +
-            this.valueEvent +
-            this.valuePublications +
-            this.valueOther;
+            this.valuePOS +
+            this.valueNEG +
+            this.valueNEU
           if (this.valueEmpty === 0) {
             for (let i = 0; i < this.results.length; i++) {
               if (this.results[i].to === "Un-process")
@@ -282,6 +278,13 @@ export default {
     },
   },
   mounted() {
+     HTTP.post(`models/classification/create-model-default?sourceModel=classification`)
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     HTTP.get(`models/classification/get-list-model?sourceModel=classification`)
       .then((response) => {
         this.listModelBaseOrigin = response.data[0];  
@@ -290,6 +293,7 @@ export default {
       .catch((e) => {
         this.errors.push(e);
       });
+   
     this.drawChartFlow();
   },
 };

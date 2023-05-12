@@ -13,8 +13,7 @@ router.get("/admin/classification", (req, res) => {
 
 router.get("/classification/get-article", async (req, res) => {
     let number = req.query.page || 1
-    let language = req.query.language
-    let data = await getListArticle(number,language)
+    let data = await getListArticle(number)
     res.send(data)
 })
 router.get("/classification/data-flow-chart", async (req, res) => {
@@ -83,13 +82,13 @@ router.put("/models/classification/update-model/:id", async (req, res) => {
 })
 
 router.get('/classification/get-percent-article-verify', async (req, res) => {
-    let data = await getPercentArticleVerify(req.query.pointVerify,req.query.language)
+    let data = await getPercentArticleVerify(req.query.pointVerify)
     res.send(data)
 
 })
 
 router.get("/classification/save-percent-article-verify", async (req, res) => {
-    let data = await savePercentArticleVerify(req.query.pointVerify,req.query.language)
+    let data = await savePercentArticleVerify(req.query.pointVerify)
     res.send('finish')
 })
 

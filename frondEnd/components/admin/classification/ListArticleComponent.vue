@@ -35,10 +35,9 @@
               <div class="mt-2 mb-2">
                 <p style="margin: 0px;font-size: 12px;">Total Articles</p>
                 <div class="progress progress-sm progress-bar-stack m-0" style="border-radius: 30px;" id="human-active">
-                  <div class="bg-success" id="perTotal1" role="progressbar" :title="valueNews" :style="'width:'+ (valueNews / totalPost * 100) +'%; transition: 1.5s;'" style="width: 0; transition: 1.5s;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-primary" id="orgTotal1" role="progressbar" :title="valueEvent" :style="'width:'+ (valueEvent / totalPost * 100) +'%; transition: 1.5s;'" style="width: 0; transition: 1.5s;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-info" id="locTotal1" role="progressbar" :title="valuePublications" :style="'width:'+ (valuePublications / totalPost * 100) +'%; transition: 1.5s;'" style="width: 0; transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-secondary" id="miscTotal1" role="progressbar" :title="valueOther" :style="'width:'+ (valueOther / totalPost * 100) +'%; transition: 1.5s;'" style="width: 0; transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-success" id="perTotal1" role="progressbar" :title="valuePOS" :style="'width:'+ (valuePOS / totalPost * 100) +'%; transition: 1.5s;'" style="width: 0; transition: 1.5s;background-color: #38C477 !important" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-primary" id="orgTotal1" role="progressbar" :title="valueNEG" :style="'width:'+ (valueNEG / totalPost * 100) +'%; transition: 1.5s;'" style="width: 0; transition: 1.5s;background-color: #F2543D!important" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-info" id="locTotal1" role="progressbar" :title="valueNEU" :style="'width:'+ (valueNEU / totalPost * 100) +'%; transition: 1.5s;'" style="width: 0; transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                   <div class="bg-dark" id="emptyTotal1" role="progressbar" :title="valueEmpty" :style="'width:'+ (valueEmpty / totalPost * 100) +'%; transition: 1.5s;'" style="width: 0; transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                   <div class="bg-pending" id="pendingTotal" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
@@ -80,10 +79,9 @@
               <div class="mt-2 mb-2">
                 <p style="margin: 0px;font-size: 12px;">Number Of Article</p>
                 <div class="progress progress-sm progress-bar-stack m-0" style="border-radius: 30px;" id="human-active">
-                  <div class="bg-success" id="newsTotalOne" role="progressbar" :title="valueNews1" :style="'width:'+ valueNews1Progressbar +'%;'" style="transition: 1.5s;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-primary" id="eventTotalOne" role="progressbar" :title="valueEvent1" :style="'width:'+ valueEvent1Progressbar +'%; transition: 1.5s;'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-info" id="publicationsTotalOne" role="progressbar" :title="valuePublications1" :style="'width:'+ valuePublications1Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-secondary" id="otherTotalOne" role="progressbar" :title="valueOther1" :style="'width:'+ valueOther1Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-success bg-positive" id="newsTotalOne" role="progressbar" :title="valuePOS1" :style="'width:'+ valuePOS1Progressbar +'%;'" style="transition: 1.5s;background-color: #38C477 !important" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-primary bg-negative" id="eventTotalOne" role="progressbar" :title="valueNEG1" :style="'width:'+ valueNEG1Progressbar +'%; transition: 1.5s;background-color: #F2543D!important'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-info bg-neutral" id="publicationsTotalOne" role="progressbar" :title="valueNEU1" :style="'width:'+ valueNEU1Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -117,9 +115,9 @@
               <div class="mt-2 mb-2">
                 <p style="margin: 0px;font-size: 12px;">Number Of Article</p>
                 <div class="progress progress-sm progress-bar-stack m-0" style="border-radius: 30px;" id="human-active">
-                  <div class="bg-success" id="newsTotalOne" role="progressbar" :title="valueNews2" :style="'width:'+valueNews2Progressbar +'%; transition: 1.5s;'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-primary" id="eventTotalOne" role="progressbar" :title="valueEvent2" :style="'width:'+ valueEvent2Progressbar +'%; transition: 1.5s;'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-info" id="publicationsTotalOne" role="progressbar" :title="valuePublications2" :style="'width:'+ valuePublications2Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-success bg-positive" id="newsTotalOne" role="progressbar" :title="valueNews2" :style="'width:'+valueNews2Progressbar +'%; transition: 1.5s;background-color: #38C477 !important !important'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-primary bg-negative" id="eventTotalOne" role="progressbar" :title="valueEvent2" :style="'width:'+ valueEvent2Progressbar +'%; transition: 1.5s;background-color: #F2543D!important'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-info bg-neutral" id="publicationsTotalOne" role="progressbar" :title="valuePublications2" :style="'width:'+ valuePublications2Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                   <div class="bg-secondary" id="otherTotalOne" role="progressbar" :title="valueOther2" :style="'width:'+ valueOther2Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
@@ -147,7 +145,7 @@
             <div v-for="(result,index) of result" :key="'a'+result._id" class="d-flex" style="height: 100px">
               <div class="border-item-tag"></div>
               <div class="box-element-tag align-self-center" style="width: 48%;">
-                <div class="product-name" v-on:click="getArticleSelectPopup(result.contenthtml)">
+                <div class="product-name" v-on:click="getArticleSelectPopup(result.content_html)">
                   <div style="align-self: center;">
                     <img style="width:30px;height:30px;box-shadow: none;margin-right: 10px;margin-right: 10px;" class="img--contain image-en" src="~/static/assetsAdmin/img/gbr.png" alt="img" />
                   </div>
@@ -158,36 +156,34 @@
                 </div>
               </div>
               <div class="box-element-tag align-self-center" style="width: 17%;">
-                <select v-if="result.category =='news'" :style="myStyle" v-model="result.category" style="color: #1abc9c!important" class="placeholder js-states form-control m-0 select-category-article text-select-category text-success" :id="'type-tag-selected-'+ (index+1)">
-                  <option style="color: #1abc9c" value="news">News</option>
-                  <option style="color: #4361ee" value="event">Event</option>
-                  <option style="color: #2196f3" value="publications">Publications</option>
-                  <option style="color: #805dca" value="other">Other</option>
+                <select v-if="result.category =='POS'"  v-model="result.category" style="color:#38C477!important" class="placeholder js-states form-control m-0 select-category-article text-select-category" :id="'type-tag-selected-'+ (index+1)">
+                  <option selected style="color: #38C477" value="POS">Positive</option>
+                  <option style="color: #F2543D" value="NEG">Negative</option>
+                  <option style="color: #696969" value="NEU">Neutral</option>
                 </select>
-                <select v-else-if="result.category =='event'" :style="myStyle" v-model="result.category" style="color: #4361ee!important" class="placeholder js-states form-control m-0 select-category-article text-select-category text-primary" :id="'type-tag-selected-'+ (index+1)">
-                  <option style="color: #1abc9c" value="news">News</option>
-                  <option selected style="color: #4361ee" value="event">Event</option>
-                  <option style="color: #2196f3" value="publications">Publications</option>
-                  <option style="color: #805dca" value="other">Other</option>
+                <select v-else-if="result.category =='NEG'"  v-model="result.category" style="color:#F2543D !important" class="placeholder js-states form-control m-0 select-category-article text-select-category" :id="'type-tag-selected-'+ (index+1)">
+                  <option  style="color: #38C477" value="POS">Positive</option>
+                  <option selected style="color: #F2543D" value="NEG">Negative</option>
+                  <option style="color: #696969" value="NEU">Neutral</option>
                 </select>
-                <select v-else-if="result.category =='publications'" :style="myStyle" v-model="result.category" style="color: #color!important" class="placeholder js-states form-control m-0 select-category-article text-select-category text-info" :id="'type-tag-selected-'+ (index+1)">
-                  <option style="color: #1abc9c" value="news">News</option>
-                  <option style="color: #4361ee" value="event">Event</option>
-                  <option selected style="color: #2196f3" value="publications">Publications</option>
-                  <option style="color: #805dca" value="other">Other</option>
+                <select v-else-if="result.category =='NEU'"  v-model="result.category" style="color:#696969!important" class="placeholder js-states form-control m-0 select-category-article text-select-category" :id="'type-tag-selected-'+ (index+1)">
+                  <option  style="color: #38C477" value="POS">Positive</option>
+                  <option  style="color: #F2543D" value="NEG">Negative</option>
+                  <option selected style="color: #696969" value="NEU">Neutral</option>
                 </select>
-                <select v-else :style="myStyle" v-model="result.category" style="color: #805dca!important" class="placeholder js-states form-control m-0 select-category-article text-select-category text-secondary" :id="'type-tag-selected-'+ (index+1)">
+                <!-- <select v-else :style="myStyle" v-model="result.category" style="color: #805dca!important" class="placeholder js-states form-control m-0 select-category-article text-select-category text-secondary" :id="'type-tag-selected-'+ (index+1)">
                   <option style="color: #1abc9c !important" value="news">News</option>
                   <option style="color: #4361ee !important" value="event">Event</option>
                   <option style="color: #2196f3 !important" value="publications">Publications</option>
                   <option selected style="color: #805dca !important" value="other">Other</option>
-                </select>
+                </select> -->
               </div>
               <div class="box-element-tag align-self-center" style="width: 10%;">
-                <span v-if="result.category =='news'" style="color: #1abc9c" :id="'value-score-article-'+result._id" class="discount-pricing pl-0">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
-                <span v-else-if="result.category =='event'" style="color: #4361ee" :id="'value-score-article-'+result._id" :class="'discount-pricing pl-0 ' ">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
-                <span v-else-if="result.category =='publications'" style="color: #2196f3" :id="'value-score-article-'+result._id" :class="'discount-pricing pl-0 ' ">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
-                <span v-else style="color: #805dca !important" :id="'value-score-article-'+result._id" :class="'discount-pricing pl-0 ' ">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
+                
+                <span v-if="result.category =='POS'" style="color: #38C477" :id="'value-score-article-'+result._id" class="discount-pricing pl-0">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
+                <span v-else-if="result.category =='NEG'" style="color: #F2543D" :id="'value-score-article-'+result._id" :class="'discount-pricing pl-0 ' ">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
+                <span v-else-if="result.category =='NEU'" style="color: #696969" :id="'value-score-article-'+result._id" :class="'discount-pricing pl-0 ' ">{{(result.classificationScore[result.category]*100).toFixed(2)}}</span>
+
               </div>
               <div class="box-element-tag align-self-center" style="width: 17%;">
                 <select v-if="result.classificationStatus == 0" v-model="result.classificationStatus" style="color: #1abc9c !important" class="placeholder js-states form-control m-0 select-category-article text-select-category" :id="'status-tag-selected-' +(index +1)">
@@ -219,33 +215,33 @@
           <div class="fistRunArticle box-inline" style="width: 25%;">
             <div v-for="data in datas1" :key="data._id" style="height: 100px;padding: 15px 0px">
               <div id="box-score-news" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
-                <div id="process-score-news" class="progress-bar bg-primary" role="progressbar" :style="'width: '+(data.classificationScore.news * 100).toFixed(0)+'%;transition: 1s;background-color: #79db72 !important;border-color: #79db72;'" aria-valuemin="0" aria-valuemax="100">
+                <div id="process-score-news" class="progress-bar bg-primary" role="progressbar" :style="'width: '+(data.classificationScore.POS * 100).toFixed(0)+'%;transition: 1s;background-color: #38C477 !important;border-color: #38C477;'" aria-valuemin="0" aria-valuemax="100">
                   <div class="progress-title">
-                    <span class="value-show">{{(data.classificationScore.news * 100).toFixed(0)}}%</span>
+                    <span class="value-show">{{(data.classificationScore.POS * 100).toFixed(0)}}%</span>
                   </div>
                 </div>
               </div>
               <div id="box-score-event" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
-                <div id="process-score-event" class="progress-bar bg-primary" role="progressbar" :style="'width:'+(data.classificationScore.event * 100).toFixed(0)+'%;transition: 1s;background-color: #578ef7 !important;border-color: #578ef7;'" aria-valuemin="0" aria-valuemax="100">
+                <div id="process-score-event" class="progress-bar bg-primary" role="progressbar" :style="'width:'+(data.classificationScore.NEG * 100).toFixed(0)+'%;transition: 1s;background-color: #F2543D !important;border-color: #F2543D;'" aria-valuemin="0" aria-valuemax="100">
                   <div class="progress-title">
-                    <span class="value-show">{{(data.classificationScore.event * 100).toFixed(0)}}%</span>
+                    <span class="value-show">{{(data.classificationScore.NEG * 100).toFixed(0)}}%</span>
                   </div>
                 </div>
               </div>
               <div id="box-score-publications" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
-                <div id="process-score-publications" class="progress-bar bg-primary" role="progressbar" :style="'width:'+(data.classificationScore.publications * 100).toFixed(0)+'%;transition: 1s;background-color: #00dde1 !important;border-color: #00dde1;'" aria-valuemin="0" aria-valuemax="100">
+                <div id="process-score-publications" class="progress-bar bg-primary" role="progressbar" :style="'width:'+(data.classificationScore.NEU * 100).toFixed(0)+'%;transition: 1s;background-color: #696969 !important;border-color: #696969;'" aria-valuemin="0" aria-valuemax="100">
                   <div class="progress-title">
-                    <span class="value-show">{{(data.classificationScore.publications * 100).toFixed(0)}}%</span>
+                    <span class="value-show">{{(data.classificationScore.NEU * 100).toFixed(0)}}%</span>
                   </div>
                 </div>
               </div>
-              <div id="box-score-other" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
+              <!-- <div id="box-score-other" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
                 <div id="process-score-other" class="progress-bar bg-primary" role="progressbar" :style="'width: '+(data.classificationScore.other * 100).toFixed(0)+'%;transition: 1s;background-color: #a259cb !important;border-color: #a259cb;'" aria-valuemin="0" aria-valuemax="100">
                   <div class="progress-title">
                     <span class="value-show">{{(data.classificationScore.other * 100).toFixed(0)}}%</span>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="secondRunArticle box-inline" style="width: 25%;">
@@ -367,9 +363,9 @@ export default {
     "listModelBaseOrigin",
     "listModelCreateOrigin",
     "results",
-    "valueNews",
-    "valueEvent",
-    "valuePublications",
+    "valuePOS",
+    "valueNEG",
+    "valueNEU",
     "valueOther",
     "valueEmpty",
     "error",
@@ -384,34 +380,28 @@ export default {
     listModelCreate() {
       return this.listModelCreateOrigin;
     },
-    valueNews1Progressbar() {
-      if (this.valueNews1 != 0) {
-        return (this.valueNews1 / this.totalCategory1) * 100;
+    valuePOS1Progressbar() {
+      if (this.valuePOS1 != 0) {
+        return (this.valuePOS1 / this.totalCategory1) * 100;
       } else {
         return 0;
       }
     },
-    valueEvent1Progressbar() {
-      if (this.valueEvent1 != 0) {
-        return (this.valueEvent1 / this.totalCategory1) * 100;
+    valueNEG1Progressbar() {
+      if (this.valueNEG1 != 0) {
+        return (this.valueNEG1 / this.totalCategory1) * 100;
       } else {
         return 0;
       }
     },
-    valuePublications1Progressbar() {
-      if (this.valuePublications1 != 0) {
-        return (this.valuePublications1 / this.totalCategory1) * 100;
+    valueNEU1Progressbar() {
+      if (this.valueNEU1 != 0) {
+        return (this.valueNEU1 / this.totalCategory1) * 100;
       } else {
         return 0;
       }
     },
-    valueOther1Progressbar() {
-      if (this.valueOther1 != 0) {
-        return (this.valueOther1 / this.totalCategory1) * 100;
-      } else {
-        return 0;
-      }
-    },
+
     valueNews2Progressbar() {
       if (this.valueNews2 != 0) {
         return (this.valueNews2 / this.totalCategory2) * 100;
@@ -466,10 +456,10 @@ export default {
       datas1: [],
       processValue1: [],
       totalCategory1: 0,
-      valueNews1: 0,
-      valueEvent1: 0,
-      valuePublications1: 0,
-      valueOther1: 0,
+      valuePOS1: 0,
+      valueNEG1: 0,
+      valueNEU1: 0,
+
 
       datas2: [],
       processValue2: [],
@@ -547,8 +537,7 @@ export default {
       }
       HTTP.get("classification/save-percent-article-verify", {
         params: {
-          pointVerify: pointVerify,
-          language: this.language,
+          pointVerify: pointVerify
         },
       }).then((response) => {
         this.closeSettingModel();
@@ -568,7 +557,6 @@ export default {
       HTTP.get("classification/get-percent-article-verify", {
         params: {
           pointVerify: pointVerify,
-          language: this.language,
         },
       }).then((response) => {
         this.articleVerify = response.data.length;
@@ -672,25 +660,23 @@ export default {
             // var data = ;
             this.datas1 = response.data[0];
             this.processValue1 = response.data[1];
-            this.valueNews1 = 0;
-            this.valueEvent1 = 0;
-            this.valuePublications1 = 0;
-            this.valueOther1 = 0;
+            this.valuePOS1 = 0;
+            this.valueNEG1 = 0;
+            this.valueNEU1 = 0;
+  
             this.totalCategory1 = 0;
             for (let index = 0; index < this.processValue1.length; index++) {
               this.totalCategory1 += this.processValue1[index].count;
-              if (this.processValue1[index]._id === "news") {
-                this.valueNews1 = this.processValue1[index].count;
+              if (this.processValue1[index]._id === "POS") {
+                this.valuePOS1 = this.processValue1[index].count;
               }
-              if (this.processValue1[index]._id === "event") {
-                this.valueEvent1 = this.processValue1[index].count;
+              if (this.processValue1[index]._id === "NEG") {
+                this.valueNEG1 = this.processValue1[index].count;
               }
-              if (this.processValue1[index]._id === "publications") {
-                this.valuePublications1 = this.processValue1[index].count;
+              if (this.processValue1[index]._id === "NEU") {
+                this.valueNEU1 = this.processValue1[index].count;
               }
-              if (this.processValue1[index]._id === "other") {
-                this.valueOther1 = this.processValue1[index].count;
-              }
+              
             }
           })
           .catch((e) => {
@@ -722,17 +708,14 @@ export default {
             this.totalCategory2 = 0;
             for (let index = 0; index < this.processValue2.length; index++) {
               this.totalCategory2 += this.processValue2[index].count;
-              if (this.processValue2[index]._id === "news") {
+              if (this.processValue2[index]._id === "POS") {
                 this.valueNews2 = this.processValue2[index].count;
               }
-              if (this.processValue2[index]._id === "event") {
+              if (this.processValue2[index]._id === "NEG") {
                 this.valueEvent2 = this.processValue2[index].count;
               }
-              if (this.processValue2[index]._id === "publications") {
+              if (this.processValue2[index]._id === "NEU") {
                 this.valuePublications2 = this.processValue2[index].count;
-              }
-              if (this.processValue2[index]._id === "other") {
-                this.valueOther2 = this.processValue2[index].count;
               }
             }
           })
@@ -745,10 +728,9 @@ export default {
       this.datas1 = [];
       this.processValue1 = [];
       this.totalCategory1 = 0;
-      this.valueNews1 = 0;
-      this.valueEvent1 = 0;
-      this.valuePublications1 = 0;
-      this.valueOther1 = 0;
+      this.valuePOS1 = 0;
+      this.valueNEG1 = 0;
+      this.valueNEU1 = 0;
 
       this.modelSelect1 = null
       this.modelSelect2 = null
@@ -801,5 +783,16 @@ export default {
 }
 .btn {
   font-size: 14px;
+}
+</style>
+<style>
+.bg-positive{
+  background-color: #38C477 !important
+}
+.bg-negative{
+  background-color: #F2543D!important
+}
+.bg-neutral{
+  background-color: #696969 !important
 }
 </style>

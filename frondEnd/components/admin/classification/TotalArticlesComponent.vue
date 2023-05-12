@@ -5,10 +5,9 @@
       <div class="total-tags" id="total-tags" style="font-weight: bold; font-size: 2.5rem; margin-top: 5px;">{{totalArticleVerify}}/{{totalPost}}</div>
       <div class="progress progress-sm progress-bar-stack mb-4 br-30" id="human-active" style="height:5px"
       :class="{'human-active-per':hoverPertotal , 'human-active-org' : hoverOrgtotal,'human-active-loc':hoverLoctotal,'human-active-misc':hoverMisctotal,'human-active-empty':hoverEmptytotal}">
-        <div class="bg-success" id="perTotal" role="progressbar" :style="'width:'+(valueNews / totalPost * 100 )+'%'" style="transition: 1.5s;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="bg-primary" id="orgTotal" role="progressbar" :style="'width:'+(valueEvent / totalPost * 100 )+'%'" style="transition: 1.5s;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="bg-info" id="locTotal" role="progressbar" :style="'width:'+(valuePublications / totalPost * 100 )+'%'" style="transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="bg-secondary" id="miscTotal" role="progressbar" :style="'width:'+(valueOther / totalPost * 100 )+'%'" style="transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="bg-success bg-positive" id="perTotal" role="progressbar" :style="'width:'+(valuePOS / totalPost * 100 )+'%'" style="transition: 1.5s;background-color: #38C477 !important" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="bg-primary bg-negative" id="orgTotal" role="progressbar" :style="'width:'+(valueNEG / totalPost * 100 )+'%'" style="transition: 1.5s;background-color: #F2543D!important" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="bg-info bg-neutral" id="locTotal" role="progressbar" :style="'width:'+(valueNEU / totalPost * 100 )+'%'" style="transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
         <div class="bg-dark" id="emptyTotal" role="progressbar" :style="'width:'+(valueEmpty / totalPost * 100 )+'%'" style="transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
         <div class="bg-pending" id="pendingTotal" role="progressbar" style="width:0 ;transition: 1.5s;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
@@ -19,7 +18,7 @@
               <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/positive.png" />
             </div>
             <div>
-              <h2 class="item-number" id="sum-per">{{valueNews}}</h2>
+              <h2 class="item-number" id="sum-per">{{valuePOS}}</h2>
               <div class="item-name">Positive</div>
             </div>
           </div>
@@ -30,7 +29,7 @@
               <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/neutral.png" />
             </div>
             <div>
-              <h2 class="item-number" id="sum-org">{{valueEvent}}</h2>
+              <h2 class="item-number" id="sum-org">{{valueNEG}}</h2>
               <div class="item-name">Neutral</div>
             </div>
           </div>
@@ -41,7 +40,7 @@
               <img class="image-logo1" src="~/static/assetsAdmin/backend/assets/img/negative.png" />
             </div>
             <div>
-              <h2 class="item-number" id="sum-loc">{{valuePublications}}</h2>
+              <h2 class="item-number" id="sum-loc">{{valueNEU}}</h2>
               <div class="item-name">Negative</div>
             </div>
           </div>
@@ -71,7 +70,7 @@
         </div>
       </div>
       <!-- <div id="flow-chart" style="height: 400px;" v-if="loading"> -->
-       <div id="flow-chart-1" style="height: 400px;"> 
+       <div id="flow-chart" style="height: 400px;"> 
         <!-- <div style="height: 10px; text-align: center;">
           <div id="loading-chart-overview" style=" margin-top: 95px;" class="spinner-border text-success align-self-center"></div>
         </div> -->
@@ -87,10 +86,9 @@ import { mapState, mapMutations, mapGetters } from "vuex";
 export default {
   props: [
     "results",
-    "valueNews",
-    "valueEvent",
-    "valuePublications",
-    "valueOther",
+    "valuePOS",
+    "valueNEG",
+    "valueNEU",
     "valueEmpty",
     "error",
     "totalPost",

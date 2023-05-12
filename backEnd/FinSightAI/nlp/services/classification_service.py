@@ -86,17 +86,20 @@ def run_process_classification(id, timeModel):
 					score_categories = execute_model_default(text_process, classificator)
 				else :
 					score_categories = execute_model(text_process, classificator)
-				print(score_categories)
+				
+				dict_score_categories = {}
 				max_score = 0
 				max_label = ''
 				for label_dict in score_categories[0]:
+					dict_score_categories[label_dict['label']] = label_dict['score']
 					if label_dict['score'] > max_score:
 						max_score = label_dict['score']
 						max_label = label_dict['label']
+						
 				max_score_category = max_score
-				
+				print(dict_score_categories)
 				# update_article({"_id": article["_id"]}, {"$set": {"category": max_score_category, "isClassification": True, 'classificationScore': score_categories}})
-				historyClassification_collection.insert_one({'model_id':str(id),'time':timeExcute,'article_id':ObjectId(article["_id"]),'classificationScore':score_categories,"category": max_score_category})
+				historyClassification_collection.insert_one({'model_id':str(id),'time':timeExcute,'article_id':ObjectId(article["_id"]),'classificationScore':dict_score_categories,"category": max_label})
 
 			# except Exception as e:
 			# 	print("ERROR: " + str(e))

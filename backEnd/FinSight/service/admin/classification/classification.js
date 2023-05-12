@@ -7,7 +7,7 @@ const request = require("request");
 const HistoryClassification = mongoose.model('HistoryClassification')
 const { resolve } = require("path");
 
-async function getListArticle(number,language) {
+async function getListArticle(number) {
     let totalPost = await Post.find({ status: '0', isClassification: true  },
         (err, docs) => {
             if (!err) {
@@ -16,7 +16,7 @@ async function getListArticle(number,language) {
             }
         }
     )
-    let totalPostLanguage = await Post.find({ status: '0', isClassification: true ,languageCrawl:language },
+    let totalPostLanguage = await Post.find({ status: '0', isClassification: true  },
         (err, docs) => {
             if (!err) {
             } else {
@@ -25,7 +25,7 @@ async function getListArticle(number,language) {
         }
     )
     
-    let allPost = await Post.find({ status: '0', isClassification: true ,languageCrawl:language},
+    let allPost = await Post.find({ status: '0', isClassification: true },
         (err, docs) => {
             if (!err) {
             } else {
@@ -54,10 +54,9 @@ async function getDataFlowChart() {
         { from: "", to: "Success", nodeColor: "#009688" },
         // { from: "", to: "Skip", nodeColor: "#e2a03f" },
         { from: "", to: "Error", nodeColor: "#e7515a" },
-        { from: "", to: "News", nodeColor: "#79db72" },
-        { from: "", to: "Event", nodeColor: "#578ef7" },
-        { from: "", to: "Publications", nodeColor: "#00dde1" },
-        { from: "", to: "Other", nodeColor: "#a259cb" },
+        { from: "", to: "Positive", nodeColor: "#79db72" },
+        { from: "", to: "Negative", nodeColor: "#F2543D" },
+        { from: "", to: "Neutral", nodeColor: "#00dde1" },
         { from: "", to: "Un-process", nodeColor: "#68666a" },
     ]
     for (let j = 0; j < postSuccess.length; j++) {
@@ -67,40 +66,33 @@ async function getDataFlowChart() {
         postSuccess[j].to = 'Success'
         postSuccess[j].value = postSuccess[j].count
         delete postSuccess[j].count
-        if (postSuccess[j].from === 'addressgsi') {
+        if (postSuccess[j].from === 'cafef') {
             postSuccess[j].nodeColor = '#67b7dc'
             postSuccess[j].linkColor = '#67b7dc'
-            postSuccess[j].from = 'gsj.jp'
-            postSuccess[j].textTip = 'gsj.jp'
+            postSuccess[j].from = 'cafef.vn'
+            postSuccess[j].textTip = 'cafef.vn'
 
         }
-        if (postSuccess[j].from === 'addressenv') {
+        if (postSuccess[j].from === 'cafebiz') {
             postSuccess[j].nodeColor = '#a367dc'
             postSuccess[j].linkColor = '#a367dc'
-            postSuccess[j].from = 'env.go.jp'
-            postSuccess[j].textTip = 'env.go.jp'
+            postSuccess[j].from = 'cafebiz.vn'
+            postSuccess[j].textTip = 'cafebiz.vn'
 
 
         }
-        if (postSuccess[j].from === 'addresscob') {
+        if (postSuccess[j].from === 'vneconomy') {
             postSuccess[j].nodeColor = '#dc67ce'
             postSuccess[j].linkColor = '#dc67ce'
-            postSuccess[j].from = 'circleofblue.org'
-            postSuccess[j].textTip = 'circleofblue.org'
+            postSuccess[j].from = 'vneconomy.vn'
+            postSuccess[j].textTip = 'vneconomy.vn'
 
         }
-        if (postSuccess[j].from === 'addressusgs') {
-            postSuccess[j].nodeColor = '#dc6788'
-            postSuccess[j].linkColor = '#dc6788'
-            postSuccess[j].from = 'waterdata.usgs.gov'
-            postSuccess[j].textTip = 'circleofblue.org'
-
-        }
-        if (postSuccess[j].from === 'addressnasa') {
+        if (postSuccess[j].from === 'baodautu') {
             postSuccess[j].nodeColor = '#dc8c67'
             postSuccess[j].linkColor = '#dc8c67'
-            postSuccess[j].from = 'nasa.gov'
-            postSuccess[j].textTip = 'nasa.gov'
+            postSuccess[j].from = 'baodautu.vn'
+            postSuccess[j].textTip = 'baodautu.vn'
 
         }
     }
@@ -111,41 +103,35 @@ async function getDataFlowChart() {
         postPending[q].to = 'Skip'
         postPending[q].value = postPending[q].count
         delete postPending[q].count
-        if (postPending[q].from === 'addressgsi') {
+        if (postPending[q].from === 'cafef') {
             postPending[q].nodeColor = '#67b7dc'
             postPending[q].linkColor = '#67b7dc'
-            postPending[q].from = 'gsj.jp'
-            postPending[q].textTip = 'gsj.jp'
+            postPending[q].from = 'cafef.vn'
+            postPending[q].textTip = 'cafef.vn'
         }
-        if (postPending[q].from === 'addressenv') {
+        if (postPending[q].from === 'cafebiz') {
             postPending[q].nodeColor = '#a367dc'
             postPending[q].linkColor = '#a367dc'
-            postPending[q].from = 'env.go.jp'
-            postPending[q].textTip = 'env.go.jp'
+            postPending[q].from = 'cafebiz.vn'
+            postPending[q].textTip = 'cafebiz.vn'
 
         }
-        if (postPending[q].from === 'addresscob') {
+        if (postPending[q].from === 'vneconomy') {
             postPending[q].nodeColor = '#dc67ce'
             postPending[q].linkColor = '#dc67ce'
-            postPending[q].from = 'circleofblue.org'
-            postPending[q].textTip = 'circleofblue.org'
+            postPending[q].from = 'vneconomy.vn'
+            postPending[q].textTip = 'vneconomy.vn'
 
 
         }
-        if (postPending[q].from === 'addressusgs') {
+        if (postPending[q].from === 'baodautu') {
             postPending[q].nodeColor = '#dc6788'
             postPending[q].linkColor = '#dc6788'
-            postPending[q].from = 'waterdata.usgs.gov'
-            postPending[q].textTip = 'waterdata.usgs.gov'
+            postPending[q].from = 'baodautu.vn'
+            postPending[q].textTip = 'baodautu.vn'
 
         }
-        if (postPending[q].from === 'addressnasa') {
-            postPending[q].nodeColor = '#dc8c67'
-            postPending[q].linkColor = '#dc8c67'
-            postPending[q].from = 'nasa.gov'
-            postPending[q].textTip = 'nasa.gov'
 
-        }
     }
     for (let k = 0; k < postSkip.length; k++) {
         postSkip[k].from = postSkip[k]._id
@@ -153,39 +139,32 @@ async function getDataFlowChart() {
         postSkip[k].to = 'Error'
         postSkip[k].value = postSkip[k].count
         delete postSkip[k].count
-        if (postSkip[k].from === 'addressgsi') {
+        if (postSkip[k].from === 'cafef') {
             postSkip[k].nodeColor = '#67b7dc'
             postSkip[k].linkColor = '#67b7dc'
-            postSkip[k].from = 'gsj.jp'
-            postSkip[k].textTip = 'gsj.jp'
+            postSkip[k].from = 'cafef.vn'
+            postSkip[k].textTip = 'cafef.vn'
 
         }
-        if (postSkip[k].from === 'addressenv') {
+        if (postSkip[k].from === 'cafebiz') {
             postSkip[k].nodeColor = '#a367dc'
             postSkip[k].linkColor = '#a367dc'
-            postSkip[k].from = 'env.go.jp'
-            postSkip[k].textTip = 'env.go.jp'
+            postSkip[k].from = 'cafebiz.vn'
+            postSkip[k].textTip = 'cafebiz.vn'
 
         }
-        if (postSkip[k].from === 'addresscob') {
+        if (postSkip[k].from === 'vneconomy') {
             postSkip[k].nodeColor = '#dc67ce'
             postSkip[k].linkColor = '#dc67ce'
-            postSkip[k].from = 'circleofblue.org'
-            postSkip[k].textTip = 'circleofblue.org'
+            postSkip[k].from = 'vneconomy.vn'
+            postSkip[k].textTip = 'vneconomy.vn'
 
         }
-        if (postSkip[k].from === 'addressusgs') {
+        if (postSkip[k].from === 'baodautu') {
             postSkip[k].nodeColor = '#dc6788'
             postSkip[k].linkColor = '#dc6788'
-            postSkip[k].from = 'waterdata.usgs.gov'
-            postSkip[k].textTip = 'waterdata.usgs.gov'
-
-        }
-        if (postSkip[k].from === 'addressnasa') {
-            postSkip[k].nodeColor = '#dc8c67'
-            postSkip[k].linkColor = '#dc8c67'
-            postSkip[k].from = 'nasa.gov'
-            postSkip[k].textTip = 'nasa.gov'
+            postSkip[k].from = 'baodautu.vn'
+            postSkip[k].textTip = 'baodautu.vn'
 
         }
     }
@@ -198,39 +177,34 @@ async function getDataFlowChart() {
     for (let j = 0; j < categorySuccess.length; j++) {
         if (categorySuccess[j]._id.category === undefined) { categorySuccess[j].to = 'Un-process' }
         // if (categorySuccess[j]._id === null) break
-        if (categorySuccess[j]._id.category === 'news') { categorySuccess[j].to = 'News' }
-        if (categorySuccess[j]._id.category === 'event') { categorySuccess[j].to = 'Event' }
-        if (categorySuccess[j]._id.category === 'publications') { categorySuccess[j].to = 'Publications' }
-        if (categorySuccess[j]._id.category === 'other') { categorySuccess[j].to = 'Other' }
+        if (categorySuccess[j]._id.category === 'POS') { categorySuccess[j].to = 'Positive' }
+        if (categorySuccess[j]._id.category === 'NEG') { categorySuccess[j].to = 'Negative' }
+        if (categorySuccess[j]._id.category === 'NEU') { categorySuccess[j].to = 'Neutral' }
         categorySuccess[j].from = 'Success'
         // categorySuccess[j].to = categorySuccess[j]._id.category
         categorySuccess[j].value = categorySuccess[j].count
 
-        if (categorySuccess[j]._id.urlPageCrawl === 'addressgsi') {
+        if (categorySuccess[j]._id.urlPageCrawl === 'cafef') {
             categorySuccess[j].nodeColor = '#67b7dc'
             categorySuccess[j].linkColor = '#67b7dc'
-            categorySuccess[j].textTip = 'gsj.jp'
+            categorySuccess[j].textTip = 'cafef.vn'
         }
-        if (categorySuccess[j]._id.urlPageCrawl === 'addressenv') {
+        if (categorySuccess[j]._id.urlPageCrawl === 'cafebiz') {
             categorySuccess[j].nodeColor = '#a367dc'
             categorySuccess[j].linkColor = '#a367dc'
-            categorySuccess[j].textTip = 'env.go.jp'
+            categorySuccess[j].textTip = 'cafebiz.vn'
         }
-        if (categorySuccess[j]._id.urlPageCrawl === 'addresscob') {
+        if (categorySuccess[j]._id.urlPageCrawl === 'vneconomy') {
             categorySuccess[j].nodeColor = '#dc67ce'
             categorySuccess[j].linkColor = '#dc67ce'
-            categorySuccess[j].textTip = 'circleofblue.org'
+            categorySuccess[j].textTip = 'vneconomy.vn'
         }
-        if (categorySuccess[j]._id.urlPageCrawl === 'addressusgs') {
+        if (categorySuccess[j]._id.urlPageCrawl === 'baodautu') {
             categorySuccess[j].nodeColor = '#dc6788'
             categorySuccess[j].linkColor = '#dc6788'
-            categorySuccess[j].textTip = 'waterdata.usgs.gov'
+            categorySuccess[j].textTip = 'baodautu.vn'
         }
-        if (categorySuccess[j]._id.urlPageCrawl === 'addressnasa') {
-            categorySuccess[j].nodeColor = '#dc8c67'
-            categorySuccess[j].linkColor = '#dc8c67'
-            categorySuccess[j].textTip = 'nasa.gov'
-        }
+
         delete categorySuccess[j].count
         delete categorySuccess[j]._id
     }
@@ -304,13 +278,8 @@ async function createModelDefault(sourceModel) {
     let time = dayjs().format('YYYY/MM/DD HH:mm:ss')
     let model_bert_en = await Model.findOne({'name': "AI Sentiment Analysis Base", 'source': sourceModel, "isAi": 1, "isSystem": 0 })
     if (model_bert_en == null) {
-        let model = { "time": time, "name": "AI Sentiment Analysis Base", "language": "en", "status": 0, "score": 95, "isAi": 1, "isSystem": 0, 'source': sourceModel }
+        let model = { "time": time, "name": "AI Sentiment Analysis Base", "status": 0, "score": 0, "isAi": 1, "isSystem": 0, 'source': sourceModel }
         model_bert_en = await Model.create(model)
-    }
-    let model_bert_jp = await Model.findOne({'name': "AI Sentiment Analysis Base", 'source': sourceModel, "isAi": 1, "isSystem": 0 })
-    if (model_bert_jp == null) {
-        let model = { "time": time, "name": "AI Sentiment Analysis Base", "language": "jp", "status": 0, "score": 95, "isAi": 1, "isSystem": 0, 'source': sourceModel }
-        model_bert_jp = await Model.create(model)
     }
     let message = { "message": "successfully" }
     return message
@@ -403,17 +372,17 @@ async function getListModelClassificationHistory() {
     return array
 }
 
-async function getPercentArticleVerify(pointVerify,language) {
+async function getPercentArticleVerify(pointVerify) {
     pointVerify = Number(pointVerify / 100)
-    let data = await Post.find({ languageCrawl:language, isClassification: true, $or: [{ 'classificationScore.news': { $gt: pointVerify } }, { 'classificationScore.event': { $gt: pointVerify } }, { 'classificationScore.publications': { $gt: pointVerify } }, { 'classificationScore.other': { $gt: pointVerify } }] })
+    let data = await Post.find({  isClassification: true, $or: [{ 'classificationScore.POS': { $gt: pointVerify } }, { 'classificationScore.NEG': { $gt: pointVerify } }, { 'classificationScore.NEU': { $gt: pointVerify } }] })
     return data
 }
 
-async function savePercentArticleVerify(pointVerify,language) {
+async function savePercentArticleVerify(pointVerify) {
     pointVerify = Number(pointVerify / 100)
-    let data = await Post.find({ languageCrawl:language, isClassification: true, $or: [{ 'classificationScore.news': { $gt: pointVerify } }, { 'classificationScore.event': { $gt: pointVerify } }, { 'classificationScore.publications': { $gt: pointVerify } }, { 'classificationScore.other': { $gt: pointVerify } }] })
-    await Post.updateMany({languageCrawl:language, isClassification: true, $or: [{ 'classificationScore.news': { $gt: pointVerify } }, { 'classificationScore.event': { $gt: pointVerify } }, { 'classificationScore.publications': { $gt: pointVerify } }, { 'classificationScore.other': { $gt: pointVerify } }] }, { $set: { classificationStatus: 0 } })
-    await Post.updateMany({languageCrawl:language, isClassification: true, $and: [{ 'classificationScore.news': { $lt: pointVerify } }, { 'classificationScore.event': { $lt: pointVerify } }, { 'classificationScore.publications': { $lt: pointVerify } }, { 'classificationScore.other': { $lt: pointVerify } }] }, { $set: { classificationStatus: 1 } })
+    let data = await Post.find({ isClassification: true, $or: [{ 'classificationScore.POS': { $gt: pointVerify } }, { 'classificationScore.NEG': { $gt: pointVerify } }, { 'classificationScore.NEU': { $gt: pointVerify } }] })
+    await Post.updateMany({ isClassification: true, $or: [{ 'classificationScore.POS': { $gt: pointVerify } }, { 'classificationScore.NEG': { $gt: pointVerify } }, { 'classificationScore.NEU': { $gt: pointVerify } }] }, { $set: { classificationStatus: 0 } })
+    await Post.updateMany({isClassification: true, $and: [{ 'classificationScore.POS': { $lt: pointVerify } }, { 'classificationScore.NEG': { $lt: pointVerify } }, { 'classificationScore.NEU': { $lt: pointVerify } }] }, { $set: { classificationStatus: 1 } })
     return 'finish'
 }
 module.exports = { savePercentArticleVerify, getPercentArticleVerify, getListModelClassificationHistory, applyArticleHasProcessed, getArticleAppend, getListArticle, getDataFlowChart, getArticleSelectPopup, getArticleSelect, getEditArticle, createModelDefault, createModel, listModelClassification, updateModelClassification, deleteModelClassification, queryArticleClassificationSuccess }
