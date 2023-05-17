@@ -11,6 +11,17 @@
       <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center layout-spacing align-self-center">
         <div class="d-flex justify-content-sm-end justify-content-center">
           <div style="width: auto;height: auto;" class="switch align-self-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-list view-list active-view">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3" y2="6"></line>
+                                <line x1="3" y1="12" x2="3" y2="12"></line>
+                                <line x1="3" y1="18" x2="3" y2="18"></line>
+            </svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid view-grid active-view">
               <rect x="3" y="3" width="7" height="7" />
               <rect x="14" y="3" width="7" height="7" />
@@ -22,7 +33,7 @@
       </div>
     </div>
     <div class="rss searchable-items gird" style="display: flex;flex-wrap: wrap;">
-      <!-- GSI -->
+      <!-- cafef -->
       <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;">
@@ -99,7 +110,7 @@
           </div>
         </div>
       </div>
-      <!-- //ENV -->
+      <!-- //cafebiz -->
       <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
@@ -177,7 +188,7 @@
           </div>
         </div>
       </div>
-      <!-- //COB -->
+      <!-- //baodautu -->
       <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
@@ -255,7 +266,7 @@
           </div>
         </div>
       </div>
-      <!-- //USGS -->
+      <!-- //vneconomy -->
       <div class="items" v-if="posts.length">
         <div class="item-content rss-page">
           <div style="display: none;" class="box-switch">
@@ -332,8 +343,86 @@
           </div>
         </div>
       </div>
+      <!-- //cafefpdf -->
+      <div class="items" v-if="posts.length">
+        <div class="item-content rss-page">
+          <div style="display: none;" class="box-switch">
+            <label class="switch s-icons s-outline s-outline-info">
+              <input class="input-address" id="vneconomy" type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="user-email address-page">
+            <div class="user-meta-info">
+              <p class="user-name" data-name="Alan Green">CafeF_PDF</p>
+              <p class="user-work" data-occupation="Web Developer">http://s.cafef.vn/phan-tich-bao-cao.chn</p>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Date:</p>
+            <p class="date-time-crawler-rss">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <span class="bs-tooltip" data-placement="right" id="time-update-cafefpdf" style="color: #888ea8;font-weight: 600;">{{LastDateCrawler[4]}}</span>
+            </p>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Report:</p>
+            <div class="box-status-post" style="margin:0;width: auto;">
+              <div class="item-timeline timeline-success">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-cafefpdf">{{sumPost[4]}} Report (+{{increasedPost[4]}})</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-warning">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-block-cafefpdf">{{sumPostBlock[4]}} Report (+0)</p>
+                </div>
+              </div>
+              <div class="item-timeline timeline-danger">
+                <div class="t-dot" data-original-title title></div>
+                <div class="t-text">
+                  <p class="usr-location" id="count-post-skip-cafefpdf">{{sumPostSkip[4]}} Report (+0)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="user-email">
+            <p class="info-title">Status:</p>
+            <p class="usr-ph-no">
+              <span :class="classData[4]" id="status-cafefpdf">{{status[4]}}</span>
+            </p>
+          </div>
+          <div class="action-btn d-flex justify-content-center">
+            <button id="btn-crawl-cafefpdf" v-on:click="searchInformation('cafefpdf')" class="btn btn-info mt-2 mr-2">
+              <svg style="display: none;" id="icon-loading-btn-cafefpdf" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg> Crawl
+            </button>
+            <button v-on:click="showModalEdit('cafefpdf','cafefpdf','http://s.cafef.vn/phan-tich-bao-cao.chn')" class="btn btn-warning mt-2 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg> Edit
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- modal Website  -->
+    
     <modal name="modal-edit-page-website" class="test" height="271px" width="500px" styles="overflow: initial">
       <div style="max-width: 700px !important;" class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -547,20 +636,10 @@
                         <button type="button" onclick="useQueryDefault()" class="btn btn-info">Default</button>
                       </div>
                     </div>
-                    <div class="tab-content" id="v-pills-tabContent">
+                    
+                    <div class="tab-content" id="v-pills-tabContent" v-if="this.type=='post'">
                       <div class="tab-pane fade show active" id="query-en" role="tabpanel" aria-labelledby="query-en-tab">
                         <form>
-                          <!-- <label for="basic-url">Go to page</label>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="input-group mb-2">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">URL</span>
-                                </div>
-                                <input v-model="UrlQueryEN" type="text" class="form-control" id="query-url-en" aria-describedby="basic-addon3" />
-                              </div>
-                            </div>
-                          </div> -->
                           <label for="basic-url">Paging navigate & crawl data</label>
                           <div class="row">
                             <div class="col-md-12">
@@ -573,7 +652,7 @@
                             </div>
                           </div>
                           <label for="basic-url">Get data</label>
-                          <div class="row">
+                          <div class="row" >
                             <div class="col-md-12">
                               <div class="input-group mb-2">
                                 <div class="input-group-prepend">
@@ -626,6 +705,75 @@
                             </div>
                           </div>
                           
+                          
+                        </form>
+                      </div>
+                    
+                    </div>
+                    <div class="tab-content" id="v-pills-tabContent" v-else>
+                      <div class="tab-pane fade show active" id="query-en" role="tabpanel" aria-labelledby="query-en-tab">
+                        <form>
+                          <label for="basic-url">Paging navigate & crawl data</label>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Article URL</span>
+                                </div>
+                                <input v-model="article_url_query" type="text" class="form-control" id="article-url-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Article URL-1</span>
+                                </div>
+                                <input v-model="article_url_query1" type="text" class="form-control" id="article-url-en" aria-describedby="basic-addon3" />
+                              </div>s
+                            </div>
+                          </div>
+                          <label for="basic-url">Get data</label>
+                          <div class="row" >
+                            <div class="col-md-12">
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Number Page</span>
+                                </div>
+                                <input v-model="number_page_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Title</span>
+                                </div>
+                                <input v-model="title_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Post Date</span>
+                                </div>
+                                <input v-model="timeCreatePostOrigin_query" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Source</span>
+                                </div>
+                                <input v-model="source" type="text" class="form-control" id="article-title-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">Stock Code</span>
+                                </div>
+                                <input v-model="number_CK" type="text" class="form-control" id="des-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon7">ID PDF</span>
+                                </div>
+                                <input v-model="id_pdf" type="text" class="form-control" id="image-article-en" aria-describedby="basic-addon3" />
+                              </div>
+                              
+                            </div>
+                          </div>
+                          
+                          
                         </form>
                       </div>
                     
@@ -636,7 +784,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button v-on:click="saveEditCrawlPage()" id="btn-save-edit" class="btn btn-success float-left">
+            <button  v-on:click="saveEditCrawl()" id="btn-save-edit" class="btn btn-success float-left">
               <svg style="display:none" id="edit-icon-loadding" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
                 <line x1="12" y1="2" x2="12" y2="6" />
                 <line x1="12" y1="18" x2="12" y2="22" />
@@ -693,6 +841,7 @@ export default {
       sumPostSkip: [],
       LastDateCrawler: [],
       arrDataConfig: [],
+      arrDataConfigPDF : [],
 
       //Edit model
       urlModel: null,
@@ -712,6 +861,7 @@ export default {
 
       number_page_query: null,
       article_url_query: null,
+      article_url_query1: null,
       title_query: null,
       timeCreatePostOrigin_query: null,
       category_query: null,
@@ -719,6 +869,10 @@ export default {
       content_title_query: null,
       content_des_query: null,
       image_url_query:null,
+      type : null,
+      source :null,
+      number_CK :null,
+      id_pdf:null,
 
       
      
@@ -745,37 +899,77 @@ export default {
       // this.validated = true;
       this.urlModel = urlModel;
       this.nameModel = nameModel;
-      for (let index = 0; index < this.arrDataConfig.length; index++) {
-        if (this.arrDataConfig[index].namePage === address) {
-          let results = this.arrDataConfig[index];
-          this.namePage = results.namePage;
-          this.showModalSchedule();
-          this.titlePage = results.titlePage;
-          this.urlPage = results.urlPage;
-          this.modePublic = results.modePublic;
-          this.modeRobotsParser = results.modeRobotsParser;
-          this.timeOutCrawl = results.timeOutCrawl;
-          this.timeRetryCrawl = results.timeRetryCrawl;
-          this.timeDelayCrawl = results.timeDelayCrawl;
-          this.userAgent = results.userAgent;
-          this.cookies = results.cookies;
-          this.modeSchedule = results.modeSchedule
-          this.httpHeader = results.httpHeader;
+      console.log(address)
 
-          this.number_page_query = results.number_page_query
-          this.article_url_query = results.article_url_query;
-          this.title_query = results.title_query;
-          this.timeCreatePostOrigin_query = results.timeCreatePostOrigin_query;
-          this.category_query = results.category_query;
-          this.author_query = results.author_query;
-          this.content_title_query = results.content_title_query;
-          this.content_des_query = results.content_des_query;
-          this.image_url_query = results.image_url_query;
-          
+      if (address =='cafefpdf'){
+        this.type = "pdf"
+        console.log('ok')
+        console.log(this.arrDataConfigPDF)
+        for (let index = 0; index < this.arrDataConfigPDF.length; index++) {
+
+          if (this.arrDataConfigPDF[index].namePage === address) {
+
+            let results = this.arrDataConfigPDF[index];
+            this.namePage = results.namePage;
+            this.showModalSchedule();
+            this.titlePage = results.titlePage;
+            this.urlPage = results.urlPage;
+            this.modePublic = results.modePublic;
+            this.modeRobotsParser = results.modeRobotsParser;
+            this.timeOutCrawl = results.timeOutCrawl;
+            this.timeRetryCrawl = results.timeRetryCrawl;
+            this.timeDelayCrawl = results.timeDelayCrawl;
+            this.userAgent = results.userAgent;
+            this.cookies = results.cookies;
+
+            this.httpHeader = results.httpHeader;
+
+            this.number_page_query = results.number_page_query
+            this.article_url_query = results.article_url_query;
+            this.article_url_query1 = results.article_url_query1;
+            this.title_query = results.title_query;
+            this.timeCreatePostOrigin_query = results.timeCreatePostOrigin_query;
+            this.source = results.source
+            this.number_CK =results.number_CK
+            this.id_pdf =results.id_pdf
 
         }
       }
+      }
+      else{
+        this.type = "post"
+        for (let index = 0; index < this.arrDataConfig.length; index++) {
+          if (this.arrDataConfig[index].namePage === address) {
+            let results = this.arrDataConfig[index];
+            this.namePage = results.namePage;
+            this.showModalSchedule();
+            this.titlePage = results.titlePage;
+            this.urlPage = results.urlPage;
+            this.modePublic = results.modePublic;
+            this.modeRobotsParser = results.modeRobotsParser;
+            this.timeOutCrawl = results.timeOutCrawl;
+            this.timeRetryCrawl = results.timeRetryCrawl;
+            this.timeDelayCrawl = results.timeDelayCrawl;
+            this.userAgent = results.userAgent;
+            this.cookies = results.cookies;
+
+            this.httpHeader = results.httpHeader;
+
+            this.number_page_query = results.number_page_query
+            this.article_url_query = results.article_url_query;
+            this.title_query = results.title_query;
+            this.timeCreatePostOrigin_query = results.timeCreatePostOrigin_query;
+            this.category_query = results.category_query;
+            this.author_query = results.author_query;
+            this.content_title_query = results.content_title_query;
+            this.content_des_query = results.content_des_query;
+            this.image_url_query = results.image_url_query;
+        }
+      }
+      }
       this.$modal.show("modal-edit-page-website");
+      console.log(this.type)
+      
     },
     addRowTableHttpHeader() {
       let newHttpHeader = {
@@ -836,9 +1030,16 @@ export default {
       if (address === "cafebiz") this.crawpageCafebiz(address);
       if (address === "baodautu") this.crawPageBaodautu(address);
       if (address === "vneconomy") this.crawPageVneconomy(address);
+      if (address === "cafefpdf") this.crawPageCafefpdf(address);
     },
     crawPageCafef(address) {
       HTTP.post(`crawpage-cafef`).then(() => {
+        this.getAllData();
+        $("#btn-crawl-" + address).prop("disabled", false);
+      });
+    },
+    crawPageCafefpdf(address) {
+      HTTP.post(`/crawpage-cafefpdf`).then(() => {
         this.getAllData();
         $("#btn-crawl-" + address).prop("disabled", false);
       });
@@ -864,6 +1065,14 @@ export default {
     getAllData() {
       this.getCrawler();
       // this.getDataAllKeywordCrawl();
+    },
+    saveEditCrawl(){
+      console.log(this.number_page_query)
+      if (this.type =='post'){
+        this.saveEditCrawlPage()
+      }else{
+        this.saveEditCrawlPagePDF()
+      }
     },
     saveEditCrawlPage() {
       // let ArticleEN = this.removeElementArticleEN.split(",");
@@ -906,6 +1115,42 @@ export default {
           },
         });
         this.getAllDataConfig();
+      });
+    },
+    saveEditCrawlPagePDF() {
+      let objDataEdit = {};
+      objDataEdit.titlePage = this.nameModel;
+      objDataEdit.modeSchedule = !this.validated;
+      objDataEdit.timeSchedule = this.tableScheduleHasTick();
+      objDataEdit.modePublic = this.modePublic;
+      objDataEdit.modeCookies = this.validatedCokkies;
+      objDataEdit.modeRobotsParser = this.modeRobotsParser;
+      objDataEdit.timeOutCrawl = this.timeOutCrawl;
+      objDataEdit.timeRetryCrawl = this.timeRetryCrawl;
+      objDataEdit.timeDelayCrawl = this.timeDelayCrawl;
+      objDataEdit.userAgent = this.userAgent;
+      objDataEdit.cookies = this.cookies;
+      objDataEdit.httpHeader = this.httpHeader;
+      objDataEdit.number_page_query = this.number_page_query;
+      objDataEdit.article_url_query = this.article_url_query;
+      objDataEdit.title_query = this.title_query;
+      objDataEdit.timeCreatePostOrigin_query = this.timeCreatePostOrigin_query;
+      objDataEdit.source = this.source;
+      objDataEdit.number_CK = this.number_CK;
+      objDataEdit.id_pdf = this.id_pdf;
+      HTTP.post(`save-edit-crawl-pdf`, {objDataEdit}).then((response) => {
+        new Snackbar(`Saved succesfully`, {
+          position: "bottom-right",
+          theme: "light",
+          style: {
+            container: [
+              ["background-color", "#1abc9c"],
+              ["border-radius", "5px"],
+            ],
+            message: [["color", "#fff"]],
+          },
+        });
+        this.getAllDataConfigPDF();
       });
     },
     tableScheduleHasTick() {
@@ -956,12 +1201,18 @@ export default {
         this.arrDataConfig = response.data;
       });
     },
+    getAllDataConfigPDF(){
+      HTTP.get(`get-data-edit-pdf`).then((response) => {
+        this.arrDataConfigPDF = response.data;
+      });
+    },
     getCrawler() {
       let arrayeleAddress = [
         "cafef",
         "cafebiz",
         "baodautu",
         "vneconomy",
+        'cafefpdf',
       ];
       HTTP.get(`crawler-information`, {
         params: {
@@ -1081,17 +1332,47 @@ export default {
               }
             }
           }
+          if (this.posts[i].addressPage === "cafefpdf") {
+            this.sumPost[4] = this.posts[i].sumPost;
+            this.increasedPost[4] = this.posts[i].increasePost;
+            this.sumPostBlock[4] = this.posts[i].sumPostBlock;
+            this.sumPostSkip[4] = this.posts[i].sumPostSkip;
+
+            this.LastDateCrawler[4] = this.getTimeAgo(
+              this.posts[i].dateLastCrawler
+            );
+            if (this.posts[i].statusPageCrawl === "Pending") {
+              this.status[4] = "Pending";
+              this.classData[4] = "badge badge-warning";
+              // $("#icon-loading-btn-"+String(this.posts[i].addressPage)).show();
+              // $("#btn-crawl-" + String(this.posts[i].addressPage)).prop("disabled", true);
+            } else {
+              if (this.posts[i].statusPageCrawl === "Success") {
+                this.status[4] = "Success";
+                this.classData[4] = "badge color-badge-success";
+              } else if (this.posts[4].statusPageCrawl === "Off") {
+                this.status[4] = "Off";
+                this.classData[4] = "badge color-badge-dark";
+              } else {
+                this.status[4] = "Error";
+                this.classData[4] = "badge color-badge-danger";
+              }
+            }
+          }
         }
       });
     },
   },
   mounted() {
     this.getAllDataConfig();
+    this.getAllDataConfigPDF()
     this.getCrawler();
   },
 };
 </script>
 <style>
+
+
 p.usr-ph-no {
   margin-bottom: 11px;
   font-size: 13px;

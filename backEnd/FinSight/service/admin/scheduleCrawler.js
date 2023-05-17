@@ -23,7 +23,7 @@ const axios =require("axios")
 // dayOfWeek (0-6) Starting with Sunday
 
 const HTTP = axios.create({
-  baseURL :`http://localhost:1234/`,
+  baseURL :`http://localhost:4000/`,
   headers: {
   },
   responseType: "json",
@@ -49,7 +49,6 @@ function scheduleCrawler(objDataEdit) {
       }
     }
   }
-
   if (objDataEdit.titlePage === 'CafeBiz') {
     let address = objDataEdit.titlePage.toLowerCase()
     if (objDataEdit.modeSchedule == true) {
@@ -70,10 +69,6 @@ function scheduleCrawler(objDataEdit) {
     }
 
   }
-
-
-
-
   if (objDataEdit.titlePage === 'BaoDauTu') {
     let address = objDataEdit.titlePage.toLowerCase()
     if (objDataEdit.modeSchedule == true ) {
@@ -94,8 +89,6 @@ function scheduleCrawler(objDataEdit) {
     }
 
   }
-
-
   if (objDataEdit.titlePage === 'VnEconomy') {
     let address = objDataEdit.titlePage.toLowerCase()
     if (objDataEdit.modeSchedule == true ) {
@@ -110,6 +103,26 @@ function scheduleCrawler(objDataEdit) {
           console.log('start crawl vneconomy schedule')
           HTTP.post(`crawpage-vneconomy`).then(() => {
             console.log('crawl schedule vneconomy cussses')
+          });
+        });
+      }
+    }
+
+  }
+  if (objDataEdit.titlePage === 'cafefpdf') {
+    let address = objDataEdit.titlePage.toLowerCase()
+    if (objDataEdit.modeSchedule == true ) {
+      console.log('schedule true cafefpdf')
+      for (let i = 0; i < objDataEdit.timeSchedule.length; i++) {
+        if (objDataEdit.timeSchedule[i].hour.length === 0) continue;
+        const configcafefpdf = new schedule.RecurrenceRule();
+        configcafefpdf.dayOfWeek = objDataEdit.timeSchedule[i].day * 1;
+        configcafefpdf.hour = objDataEdit.timeSchedule[i].hour;
+        configcafefpdf.minute = 0;
+        const Crawlcafefpdf = schedule.scheduleJob(configcafefpdf, function () {
+          console.log('start crawl cafefpdf schedule')
+          HTTP.post(`crawpage-cafefpdf`).then(() => {
+            console.log('crawl schedule cafefpdf cussses')
           });
         });
       }

@@ -1,0 +1,76 @@
+[{
+  "_id": {
+    "$oid": "645b47f94c51fd0ca04f6c75"
+  },
+  "titlePage": "CafeFPDF",
+  "urlPage": "http://s.cafef.vn/phan-tich-bao-cao.chn",
+  "namePage": "cafefpdf",
+  "modeSchedule": true,
+  "timeSchedule": [
+    {
+      "day": "0",
+      "hour": [
+        1
+      ]
+    },
+    {
+      "day": "1",
+      "hour": [
+        1
+      ]
+    },
+    {
+      "day": "2",
+      "hour": [
+        10
+      ]
+    },
+    {
+      "day": "3",
+      "hour": [
+        10
+      ]
+    },
+    {
+      "day": "4",
+      "hour": [
+        10
+      ]
+    },
+    {
+      "day": "5",
+      "hour": [
+        1
+      ]
+    },
+    {
+      "day": "6",
+      "hour": [
+        1
+      ]
+    }
+  ],
+  "modePublic": false,
+  "modeCookies": true,
+  "modeRobotsParser": true,
+  "timeOutCrawl": 0,
+  "timeRetryCrawl": 0,
+  "timeDelayCrawl": 0,
+  "cookies": "",
+  "userAgent": "",
+  "httpHeader": [
+    {
+      "header": "",
+      "value": ""
+    }
+  ],
+  "number_page_query": 10,
+  "article_url_query": "#ContentPlaceHolder1_AnalyzeReportList1_rptData_itemTR_",
+  "article_url_query1": "#ContentPlaceHolder1_AnalyzeReportList1_rptData_altitemTR_",
+  "title_query": " > td:nth-child(2) > a::text",
+  "timeCreatePostOrigin_query": " > td.Item_DateItem::text",
+  "source": "> td:nth-child(3)::text",
+  "number_CK": "> td:nth-child(4)::text",
+  "id_pdf": " > td:nth-child(5) > a::attr(onclick)",
+  "__v": 0
+}]

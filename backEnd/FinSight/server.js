@@ -19,18 +19,21 @@ const server = require('http').createServer(app)
 // const wss = new WebSocket.Server({ server: server, path: "/get-os" })
 
 
-
 // admin Controller
-
+const dashboardController = require('./controllers/admin/dashboardController');
 const crawlerController = require('./controllers/admin/crawlerController');
-
+// const rssFetcherController = require('./controllers/admin/rssFetcherController');
+const contactUsController = require('./controllers/admin/contactUsController');
+const settingController = require('./controllers/admin/settingController');
 const loginController = require('./controllers/admin/loginController');
-
-const pagesErrorController = require('./controllers/admin/pagesErrorController')
-const dashboardController =require('./controllers/admin/dashboardController')
+const manageTagController = require('./controllers/admin/manageTagController');
 const osUtilsController = require('./controllers/admin/osUtilsController')
+const classificationController = require('./controllers/admin/classificationController')
+const sortingController = require('./controllers/admin/sortingController')
+const pagesErrorController = require('./controllers/admin/pagesErrorController')
 // front-end Controller
-
+const middleware = require('./middleware');
+const keywordAnalytics = require('./controllers/front-end/keywordAnalytics');
 
 // admin service
 
@@ -78,17 +81,17 @@ server.listen(port, () => {
 });
 app.use(cors())
 app.use('/', loginController);
-// app.use('/', middleware);
+app.use('/', middleware);
 app.use('/', dashboardController);
 app.use('/', crawlerController);
 // app.use('/', rssFetcherController);
-// app.use('/', contactUsController);
-// app.use('/', classificationController);
-// app.use('/', sortingController)
-// app.use('/', settingController);
+app.use('/', contactUsController);
+app.use('/', classificationController);
+app.use('/', sortingController)
+app.use('/', settingController);
 app.use('/', osUtilsController);
-// app.use('/', manageTagController);
-
+app.use('/', manageTagController);
+app.use('/',keywordAnalytics)
 // app.use('/', homePageController);
 // app.use('/', newsController);
 // app.use('/', newsDetailController);

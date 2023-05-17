@@ -19,3 +19,11 @@ class VnNewsItem(scrapy.Item):
     status = scrapy.Field()
 class CafefItem(scrapy.Item):
     pass
+class ReportItem(scrapy.Item):
+    page = scrapy.Field()
+    id_item = scrapy.Field()
+    date = scrapy.Field()
+    title= scrapy.Field()
+    source =scrapy.Field()
+    number_CK = scrapy.Field()
+    id_pdf = scrapy.Field()
