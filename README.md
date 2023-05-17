@@ -7,13 +7,13 @@
   cd FinSight
 	```
 ## Run BackEnd
-	```sh
-	cd  backend
-	```
+```sh
+cd  backend
+```
 ### Run Backend Nodejs
-	```sh
-	cd  FinSight
-	```
+```sh
+cd  FinSight
+```
 - install package :
 	```sh
 	npm install
