@@ -122,7 +122,7 @@ export default {
       classAI: "F-S-feature position-relative d-flex pending-feature",
       classLib: "F-S-feature position-relative d-flex pending-feature",
       //step4
-      number: 0,
+      number: 50,
       classSentiment: "F-S-feature position-relative d-flex pending-feature",
     };
   },

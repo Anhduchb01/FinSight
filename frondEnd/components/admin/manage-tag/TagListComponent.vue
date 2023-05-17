@@ -433,9 +433,7 @@
         <li :class="{active: charSelectFilter === 'Z'}" v-on:click="getDataSelectBycharSelectFilter('Z')">
           <a>Z</a>
         </li>
-        <li :class="{active: charSelectFilter === 'Japanese'}" v-on:click="getDataSelectBycharSelectFilter('Japanese')">
-          <a>Japanese</a>
-        </li>
+        
       </ul>
     </div>
     <modal name="modal-setting-model" height="271px" width="500px" styles="overflow: initial">

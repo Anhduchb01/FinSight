@@ -255,16 +255,9 @@ export default {
               }
             }
           }
-          this.totalPost =
-            this.valuePOS +
-            this.valueNEG +
-            this.valueNEU
-
-            this.valueEmpty;
-          this.totalArticleVerify =
-            this.valuePOS +
-            this.valueNEG +
-            this.valueNEU
+          this.totalPost = this.valuePOS + this.valueNEG + this.valueNEU + this.valueEmpty;
+          console.log('Total Post',this.totalPost)
+          this.totalArticleVerify =this.valuePOS +this.valueNEG + this.valueNEU
           if (this.valueEmpty === 0) {
             for (let i = 0; i < this.results.length; i++) {
               if (this.results[i].to === "Un-process")

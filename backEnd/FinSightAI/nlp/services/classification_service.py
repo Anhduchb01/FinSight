@@ -68,7 +68,7 @@ def run_process_classification(id, timeModel):
 	classificator = initialization_model(id)
 
 	# Excute English
-	cursor_en =article_collection.find({'status':"0"},no_cursor_timeout=True).limit(20).batch_size(20)
+	cursor_en =article_collection.find({'status':"0"},no_cursor_timeout=True).batch_size(20)
 	for article in tqdm(cursor_en):
 		ArticleHasProcessed = historyClassification_collection.find_one({"model_id": str(id),'article_id':ObjectId(article['_id'])})
 		if ArticleHasProcessed:
@@ -77,7 +77,7 @@ def run_process_classification(id, timeModel):
 			# try:
 				text = article["title"]
 				print(text)
-				if len(text.split())==0:
+				if len(text.split())==0 or text ==  None:
 					break
 				text_process = get_split(text)
 				

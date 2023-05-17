@@ -911,10 +911,11 @@ export default {
 
             let results = this.arrDataConfigPDF[index];
             this.namePage = results.namePage;
-            this.showModalSchedule();
+            this.showModalSchedule(this.arrDataConfigPDF);
             this.titlePage = results.titlePage;
             this.urlPage = results.urlPage;
             this.modePublic = results.modePublic;
+            this.modeSchedule = results.modeSchedule
             this.modeRobotsParser = results.modeRobotsParser;
             this.timeOutCrawl = results.timeOutCrawl;
             this.timeRetryCrawl = results.timeRetryCrawl;
@@ -942,10 +943,11 @@ export default {
           if (this.arrDataConfig[index].namePage === address) {
             let results = this.arrDataConfig[index];
             this.namePage = results.namePage;
-            this.showModalSchedule();
+            this.showModalSchedule(this.arrDataConfig);
             this.titlePage = results.titlePage;
             this.urlPage = results.urlPage;
             this.modePublic = results.modePublic;
+            this.modeSchedule = results.modeSchedule
             this.modeRobotsParser = results.modeRobotsParser;
             this.timeOutCrawl = results.timeOutCrawl;
             this.timeRetryCrawl = results.timeRetryCrawl;
@@ -981,14 +983,15 @@ export default {
     removeRowTableHttpHeader(index) {
       this.httpHeader.splice(index, 1);
     },
-    showModalSchedule() {
+    showModalSchedule(arrDataConfig) {
+      console.log('show schedule')
       let arrayInput = document.querySelectorAll(".select-customers-info");
       for (let e = 0; e < arrayInput.length; e++) {
         arrayInput[e].checked = false;
       }
-      for (let i = 0; i < this.arrDataConfig.length; i++) {
-        if (this.arrDataConfig[i].namePage === this.namePage) {
-          let addressPage = this.arrDataConfig[i];
+      for (let i = 0; i < arrDataConfig.length; i++) {
+        if (arrDataConfig[i].namePage === this.namePage) {
+          let addressPage = arrDataConfig[i];
           for (let j = 0; j < addressPage.timeSchedule.length; j++) {
             let day = "";
             let flagDay = addressPage.timeSchedule[j];

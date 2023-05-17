@@ -113,7 +113,6 @@ router.get("/models/classification/execute-model", async (req, res) => {
             }
             else {await Model.updateOne({"_id": ObjectID(req.query.id)}, { "status": 2 })}
         }
-        console.log(body)
     })
     res.send('request execute cussess')
 })
