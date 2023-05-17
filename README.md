@@ -13,8 +13,8 @@
  ┣ 📂 backEnd
  ┃ ┣ 📂 FinSight
  ┃    ┣ 📜 server.js
-      ┗ 📜 ...
- ┣ ┣ 📂 FinSightAI
+ ┃    ┗ 📜 ...
+ ┃ ┣ 📂 FinSightAI
  ┃    ┣ 📜 app.py
  ┃    ┗ 📜 ...
  ┗ 📜 README.md
