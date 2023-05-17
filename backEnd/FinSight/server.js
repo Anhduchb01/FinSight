@@ -3,7 +3,7 @@ require('./models/database');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const port = 1234
+const port = 4000
 const exphbs = require('express-handlebars');
 const bodyparser = require('body-parser');
 var cookieParser = require('cookie-parser')

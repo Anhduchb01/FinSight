@@ -398,7 +398,7 @@
                       <div style="text-align: left;" class="d-flex mail-subject">
                         <div class="box-switch">
                           <label class="switch s-icons s-outline s-outline-primary">
-                            <input v-on:click="validated =! validated" :checked="validated" class="input-edit-address" id="edit-check-time" type="checkbox" />
+                            <input v-on:click="modeSchedule =! modeSchedule" :checked="modeSchedule" class="input-edit-address" id="edit-check-time" type="checkbox" />
                             <span class="slider round">
                               <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Schedule Crawl</p>
                             </span>
@@ -411,7 +411,7 @@
                           <polyline points="12 6 12 12 16 14" />
                         </svg>
                         <div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search align-self-center pl-0">
-                          <button :disabled="!validated" data-toggle="modal" id="btn-create-schedule" data-target="#scheduleModal" type="button" class="btn btn-primary">Schedule Crawl</button>
+                          <button :disabled="!modeSchedule" data-toggle="modal" id="btn-create-schedule" data-target="#scheduleModal" type="button" class="btn btn-primary">Schedule Crawl</button>
                         </div>
                       </div>
                       <small style="text-align: left;margin-left: 36px;" id="emailHelp1" class="form-text text-muted mb-4">
@@ -742,7 +742,7 @@ export default {
       
     },
     showModalEdit(address, nameModel, urlModel) {
-      this.validated = true;
+      // this.validated = true;
       this.urlModel = urlModel;
       this.nameModel = nameModel;
       for (let index = 0; index < this.arrDataConfig.length; index++) {
@@ -759,7 +759,7 @@ export default {
           this.timeDelayCrawl = results.timeDelayCrawl;
           this.userAgent = results.userAgent;
           this.cookies = results.cookies;
-
+          this.modeSchedule = results.modeSchedule
           this.httpHeader = results.httpHeader;
 
           this.number_page_query = results.number_page_query
@@ -873,7 +873,7 @@ export default {
 
       let objDataEdit = {};
       objDataEdit.titlePage = this.nameModel;
-      objDataEdit.modeSchedule = !this.validated;
+      objDataEdit.modeSchedule = this.modeSchedule;
       objDataEdit.timeSchedule = this.tableScheduleHasTick();
       objDataEdit.modePublic = this.modePublic;
       objDataEdit.modeCookies = this.validatedCokkies;
