@@ -1,12 +1,4 @@
 # FinSight
-- clone repository :
-  	```sh
-  git clone https://github.com/Anhduchb01/FinSight.git
-  	```
-    ```sh
-  cd FinSight
-	```
-- Project Structure
 📦 FinSight
  ┣ 📂 frondEnd
  ┃ ┗ 📜 ...
@@ -18,6 +10,15 @@
  ┃    ┣ 📜 app.py
  ┃    ┗ 📜 ...
  ┗ 📜 README.md
+ 
+- clone repository :
+  	```sh
+  git clone https://github.com/Anhduchb01/FinSight.git
+  	```
+    ```sh
+  cd FinSight
+	```
+
  
 ## Run BackEnd
 ```sh
