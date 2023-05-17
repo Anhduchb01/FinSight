@@ -24,9 +24,9 @@ cd  FinSight
 	```
 
 ### RunBackend Python
-	```sh
-	cd  FinSightAI
-	```
+```sh
+cd  FinSightAI
+```
 #### Tạo môi trường env
 - **Dùng Conda** 
   - Tạo môi trường :
