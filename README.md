@@ -6,11 +6,24 @@
     ```sh
   cd FinSight
 	```
+- Project Structure
+📦 FinSight
+ ┣ 📂 frondEnd
+ ┃ ┗ 📜 ...
+ ┣ 📂 backEnd
+ ┃ ┣ 📂 FinSight
+ ┃    ┣ 📜 server.js
+      ┗ 📜 ...
+ ┣ ┣ 📂 FinSightAI
+ ┃    ┣ 📜 app.py
+ ┃    ┗ 📜 ...
+ ┗ 📜 README.md
+ 
 ## Run BackEnd
 ```sh
-cd  backend
+cd  backEnd
 ```
-### Run Backend Nodejs
+### Run BackEnd Nodejs
 ```sh
 cd  FinSight
 ```
@@ -18,12 +31,12 @@ cd  FinSight
 	```sh
 	npm install
 	```
-- run nodejs :
+- run nodejs server:
   	```sh
 	npm start
 	```
 
-### RunBackend Python
+### Run BackEnd Python
 ```sh
 cd  FinSightAI
 ```
@@ -67,14 +80,14 @@ python app.y
 
 ## Run FrondEnd
 ```sh
-cd frondend
+cd frondEnd
 ```
 
 - install package :
 	```sh
 	npm install
 	```
-- run nuxtjs :
+- run nuxtjs frondend :
   	```sh
 	npm run dev 
 	```
