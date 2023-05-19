@@ -365,7 +365,7 @@ export default {
     executeModelBert( id, time) {    
       this.lock = true  
       HTTP.get(
-        "http://localhost:4000/models/classification/execute-model?id=default&time=2023/04/11 18:00:55" 
+        "models/classification/execute-model?id=default&time=2023/04/11 18:00:55" 
       )
         .then((response) => {
           for (let index = 0; index < this.data.length; index++) {

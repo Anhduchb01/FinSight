@@ -58,7 +58,7 @@ router.get('/classification/save-edit-article', async (req, res) => {
 
 // api POST: create Default model
 router.post("/models/classification/create-model-default", async (req, res) => {
-    let message = await createModelDefault(req.body.sourceModel)
+    let message = await createModelDefault(req.query.sourceModel)
     res.send(message)
 })
 
@@ -106,7 +106,7 @@ router.get("/classification/get-list-model-classification-history", async (req, 
 
 // execute model classification
 router.get("/models/classification/execute-model", async (req, res) => {
-    let result =request(`http://localhost:5000/process-classification/model-ai?id=${req.query.id}&time=${req.query.time}`, async function (error, response, body) {
+    let result =request(`http://localhost:5000/process-classification/model-ai?id=${req.query.id}&time=${req.query.time}&page=finsight`, async function (error, response, body) {
         if (error) {
             if (req.query.id === 'default') {
                 await Model.updateOne({ "name": 'AI Sentiment Analysis Base' }, { "status": 2 })
@@ -118,7 +118,7 @@ router.get("/models/classification/execute-model", async (req, res) => {
 })
 // training model classification
 router.get("/models/classification/training-model", async (req, res) => {
-    let result =request(`http://localhost:3001/training-classification/model-ai?language=${req.query.language}&id=${req.query.id}&page=waterportal`, async function (error, response, body) {
+    let result =request(`http://localhost:5000/training-classification/model-ai?language=${req.query.language}&id=${req.query.id}&page=finsight`, async function (error, response, body) {
         if (error) { await Model.updateOne({"_id": ObjectID(req.query.id)}, { "status": 2 })}
         console.log(body)
     })

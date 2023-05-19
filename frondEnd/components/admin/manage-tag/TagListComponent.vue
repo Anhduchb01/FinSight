@@ -15,7 +15,7 @@
         Loading...
       </div>
     </div>
-    <div class="row" v-if="dataTable.length">
+    <div class="row" >
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing" style="padding-bottom: 20px;">
         <div class="widget" style="padding: 20px 0px;">
           <div style="width: 35%;box-shadow: 7px 0px 10px 0px;top: 0px;position: absolute;height: 696px;opacity: 0.4;"></div>
@@ -973,16 +973,11 @@ export default {
       this.valueTagLoc = 0;
       this.valueTagMisc = 0;
       this.charSelectFilter = name;
-      if (name == 'Japanese'){
-        this.language = 'jp'
-        this.listModelTagHistory1 = this.listModelTagHistoryJP
-        this.listModelTagHistory2 = this.listModelTagHistoryJP
+      
         
-      }else{
-        this.language = 'en'
-        this.listModelTagHistory1 = this.listModelTagHistoryEN
-        this.listModelTagHistory2 = this.listModelTagHistoryEN
-      }
+      this.listModelTagHistory1 = this.listModelTagHistoryEN
+      this.listModelTagHistory2 = this.listModelTagHistoryEN
+      
       this.getDataProcessTag();
     },
     getArticleHasTag(text) {
@@ -1393,61 +1388,37 @@ export default {
       }).then((response) => {
         this.listModel = response.data;
         for (let i = 0; i < this.listModel.length; i++) {
-          if (this.listModel[i].lang === "en") {
-            this.listModelTagHistoryEN.push(this.listModel[i]);
-          }
-          else{
-            this.listModelTagHistoryJP.push(this.listModel[i]);
-          }
+          
+          this.listModelTagHistoryEN.push(this.listModel[i]);
+          
         }
-        if(this.language == 'en'){
-          this.listModelTagHistory1 = this.listModelTagHistoryEN;
-          this.listModelTagHistory2 = this.listModelTagHistoryEN;
-        }else{
-          this.listModelTagHistory1 = this.listModelTagHistoryJP;
-          this.listModelTagHistory2 = this.listModelTagHistoryJP;
-
-        }
+        
+        this.listModelTagHistory1 = this.listModelTagHistoryEN;
+        this.listModelTagHistory2 = this.listModelTagHistoryEN;
+        
       
 
 
       });
     },
     getListModeluniqueSelect(index, idModel) {
-      if (this.language == 'en'){
-        if (index == 1) {
-          this.listModelTagHistory2 = [];
-          for (let i = 0; i < this.listModelTagHistoryEN.length; i++) {
-            if (this.listModelTagHistoryEN[i].model_id != idModel) {
-              this.listModelTagHistory2.push(this.listModelTagHistoryEN[i]);
-            }
-          }
-        } else if (index == 2) {
-          this.listModelTagHistory1 = [];
-          for (let i = 0; i < this.listModelTagHistoryEN.length; i++) {
-            if (this.listModelTagHistoryEN[i].model_id !== idModel) {
-              this.listModelTagHistory1.push(this.listModelTagHistoryEN[i]);
-            }
+      
+      if (index == 1) {
+        this.listModelTagHistory2 = [];
+        for (let i = 0; i < this.listModelTagHistoryEN.length; i++) {
+          if (this.listModelTagHistoryEN[i].model_id != idModel) {
+            this.listModelTagHistory2.push(this.listModelTagHistoryEN[i]);
           }
         }
-      }else{
-        if (index == 1) {
-          this.listModelTagHistory2 = [];        
-          for (let i = 0; i < this.listModelTagHistoryJP.length; i++) {
-            if (this.listModelTagHistoryJP[i].model_id != idModel) {
-              this.listModelTagHistory2.push(this.listModelTagHistoryJP[i]);
-            }
-          }
-        } else if (index == 2) {
-          this.listModelTagHistory1 = [];        
-          for (let i = 0; i < this.listModelTagHistoryJP.length; i++) {
-            if (this.listModelTagHistoryJP[i].model_id !== idModel) {
-              this.listModelTagHistory1.push(this.listModelTagHistoryJP[i]);
-            }
+      } else if (index == 2) {
+        this.listModelTagHistory1 = [];
+        for (let i = 0; i < this.listModelTagHistoryEN.length; i++) {
+          if (this.listModelTagHistoryEN[i].model_id !== idModel) {
+            this.listModelTagHistory1.push(this.listModelTagHistoryEN[i]);
           }
         }
-
       }
+      
     },
     // getListModeluniqueSelect(index, idModel) {
     //   if (this.language = 'en'){

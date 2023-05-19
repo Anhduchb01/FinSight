@@ -33,11 +33,11 @@ def execute_lib():
 def execute_ai():
     ''' Execute AI model to generate tag '''
     page = request.args.get('page')
+    print(page)
     ckeck_database_tag_service(page)
-    lang = request.args.get('language') 
     id = request.args.get('id') 
     time = request.args.get('time')
-    str = process_tag_ai(lang, id,time)
+    str = process_tag_ai(id,time)
     return jsonify({"message": str})
 
 # Predict Model Library for Play Ground

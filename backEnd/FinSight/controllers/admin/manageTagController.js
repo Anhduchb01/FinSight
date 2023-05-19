@@ -64,8 +64,8 @@ router.put("/models/bert/:id", async (req, res) => {
 })
 
 // api POST: create Default model
-router.post("/models/lib", async (req, res) => {
-    let message = await createModelDefault(req.body.sourceModel)
+router.post("/models/bert/create-model-default", async (req, res) => {
+    let message = await createModelDefault(req.query.sourceModel)
     res.send(message)
 })
 
@@ -139,35 +139,27 @@ router.get('/tags/get-tag-same', async (req, res) => {
 
 // api GET: execute lib model 
 router.get("/models/lib/execute", async (req, res) => {
-    let result =request(`http://localhost:3001/process-tag/model-lib?language=${req.query.language}&page=waterportal`, async function (error, response, body) {
+    let result =request(`http://localhost:5000/process-tag/model-lib?language=${req.query.language}&page=finsight`, async function (error, response, body) {
         if (error != null) {
             await Model.updateOne({ "name": req.query.name }, { "status": 0 })
         }
-        console.log(body)
     })
     res.send('request execute cussess')
 })
 router.get("/models/ai/execute", async (req, res) => {
     let id = req.query.id
-    request(`http://localhost:3001/process-tag/model-ai?language=${req.query.language}&id=${req.query.id}&time=${req.query.time}&page=waterportal`, async function (error, response, body) {
+    request(`http://localhost:5000/process-tag/model-ai?id=${req.query.id}&time=${req.query.time}&page=finsight`, async function (error, response, body) {
     if (error != null) {
-            if (req.query.language === 'en') {
-                if (id === 'default') { await Model.updateOne({ "name": 'AI NER Base (English)' }, { "status": 0 }) }
-                else { await Model.updateOne({ "_id": ObjectID(id) }, { "status": 0 }) }
-            }
-            if (req.query.language === 'jp') {
-                if (id === 'default') { await Model.updateOne({ "name": 'AI NER Base (Japanese)' }, { "status": 0 }) }
-                else { await Model.updateOne({ "_id": ObjectID(id) }, { "status": 0 }) }
-            }
-
+   
+            if (id === 'default') { await Model.updateOne({ "name": 'AI NER Base' }, { "status": 0 }) }
+            else { await Model.updateOne({ "_id": ObjectID(id) }, { "status": 0 }) }
         }
-        console.log(body)
     })
     res.send('request execute cussess')
 })
 //evaluate model tag
 router.get("/models/ai/evaluate", async (req, res) => {
-    request(`http://localhost:3001/evaluate-tag/model-ai?language=${req.query.language}&id=${req.query.id}&page=waterportal`, async function (error, response, body) {
+    request(`http://localhost:5000/evaluate-tag/model-ai?language=${req.query.language}&id=${req.query.id}&page=finsight`, async function (error, response, body) {
         if (error != null) {
             
                 await Model.updateOne({ "_id": ObjectID(req.query.id) }, { "status": 0 }) 
@@ -180,7 +172,7 @@ router.get("/models/ai/evaluate", async (req, res) => {
 // training model tag
 
 router.get("/models/tag/training-model", async (req, res) => {
-    await request(`http://localhost:3001/training-tag/model-ai?language=${req.query.language}&id=${req.query.id}&page=waterportal`, async function (error, response, body) {
+    await request(`http://localhost:5000/training-tag/model-ai?language=${req.query.language}&id=${req.query.id}&page=finsight`, async function (error, response, body) {
         if (error) { await Model.updateOne({ "_id": ObjectID(req.query.id) }, { "status": 2 }) }
         console.log(body)
     })

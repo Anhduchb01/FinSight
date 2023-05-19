@@ -39,7 +39,7 @@ article_collection = client["FinSight"]["posts"]
 historyTag_collection = client["FinSight"]["taghistorys"]
 
 def ckeck_database_tag_service(page):
-    ckeck_database_article_repository(page)
+    ckeck_database_article_repository()
     global tags_collection
     global tagmap_collection
     global model_collection
@@ -183,7 +183,7 @@ def evaluate_tag_ai(language, id):
     dsdata = dsdata.cast(new_features)
     model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 1}})
 
-    ner = initialization_model_evaluate(language,id)
+    ner = initialization_model_evaluate(id)
     task_evaluator = evaluator("token-classification")
 
     results = task_evaluator.compute(
@@ -206,36 +206,17 @@ def evaluate_tag_ai(language, id):
 def predict_tag_ai(language, id,timeModel,text):
     
     
-    if language == 'en':
-        ner = initialization_model(language,id)
-        print('load model ok')
-        if len(text.split())>0:                    
-            text_process = split_sentence(text,language)
-            
-            print("split text ok")
-            for sentence in text_process:
-                    print('start predict')
-                    tags = generate_keyword(sentence, ner,language)
-                    print('predict ok')  
-                    tags_array = []
-                    tags_name_array = []
-                    for sentence in text_process:
-                        tags = generate_keyword(sentence, ner,language)
-                        for tag in tags:
-                            if tag["name"] not in tags_name_array:
-                                tags_array.append(tag)
-                                tags_name_array.append(tag["name"])
-                        for tag in tags_array:
-                            for tag1 in tags_array:
-                                if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
-                                    tags_array.remove(tag1)       
-    else:
-        ner = initialization_model(language,id)
-        if len(text.split())>0:                       
-            text_process = split_sentence(text,language) 
-            print(text_process)  
-            for sentence in text_process:
+    
+    ner = initialization_model(id)
+    print('load model ok')
+    if len(text.split())>0:                    
+        text_process = split_sentence(text,language)
+        
+        print("split text ok")
+        for sentence in text_process:
+                print('start predict')
                 tags = generate_keyword(sentence, ner,language)
+                print('predict ok')  
                 tags_array = []
                 tags_name_array = []
                 for sentence in text_process:
@@ -247,12 +228,12 @@ def predict_tag_ai(language, id,timeModel,text):
                     for tag in tags_array:
                         for tag1 in tags_array:
                             if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
-                                tags_array.remove(tag1)
-                    
+                                tags_array.remove(tag1)       
+    
             
     
     return tags_array
-def process_tag_ai(language, id,timeModel):
+def process_tag_ai(id,timeModel):
     ''' Use Bert model to generate tag '''
     # historyGenerate = historyGenerateTag_collection.find_one({'model_id':str(id)})
     # timeCrawlPage = dayjs().format("YYYY/MM/DD h:mm:ss")
@@ -263,197 +244,116 @@ def process_tag_ai(language, id,timeModel):
     listArticleHasProcessed = []
     arrayArticleHasProcessed = []
 
-    if id == 'defaultEN' or id == 'defaultJP':
-        if id == 'defaultEN':
-            model_collection.update_one({"name": "AI NER Base (English)"}, {"$set": {"status": 1}})
-        if id == 'defaultJP':
-            model_collection.update_one({"name": "AI NER Base (Japanese)"}, {"$set": {"status": 1}})
+    if id == 'default':
+        
+        model_collection.update_one({"name": "AI NER Base"}, {"$set": {"status": 1}})
         findModelBase = historyGenerateTag_collection.find_one({"model_id": str(id)})
         if findModelBase:
             print('model da ton tai')
         else:
             historyGenerateTag_collection.insert_one({ "time": timeExcute, "model_id": str(id),'listArticleHasProcessed':listArticleHasProcessed}) 
-        if language == 'en':
-            ner = initialization_model(language,id)
-            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
-            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-            print('load model default -ok')
-            cursor  =article_collection.find({'status':"0",'languageCrawl':language},no_cursor_timeout=True).batch_size(20)
-            for article in tqdm(cursor):
-                flagArticle = True
-                for articleHasProcessed in arrayArticleHasProcessed:
-                    if str(articleHasProcessed['article_id']) == str(article['_id']):
-                        flagArticle = False
-                        break
-                if flagArticle == False:
-                    continue
-                if article:
-                    
-                    text = article["description"]
-                    if len(text.split()==0):
-                        break
-                    year = get_time_article(article)
-                    if text:
-                        # split big sentences to small sentences. 
-                        text_process = split_sentence(text,language)
-                        try:
-                            tags_array = []
-                            tags_name_array = []
-                            for sentence in text_process:
-                                tags = generate_keyword(sentence, ner,language)
-                                for tag in tags:
-                                    if tag["name"] not in tags_name_array:
-                                        tags_array.append(tag)
-                                        tags_name_array.append(tag["name"])
-                                for tag in tags_array:
-                                    for tag1 in tags_array:
-                                        if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
-                                            tags_array.remove(tag1)
+        
+        ner = initialization_model(id)
+        listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
+        arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
+        print('load model default -ok')
+        cursor  =article_collection.find({'status':"0"},no_cursor_timeout=True).batch_size(20)
+        for article in tqdm(cursor):
+            flagArticle = True
+            for articleHasProcessed in arrayArticleHasProcessed:
+                if str(articleHasProcessed['article_id']) == str(article['_id']):
+                    flagArticle = False
+                    break
+            if flagArticle == False:
+                continue
+            if article:
+                
+                text = article["content"]
+
+                print(len(text.split()))
+                if len(text.split()) ==0:
+                    break
+                year = get_time_article(article)
+                if text:
+                    # split big sentences to small sentences. 
+                    text_process = split_sentence(text)
+                    try:
+                        tags_array = []
+                        tags_name_array = []
+                        for sentence in text_process:
+                            tags = generate_keyword(sentence, ner)
+                            for tag in tags:
+                                if tag["name"] not in tags_name_array:
+                                    tags_array.append(tag)
+                                    tags_name_array.append(tag["name"])
+                            for tag in tags_array:
+                                for tag1 in tags_array:
+                                    if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
+                                        tags_array.remove(tag1)
+                            
+                        # Insert tags
+                        for tag in tags_array:
+                            listTagMapHistory = []
+                            tag_exit = historyTag_collection.find_one({"model_id": str(id),'name':tag['name']})
+                            # listTagHistory = findModelHistory['listTag']
+                            # listTagMapHistory = []
+                            # tag_exit = ''
+                            # slug = ''
+                            # lastScore = 0
+                            # for tagInListTag in listTagHistory:
+                            #     checkTag = tagInListTag.get('name', None)
+                            #     if checkTag:
+                            #         if tagInListTag['name'] == tag["name"]:
+                            #             tag_exit = tag
+                            #             lastScore = tagInListTag['score']
+                            #             listTagMapHistory = tagInListTag['listTagMap']
+                            #             slug = tagInListTag['slug']
+                            #             break  
+
+                            if tag_exit:
                                 
-                            # Insert tags
-                            for tag in tags_array:
-                                listTagMapHistory = []
-                                tag_exit = historyTag_collection.find_one({"model_id": str(id),'name':tag['name']})
-                                # listTagHistory = findModelHistory['listTag']
-                                # listTagMapHistory = []
-                                # tag_exit = ''
-                                # slug = ''
-                                # lastScore = 0
-                                # for tagInListTag in listTagHistory:
-                                #     checkTag = tagInListTag.get('name', None)
-                                #     if checkTag:
-                                #         if tagInListTag['name'] == tag["name"]:
-                                #             tag_exit = tag
-                                #             lastScore = tagInListTag['score']
-                                #             listTagMapHistory = tagInListTag['listTagMap']
-                                #             slug = tagInListTag['slug']
-                                #             break  
-
-                                if tag_exit:
-                                    
-                                    newScore = (float(tag["score"]) + float(tag_exit['score']) )/2
-                                    listTagMapHistory = tag_exit['listTagMap']
-                                    listTagMapHistory.append({ "article_id": article["_id"], "language": language, "year": year})
-                                    historyTag_collection.update_one({"model_id": str(id),'name':tag['name']}, {"$set": {"listTagMap": listTagMapHistory,"score": newScore}})
-                                else:
-                                    
-                                    slug_tag = slugify(tag["name"])
-                                    score = float(tag["score"])
-                                    listTagMapHistory.append({ "article_id": article["_id"], "language": language, "year": year})
-                                    historyTag_collection.insert_one({'model_id':str(id), "name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": score,"listTagMap": listTagMapHistory})
-                                # tag_exit_goc = tags_collection.find_one({"name": tag["name"], 'source': '1'})
-                                # # if tag_exit_goc:
-                                #     tagmap_collection.insert_one({"article_id": article["_id"], "tag_id": tag_exit_goc["_id"], "language": language, "year": year})
-                                #     continue
-                                # slug_tag = slugify(tag["name"])
-                                # tag_id = tags_collection.insert_one({"name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": float(tag["score"]), "source": '1'})
-                                # tagmap_collection.insert_one({"article_id": article["_id"], "tag_id": tag_id.inserted_id, "language": language, "year": year})
-                            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
-                            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                            arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':True})
-                            historyGenerateTag_collection.update_one({"model_id": str(id)}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                        except Exception as e:
-                            print("ERROR: " + str(e))
-                            # if error when generate tagai update field isTagAi is False
-                            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
-                            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                            arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
-                            historyGenerateTag_collection.update_one({"model_id": str(id)}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                    else:
+                                newScore = (float(tag["score"]) + float(tag_exit['score']) )/2
+                                listTagMapHistory = tag_exit['listTagMap']
+                                listTagMapHistory.append({ "article_id": article["_id"],  "year": year})
+                                historyTag_collection.update_one({"model_id": str(id),'name':tag['name']}, {"$set": {"listTagMap": listTagMapHistory,"score": newScore}})
+                            else:
+                                
+                                slug_tag = slugify(tag["name"])
+                                score = float(tag["score"])
+                                listTagMapHistory.append({ "article_id": article["_id"],  "year": year})
+                                historyTag_collection.insert_one({'model_id':str(id), "name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": score,"listTagMap": listTagMapHistory})
+                            # tag_exit_goc = tags_collection.find_one({"name": tag["name"], 'source': '1'})
+                            # # if tag_exit_goc:
+                            #     tagmap_collection.insert_one({"article_id": article["_id"], "tag_id": tag_exit_goc["_id"],  "year": year})
+                            #     continue
+                            # slug_tag = slugify(tag["name"])
+                            # tag_id = tags_collection.insert_one({"name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": float(tag["score"]), "source": '1'})
+                            # tagmap_collection.insert_one({"article_id": article["_id"], "tag_id": tag_id.inserted_id, "year": year})
+                        listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
+                        arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
+                        arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':True})
+                        historyGenerateTag_collection.update_one({"model_id": str(id)}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
+                    except Exception as e:
+                        print("ERROR: " + str(e))
+                        # if error when generate tagai update field isTagAi is False
                         listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
                         arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
                         arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
                         historyGenerateTag_collection.update_one({"model_id": str(id)}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                    time.sleep(1)
                 else:
-                    break
-            cursor.close()
-        if language == 'jp':
-            ner = initialization_model(language,id)
-            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
-            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-            
-            cursor  =article_collection.find({'status':"0",'languageCrawl':language},no_cursor_timeout=True).batch_size(20)
-            for article in tqdm(cursor):
-                flagArticle = True
-                for articleHasProcessed in arrayArticleHasProcessed:
-                    if str(articleHasProcessed['article_id']) == str(article['_id']):
-                        flagArticle = False
-                        break
-                if flagArticle == False:
-                    continue
-                if article:
-                    text = article["description"]
-                    if len(text.split())==0:
-                        break
-                    year = get_time_article(article)
-                    if text:
-                        # split big sentences to small sentences. 
-                        text_process = split_sentence(text,language)
-                        try:
-                            tags_array = []
-                            tags_name_array = []
-                            for sentence in text_process:
-                                tags = generate_keyword(sentence, ner,language)
-                                for tag in tags:
-                                    if tag["name"] not in tags_name_array:
-                                        tags_array.append(tag)
-                                        tags_name_array.append(tag["name"])
-                                for tag in tags_array:
-                                    for tag1 in tags_array:
-                                        if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
-                                            tags_array.remove(tag1)
-                            # Insert tags
-                            for tag in tags_array:
-                                listTagMapHistory = []
-                                tag_exit = historyTag_collection.find_one({"model_id": str(id),'name':tag['name']})
-                                if tag_exit:
-                                    newScore = (float(tag["score"]) + float(tag_exit['score']) )/2
-                                    listTagMapHistory = tag_exit['listTagMap']
-                                    listTagMapHistory.append({ "article_id": article["_id"], "language": language, "year": year})
-                                    historyTag_collection.update_one({"model_id": str(id),'name':tag['name']}, {"$set": {"listTagMap": listTagMapHistory,"score": newScore}})
-                                else:
-                                    slug_tag = slugify(tag["name"])
-                                    score = float(tag["score"])
-                                    listTagMapHistory.append({ "article_id": article["_id"], "language": language, "year": year})
-                                    historyTag_collection.insert_one({'model_id':str(id), "name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": score,"listTagMap": listTagMapHistory})
-                            # Update article TagAI status
-                            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
-                            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                            arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':True})
-                            historyGenerateTag_collection.update_one({"model_id": str(id)}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                        except Exception as e:
-                            print("ERROR: " + str(e))
-                            # if error when generate tagai update field isTagAi is False
-                            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
-                            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                            arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
-                            historyGenerateTag_collection.update_one({"model_id": str(id)}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                    else:
-                        listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
-                        arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                        arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
-                        historyGenerateTag_collection.update_one({"model_id": str(id)}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                    time.sleep(1)
-                else:
-                    break
-            cursor.close()
-        if id == 'defaultEN':
-            listTag = historyTag_collection.find({'model_id':'defaultEN'})
-            model_old = model_collection.find_one({"name": "defaultEN"})
-            total = len(listTag)
-            lastTotalTag = model_old['totalTag']
-
-            model_collection.update_one({"name": "AI NER Base (English)"}, {"$set": {"status": 0,'totalTag':total,'lastTotalTag':lastTotalTag}})
-            
-        if id == 'defaultJP':
-            listTag = historyTag_collection.find({'model_id':'defaultJP'})
-            model_old = model_collection.find_one({"name": "defaultJP"})
-            total = len(listTag)
-            lastTotalTag = model_old['totalTag']
-
-            model_collection.update_one({"name": "AI NER Base (defaultJP)"}, {"$set": {"status": 0,'totalTag':total,'lastTotalTag':lastTotalTag}})
-            
+                    listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id)})
+                    arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
+                    arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
+                    historyGenerateTag_collection.update_one({"model_id": str(id)}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
+                time.sleep(1)
+            else:
+                break
+        cursor.close()
+        print('predict - ok')
+        listTag = historyTag_collection.find({"model_id": id})
+        total = len(listTag)
+        model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 0,'totalTag':total}})
+    
             
     else:
         model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 1}})
@@ -465,151 +365,79 @@ def process_tag_ai(language, id,timeModel):
         else:
             timeExcute = timeModel
             historyGenerateTag_collection.insert_one({ "time": timeModel, "model_id": str(id),'listArticleHasProcessed':listArticleHasProcessed})
-        if language == 'en':
-            ner = initialization_model(language,id)
-            print('load model - ok')
-            
-            
-            cursor  =article_collection.find({'status':"0",'languageCrawl':language},no_cursor_timeout=True).batch_size(20)
-            for article in tqdm(cursor):
-                if len(arrayArticleHasProcessed) != 0:
-                    flagArticle = True
-                    for articleHasProcessed in arrayArticleHasProcessed:
-                        if str(articleHasProcessed['article_id']) == str(article['_id']):
-                            flagArticle = False
-                            break
-                    if flagArticle == False:
-                        continue
-                if article:
-                    text = article["description"]
-                    if len(text.split())==0:
+        ner = initialization_model(id)
+        print('load model - ok')
+        cursor  =article_collection.find({'status':"0"},no_cursor_timeout=True).batch_size(20)
+        for article in tqdm(cursor):
+            if len(arrayArticleHasProcessed) != 0:
+                flagArticle = True
+                for articleHasProcessed in arrayArticleHasProcessed:
+                    if str(articleHasProcessed['article_id']) == str(article['_id']):
+                        flagArticle = False
                         break
-                    year = get_time_article(article)
-                    if text:
-                        # split big sentences to small sentences. 
-                        text_process = split_sentence(text,language)
-                        try:
-                            tags_array = []
-                            tags_name_array = []
-                            for sentence in text_process:
-                                tags = generate_keyword(sentence, ner,language)
-                                for tag in tags:
-                                    if tag["name"] not in tags_name_array:
-                                        tags_array.append(tag)
-                                        tags_name_array.append(tag["name"])
-                                for tag in tags_array:
-                                    for tag1 in tags_array:
-                                        if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
-                                            tags_array.remove(tag1)
-                            # Insert tags
-                            for tag in tags_array:
-
-                                listTagMapHistory = []
-                                tag_exit = historyTag_collection.find_one({"model_id": str(id),'name':tag['name'],"time": timeExcute})
-                                if tag_exit:
-                                    newScore = (float(tag["score"]) + float(tag_exit['score']) )/2
-                                    listTagMapHistory = tag_exit['listTagMap']
-                                    listTagMapHistory.append({ "article_id": article["_id"], "language": language, "year": year})
-                                    historyTag_collection.update_one({"model_id": str(id),'name':tag['name']}, {"$set": {"listTagMap": listTagMapHistory,"score": newScore}})
-                                else:
-                                    slug_tag = slugify(tag["name"])
-                                    score = float(tag["score"])
-                                    listTagMapHistory.append({ "article_id": article["_id"], "language": language, "year": year})
-                                    historyTag_collection.insert_one({'model_id':str(id),"time": timeExcute, "name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": score,"listTagMap": listTagMapHistory})
-                                
-                            # Update article TagAI status
-                            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id),"time": timeExcute})
-                            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                            arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':True})
-                            historyGenerateTag_collection.update_one({"model_id": str(id),"time": timeExcute}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                            # update_article({"_id": article["_id"]}, {"$set": {"isTagAi": True}})
-                        except Exception as e:
-                            print("ERROR: " + str(e))
-                            # if error when generate tagai update field isTagAi is False
-                            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id),"time": timeExcute})
-                            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                            arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
-                            historyGenerateTag_collection.update_one({"model_id": str(id),"time": timeExcute}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                    else:
-                        listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id),"time": timeExcute})
-                        arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                        arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
-                        historyGenerateTag_collection.update_one({"model_id": str(id),"time": timeExcute}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                    time.sleep(1)
-                else:
+                if flagArticle == False:
+                    continue
+            if article:
+                text = article["description"]
+                if len(text.split())==0:
                     break
-            cursor.close()
-            print('predict - ok')
-        if language == 'jp':
-            ner = initialization_model(language,id)
-            cursor  =article_collection.find({'status':"0",'languageCrawl':language},no_cursor_timeout=True).batch_size(20)
-            for article in tqdm(cursor):
-                if len(arrayArticleHasProcessed) != 0:
-                    flagArticle = True
-                    for articleHasProcessed in arrayArticleHasProcessed:
-                        if str(articleHasProcessed['article_id']) == str(article['_id']):
-                            flagArticle = False
-                            break
-                    if flagArticle == False:
-                        continue
-                if article:
-                    text = article["description"]
-                    if len(text.split()==0):
-                        break
-                    year = get_time_article(article)
-                    if text:
-                        # split big sentences to small sentences. 
-                        text_process = split_sentence(text,language)
-                        try:
-                            tags_array = []
-                            tags_name_array = []
-                            for sentence in text_process:
-                                tags = generate_keyword(sentence, ner,language)
-                                for tag in tags:
-                                    if tag["name"] not in tags_name_array:
-                                        tags_array.append(tag)
-                                        tags_name_array.append(tag["name"])
-                                for tag in tags_array:
-                                    for tag1 in tags_array:
-                                        if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
-                                            tags_array.remove(tag1)
-                            # Insert tags
+                year = get_time_article(article)
+                if text:
+                    # split big sentences to small sentences. 
+                    text_process = split_sentence(text)
+                    try:
+                        tags_array = []
+                        tags_name_array = []
+                        for sentence in text_process:
+                            tags = generate_keyword(sentence, ner)
+                            for tag in tags:
+                                if tag["name"] not in tags_name_array:
+                                    tags_array.append(tag)
+                                    tags_name_array.append(tag["name"])
                             for tag in tags_array:
+                                for tag1 in tags_array:
+                                    if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
+                                        tags_array.remove(tag1)
+                        # Insert tags
+                        for tag in tags_array:
 
-                                listTagMapHistory = []
-                                tag_exit = historyTag_collection.find_one({"model_id": str(id),'name':tag['name'],"time": timeExcute})
-                                if tag_exit:
-                                    newScore = (float(tag["score"]) + float(tag_exit['score']) )/2
-                                    listTagMapHistory = tag_exit['listTagMap']
-                                    listTagMapHistory.append({ "article_id": article["_id"], "language": language, "year": year})
-                                    historyTag_collection.update_one({"model_id": str(id),'name':tag['name']}, {"$set": {"listTagMap": listTagMapHistory,"score": newScore}})
-                                else:
-                                    slug_tag = slugify(tag["name"])
-                                    score = float(tag["score"])
-                                    listTagMapHistory.append({ "article_id": article["_id"], "language": language, "year": year})
-                                    historyTag_collection.insert_one({'model_id':str(id),"time": timeExcute, "name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": score,"listTagMap": listTagMapHistory})
+                            listTagMapHistory = []
+                            tag_exit = historyTag_collection.find_one({"model_id": str(id),'name':tag['name'],"time": timeExcute})
+                            if tag_exit:
+                                newScore = (float(tag["score"]) + float(tag_exit['score']) )/2
+                                listTagMapHistory = tag_exit['listTagMap']
+                                listTagMapHistory.append({ "article_id": article["_id"], "year": year})
+                                historyTag_collection.update_one({"model_id": str(id),'name':tag['name']}, {"$set": {"listTagMap": listTagMapHistory,"score": newScore}})
+                            else:
+                                slug_tag = slugify(tag["name"])
+                                score = float(tag["score"])
+                                listTagMapHistory.append({ "article_id": article["_id"], "year": year})
+                                historyTag_collection.insert_one({'model_id':str(id),"time": timeExcute, "name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": score,"listTagMap": listTagMapHistory})
                             
-                            # Update article TagAI status
-                            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id),"time": timeExcute})
-                            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                            arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':True})
-                            historyGenerateTag_collection.update_one({"model_id": str(id),"time": timeExcute}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                        except Exception as e:
-                            print("ERROR: " + str(e))
-                            # if error when generate tagai update field isTagAi is False
-                            listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id),"time": timeExcute})
-                            arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
-                            arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
-                            historyGenerateTag_collection.update_one({"model_id": str(id),"time": timeExcute}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                    else:
+                        # Update article TagAI status
+                        listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id),"time": timeExcute})
+                        arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
+                        arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':True})
+                        historyGenerateTag_collection.update_one({"model_id": str(id),"time": timeExcute}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
+                        # update_article({"_id": article["_id"]}, {"$set": {"isTagAi": True}})
+                    except Exception as e:
+                        print("ERROR: " + str(e))
+                        # if error when generate tagai update field isTagAi is False
                         listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id),"time": timeExcute})
                         arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
                         arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
                         historyGenerateTag_collection.update_one({"model_id": str(id),"time": timeExcute}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
-                    time.sleep(1)
                 else:
-                    break
-            cursor.close()
+                    listArticleHasProcessed = historyGenerateTag_collection.find_one({"model_id": str(id),"time": timeExcute})
+                    arrayArticleHasProcessed = listArticleHasProcessed['listArticleHasProcessed']
+                    arrayArticleHasProcessed.append({'article_id':article["_id"],'isTagAi':False})
+                    historyGenerateTag_collection.update_one({"model_id": str(id),"time": timeExcute}, {"$set": {"listArticleHasProcessed": arrayArticleHasProcessed}})
+                time.sleep(1)
+            else:
+                break
+        cursor.close()
+        print('predict - ok')
+    
         listTag = historyTag_collection.find({"model_id": id})
         model_old = model_collection.find_one({"_id": ObjectId(id)})
         total = len(listTag)

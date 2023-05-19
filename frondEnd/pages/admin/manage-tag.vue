@@ -278,7 +278,7 @@
 import TotalTag from "~/components/admin/manage-tag/total-tagComponent.vue";
 import Model from "~/components/admin/manage-tag/ModelComponent.vue";
 import TagList from "~/components/admin/manage-tag/TagListComponent.vue";
-
+import { HTTP } from "../../static/baseAPIAdmin.js";
 export default {
   layout: "admin",
   components: {
@@ -286,6 +286,15 @@ export default {
     Model,
     TagList,
   },
+  mounted(){
+    HTTP.post(`models/bert/create-model-default?sourceModel=tag`)
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
+  }
 };
 </script>
 <style>

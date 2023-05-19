@@ -72,13 +72,12 @@ async function listModel(sourceModel) {
 
 /** Get all default Models  */
 async function listModelDefault(sourceModel) {
-    let model_en = await Model.findOne({ 'source': sourceModel, "name": "Library (English)" })
-    let model_jp = await Model.findOne({ 'source': sourceModel, "name": "Library (Japanese)" })
-    let model_bert_en = await Model.findOne({ 'source': sourceModel, "isAi": 1, "isSystem": 0, language: 'en' })
-    let model_bert_jp = await Model.findOne({ 'source': sourceModel, "isAi": 1, "isSystem": 0, language: 'jp' })
+    let model = await Model.findOne({ 'source': sourceModel, "name": "Library (Underthesea)" })
+    let bert = await Model.findOne({ 'source': sourceModel, "isAi": 1, "isSystem": 0 })
+
     
     
-    let data = { "data": { "en": model_en, "jp": model_jp, "bert_en": model_bert_en, "bert_jp": model_bert_jp } }
+    let data = { "data": { "lib": model,  "bert": bert } }
     return data
 }
 
@@ -124,30 +123,17 @@ async function createModel(time, name, idModelParent, sourceModel) {
 /** Create 3 default models  */
 async function createModelDefault(sourceModel) {
     let time = dayjs().format('YYYY/MM/DD HH:mm:ss')
-    let model_en = await Model.findOne({ 'source': sourceModel, "name": "Library (English)" })
+    let model_en = await Model.findOne({ 'source': sourceModel, "name": "Library (Underthesea)" })
     if (model_en == null) {
-        let model = { "time": time, "name": "Library (English)", "language": "en", "status": 0, "score": 0, "isAi": 0, "isSystem": 0, 'source': sourceModel,'lastScore':0,'score':0,'lastTotalTag':0,'totalTag':0 }
+        let model = { "time": time, "name": "Library (Underthesea)", "status": 0, "score": 0, "isAi": 0, "isSystem": 0, 'source': sourceModel,'lastScore':0,'score':0,'lastTotalTag':0,'totalTag':0 }
         model_en = await Model.create(model)
     }
-    let model_jp = await Model.findOne({ 'source': sourceModel, "name": "Library (Japanese)" })
-    if (model_jp == null) {
-        let model = { "time": time, "name": "Library (Japanese)", "language": "jp", "status": 0, "score": 0, "isAi": 0, "isSystem": 0, 'source': sourceModel ,'lastScore':0,'score':0,'lastTotalTag':0,'totalTag':0}
-        model_jp = await Model.create(model)
-    }
+    let model_bert = await Model.findOne({'source': sourceModel, "name": "AI NER Base" })
 
-    let model_bert = await Model.findOne({ 'source': sourceModel, "isAi": 1, language: "en" })
     if (model_bert == null) {
         if (sourceModel === 'tag') {
-            let model = { "time": time, "name": "AI NER Base (English)", "language": "en", "status": 0, "score": 0, "isAi": 1, "isSystem": 0, 'source': sourceModel ,'lastScore':0,'score':0,'lastTotalTag':0,'totalTag':0}
+            let model = { "time": time, "name": "AI NER Base", "status": 0, "score": 0, "isAi": 1, "isSystem": 0, 'source': sourceModel ,'lastScore':0,'score':0,'lastTotalTag':0,'totalTag':0}
             model_bert = await Model.create(model)
-        }
-    }
-
-    let model_bert_jp = await Model.findOne({ 'source': sourceModel, "isAi": 1, language: "jp" })
-    if (model_bert_jp == null) {
-        if (sourceModel === 'tag') {
-            let model = { "time": time, "name": "AI NER Base (Japanese)", "language": "jp", "status": 0, "score": 0, "isAi": 1, "isSystem": 0, 'source': sourceModel ,'lastScore':0,'score':0,'lastTotalTag':0,'totalTag':0}
-            model_bert_jp = await Model.create(model)
         }
     }
     let message = { "message": "successfully" }
