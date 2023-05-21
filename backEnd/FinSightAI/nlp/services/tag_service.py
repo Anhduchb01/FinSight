@@ -351,6 +351,7 @@ def process_tag_ai(id,timeModel):
         cursor.close()
         print('predict - ok')
         listTag = historyTag_collection.find({"model_id": id})
+        listTag = list(cursor)
         total = len(listTag)
         model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 0,'totalTag':total}})
     
@@ -440,6 +441,7 @@ def process_tag_ai(id,timeModel):
     
         listTag = historyTag_collection.find({"model_id": id})
         model_old = model_collection.find_one({"_id": ObjectId(id)})
+        listTag = list(cursor)
         total = len(listTag)
         lastTotalTag = model_old['totalTag']
 

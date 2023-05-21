@@ -76,11 +76,9 @@ def run_process_classification(id, timeModel):
 		if article:
 			# try:
 				text = article["title"]
-				print(text)
-				if len(text.split())==0 or text ==  None:
-					break
+				if  text ==  None:
+					continue
 				text_process = get_split(text)
-				
 				
 				if id == 'default':
 					score_categories = execute_model_default(text_process, classificator)
@@ -97,7 +95,7 @@ def run_process_classification(id, timeModel):
 						max_label = label_dict['label']
 						
 				max_score_category = max_score
-				print(dict_score_categories)
+
 				# update_article({"_id": article["_id"]}, {"$set": {"category": max_score_category, "isClassification": True, 'classificationScore': score_categories}})
 				historyClassification_collection.insert_one({'model_id':str(id),'time':timeExcute,'article_id':ObjectId(article["_id"]),'classificationScore':dict_score_categories,"category": max_label})
 

@@ -338,14 +338,10 @@ export default {
         this.TotalAiLoc = response.data.ai.loc;
         this.TotalAiMisc = response.data.ai.misc;
 
-        this.WidthPerTotal =
-          (this.TotalPerson / this.Totaltag) * this.percentTotalPostLib;
-        this.WidthOrgTotal =
-          (this.TotalOrg / this.Totaltag) * this.percentTotalPostLib;
-        this.WidthLocTotal =
-          (this.TotalLoc / this.Totaltag) * this.percentTotalPostLib;
-        this.WidthMiscTotal =
-          (this.TotalMisc / this.Totaltag) * this.percentTotalPostLib;
+        this.WidthPerTotal =(this.TotalPerson / this.Totaltag) * 100;
+        this.WidthOrgTotal = (this.TotalOrg / this.Totaltag) * 100;
+        this.WidthLocTotal = (this.TotalLoc / this.Totaltag) * 100;
+        this.WidthMiscTotal = (this.TotalMisc / this.Totaltag) * 100;
         this.WidthPendingTotal = 100 - (this.WidthPerTotal + this.WidthOrgTotal + this.WidthLocTotal +this.WidthMiscTotal);
 
         this.WidthPerLib = (this.TotatLibPerson / this.TotalLibTag) * this.percentTotalPostLib;

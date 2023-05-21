@@ -1,8 +1,8 @@
 <template>
   <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
-    <div id="area-tag-chart" style="height: 265px">
+    <div id="area-tag-chart" style="height: 265px;">
       <div style="height: 10px; text-align: center;">
-         <apexchart class="box-data-chart" id="chart-count-keyword" type="area" height="230" width="550" :options="optionChartLine" :series="seriesChartLine" v-if="arrLib&&arrAI&&arrLib.length&&arrAI.length" style="bottom: -30px;margin-top:26px"/>
+         <apexchart class="box-data-chart" id="chart-count-keyword" type="area" height="230" width="450" :options="optionChartLine" :series="seriesChartLine" v-if="arrLib&&arrAI&&arrLib.length&&arrAI.length" style="bottom: -30px;margin-top:26px"/>
         <div id="loading-chart-overview" style=" margin-top: 95px;" class="spinner-border text-success align-self-center" v-else></div>
       </div>
     </div>
@@ -57,7 +57,7 @@ export default {
           },
           chart: {
             height: 288,
-
+            width:200,
             toolbar: {
               show: false,
             },

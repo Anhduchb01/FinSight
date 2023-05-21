@@ -49,7 +49,6 @@ def get_split(text1):
 def execute_model_default(newSequence,classificator):
     ''' Using classificator to classify text  '''
     output = classificator(newSequence)
-    print(output)
     return output
 
 def execute_model(newSequence,classificator):
