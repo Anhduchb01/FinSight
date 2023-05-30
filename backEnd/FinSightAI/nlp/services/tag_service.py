@@ -98,7 +98,7 @@ def process_tag_lib():
                     break
             # If exist text
             if text:
-                # print("PROCESS: https://waterportal.sinka.vn/detail-new/" + str(article["_id"]) + " " + "-" + " " + str(datetime.datetime.now(pytz.timezone("Asia/Ho_Chi_Minh"))), flush=True)
+                # print("PROCESS: https://finsight.sinka.vn/detail-new/" + str(article["_id"]) + " " + "-" + " " + str(datetime.datetime.now(pytz.timezone("Asia/Ho_Chi_Minh"))), flush=True)
                 # Try get tag from libaries, then save result to database
                 try:
                     year = get_time_article(article) # Get year of article

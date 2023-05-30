@@ -99,7 +99,16 @@ module.exports = {
     }
   },
 
-  modules: ['@nuxtjs/color-mode'],
+  modules: ['@nuxtjs/color-mode','@nuxtjs/dayjs'],
+  dayjs: {
+    locales: ['en', 'ja'],
+    defaultLocale: 'en',
+    defaultTimeZone: 'Asia/Tokyo',
+    plugins: [
+      'utc', // import 'dayjs/plugin/utc'
+      'timezone' // import 'dayjs/plugin/timezone'
+    ] // Your Day.js plugin
+  },
   buildModules: ["@nuxtjs/svg",'@nuxtjs/moment'],
   svg: {
     vueSvgLoader: {

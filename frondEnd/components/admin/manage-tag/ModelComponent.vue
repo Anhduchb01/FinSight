@@ -5,9 +5,13 @@
         <h4>Models</h4>
         <div style="cursor: pointer;"></div>
         <div style="cursor: pointer;">
-          <svg v-on:click="openSettingPlayGroundModel()" class="icon-model" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- <svg v-on:click="openSettingPlayGroundModel()" class="icon-model" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3" />
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg> -->
+          <svg v-on:click="openModalModel()" class="icon-model" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
           </svg>
         </div>
       </div>
@@ -240,6 +244,86 @@
       </div>
     </modal>
     <!-- Create new model -->
+    <modal name="modal-create-model" height="271px" width="500px" styles="overflow: initial">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <svg v-on:click="closeModalModel()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="modal">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+            <div class="compose-box">
+              <div class="compose-content">
+                <div class="row mb-4">
+                  <div class="col-md-12">
+                    <h5 style="font-weight: bold;color: #4361ee !important;" class="modal-title text-center">Create model</h5>
+                  </div>
+                </div>
+                <form>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="d-flex mb-4 mail-to">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-type">
+                          <polyline points="4 7 4 4 20 4 20 7" />
+                          <line x1="9" y1="20" x2="15" y2="20" />
+                          <line x1="12" y1="4" x2="12" y2="20" />
+                        </svg>
+                        <div class="w-100">
+                          <input v-model="createModelName" id="model-name-create" placeholder="Model name" class="form-control" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="d-flex mb-4 mail-to">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                          <polyline points="7 10 12 15 17 10" />
+                          <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        <div>
+                          <select v-model="modelParent" id="model-parent" class="placeholder js-states form-control">
+                            <option v-for="model in listModelTagEN" :key="model._id" class style="display: ${data.language === 'en' ? 'block' : 'none'}" :value="'default'+'+'+model.time+'+'+model.name">{{model.name}} ({{model.time}})</option>
+                            <!-- <option v-for="model in listModelJP" :key="model._id" class style="display: ${data.language === 'en' ? 'block' : 'none'}" :value="model._id+'+'+model.time">{{model.name}} ({{model.time}})</option> -->
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div>
+                                    <div class="n-chk">
+                                        <label class="new-control new-radio radio-primary">
+                                            <input type="radio" value="multiple" class="new-control-input"
+                                                name="language-radio-1" checked>
+                                            <span class="new-control-indicator"></span>Multiple Language
+                                        </label>
+                                    </div>
+                  </div>-->
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button v-on:click="createModel()" id="btn-save-modal-create" class="btn btn-primary float-left">
+              <svg style="display:none" id="icon-loadding-create-model" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                <line x1="12" y1="2" x2="12" y2="6" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                <line x1="2" y1="12" x2="6" y2="12" />
+                <line x1="18" y1="12" x2="22" y2="12" />
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+              </svg> Create
+            </button>
+            <button class="btn" data-dismiss="modal">
+              <i class="flaticon-delete-1"></i> Discard
+            </button>
+          </div>
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 <script>
@@ -248,6 +332,8 @@ import Snackbar from "awesome-snackbar";
 export default {
   data() {
     return {
+      createModelName : '',
+      modelParent : '',
       resultExcuteNearbaseEN: [],
       resultExcuteNearbaseJP: [],
       modelPlaygroundEn: 0,
@@ -329,6 +415,28 @@ export default {
           .catch(Error);
       }
       
+    },
+    openModalModel(){
+      this.$modal.show("modal-create-model");
+    },
+    closeModalModel(){
+      this.$modal.hide("modal-create-model");
+    },
+    createModel(){
+      let valueOption = this.modelParent;        
+      let array = valueOption.split("+");
+      let idModel = array[0];
+      let time = array[1];
+      let nameParent = array[2];
+      let timeNow =this.$dayjs().format('YYYY/MM/DD HH:mm:ss')
+
+      if (nameParent =='AI NER Base'){
+        idModel = 'default'
+      }
+      HTTP.post(`models/bert`, {
+         time: timeNow,name: this.createModelName, idModelParent: idModel ,sourceModel:'tag'
+      }).then((response) => {});
+
     },
     openSettingPlayGroundModel() {
       this.$modal.show("modal-setting-playground-model");

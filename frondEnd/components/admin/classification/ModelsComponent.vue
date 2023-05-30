@@ -4,10 +4,10 @@
       <div class="widget-heading">
         <h4>Models</h4>
         <div style="cursor: pointer;">
-          <svg v-on:click="openSettingPlayGroundModel()" class="icon-model" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- <svg v-on:click="openSettingPlayGroundModel()" class="icon-model" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3" />
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-          </svg>
+          </svg> -->
           <svg v-on:click="openModalModel()" class="icon-model" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="5" x2="12" y2="19" />
             <line x1="5" y1="12" x2="19" y2="12" />
@@ -61,7 +61,7 @@
           <div v-for="(listModelCreate,index) of listModelCreate" :key="listModelCreate.id" class="summary-list summary-profit" :id="'model-' +data1[index]">
             <div class="summery-info">
               <div class="w-icon">
-                <img class="img--contain image-en" src="~/static/assetsAdmin/img/gbr.png" alt="img" />
+                <img class="img--contain image-en"  style="    width: 100%;height: 100%;" src="~/static/assetsAdmin/img/model1.png" alt="img" />
               </div>
               <div class="w-summary-details">
                 <div class="w-summary-info">
@@ -196,9 +196,9 @@
                           <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
                         <div>
-                          <select id="model-parent" class="placeholder js-states form-control">
-                            <option v-for="model in listModelEN" :key="model._id" class style="display: ${data.language === 'en' ? 'block' : 'none'}" :value="model._id+'+'+model.time">{{model.name}} ({{model.time}})</option>
-                            <option v-for="model in listModelJP" :key="model._id" class style="display: ${data.language === 'en' ? 'block' : 'none'}" :value="model._id+'+'+model.time">{{model.name}} ({{model.time}})</option>
+                          <select v-model="modelParent" id="model-parent" class="placeholder js-states form-control">
+                            <option v-for="model in listModelBase" :key="model._id" class style="display: ${data.language === 'en' ? 'block' : 'none'}" :value="'default'+'+'+model.time+'+'+model.name">{{model.name}} ({{model.time}})</option>
+                            <!-- <option v-for="model in listModelJP" :key="model._id" class style="display: ${data.language === 'en' ? 'block' : 'none'}" :value="model._id+'+'+model.time">{{model.name}} ({{model.time}})</option> -->
                           </select>
                         </div>
                       </div>
@@ -218,7 +218,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button onclick="createModel($('#model-name-create').val())" id="btn-save-modal-create" class="btn btn-primary float-left">
+            <button v-on:click="createModel()" id="btn-save-modal-create" class="btn btn-primary float-left">
               <svg style="display:none" id="icon-loadding-create-model" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
                 <line x1="12" y1="2" x2="12" y2="6" />
                 <line x1="12" y1="18" x2="12" y2="22" />
@@ -242,6 +242,7 @@
 <script>
 import Snackbar from "awesome-snackbar";
 import { HTTP } from "../../../static/baseAPIAdmin.js";
+
 export default {
   props: ["listModelBaseOrigin", "listModelCreateOrigin"],
   computed: {
@@ -330,6 +331,7 @@ export default {
   data() {
     return {
       createModelName: null,
+      modelParent :'',
       modelPlaygroundEn: 0,
       modelPlaygroundJp: 0,
       data: [],
@@ -400,6 +402,22 @@ export default {
           }
         })
         .catch(Error);
+    },
+    createModel(){
+      let valueOption = this.modelParent;        
+      let array = valueOption.split("+");
+      let idModel = array[0];
+      let time = array[1];
+      let nameParent = array[2];
+      let timeNow =this.$dayjs().format('YYYY/MM/DD HH:mm:ss')
+
+      if (nameParent =='AI Sentiment Analysis Base'){
+        idModel = 'default'
+      }
+      HTTP.post(`models/classification/create-model`, {
+         time: timeNow,name: this.createModelName, idModelParent: idModel ,sourceModel:'classification'
+      }).then((response) => {});
+
     },
     saveModelPlayGround() {
       if (this.modelPlaygroundEn != 0) {

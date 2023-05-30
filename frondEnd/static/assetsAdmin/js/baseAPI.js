@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const HTTP = axios.create({
   // baseURL: `http://localhost/`,
-  baseURL: `https://apicloud.waterportal.sinka.vn/`,
+  baseURL: `https://apicloud.finsight.sinka.vn/`,
   headers: {
         
     

@@ -162,7 +162,7 @@ export default {
       for (let index = 0; index < stringImage.length; index++) {
         newString = stringImage[0];
       }
-      if (newString === "") newString = "/img/logo-waterportal.png";
+      if (newString === "") newString = "/img/logo-finsight.png";
       return newString;
     }
     function formatDescription(value) {

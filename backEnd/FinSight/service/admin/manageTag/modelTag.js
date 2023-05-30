@@ -98,23 +98,18 @@ function doRequest(url) {
 async function createModel(time, name, idModelParent, sourceModel) {
     let modelParent
     console.log(idModelParent)
-    if (idModelParent == 'defaultEN') {
-        console.log('defaultEN')
-        modelParent = await Model.findOne({ 'source': sourceModel, "name": "AI NER Base (English)" })
-    }
-    else if (idModelParent == 'defaultJP') {
-        console.log('defaultJP')
-        modelParent = await Model.findOne({ 'source': sourceModel, "name": "AI NER Base (Japanese)" })
+    if (idModelParent == 'default') {
+
+        modelParent = await Model.findOne({ 'source': sourceModel, "name": "AI NER Base" })
     }
     else{ 
-        console.log('else')
         modelParent = await Model.findOne({ _id: ObjectID(idModelParent) })
     }   
     let model = { "time": time, "name": name, "language": modelParent.language, status: 0, score: 0, isAi: 1, isSystem: 1, source: sourceModel, lastScore: modelParent.lastScore , score : modelParent.score,lastTotalTag:modelParent.lastTotalTag,totalTag: modelParent.totalTag,articleHasTraining:[]}
     let id = await Model.create(model)
     let nameFileModel = id._id
     if (sourceModel === 'tag') {
-        const message = await doRequest(`http://localhost:3001/clone-model-ai?id=${nameFileModel}&idparent=${idModelParent}&page=waterportal`)
+        const message = await doRequest(`http://localhost:5000/clone-model-ai?id=${nameFileModel}&idparent=${idModelParent}&page=finsight`)
         console.log('message = ', message)
         return id
     }
@@ -145,7 +140,7 @@ async function deleteModel(id) {
     await Model.deleteOne({ "_id": id })
     await HistoryGenerateTag.remove({ "model_id": id })
     await TagHistory.remove({ "model_id": id })
-    await request(`http://localhost:3001/remove-model?id=${id}&page=waterportal`, async function (error, response, body) {
+    await request(`http://localhost:5000/remove-model?id=${id}&page=finsight`, async function (error, response, body) {
         if (error != null) {
         }
     })

@@ -303,26 +303,19 @@ function doRequest(url) {
 async function createModel(time, name, idModelParent, sourceModel) {
   
     let modelParent
-    // if (idModelParent === '64353de7103838517c053cea'){ 
-    //     console.log('trung id')
-        
-    // }
-    // if (idModelParent === '64353de7103838517c053cee'){
-    //      modelParent = await Model.findOne({ _id: ObjectID(idModelParent) })
-    // }
-    // if (idModelParent !== '64353de7103838517c053cea' && idModelParent !== '64353de7103838517c053cee') {
-    //     console.log('ko trung id')
-    //     modelParent = await Model.findOne({ _id: ObjectID(idModelParent) })
-    // }
-    console.log(idModelParent)
-    modelParent =await Model.findOne({ _id: ObjectID(idModelParent) })
-    console.log(modelParent)
-    let model = { "time": time, "name": name, "language": modelParent.language, status: 0, score: 0, isAi: 1, isSystem: 1, source: sourceModel, lastScore: 0,score :0}
+    if (idModelParent === 'default'){ 
+        modelParent = await Model.findOne({name:"AI Sentiment Analysis Base" })   
+    }
+    else  {
+        modelParent = await Model.findOne({ _id: ObjectID(idModelParent) })
+    }
+
+    let model = { "time": time, "name": name, status: 0, score: 0, isAi: 1, isSystem: 1, source: sourceModel, lastScore: 0,score :0}
     let id = await Model.create(model)
     let nameFileModel = id._id
-    console.log(`http://localhost:3001/process-classification/clone-model-ai?id=${nameFileModel}&idparent=${idModelParent}&page=waterportal`)
+    console.log(`http://localhost:5000/process-classification/clone-model-ai?id=${nameFileModel}&idparent=${idModelParent}&page=finsight`)
     if (sourceModel === 'classification') {
-        const message = await doRequest(`http://localhost:3001/process-classification/clone-model-ai?id=${nameFileModel}&idparent=${idModelParent}&page=waterportal`)
+        const message = await doRequest(`http://localhost:5000/process-classification/clone-model-ai?id=${nameFileModel}&idparent=${idModelParent}&page=finsight`)
         console.log('message = ', message)
         return id
     }
@@ -344,7 +337,7 @@ async function updateModelClassification(id, name) {
 async function deleteModelClassification(id) {
     await Model.deleteOne({ "_id": id })
     await HistoryClassification.remove({ "model_id": id })
-    await request(`http://localhost:3001/process-classification/remove-model?id=${id}&page=waterportal`, async function (error, response, body) {
+    await request(`http://localhost:5000/process-classification/remove-model?id=${id}&page=finsight`, async function (error, response, body) {
         if (error != null) {
         }
     })

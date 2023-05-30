@@ -7,15 +7,9 @@ current_path = Path(__file__).parent.parent.parent.joinpath('ai_model')
 
 def clone_model_ai(id, idParent):
     ''' Clone NER model '''
-    if idParent == 'defaultEN':
-        model = AutoModelForTokenClassification.from_pretrained("Davlan/bert-base-multilingual-cased-ner-hrl")
-        tokenizer = AutoTokenizer.from_pretrained("Davlan/bert-base-multilingual-cased-ner-hrl")
-        tokenizer.save_pretrained(current_path.joinpath(id))
-        model.save_pretrained(current_path.joinpath(id))
-        return {"data": "finish"}
-    elif idParent == 'defaultJP':
-        model = AutoModelForTokenClassification.from_pretrained("jurabi/bert-ner-japanese")
-        tokenizer = AutoTokenizer.from_pretrained("jurabi/bert-ner-japanese")
+    if idParent == 'default':
+        model = AutoModelForTokenClassification.from_pretrained(current_path.joinpath('ner-vietnamese-electra-base'))
+        tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('ner-vietnamese-electra-base'))
         tokenizer.save_pretrained(current_path.joinpath(id))
         model.save_pretrained(current_path.joinpath(id))
         return {"data": "finish"}
@@ -33,16 +27,9 @@ def clone_model_classification_ai(id, idParent):
     ''' Clone Classification model'''
     idParent = str(idParent)
     print(idParent)
-    if idParent == '61c3e0f832b5123fe841260b':
-        model = AutoModelForTokenClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
-        tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
-        tokenizer.save_pretrained(current_path.joinpath(id))
-        model.save_pretrained(current_path.joinpath(id))
-        return {"data": "finish"}
-        
-    if idParent == '6334177d96477c1b143f965a':
-        model = AutoModelForTokenClassification.from_pretrained("daigo/bert-base-japanese-sentiment")
-        tokenizer = AutoTokenizer.from_pretrained("daigo/bert-base-japanese-sentiment")
+    if idParent == 'default':
+        model = AutoModelForTokenClassification.from_pretrained("wonrax/phobert-base-vietnamese-sentiment")
+        tokenizer = AutoTokenizer.from_pretrained("wonrax/phobert-base-vietnamese-sentiment")
         tokenizer.save_pretrained(current_path.joinpath(id))
         model.save_pretrained(current_path.joinpath(id))
         return {"data": "finish"}
