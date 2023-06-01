@@ -4,6 +4,7 @@ dotenv.config();
 
 let itemsCrawler = [];
 let itemsEditCrawler = [];
+let itemsEditCrawlerPDF = []
 let arrAddress = [
   "cafef",
   "cafebiz",
@@ -135,7 +136,38 @@ for (i = 0; i < arrAddress.length; i++) {
 //     name: arrCategory[i],
 //   });
 // }
-
+itemsCrawler.push({
+  addressPage: 'cafefpdf',
+  dateLastCrawler: "----/--/--",
+  sumPost: "0",
+  statusPageCrawl: "Off",
+  modePage: "on",
+  increasePost: 0,
+});
+itemsEditCrawlerPDF.push({
+  titlePage: 'cafefpdf',
+    urlPage: 'http://s.cafef.vn/phan-tich-bao-cao.chn',
+    namePage: 'cafefpdf',
+    modeSchedule: false,
+    timeSchedule:timeSchedule,
+    modePublic: false,
+    modeCookies: true,
+    modeRobotsParser: true,
+    timeOutCrawl: 0,
+    timeRetryCrawl: 0,
+    timeDelayCrawl: 0,
+    cookies: "",
+    userAgent: "",
+    httpHeader: dataHTTPHeader,
+    number_page_query: 20,
+    article_url_query: '#ContentPlaceHolder1_AnalyzeReportList1_rptData_itemTR_',
+    article_url_query1: arrObjQuery[i].title_query,
+    title_query:' > td:nth-child(2) > a::text',
+    timeCreatePostOrigin_query: ' > td.Item_DateItem::text',
+    source: '> td:nth-child(3)::text',
+    number_CK: '> td:nth-child(4)::text',
+    id_pdf: ' > td:nth-child(5) > a::attr(onclick)',
+});
 letItemsUser = [{
   username: 'admin@finsight.vn',
   password: '$2b$08$wOsX3.caipOB66CGB7O0kuKQHIoqNHln3cFR5oCsJxSgLPzq5Vok.',
@@ -166,6 +198,12 @@ let data = [
     model: "ConfigDefaultCrawler",
     documents: itemsQueryDefault,
   },
+  {
+    model : 'ConfigCrawlerPDF',
+    documents: itemsEditCrawlerPDF
+
+  }
+  
 ];
 // connect mongodb
 seeder.connect(`${process.env.DB_URL}`, function () {
@@ -175,9 +213,10 @@ seeder.connect(`${process.env.DB_URL}`, function () {
     // "models/category.model",
     "models/user.model",
     "models/configcrawler.model",
+    "models/configcrawlerpdf.model",
     "models/configquerydefault.model", // load mongoose model
   ]);
-  seeder.clearModels(["Crawler","User","ConfigCrawler",'ConfigDefaultCrawler'], function () {
+  seeder.clearModels(["Crawler","User","ConfigCrawler","ConfigCrawlerPDF",'ConfigDefaultCrawler'], function () {
     seeder.populateModels(data, function () {
       seeder.disconnect();
     });

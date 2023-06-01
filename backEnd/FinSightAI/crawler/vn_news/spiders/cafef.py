@@ -62,7 +62,8 @@ class CafefSpider(Spider):
             if timeCreatePostOrigin_compare.date() > last_timeCreatePostOrigin.date():
                 check_crawl_item = True 
             else:
-                check_crawl_item = False        
+                check_crawl_item = False   
+
         if check_crawl_item:
             title = response.css(self.title_query+'::text').get()
             title = " ".join(title.split())

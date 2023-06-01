@@ -29,7 +29,7 @@ current_path = Path(__file__).parent.parent.joinpath('ai_model')
 
 # Localhost:           mongodb://localhost:27017/
 
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
 
 tags_collection = client["FinSight"]["tags"]
 tagmap_collection = client["FinSight"]["tagmaps"]

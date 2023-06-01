@@ -93,6 +93,7 @@ class CafebizSpider(scrapy.Spider):
                 url=response.url,
                 status="0",
             )
+            print('Title :',item.title)
             yield item
         else:
             yield None

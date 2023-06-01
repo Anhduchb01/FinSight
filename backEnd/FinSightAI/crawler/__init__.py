@@ -12,13 +12,13 @@ import json
 from pymongo import MongoClient
 from scrapy import signals
 from scrapy.signalmanager import dispatcher
-
+import traceback
 crawler = Blueprint('crawler', __name__)
 import crochet
 crochet.setup()
 output_data = []
 crawl_runner = CrawlerRunner()
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
 db = client.FinSight
 spider_counters = {}
 @crawler.route("/crawl/cafef", methods=['GET', 'POST'])
@@ -51,16 +51,20 @@ def crawl_cafef():
 		"image_url_query":image_url_query,
 	}
 	# run crawler in twisted reactor synchronously
+	list_crawl = db.crawlers.find({})
+	print('Check db')
+	print(list(list_crawl))
 	try:
 	# Run the crawl
 		scrape_with_crochet(CafefSpider,config_crawl,'cafef')
 		return 'Success'
 	except Exception as e:
-		print(f"Error occurred during crawl: {e}")
-		return str(e)
-	
-	# print(len(output_data))
-	# return jsonify(output_data)
+		msg = f"Error occurred during crawl: {str(traceback.format_exc())}"
+		msg = msg.replace("'","")
+		msg = msg.replace('"','')
+		print(msg)
+		return str(msg)
+
 @crawler.route("/crawl/cafebiz", methods=['GET', 'POST'])
 def crawl_cafebiz():
 	data = request.json
@@ -94,8 +98,9 @@ def crawl_cafebiz():
 		scrape_with_crochet(CafebizSpider,config_crawl,'cafebiz')
 		return 'Success'
 	except Exception as e:
-		error = str(e).replace("'","")
-		msg = f"Error occurred during crawl: {error}"
+		msg = f"Error occurred during crawl: {str(traceback.format_exc())}"
+		msg = msg.replace("'","")
+		msg = msg.replace('"','')
 		print(msg)
 		return str(msg)
 	
@@ -134,8 +139,9 @@ def crawl_baodautu():
 		scrape_with_crochet(BaodautuSpider,config_crawl,"baodautu")
 		return 'Success'
 	except Exception as e:
-		error = str(e).replace("'","")
-		msg = f"Error occurred during crawl: {error}"
+		msg = f"Error occurred during crawl: {str(traceback.format_exc())}"
+		msg = msg.replace("'","")
+		msg = msg.replace('"','')
 		print(msg)
 		return str(msg)
 
@@ -173,8 +179,9 @@ def crawl_vneconomy():
 		scrape_with_crochet(VneconomySpider,config_crawl,"vneconomy")
 		return 'Success'
 	except Exception as e:
-		error = str(e).replace("'","")
-		msg = f"Error occurred during crawl: {error}"
+		msg = f"Error occurred during crawl: {str(traceback.format_exc())}"
+		msg = msg.replace("'","")
+		msg = msg.replace('"','')
 		print(msg)
 		return str(msg)
 @crawler.route("/crawl/cafefpdf", methods=['GET', 'POST'])
@@ -207,10 +214,13 @@ def crawl_cafefpdf():
 		scrape_with_crochet(BaoCaoCafefSpider,config_crawl,'cafefpdf')
 		return 'Success'
 	except Exception as e:
-		print(f"Error occurred during crawl: {e}")
-		return str(e)
+		msg = f"Error occurred during crawl: {str(traceback.format_exc())}"
+		msg = msg.replace("'","")
+		msg = msg.replace('"','')
+		print(msg)
+		return str(msg)
 	
-@crochet.wait_for(timeout=60.0)
+@crochet.wait_for(timeout=600.0)
 def scrape_with_crochet(spider,config_crawl,addressPage):
 	global spider_counters
 	if addressPage not in spider_counters:
@@ -235,8 +245,9 @@ def _crawler_result(item, response, spider):
 	spider_name = spider.name
 	# Increase the counter for the spider name
 	spider_counters[spider_name] += 1
-	print(spider_name)
-	if spider_name == 'cafefpdf':
+	print('Item Count')
+	print(spider_counters[spider_name])
+	if spider.name == 'cafefpdf':
 		db.reports.insert_one(dict(item))
 	else:
 		db.posts.insert_one(dict(item))
@@ -248,6 +259,7 @@ def _crawler_closed(spider):
 	"""
 	global spider_counters
 	spider_name = spider.name
+	print('finish crawl '+str(spider_name))
 	db.crawlers.update_one({"addressPage":spider_name}, {'$set': {'increasePost': str(spider_counters[spider_name])}})
 	if str(spider_name) == 'cafefpdf':
 		print('ok')

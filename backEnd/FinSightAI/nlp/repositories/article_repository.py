@@ -14,7 +14,7 @@ from transformers import BertTokenizer
 # Localhost:           mongodb://localhost:27017/
 # Server:              mongodb://root1:abc07RcowEmL0&ItiLd@localhost:27017/
 # Localhost to Server: mongodb://root1:abc07RcowEmL0&ItiLd@45.76.209.56:27017/
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
 
 article_collection = client["FinSight"]["posts"]
 tag_collection = client["FinSight"]["tags"]
