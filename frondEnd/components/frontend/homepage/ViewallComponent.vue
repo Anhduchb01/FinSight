@@ -20,7 +20,7 @@
               <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;position: absolute;font-size: 12px;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">🔥 Hot</span>
               <span style="color:#e0e6ed;margin-left: 75px;margin-top: 5px;padding: 4px 12px;position: absolute;font-size: 12px;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">👀 Interested</span>
               <div class="news-item__img">
-                <img v-if="getAllImage(result.urlimage) !=''" class="img--bg" :src="getAllImage(result.urlimage)" alt="img" />
+                <img v-if="getAllImage(result.image_url) !=''" class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
                 <img v-else class="img--bg" src="~/static/img/logo-waterportal.png" alt="img" />
               </div>
             </a>
@@ -29,7 +29,7 @@
                 <h6 class="news-item__title">
                   <a :href="'/news/?id='+ result._id">{{result.title}}</a>
                 </h6>
-                <p>{{result.description}}</p>
+                <p>{{result.content}}</p>
               </div>
               <div class="news-item__details">
                 <span class="news-item__date">{{result.timeCreatePostOrigin}}</span>
@@ -44,7 +44,7 @@
               <a :href="'/news/?id='+ result._id">
                 <div class="news-item__img">
                   <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;font-size: 12px;position: absolute;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">🔥 Hot</span>
-                  <img v-if="getAllImage(result.urlimage) !=''" class="img--bg" :src="getAllImage(result.urlimage)" alt="img" />
+                  <img v-if="getAllImage(result.image_url) !=''" class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
                   <img v-else class="img--bg" src="~/static/img/logo-waterportal.png" alt="img" />
                 </div>
               </a>
@@ -53,7 +53,7 @@
                   <h6 class="news-item__title">
                     <a :href="'/news/?id='+ result._id">{{result.title}}</a>
                   </h6>
-                  <p>{{formatDescription(result.description)}}</p>
+                  <p>{{formatDescription(result.content)}}</p>
                 </div>
                 <div class="news-item__details">
                   <span class="news-item__date">{{result.timeCreatePostOrigin}}</span>
@@ -70,7 +70,7 @@
               <a :href="'/news/?id='+ result._id">
                 <div class="news-item__img">
                   <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;font-size: 12px;position: absolute;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">👀 Interested</span>
-                  <img v-if="getAllImage(result.urlimage) !=''" class="img--bg" :src="getAllImage(result.urlimage)" alt="img" />
+                  <img v-if="getAllImage(result.image_url) !=''" class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
                   <img v-else class="img--bg" src="~/static/img/logo-waterportal.png" alt="img" />
                 </div>
               </a>
@@ -79,7 +79,7 @@
                   <h6 class="news-item__title">
                     <a :href="'/news/?id='+ result._id">{{result.title}}</a>
                   </h6>
-                  <p>{{formatDescription(result.description)}}</p>
+                  <p>{{formatDescription(result.content)}}</p>
                 </div>
                 <div class="news-item__details">
                   <span class="news-item__date">{{result.timeCreatePostOrigin}}</span>
@@ -95,7 +95,7 @@
             <div class="news-item news-item--style-1 news-item--small">
               <div v-on:click="gotoDetailNew(result._id)">
                 <div class="news-item__img">
-                  <img v-if="getAllImage(result.urlimage) !=''" class="img--bg" :src="getAllImage(result.urlimage)" alt="img" />
+                  <img v-if="getAllImage(result.image_url) !=''" class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
                   <img v-else class="img--bg" src="~/static/img/logo-waterportal.png" alt="img" />
                 </div>
               </div>
@@ -104,7 +104,7 @@
                   <h6 class="news-item__title">
                     <a :href="'/news/?id='+ result._id">{{result.title}}</a>
                   </h6>
-                  <p>{{formatDescription(result.description)}}</p>
+                  <p>{{formatDescription(result.content)}}</p>
                 </div>
                 <div class="news-item__details">
                   <span class="news-item__date">{{result.timeCreatePostOrigin}}</span>
@@ -149,19 +149,31 @@ export default {
       results: [],
       errors: [],
       dataInputSearch: "",
-      pointRequiredForTag: null,
-      viewRequiredForTag: null,
+      pointRequiredForTag: 10,
+      viewRequiredForTag: 10,
     };
   },
   methods: {      
     getAllImage(value) {
-      let newString = "";
-      let stringImage = value.split("\n");
-      for (let index = 0; index < stringImage.length; index++) {
-        newString = stringImage[0];
+      console.log(value)
+      if (value === '' | value == null) {
+        let newString = '~/static/img/logo-waterportal.png'
+        return newString;
       }
-      // if (newString === '') newString = '~/static/img/logo-waterportal.png'
-      return newString;
+      else{
+        let newString = "";
+        let stringImage = value.split("\n");
+        
+        // let stringImage = value
+        for (let index = 0; index < stringImage.length; index++) {
+          newString = stringImage[0];
+        }
+        return newString;
+
+      }
+      
+      
+      
     },
     formatDescription(description) {
       if (description.length > 51) {
@@ -180,15 +192,16 @@ export default {
     },  
   },
   mounted() {
-    // HTTP.get(`getdata`, { params: { dataInputSearch: this.dataInputSearch } })
-    //   .then((response) => {
-    //     (this.results = response.data[0][0]),
-    //       (this.pointRequiredForTag = response.data[1]),
-    //       (this.viewRequiredForTag = response.data[2]);
-    //   })
-    //   .catch((e) => {
-    //     this.errors.push(e);
-    //   });
+    HTTP.get(`home/getnews`)
+      .then((response) => {
+        this.results = response.data
+        console.log(this.results)
+          // (this.pointRequiredForTag = response.data[1]),
+          // (this.viewRequiredForTag = response.data[2]);
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
   },
 };
 </script>

@@ -7,13 +7,13 @@
           <div class="page-footer__logo">
             <a href="index.html">
               
-              <img width="70.08" height="31"  src="/img/logo-w.svg" alt="logo" />
+              <img width="70.08" height="31"  src="/img/logo.png" alt="logo" />
             </a>
           </div>
           <div class="page-footer__details" style="font-size:14px">
             <p style="color:white">
               <strong>{{ $t("footer.location") }}:</strong>
-              <span>〒101-8486 東京都千代田区神田美土代町7番地</span>
+              <span>Số 1 Đại Cồ Việt</span>
             </p>
             <p style="color:white">
               <strong>{{ $t("footer.phone") }}:</strong>
@@ -21,7 +21,7 @@
             </p>
             <p style="color:white">
               <strong>{{ $t("footer.email") }}:</strong>
-              <a href="mailto:contact@oyo.co,jp">contact@oyo.co.jp</a>
+              <a href="mailto:contact@oyo.co,jp">contact@finsight.vn</a>
             </p>
             <p style="color:white">
               <strong>{{ $t("footer.openningHours") }}:</strong>
@@ -144,4 +144,8 @@ export default {
 };
 </script>
 <style>
+.page-footer__logo img {
+    height: 100px;
+    width: auto;
+}
 </style>

@@ -17,10 +17,14 @@ import math
 from tqdm import tqdm
 import pandas as pd
 from sklearn.model_selection import train_test_split
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
+DB_URL = os.environ.get('DB_URL')
+client = MongoClient(DB_URL)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 current_path = Path(__file__).parent.parent.joinpath('ai_model')
-client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
+# client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
 historyClassification_collection = client["FinSight"]["historyclassifications"]
 article_collection = client["FinSight"]["posts"]
 

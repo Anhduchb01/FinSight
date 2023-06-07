@@ -148,7 +148,7 @@ module.exports = {
 
   i18n: {
     locales: ['en', 'vn'],
-    defaultLocale: 'en',
+    defaultLocale: 'vn',
     vueI18n: {
       fallbackLocale: 'en',
       messages: {

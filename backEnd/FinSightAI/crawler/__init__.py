@@ -13,12 +13,17 @@ from pymongo import MongoClient
 from scrapy import signals
 from scrapy.signalmanager import dispatcher
 import traceback
+import os
+from dotenv import load_dotenv
+load_dotenv()
+DB_URL = os.environ.get('DB_URL')
+client = MongoClient(DB_URL)
 crawler = Blueprint('crawler', __name__)
 import crochet
 crochet.setup()
 output_data = []
 crawl_runner = CrawlerRunner()
-client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
+# client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
 db = client.FinSight
 spider_counters = {}
 @crawler.route("/crawl/cafef", methods=['GET', 'POST'])

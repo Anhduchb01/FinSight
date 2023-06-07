@@ -27,9 +27,13 @@ from datasets import Sequence, Value ,ClassLabel
 
 current_path = Path(__file__).parent.parent.joinpath('ai_model')
 
-# Localhost:           mongodb://localhost:27017/
+import os
+from dotenv import load_dotenv
+load_dotenv()
+DB_URL = os.environ.get('DB_URL')
+client = MongoClient(DB_URL)
 
-client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
+# client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
 
 tags_collection = client["FinSight"]["tags"]
 tagmap_collection = client["FinSight"]["tagmaps"]
@@ -353,7 +357,7 @@ def process_tag_ai(id,timeModel):
         listTag = historyTag_collection.find({"model_id": id})
         listTag = list(cursor)
         total = len(listTag)
-        model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 0,'totalTag':total}})
+        model_collection.update_one({"name": "AI NER Base"}, {"$set": {"status": 0,'totalTag':total}})
     
             
     else:

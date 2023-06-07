@@ -19,11 +19,11 @@
         </div>
         <div class="col-md-3">
           <div class="nice-select form__select" v-on:click="statusSelectType = !statusSelectType" :class="{open: statusSelectType}" tabindex="0">
-            <span class="current">{{typeViewSelected}}</span>
+            <span class="current">{{ typeViewSelected }}</span>
             <ul class="list">
-              <li data-value="hot" v-on:click="selectTypeView('hot')" class="option" :class="{selected: statusSelectTypeOptionHot,'focus':statusSelectTypeOptionHot}">Hot</li>
-              <li data-value="latest" v-on:click="selectTypeView('latest')" class="option" :class="{selected: statusSelectTypeOptionLatest,'focus':statusSelectTypeOptionLatest}">Latest</li>
-              <li data-value="mostviewed" v-on:click="selectTypeView('mostviewed')" class="option" :class="{selected: statusSelectTypeOptionMostView,'focus':statusSelectTypeOptionMostView}">Most Viewed</li>
+              <li data-value="POS" v-on:click="selectTypeView('POS')" class="option" :class="{selected: statusSelectTypeOptionPOS,'focus':statusSelectTypeOptionPOS}">Tích cực</li>
+              <li data-value="NEU" v-on:click="selectTypeView('NEU')" class="option" :class="{selected: statusSelectTypeOptionNEU,'focus':statusSelectTypeOptionNEU}">Trung tính</li>
+              <li data-value="NEG" v-on:click="selectTypeView('NEG')" class="option" :class="{selected: statusSelectTypeOptionNEG,'focus':statusSelectTypeOptionNEG}">Tiêu cực</li>
             </ul>
           </div>
         </div>
@@ -32,13 +32,10 @@
         <div class="col-lg-8 col-xl-9" v-if="hasPost">
           <div id="box-all-news" class="row" v-if="!loading">
             <div v-for="post in arrPost" :key="post._id" class="col-lg-6 col-xl-4">
-              <div v-if="post.hotPoint >= conditionArticle.pointRequiredForTag && post.view >= conditionArticle.viewRequiredForTag" class="news-item news-item--style-1 news-item--small">
+              <div  class="news-item news-item--style-1 news-item--small">
                 <a :href="'/news/?id='+ post._id">
                   <div class="news-item__img">
-                    <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;position: absolute;font-size: 12px;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">🔥 Hot</span>
-                    <span style="color:#e0e6ed;margin-left: 75px;margin-top: 5px;padding: 4px 12px;position: absolute;font-size: 12px;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">👀 Interested</span>
-
-                    <img class="img--bg" :src="getAllImage(post.urlimage)" alt="img" />
+                    <img class="img--bg" :src="getAllImage(post.image_url)" alt="img" />
                   </div>
                 </a>
                 <div class="news-item__content">
@@ -46,74 +43,7 @@
                     <h6 class="news-item__title">
                       <a :href="'/news/?id='+ post._id">{{post.title}}</a>
                     </h6>
-                    <p>{{formatDescription(post.description)}}</p>
-                  </div>
-                  <div class="news-item__details">
-                    <span class="news-item__date">{{post.timeCreatePostOrigin}}</span>
-                    <a style="text-decoration: none;" :href="'https://www.'+getHostName(post.url)" target="_blank">
-                      <span style="color:#767F7F;">{{post.urlPageCrawl}}</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div v-else-if="post.hotPoint >= conditionArticle.pointRequiredForTag" class="news-item news-item--style-1 news-item--small">
-                <a :href="'/news/?id='+ post._id">
-                  <div class="news-item__img">
-                    <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;font-size: 12px;position: absolute;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">🔥 Hot</span>
-
-                    <img class="img--bg" :src="getAllImage(post.urlimage)" alt="img" />
-                  </div>
-                </a>
-                <div class="news-item__content">
-                  <div class="box-title-des">
-                    <h6 class="news-item__title">
-                      <a :href="'/news/?id='+ post._id">{{post.title}}</a>
-                    </h6>
-                    <p>{{formatDescription(post.description)}}</p>
-                  </div>
-                  <div class="news-item__details">
-                    <span class="news-item__date">{{post.timeCreatePostOrigin}}</span>
-                    <a style="text-decoration: none;" :href="'https://www.'+getHostName(post.url)" target="_blank">
-                      <span style="color:#767F7F;">{{post.urlPageCrawl}}</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div v-else-if="post.view >= conditionArticle.viewRequiredForTag" class="news-item news-item--style-1 news-item--small">
-                <a :href="'/news/?id='+ post._id">
-                  <div class="news-item__img">
-                    <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;font-size: 12px;position: absolute;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">👀 Interested</span>
-
-                    <img class="img--bg" :src="getAllImage(post.urlimage)" alt="img" />
-                  </div>
-                </a>
-                <div class="news-item__content">
-                  <div class="box-title-des">
-                    <h6 class="news-item__title">
-                      <a :href="'/news/?id='+ post._id">{{post.title}}</a>
-                    </h6>
-                    <p>{{formatDescription(post.description)}}</p>
-                  </div>
-                  <div class="news-item__details">
-                    <span class="news-item__date">{{post.timeCreatePostOrigin}}</span>
-                    <a style="text-decoration: none;" :href="'https://www.'+getHostName(post.url)" target="_blank">
-                      <span style="color:#767F7F;">{{post.urlPageCrawl}}</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div v-else class="news-item news-item--style-1 news-item--small">
-                <a :href="'/news/?id='+ post._id">
-                  <div class="news-item__img">
-                    <img class="img--bg" :src="getAllImage(post.urlimage)" alt="img" />
-                  </div>
-                </a>
-                <div class="news-item__content">
-                  <div class="box-title-des">
-                    <h6 class="news-item__title">
-                      <a :href="'/news/?id='+ post._id">{{post.title}}</a>
-                    </h6>
-                    <p>{{formatDescription(post.description)}}</p>
+                    <p>{{formatDescription(post.content)}}</p>
                   </div>
                   <div class="news-item__details">
                     <span class="news-item__date">{{post.timeCreatePostOrigin}}</span>
@@ -436,7 +366,7 @@ export default {
       resultsTopArchive: [],
       key: this.$route.query.key || "",
       page: parseInt(this.$route.query.page) || 1,
-      category: this.$route.query.category || "",
+      category: this.$route.query.type || "",
       archive: this.$route.query.archive || "",
       objData: {},
       hasPost: true,
@@ -444,17 +374,17 @@ export default {
       totalPost: null,
       stringData: "",
       conditionArticle: null,
-      typeViewArticle: this.$route.query.type || "hot",
+      typeViewArticle: this.$route.query.category || "",
       searchKeywordPost: "",
       typeView: "",
-      typeViewSelected: "Hot",
+      typeViewSelected: "-----",
       buttonClearFilter: "None",
       TextSeeMoreTopArchive: "See more",
 
       statusSelectType: false,
-      statusSelectTypeOptionHot: true,
-      statusSelectTypeOptionMostView: false,
-      statusSelectTypeOptionLatest: false,
+      statusSelectTypeOptionPOS: false,
+      statusSelectTypeOptionNEG: false,
+      statusSelectTypeOptionNEU: false,
       loading: false,
     };
   },
@@ -466,7 +396,7 @@ export default {
       .catch((e) => {
         this.errors.push(e);
       }),
-      HTTP.get("categories")
+      HTTP.get("type")
         .then((response) => {
           this.resultsCategory = response.data;
         })
@@ -519,17 +449,24 @@ export default {
     //         return decodeURIComponent(name[1]);
     // },
     getAllImage(value) {
+      console.log(value)
       if (value === undefined) {
-        return require("~/static/img/logo-waterportal.png");
+        return require("~/static/img/news1.jpg");
       }
-      let newString = "";
-      let stringImage = value.split("\n");
-      for (let index = 0; index < stringImage.length; index++) {
-        newString = stringImage[0];
+      if (value === '') {
+        return require("~/static/img/news1.jpg");
       }
-      if (newString === "")
-        newString = require("~/static/img/logo-waterportal.png");
-      return newString;
+      if (value === null) {
+        return require("~/static/img/news1.jpg");
+      }
+      // let newString = "";
+      // let stringImage = value.split("\n");
+      // for (let index = 0; index < value.length; index++) {
+      //   newString = stringImage[0];
+      // }
+      // if (newString === "")
+      //   newString = require("~/static/img/news.jpg");
+      return value;
     },
     formatTimeAgo(date) {
       let timeHasPassed = dayjs().diff(date, "days");
@@ -637,23 +574,23 @@ export default {
     selectTypeView(type) {
       this.loading = true;
       this.typeViewArticle = type;
-      if (type === "hot") {
-        this.typeViewSelected = "Hot";
-        this.statusSelectTypeOptionHot = true;
-        this.statusSelectTypeOptionLatest = false;
-        this.statusSelectTypeOptionMostView = false;
+      if (type === "POS") {
+        this.typeViewSelected = "Tích cực";
+        this.statusSelectTypeOptionPOS = true;
+        this.statusSelectTypeOptionNEU = false;
+        this.statusSelectTypeOptionNEG = false;
       }
-      if (type === "latest") {
-        this.typeViewSelected = "Latest";
-        this.statusSelectTypeOptionLatest = true;
-        this.statusSelectTypeOptionMostView = false;
-        this.statusSelectTypeOptionHot = false;
+      if (type === "NEU") {
+        this.typeViewSelected = "Trung tính";
+        this.statusSelectTypeOptionNEU = true;
+        this.statusSelectTypeOptionNEG = false;
+        this.statusSelectTypeOptionPOS = false;
       }
-      if (type === "mostviewed") {
-        this.typeViewSelected = "Most Viewed";
-        this.statusSelectTypeOptionMostView = true;
-        this.statusSelectTypeOptionLatest = false;
-        this.statusSelectTypeOptionHot = false;
+      if (type === "NEG") {
+        this.typeViewSelected = "Tiêu cực";
+        this.statusSelectTypeOptionNEG = true;
+        this.statusSelectTypeOptionNEU = false;
+        this.statusSelectTypeOptionPOS = false;
       }
       this.searchDataPost(this.page);
     },
@@ -668,26 +605,26 @@ export default {
       this.$router.push({
         query: {
           archive: this.archive,
-          category: this.category,
+          category: this.typeViewArticle,
           key: this.key,
           page: this.page,  
-          type: this.typeViewArticle  
+          type: this.category
         },
       });
       this.typeView = this.typeViewArticle;
       HTTP.get("get-all-news", {
         params: {
           archive: this.archive,
-          category: this.category,
+          type: this.category,
           key: this.searchKeywordPost,
           page: this.page,
-          typeView: this.typeView,
+          category: this.typeView,
         },
       })  
         .then((response) => {
           this.arrPost = response.data[0];
           this.totalPost = response.data[1];
-          this.conditionArticle = response.data[2][0];
+          // this.conditionArticle = response.data[2][0];
           if (this.arrPost.length > 0) {
             this.hasPost = true;
           } else {

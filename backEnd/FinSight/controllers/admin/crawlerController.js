@@ -777,7 +777,7 @@ router.post("/edit-keyword-crawl", async (req, res) => {
 function saveLogAction(page, action, message) {
   let timeCrawlPage = dayjs().format("YYYY/MM/DD h:mm:ss");
   let stringMessage = "";
-  if (message === null) {
+  if (message === null || message == '') {
     if (action === "Create") stringMessage = "Start Crawler Page :";
     if (action === "Success") stringMessage = "Crawler Success :";
   } else {

@@ -74,7 +74,7 @@ class VneconomySpider(scrapy.Spider):
             else:
                 check_crawl_item = False        
         if check_crawl_item:
-            category = response.css(self.category_query+'::text').get()
+            type = response.css(self.category_query+'::text').get()
             author = response.css(self.author_query+'::text').get()
             author = author.replace('-','')
             author = " ".join(author.split())
@@ -89,7 +89,7 @@ class VneconomySpider(scrapy.Spider):
             item = VnNewsItem(
                 title=title,
                 timeCreatePostOrigin=str(timeCreatePostOrigin),
-                category=category,
+                type=type,
                 author=author,
                 content=content,
                 content_html= content_html,

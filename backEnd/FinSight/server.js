@@ -32,8 +32,15 @@ const classificationController = require('./controllers/admin/classificationCont
 const sortingController = require('./controllers/admin/sortingController')
 const pagesErrorController = require('./controllers/admin/pagesErrorController')
 // front-end Controller
-const middleware = require('./middleware');
+// front-end Controller
+const homePageController = require('./controllers/front-end/homePageController');
+const newsController = require('./controllers/front-end/newsController');
+const newsDetailController = require('./controllers/front-end/newsDetailController');
 const keywordAnalytics = require('./controllers/front-end/keywordAnalytics');
+const contacts = require('./controllers/front-end/contactController');
+const middleware = require('./middleware');
+const newsletter = require('./controllers/front-end/newsLetterController');
+const playground = require('./controllers/front-end/playgroundController');
 
 // admin service
 
@@ -92,12 +99,12 @@ app.use('/', settingController);
 app.use('/', osUtilsController);
 app.use('/', manageTagController);
 app.use('/',keywordAnalytics)
-// app.use('/', homePageController);
-// app.use('/', newsController);
-// app.use('/', newsDetailController);
-// app.use('/', keywordAnalytics);
-// app.use('/', contacts);
-// app.use('/', newsletter);
+app.use('/', homePageController);
+app.use('/', newsController);
+app.use('/', newsDetailController);
+app.use('/', keywordAnalytics);
+app.use('/', contacts);
+app.use('/', newsletter);
 // app.use('/', playground);
 
 // app.use('/', pagesErrorController);
