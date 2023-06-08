@@ -142,6 +142,7 @@ module.exports = {
   plugins: [
     { src: '~plugins/myplugin', ssr: false },
     { src : '~/plugins/vue-apexchart.js', ssr : false },
+    { src: '~/plugins/setLanguage.js', ssr : false },
     
    
   ],
@@ -207,8 +208,8 @@ module.exports = {
               "Relatednews": "Related news",
               "SourceLink": "Source Link",
               "desContact1": "How we can help you!",
-              "desContact2": "Ronquil coho salmon red snapper duckbill lungfish southern angelfish",
-              "Contactus": "Contact us",
+              "desContact2": "Apply AI foi Financial news",
+              "Contactus": "Contact Us",
               "Back": "Back",
               "Next": "Next"
                   },
@@ -231,13 +232,17 @@ module.exports = {
               "messeage":"Sorry, we couldn't find any articles that match your selection"
                   },
             "contact": {
+              "title":"Get in touch !",
               "officeTokyo":"Office Tokyo",
-              "sendMessage":"Send message",
+              "sendMessage":"Send Message",
               "yourName":"Your Name",
               "yourEmail":"Your Email",
               "yourPhone":"Your Phone",
+              "yourQuestion":"Your Question",
+              "yourComment":"Your Comment",
               "subject":"Subject",
-              "text":"Text"
+              "text":"Open: 9:00 AM - 6:00 PM",
+              "viewon": "View on Google map"
                   }
           },
           "footer": {
@@ -322,9 +327,9 @@ module.exports = {
               "Tags": "Tags",
               "Relatednews": "Relatednews",
               "SourceLink": "SourceLink",
-              "desContact1": "desContact1",
-              "desContact2": "desContact2",
-              "Contactus": "Contactus",
+              "desContact1": "Tôi có thể giúp gì cho bạn!",
+              "desContact2": "Ứng dụng AI trong tài chính",
+              "Contactus": "Liên hệ",
               "Back": "Back",
               "Next": "Next"
             },
@@ -349,19 +354,23 @@ module.exports = {
               "messeage":"Sorry, we couldn't find any articles that match your selection"
                   },
             "contact": {
+              "title":"Liên hệ",
               "officeTokyo":"Office Tokyo",
-              "sendMessage":"Send message",
-              "yourName":"Your Name",
-              "yourEmail":"Your Email",
-              "yourPhone":"Your Phone",
+              "sendMessage":"Gửi tin nhắn",
+              "yourName":"Tên",
+              "yourEmail":"Email",
+              "yourPhone":"Điện thoại",
+              "yourQuestion":"Câu hỏi",
+              "yourComment":"Nhận xét",
               "subject":"Subject",
-              "text":"Text"
+              "text":"Giờ mở cửa: 9:00 AM - 6:00 PM",
+              "viewon": "Xem trên Google map"
                   }
           },
           "footer": {
             "location": "Địa chỉ",
             "phone": "Số điện thoại",
-            "email": "email",
+            "email": "Email",
             "openningHours": "Giờ mở cửa",
             "mainMenu": "Trang chính",
             "aboutUs": "AboutUs",

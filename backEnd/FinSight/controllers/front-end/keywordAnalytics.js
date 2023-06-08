@@ -13,20 +13,20 @@ const Sorting = mongoose.model("Sorting");
 
 let cache = apicache.middleware
 
-router.get("/keyword-analytics/", async (req, res) => {
-  try {
-    let language = req.cookies.language || "en";
-    let multiLanguage = multiLanguageSelect(language);
-    res.render("information-frontend/main/keyword-analysis", {
-      language,
-      multiLanguage,
-      layout: './information-frontend/layouts/container',
-    });
-  } catch (err) {
-    console.log(err)
-    res.status(502).send(err.message);
-  }
-});
+// router.get("/keyword-analytics/", async (req, res) => {
+//   try {
+//     let language = req.cookies.language || "en";
+//     let multiLanguage = multiLanguageSelect(language);
+//     res.render("information-frontend/main/keyword-analysis", {
+//       language,
+//       multiLanguage,
+//       layout: './information-frontend/layouts/container',
+//     });
+//   } catch (err) {
+//     console.log(err)
+//     res.status(502).send(err.message);
+//   }
+// });
 router.get("/keyword-search", async (req, res) => {
   try {
     let dataConfigSort = await Sorting.find({})

@@ -14,9 +14,5 @@
   width: 100%; /* Adjust this as per your needs */
  height: 650px; /* Adjust this as per your needs */
 }
-.container1{
-  max-width: 1536px;
-    padding-right: 13rem;
-    padding-left: 13rem;
-}
+
 </style>

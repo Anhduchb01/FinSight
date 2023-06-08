@@ -36,7 +36,8 @@ router.get("/get-all-news", async (req, res) => {
     let postDisplay
     let totalPost
     if (type === 'null') type = null
-    if (type === '') {
+    
+    if (type === '' | type == null) {
       totalPost = await Post.find({
         // languageCrawl: language,
         title: { $regex: String(key), $options: "i" },
@@ -88,6 +89,71 @@ router.get("/get-all-news", async (req, res) => {
           title: { $regex: String(key), $options: "i" },
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
           status: '0',
+          isClassification: true,
+        })
+          .sort({ timeCreatePostOrigin: -1 })
+          .limit(12)
+          .skip((number - 1) * 12);
+      }
+    
+    }else if(type =='Khác'){
+      totalPost = await Post.find({
+        // languageCrawl: language,
+        title: { $regex: String(key), $options: "i" },
+        type: null,
+        timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
+        status: '0',
+      });
+      if (category === 'POS') {
+        postDisplay = await Post.find({
+          // languageCrawl: language,
+          title: { $regex: String(key), $options: "i" },
+          type: null,
+          timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
+          status: '0',
+          isClassification: true,
+          category : 'POS'
+        })
+          .sort({ timeCreatePostOrigin : -1 })
+          .limit(12)
+          .skip((number - 1) * 12);
+      }
+      if (category === 'NEG') {
+        postDisplay = await Post.find({
+          // languageCrawl: language,
+          title: { $regex: String(key), $options: "i" },
+          type: null,
+          timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
+          status: '0',
+          isClassification: true,
+          category : 'NEG'
+        })
+          .sort({ timeCreatePostOrigin: -1 })
+          .limit(12)
+          .skip((number - 1) * 12);
+      }
+      if (category === 'NEU') {
+        postDisplay = await Post.find({
+          // languageCrawl: language,
+          title: { $regex: String(key), $options: "i" },
+          type: null,
+          timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
+          status: '0',
+          isClassification: true,
+          category : 'NEU'
+        })
+          .sort({ timeCreatePostOrigin: -1 })
+          .limit(12)
+          .skip((number - 1) * 12);
+      }
+      
+      if (category === '') {
+        postDisplay = await Post.find({
+          // title: { $regex: String(key), $options: "i" },
+          type: null,
+          timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
+          status: '0',
+          isClassification: true,
         })
           .sort({ timeCreatePostOrigin: -1 })
           .limit(12)
@@ -143,13 +209,14 @@ router.get("/get-all-news", async (req, res) => {
           .limit(12)
           .skip((number - 1) * 12);
       }
+      
       if (category === '') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
-          title: { $regex: String(key), $options: "i" },
+          // title: { $regex: String(key), $options: "i" },
           type: type,
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
           status: '0',
+          isClassification: true,
         })
           .sort({ timeCreatePostOrigin: -1 })
           .limit(12)
@@ -211,16 +278,31 @@ router.get("/type", async (req, res) => {
 
 router.get("/top-archive", async (req, res) => {
   try {
-    let language = req.cookies.language || "en";
-    let category = req.query.category;
+    
+    let type = req.query.type;
     let topArchive = [];
-    if (category !== "") {
+    if (type !== "" ) {
+      let arrArchive = await Post.aggregate([
+        {
+          $match: {
+            $and: [
+              { isClassification: true },
+              { type: { $in: [type] } },
+              { status: { $in: ['0'] } },
+            ],
+          },
+        },
+        { $group: { _id: "$timeCreatePostOrigin", count: { $sum: 1 } } },
+        { $sort: { _id: -1 } },
+      ]);
+      topArchive = arrArchive;
+    }else if (type == "Khác") {
       let arrArchive = await Post.aggregate([
         {
           $match: {
             $and: [
               // { languageCrawl: { $in: [language] } },
-              { category: { $in: [category] } },
+              { type: null},
               { status: { $in: ['0'] } },
             ],
           },
@@ -233,7 +315,13 @@ router.get("/top-archive", async (req, res) => {
       let arrArchive = await Post.aggregate([
         {
           $match: {
-            $and: [{ status: { $in: ['0'] } },],
+                
+            $and: [
+              // { languageCrawl: { $in: [language] } },
+              { isClassification: true},
+              { status: { $in: ['0'] } },
+            ],
+            
           },
         },
         { $group: { _id: "$timeCreatePostOrigin", count: { $sum: 1 } } },

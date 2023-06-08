@@ -316,7 +316,7 @@
                 </div>
               </ul>
             </div>
-            <div class="col-md-6 col-lg-12 bottom-25 box-btn-seemore">
+            <div v-if="resultsTopArchive.length > 5" class="col-md-6 col-lg-12 bottom-25 box-btn-seemore">
               <button v-on:click="seeMoreTopArchive()" class="button-seemore">
                 <span class="text-btn" v-if="flagSeeMore">See less</span>
                 <span class="text-btn" v-else>See more</span>
@@ -549,7 +549,7 @@ export default {
           page: this.page,
         },
       });
-      HTTP.get("top-archive", { params: { category: this.category } })
+      HTTP.get("top-archive", { params: { type: this.category } })
         .then((response) => {
           this.resultsTopArchive = response.data;
         })
@@ -560,6 +560,7 @@ export default {
     },
     selectCategory(categoryName) {
       this.category = categoryName;
+      this.archive = ''
       this.loading = true;
       this.$router.push({
         query: {
