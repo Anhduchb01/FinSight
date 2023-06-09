@@ -353,7 +353,7 @@ def process_tag_ai(id,timeModel):
         listTag = historyTag_collection.find({"model_id": id})
         listTag = list(cursor)
         total = len(listTag)
-        model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 0,'totalTag':total}})
+        model_collection.update_one({"name":"AI NER Base"}, {"$set": {"status": 0,'totalTag':total}})
     
             
     else:
