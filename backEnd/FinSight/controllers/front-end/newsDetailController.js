@@ -6,33 +6,20 @@ const Post = mongoose.model("Post");
 const multiLanguageSelect = require("../../service/front-end/multiLanguage");
 
 
-router.get("/detail-new/:id", (req, res) => {
-  try {
-    let language = req.cookies.language || "en";
-    let multiLanguage = multiLanguageSelect(language);
-
-    Post.find({ _id: req.params.id },
-      (err, docs) => {
+router.get("/detail-new/:id",async (req, res) => {
+    
+    
+    let postData = await  Post.find({
+      _id: req.params.id
+      },(err, docs) => {
         if (!err) {
-          res.render("information-frontend/main/detail-new", {
-            contentHTML: docs[0].contenthtml,
-            timeAgo: docs[0].timeCrawlPage,
-            classification: docs[0].category,
-            namePage: docs[0].url,
-            urlPageCrawl: docs[0].url,
-            language,
-            multiLanguage,
-            layout: './information-frontend/layouts/container',
-          });
+            return docs;
         } else {
-          console.log("Error in retrieving employee list :" + err);
+            return false;
         }
-      }
-    );
-  } catch (err) {
-    console.log(err)
-    res.status(502).send(err.message);
-  }
+    });
+   res.send(postData);
 });
+          
 
 module.exports = router;

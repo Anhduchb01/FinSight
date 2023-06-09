@@ -9,20 +9,7 @@ const { recommendArticle } = require("../../service/front-end/articleService");
 const { getType } = require("../../service/front-end/categoryService");
 const multiLanguageSelect = require("../../service/front-end/multiLanguage");
 
-// router.get("/news/", (req, res) => {
-//   try {
-//     let language = req.cookies.language || "en";
-//     let multiLanguage = multiLanguageSelect(language);
-//     res.render("information-frontend/main/all-news", {
-//       language,
-//       multiLanguage,
-//       layout: './information-frontend/layouts/container'
-//     });
-//   } catch (err) {
-//     console.log(err)
-//     res.status(502).send(err.message);
-//   }
-// });
+
 
 router.get("/get-all-news", async (req, res) => {
   try {

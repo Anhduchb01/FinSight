@@ -25,7 +25,7 @@
               </div>
             </div>        
             <div id="content-post" class="col-12">
-              <div v-html="results.contenthtml"></div>
+              <div class="content-post" v-html="results.content_html"></div>
             </div>
           </div>
           <div class="row top-50">
@@ -144,7 +144,7 @@
                 </div>
               </ul>
             </div>
-            <div class="col-md-6 col-lg-12 bottom-25 box-btn-seemore">
+            <div v-if="resultsTopArchive.length > 5" class="col-md-6 col-lg-12 bottom-25 box-btn-seemore">
               <button v-on:click="seeMoreTopArchive()" class="button-seemore">
                 <span class="text-btn" v-if="flagSeeMore">See less</span>
                 <span class="text-btn" v-else>See more</span>
@@ -420,7 +420,7 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         }),
-      HTTP.get("categories")
+      HTTP.get("type")
         .then((response) => {
           this.resultsCategory = response.data;
         })
@@ -434,7 +434,7 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         }),
-      HTTP.get("top-archive", { params: { category: this.category } })
+      HTTP.get("top-archive", { params: { type: "" } })
         .then((response) => {
           this.resultsTopArchive = response.data;
         })
@@ -454,7 +454,16 @@ export default {
 </script>
 <style scoped>
 @import 'vue-cool-lightbox/dist/vue-cool-lightbox.min.css';
-
+h2.sapo{
+  font-size: 30px !important;
+}
+.content-post h2 {
+  font-size: 30px !important;
+}
+.content-post h1, h2, h3, h4, h5 , .h1, .h2, .h3, .h4, .h5 {
+    line-height: 1.5 !important;
+    font-size: 30px !important;
+}
 .section.section{
   position: static;
   z-index: 0;
