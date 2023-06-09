@@ -10,6 +10,9 @@ const Logger = mongoose.model("Logger");
 const Tag = mongoose.model("Tag");
 const Tagmap = mongoose.model("Tagmap");
 const Categorymap = mongoose.model("Categorymap");
+const HistoryClassification = mongoose.model("HistoryClassification");
+const HistoryGenerateTag = mongoose.model("HistoryGenerateTag");
+const TagHistorys = mongoose.model("TagHistorys");
 const Sorting = mongoose.model("Sorting");
 const { queryArticle } = require('../../service/admin/sorting/sorting')
 
@@ -26,6 +29,21 @@ router.get("/admin/setting", (req, res) => {
 
 router.delete("/deleteall", async (req, res) => {
   await Tag.remove({}, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  await HistoryClassification.remove({}, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  await HistoryGenerateTag.remove({}, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  await TagHistorys.remove({}, function (err) {
     if (err) {
       console.log(err);
     }
@@ -49,7 +67,7 @@ router.delete("/deleteall", async (req, res) => {
         {
           $set: {
             statusPageCrawl: "Off",
-            dateLastCrawler: "--/--/----",
+            dateLastCrawler: "----/--/--",
             increasePost: 0,
           },
         }

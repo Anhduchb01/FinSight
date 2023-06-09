@@ -156,24 +156,16 @@ export default {
   methods: {      
     getAllImage(value) {
       console.log(value)
-      if (value === '' | value == null) {
-        let newString = '~/static/img/logo-waterportal.png'
-        return newString;
+      if (value === undefined) {
+        return require("~/static/img/news1.jpg");
       }
-      else{
-        let newString = "";
-        let stringImage = value.split("\n");
-        
-        // let stringImage = value
-        for (let index = 0; index < stringImage.length; index++) {
-          newString = stringImage[0];
-        }
-        return newString;
-
+      if (value === '') {
+        return require("~/static/img/news1.jpg");
       }
-      
-      
-      
+      if (value === null) {
+        return require("~/static/img/news1.jpg");
+      }
+      return value;
     },
     formatDescription(description) {
       if (description.length > 51) {

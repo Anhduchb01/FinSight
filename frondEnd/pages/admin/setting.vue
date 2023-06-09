@@ -97,9 +97,10 @@ export default {
         showCancelButton: true,
         confirmButtonText: "Clear Data Post",
         padding: "2em",
-      }).then(function (result) {
+      }).then((result) => {
         if (result.value) {
           if (result.value === true) {
+            console.log('remove all post')
             this.removeAllPost();
           }
         }
@@ -113,7 +114,7 @@ export default {
         showCancelButton: true,
         confirmButtonText: "Clear Data Log",
         padding: "2em",
-      }).then(function (result) {
+      }).then((result) => {
         if (result.value) {
           if (result.value === true) {
             this.removeAllLog();
@@ -122,6 +123,7 @@ export default {
       });
     },
     removeAllPost() {
+      console.log('remove function')
       var arrayAddress = [];
       var checkboxes = document.querySelectorAll(
         "input[type=checkbox]:checked"

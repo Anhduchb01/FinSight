@@ -318,17 +318,17 @@ export default {
       }
     },
     getAllImage(value) {
+      console.log(value)
       if (value === undefined) {
-        return require("~/static/img/logo-waterportal.png");
+        return require("~/static/img/news1.jpg");
       }
-      let newString = "";
-      let stringImage = value.split("\n");
-      for (let index = 0; index < stringImage.length; index++) {
-        newString = stringImage[0];
+      if (value === '') {
+        return require("~/static/img/news1.jpg");
       }
-      if (newString === "")
-        newString = require("~/static/img/logo-waterportal.png");
-      return newString;
+      if (value === null) {
+        return require("~/static/img/news1.jpg");
+      }
+      return value;
     },
     formatTitle(value) {
       if (value === undefined) {

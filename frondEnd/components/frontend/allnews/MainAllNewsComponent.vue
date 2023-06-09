@@ -21,6 +21,7 @@
           <div class="nice-select form__select" v-on:click="statusSelectType = !statusSelectType" :class="{open: statusSelectType}" tabindex="0">
             <span class="current">{{ typeViewSelected }}</span>
             <ul class="list">
+              <li data-value="POS" v-on:click="selectTypeView('')" class="option" :class="{selected: statusSelectTypeOptionNone,'focus':statusSelectTypeOptionNone}">-----</li>
               <li data-value="POS" v-on:click="selectTypeView('POS')" class="option" :class="{selected: statusSelectTypeOptionPOS,'focus':statusSelectTypeOptionPOS}">Tích cực</li>
               <li data-value="NEU" v-on:click="selectTypeView('NEU')" class="option" :class="{selected: statusSelectTypeOptionNEU,'focus':statusSelectTypeOptionNEU}">Trung tính</li>
               <li data-value="NEG" v-on:click="selectTypeView('NEG')" class="option" :class="{selected: statusSelectTypeOptionNEG,'focus':statusSelectTypeOptionNEG}">Tiêu cực</li>
@@ -377,7 +378,7 @@ export default {
       typeViewArticle: this.$route.query.category || "",
       searchKeywordPost: "",
       typeView: "",
-      typeViewSelected: "-----",
+      typeViewSelected: "------",
       buttonClearFilter: "None",
       TextSeeMoreTopArchive: "See more",
 
@@ -385,6 +386,7 @@ export default {
       statusSelectTypeOptionPOS: false,
       statusSelectTypeOptionNEG: false,
       statusSelectTypeOptionNEU: false,
+      statusSelectTypeOptionNone:false,
       loading: false,
     };
   },
@@ -521,6 +523,8 @@ export default {
       this.archive = "";
       this.category = "";
       this.searchKeywordPost = "";
+      this.typeViewArticle = ""
+      this.selectTypeView('')
       this.searchDataPost(1);
     },
     CheckItemActiveCategory(categoryName) {
@@ -580,18 +584,28 @@ export default {
         this.statusSelectTypeOptionPOS = true;
         this.statusSelectTypeOptionNEU = false;
         this.statusSelectTypeOptionNEG = false;
+        this.statusSelectTypeOptionNone = false;
       }
       if (type === "NEU") {
         this.typeViewSelected = "Trung tính";
         this.statusSelectTypeOptionNEU = true;
         this.statusSelectTypeOptionNEG = false;
         this.statusSelectTypeOptionPOS = false;
+        this.statusSelectTypeOptionNone = false;
       }
       if (type === "NEG") {
         this.typeViewSelected = "Tiêu cực";
         this.statusSelectTypeOptionNEG = true;
         this.statusSelectTypeOptionNEU = false;
         this.statusSelectTypeOptionPOS = false;
+        this.statusSelectTypeOptionNone = false;
+      }
+      if (type === "") {
+        this.typeViewSelected = "------";
+        this.statusSelectTypeOptionNEG = false;
+        this.statusSelectTypeOptionNEU = false;
+        this.statusSelectTypeOptionPOS = false;
+        this.statusSelectTypeOptionNone = true;
       }
       this.searchDataPost(this.page);
     },

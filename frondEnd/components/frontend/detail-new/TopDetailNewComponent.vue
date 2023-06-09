@@ -1,8 +1,8 @@
 <template>
   <section style="height: 105px;" class="hero-block">
     <picture>
-      <source srcset="~/static/img/banners/homepage-banner.jpg" media="(min-width: 992px)" />
-      <img class="img--bg" src="~/static/img/banners/homepage-banner.jpg" alt="img" />
+      <source srcset="~/static/img/fintech11.jpg" media="(min-width: 992px)" />
+      <img class="img--bg" src="~/static/img/fintech11.jpg" alt="img" />
     </picture>
     <div class="hero-block__layout"></div>
     <div class="container">
