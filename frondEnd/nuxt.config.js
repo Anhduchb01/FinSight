@@ -73,7 +73,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  css: [],
+  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
   loading: { color: '#3B8070' },
   /*
   ** Build configuration
@@ -96,7 +96,9 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+      
+    },
+ 
   },
 
   modules: ['@nuxtjs/color-mode','@nuxtjs/dayjs'],
@@ -140,12 +142,14 @@ module.exports = {
   plugins: [
     { src: '~plugins/myplugin', ssr: false },
     { src : '~/plugins/vue-apexchart.js', ssr : false },
+    { src: '~/plugins/setLanguage.js', ssr : false },
+    
    
   ],
 
   i18n: {
-    locales: ['en', 'jp'],
-    defaultLocale: 'en',
+    locales: ['en', 'vn'],
+    defaultLocale: 'vn',
     vueI18n: {
       fallbackLocale: 'en',
       messages: {
@@ -176,7 +180,8 @@ module.exports = {
           },
           "body": {
             "home": {
-              "desHeader": "A portal take you to the realm of the Water God and beyond.",
+              "firstdesHeader" :"Vietnamese Financial News Analysis",
+              "desHeader": "Finance at your fingertips with FINSIGHT.",
               "new": "NEWS",
               "featured": "Featured",
               "News": "News",
@@ -203,8 +208,8 @@ module.exports = {
               "Relatednews": "Related news",
               "SourceLink": "Source Link",
               "desContact1": "How we can help you!",
-              "desContact2": "Ronquil coho salmon red snapper duckbill lungfish southern angelfish",
-              "Contactus": "Contact us",
+              "desContact2": "Apply AI foi Financial news",
+              "Contactus": "Contact Us",
               "Back": "Back",
               "Next": "Next"
                   },
@@ -227,13 +232,17 @@ module.exports = {
               "messeage":"Sorry, we couldn't find any articles that match your selection"
                   },
             "contact": {
+              "title":"Get in touch !",
               "officeTokyo":"Office Tokyo",
-              "sendMessage":"Send message",
+              "sendMessage":"Send Message",
               "yourName":"Your Name",
               "yourEmail":"Your Email",
               "yourPhone":"Your Phone",
+              "yourQuestion":"Your Question",
+              "yourComment":"Your Comment",
               "subject":"Subject",
-              "text":"Text"
+              "text":"Open: 9:00 AM - 6:00 PM",
+              "viewon": "View on Google map"
                   }
           },
           "footer": {
@@ -263,120 +272,125 @@ module.exports = {
             "Emailaddress": "Email address"
           }
   }, 
-        jp:  {
-          "language": "JP",
+        vn:  {
+          "language": "VN",
           "header": {
-            "home": "ホーム",
-            "news": "ニュース",
-            "playground": "遊び場",
-            "KeywordAnalytics": "キーワード分析",
-            "contacts": "連絡先"
+            "home": "Trang chủ",
+            "news": "Tin tức",
+            "playground": "PlayGround",
+            "KeywordAnalytics": "Phân tích KeyWord",
+            "contacts": "Liên hệ"
           },
           "sidebar": {
-            "home": "ホーム",
-            "news": "ニュース",
-            "playground": "遊び場",
-            "KeywordAnalytics": "キーワード分析",
-            "Documents":"ドキュメント",
-            "Information":"情報",
-            "Additionaldocs":"追加のドキュメント",
-            "Pricing":"価格設定",
-            "Downloads":"ダウンロード",
-            "Email": "Eメール",
-            "Phonenumbers": "電話番号",
-            "Language":"言語",
-            "contacts": "連絡先"
+            "home": "Trang chủ",
+            "news": "Tin tức",
+            "playground": "playground",
+            "KeywordAnalytics": "Phân tích KeyWord",
+            "Documents":"Tài liệu",
+            "Information":"Thông tin",
+            "Additionaldocs":"Bài viết thêm",
+            "Pricing":"Pricing",
+            "Downloads":"Tải xuống",
+            "Email": "Email",
+            "Phonenumbers": "Số điện thoại",
+            "Language":"Ngôn ngữ",
+            "contacts": "Liên hệ"
           },
           "body": {
             "home": {
-              "desHeader":"ポータルは、水神の領域とその先にあなたを連れて行きます。",
-              "new": "新着",
-              "featured": "特徴",
-              "News": "ニュース",
-              "map": "マップ",
-              "information": "情報",
-              "Area": "エリア",
-              "service": "サービス",
-              "Other": "他の",
-              "Services": "サービス",
-              "viewAll": "すべて表示",
-              "services1": "水循環モニタリング",
+              "firstdesHeader" :'Phân tích tin tức tài chính',
+              "desHeader":"Tài chính trong tầm tay với FINSIGHT",
+              "new": "new",
+              "featured": "featured",
+              "News": "News",
+              "map": "map",
+              "information": "information",
+              "Area": "Area",
+              "service": "service",
+              "Other": "Other",
+              "Services": "Services",
+              "viewAll": "viewAll",
+              "services1": "services1",
               "desServices1":
-              "ダッシュボードを使用すると、水情報を監視し、データ分析を確認できます。",
-              "services2": "ライブカメラモニタリング",
+              "desServices1",
+              "services2": "services2",
               "desServices2":
-              "世界中のさまざまな場所に設置されているライブカメラの閲覧。",
-              "services3": "地表水流シミュレーション",
+              "desServices2",
+              "services3": "services3",
               "desServices3":
-              "TeTToアプリケーションを使用して、どこでも地表水流シミュレーションを実行できます。",
-              "launch": "起動"
+              "desServices3",
+              "launch": "launch"
             },
             "news": {
-              "Categories": "カテゴリ",
-              "Archive": "アーカイブ",
-              "Tags": "タグ",
-              "Relatednews": "関連ニュース",
-              "SourceLink": "ソースリンク",
-              "desContact1": "どのように私たちはあなたを助けることができますか！",
-              "desContact2": "メダマウオギンザケ真鯛アヒルの子ハイギョサザンエンゼルフィッシュ",
-              "Contactus": "お問い合わせ",
-              "Back": "バック",
-              "Next": "次"
+              "Categories": "Categories",
+              "Archive": "Archive",
+              "Tags": "Tags",
+              "Relatednews": "Relatednews",
+              "SourceLink": "SourceLink",
+              "desContact1": "Tôi có thể giúp gì cho bạn!",
+              "desContact2": "Ứng dụng AI trong tài chính",
+              "Contactus": "Liên hệ",
+              "Back": "Back",
+              "Next": "Next"
             },
             "playground":{
         
             },
             "keyword": {
-              "ResultSearch": "Google検索",
-              "Search": "検索...",
-              "KeywordSearch":"キーワード検索",
-              "OverallAnalytics":"全体的な分析",
-              "wordCloud":"ワードクラウド",
-              "topKeyword":"トップ25キーワード",
-              "keyword":"キーワード",
-              "totalKeyword":"総キーワード",
-              "loading":"読み込み中",
-              "keywordTreeMap":"キーワードツリーマップ",
-              "keywordOverTime":"時間の経過に伴うキーワード",
-              "percentKeyword":"パーセントキーワード",
-              "messeage":"申し訳ありませんが、選択内容に一致する記事が見つかりませんでした",
-              "overviewKeyword":"概要キーワード",
-              "KeywordByCategory":"カテゴリ別のキーワード"
-            },
+              "ResultSearch": "Google Search",
+              "Search": "Search...",
+              "KeywordSearch":" Keyword Search",
+              "OverallAnalytics":"Overall Analytics",
+              "wordCloud":"WORD CLOUD",
+              "topKeyword":"TOP 25 KEYWORDS",
+              "overviewKeyword": "OVERVIEW KEYWORD",
+              "KeywordByCategory": "KEYWORD BY CATEGORY",
+              "keyword":"Keyword",
+              "totalKeyword":"TOTAL KEYWORD",
+              "loading":"Loading",
+              "keywordTreeMap":"KEYWORD TREEMAP",
+              "keywordOverTime":"KEYWORD OVER TIME",
+              "percentKeyword":"Percent Keyword",
+              "messeage":"Sorry, we couldn't find any articles that match your selection"
+                  },
             "contact": {
-              "officeTokyo":"オフィス東京",
-              "sendMessage":"メッセージを送る",
-              "yourName":"あなたの名前",
-              "yourEmail":"あなたのEメール",
-              "yourPhone":"あなたの電話",
-              "subject":"主題",
-              "text":"文章"
-            }
+              "title":"Liên hệ",
+              "officeTokyo":"Office Tokyo",
+              "sendMessage":"Gửi tin nhắn",
+              "yourName":"Tên",
+              "yourEmail":"Email",
+              "yourPhone":"Điện thoại",
+              "yourQuestion":"Câu hỏi",
+              "yourComment":"Nhận xét",
+              "subject":"Subject",
+              "text":"Giờ mở cửa: 9:00 AM - 6:00 PM",
+              "viewon": "Xem trên Google map"
+                  }
           },
           "footer": {
-            "location": "ロケーション",
-            "phone": "電話",
-            "email": "Eメール",
-            "openningHours": "営業時間",
-            "mainMenu": "マインメニュー",
-            "aboutUs": "私たちに関しては",
-            "pricingplan": "料金プラン",
-            "Elements": "要素",
-            "Team": "チーム",
-            "Warehouse": "倉庫",
-            "Contact": "連絡先",
-            "Careers": "キャリア",
-            "Calculator": "電卓",
-            "Sitemap": "サイトマップ",
-            "Services": "サービス",
-            "FAQ": "よくある質問",
-            "Newslatter": "ニュースレター",
-            "StayTunedForOurLatestNews": "最新のニュースをお楽しみに",
-            "Allrightsreserved": "Copyright OYO Corporation",
-            "Termsandconditions": "規約と条件",
-            "privacyPolicy": "個人情報保護方針",
-            "cookies": "クッキー",
-            "Emailaddress": "電子メールアドレス"
+            "location": "Địa chỉ",
+            "phone": "Số điện thoại",
+            "email": "Email",
+            "openningHours": "Giờ mở cửa",
+            "mainMenu": "Trang chính",
+            "aboutUs": "AboutUs",
+            "pricingplan": "Kế hoạch",
+            "Elements": "Elements",
+            "Team": "Team",
+            "Warehouse": "Warehouse",
+            "Contact": "Liên hệ",
+            "Careers": "Thành công",
+            "Calculator": "Calculator",
+            "Sitemap": "Sitemap",
+            "Services": "Dịch vụ",
+            "FAQ": "FAQ",
+            "Newslatter": "Newslatter",
+            "StayTunedForOurLatestNews": "StayTunedForOurLatestNews",
+            "Allrightsreserved": "Copyright finsight Corporation",
+            "Termsandconditions": "Termsandconditions",
+            "privacyPolicy": "privacyPolicy",
+            "cookies": "cookies",
+            "Emailaddress": "Emailaddress"
           }
         }
       }

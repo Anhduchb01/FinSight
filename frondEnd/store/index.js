@@ -1,5 +1,6 @@
+import { URL } from 'url';
 export const state = () => ({
-        language: 'EN',
+        language: 'VN',
         
 })
 
@@ -17,5 +18,12 @@ export const mutations = {
         },       
 
 }
+
+export const actions = {
+        setLanguageFromURL({ commit }, { url }) {
+          const language = url.startsWith('/en/') ? 'EN' : 'VN';
+          commit('setLanguage', language);
+        }
+      };
 
 

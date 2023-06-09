@@ -68,7 +68,7 @@ class CafefSpider(Spider):
             title = response.css(self.title_query+'::text').get()
             title = " ".join(title.split())
             title = self.formatString(title)
-            category = response.css(self.category_query+'::text').get()
+            type = response.css(self.category_query+'::text').get()
             author = response.css(self.author_query+'::text').get()
             author = author.replace('Theo','')
             author = " ".join(author.split())
@@ -87,7 +87,7 @@ class CafefSpider(Spider):
             item = VnNewsItem(
                 title=title,
                 timeCreatePostOrigin=str(timeCreatePostOrigin),
-                category=category,
+                type=type,
                 author=author,
                 content=content,
                 content_html= content_html,

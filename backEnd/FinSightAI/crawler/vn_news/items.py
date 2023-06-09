@@ -9,7 +9,7 @@ import scrapy
 class VnNewsItem(scrapy.Item):
     title = scrapy.Field()
     timeCreatePostOrigin = scrapy.Field()
-    category = scrapy.Field()
+    type = scrapy.Field()
     author = scrapy.Field()
     content = scrapy.Field()
     content_html = scrapy.Field()

@@ -3,14 +3,20 @@ const mongoose = require("mongoose");
 const Category = mongoose.model("Category")
 const Post = mongoose.model("Post")
 
-async function getCategories(){
-    const categoryArray = []
-    const countCategory = await Post.aggregate([ {$match: {$and: [{ status: { $in: ['0'] } },],},
-      }, {"$group": {_id:"$category",  count:{$sum:1}}}, {"$sort": { count: -1 } }])
-    for ( let category_id of countCategory){
-        categoryArray.push({"name": category_id._id, "count": category_id.count})
+async function getType(){
+    const typeArray = []
+    const countType = await Post.aggregate([ {$match: {$and: [{ status: { $in: ['0'] } },{ isClassification: true }],},
+      }, {"$group": {_id:"$type",  count:{$sum:1}}}, {"$sort": { count: -1 } }])
+    for ( let type_id of countType){
+      if (type_id._id == null || type_id._id == ''){
+        typeArray.push({"name": 'Khác', "count": type_id.count})
+      }
+      else{
+        typeArray.push({"name": type_id._id, "count": type_id.count})
+      }
+      
     }
-    return categoryArray
+    return typeArray
 }
 
-module.exports = { getCategories }
+module.exports = { getType }

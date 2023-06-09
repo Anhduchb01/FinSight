@@ -27,9 +27,13 @@ from datasets import Sequence, Value ,ClassLabel
 
 current_path = Path(__file__).parent.parent.joinpath('ai_model')
 
-# Localhost:           mongodb://localhost:27017/
+import os
+from dotenv import load_dotenv
+load_dotenv()
+DB_URL = os.environ.get('DB_URL')
+client = MongoClient(DB_URL)
 
-client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
+# client = MongoClient("mongodb://crawl02:crawl02123@localhost:27017/?authSource=FinSight")
 
 tags_collection = client["FinSight"]["tags"]
 tagmap_collection = client["FinSight"]["tagmaps"]
