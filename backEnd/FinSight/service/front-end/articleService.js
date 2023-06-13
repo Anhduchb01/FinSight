@@ -11,7 +11,13 @@ function order(a, b) {
 
 
 async function getYearArray() {
-    const yearArray = await Tagmap.aggregate([{ "$group": { _id: { "$arrayElemAt": [{ "$split": ["$year", "/"] }, 0] } } }])
+    const yearArray = await Tagmap.aggregate([{ "$group": { _id: {
+        $concat: [
+          { $arrayElemAt: [{ $split: ["$year", "/"] }, 0] },
+          "/",
+          { $arrayElemAt: [{ $split: ["$year", "/"] }, 1] }
+        ]
+        }, } }])
     const yearArrays = yearArray.map(year => year._id).sort(order)
     return yearArrays
 }

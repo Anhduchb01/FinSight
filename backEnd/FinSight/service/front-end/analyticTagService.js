@@ -9,7 +9,7 @@ const chroma = require('chroma-js');
 const { limits } = require("chroma-js");
 
 async function generateWordCloud(time) {
-    let year = '2022/12/31'
+    let year = '2023/12/31'
     if (time) {
         year = time + '/12/31'
     }
@@ -63,7 +63,7 @@ async function generateWordCloud(time) {
 }
 
 async function generateDataByYear(time) {
-    let year = '2022/12/31'
+    let year = '2023/12/31'
     if (time) {
         year = time + '/12/31'
     }
@@ -118,7 +118,7 @@ async function generateDataByYear(time) {
 }
 async function countTotalTagAllYear() {
     let arrResult = []
-    let year = '2022/12/31'
+    let year = '2023/12/31'
     const arrayTagLib = await Tagmap.aggregate([
         { "$match": { year: { "$lt": year } } },
         { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
@@ -139,7 +139,13 @@ async function countTotalTagAllYear() {
             "$project": {
                 "_id": 0,
                 "tag_id": 1,
-                "year": { $arrayElemAt: [{ "$split": ["$year", "/"] }, 0] },
+                "year": {
+                    $concat: [
+                      { $arrayElemAt: [{ $split: ["$year", "/"] }, 0] },
+                      "/",
+                      { $arrayElemAt: [{ $split: ["$year", "/"] }, 1] }
+                    ]
+                    },
                 "tags.name": 1,
 
             }
@@ -189,7 +195,13 @@ async function countTotalTagAllYear() {
             "$project": {
                 "_id": 0,
                 "tag_id": 1,
-                "year": { $arrayElemAt: [{ "$split": ["$year", "/"] }, 0] },
+                "year": {
+                    $concat: [
+                      { $arrayElemAt: [{ $split: ["$year", "/"] }, 0] },
+                      "/",
+                      { $arrayElemAt: [{ $split: ["$year", "/"] }, 1] }
+                    ]
+                    },
                 "tags.name": 1,
             }
         },
@@ -222,7 +234,7 @@ async function countTotalTagAllYear() {
 
 async function countTopTag(time) {
     {
-        let year = '2022/12/31'
+        let year = '2023/12/31'
         if (time) {
             year = time + '/12/31'
         }
@@ -266,7 +278,7 @@ async function countTopTag(time) {
 }
 async function countTagByCategoryAllYear() {
     let arrResult
-    let year = '2022/12/31'
+    let year = '2023/12/31'
     const resultLib = await Tagmap.aggregate([
         { "$match": { year: { "$lt": year } } },
         { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
@@ -289,7 +301,13 @@ async function countTagByCategoryAllYear() {
                 "_id": 0,
                 "tags.name": 1,
                 "post.category": 1,
-                "year": { $arrayElemAt: [{ "$split": ["$year", "/"] }, 0] },
+                "year": {
+                    $concat: [
+                      { $arrayElemAt: [{ $split: ["$year", "/"] }, 0] },
+                      "/",
+                      { $arrayElemAt: [{ $split: ["$year", "/"] }, 1] }
+                    ]
+                    },
             }
         },
         {
@@ -347,7 +365,13 @@ async function countTagByCategoryAllYear() {
                 "_id": 0,
                 "tags.name": 1,
                 "post.category": 1,
-                "year": { $arrayElemAt: [{ "$split": ["$year", "/"] }, 0] },
+                "year": {
+                    $concat: [
+                      { $arrayElemAt: [{ $split: ["$year", "/"] }, 0] },
+                      "/",
+                      { $arrayElemAt: [{ $split: ["$year", "/"] }, 1] }
+                    ]
+                    },
             }
         },
         {

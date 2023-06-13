@@ -3,8 +3,8 @@
     <div style="display:flex">
       <div id="play-button" style="display:flex">
         <!--Play-button là Next-button , Pause-button là Prev-button-->
-        <pauseButton v-on:click="beforeYear()" />
-        <playButton v-on:click="nextYear()" />
+        <pauseButton v-on:click="getPreviousMonth()" />
+        <playButton v-on:click="getNextMonth()" />
       </div>
       <VueSlider style="width:90%;padding-top:20px;height:12px" v-model="year" :adsorb="true" :marks="true" :data="yearArray" ref="slider" @change="changeSlider" />
     </div>
@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       yearArray: [],
-      year: parseInt(this.$route.query.year) || 2022, 
+      year: parseInt(this.$route.query.year) || '2023/06', 
     };
   },
   components: {
@@ -37,6 +37,40 @@ export default {
           year: this.year,
         },
       });      
+    },
+    getNextMonth() {
+      const [year, month] = this.year.split('/');
+      const date = new Date(Number(year), Number(month) - 1); // Note: month is zero-based
+      date.setMonth(date.getMonth() + 1);
+      this.year =  `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+      this.$refs.slider.setIndex(this.yearArray.indexOf(this.year));
+      this.$router.push({
+        query: {
+          geo: this.$route.query.geo,
+          gprop: this.$route.query.gprop,
+          key: this.$route.query.key,
+          time: this.$route.query.time,
+          year: this.year,
+        },
+      });
+    },
+
+// Function to get the previous month
+    getPreviousMonth() {
+      const [year, month] = this.year.split('/');
+      const date = new Date(Number(year), Number(month) - 1); // Note: month is zero-based
+      date.setMonth(date.getMonth() - 1);
+      this.year =  `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+      this.$refs.slider.setIndex(this.yearArray.indexOf(this.year));
+      this.$router.push({
+        query: {
+          geo: this.$route.query.geo,
+          gprop: this.$route.query.gprop,
+          key: this.$route.query.key,
+          time: this.$route.query.time,
+          year: this.year,
+        },
+      });
     },
     beforeYear() {
       this.year = this.year - 1;
@@ -70,9 +104,7 @@ export default {
     getYearArray() {
       HTTP.get("/year-array")
         .then((response) => {
-          this.yearArray = response.data.map(function (x) {
-            return parseInt(x);
-          });
+          this.yearArray = response.data
         })
         .catch((e) => {
           this.errors.push(e);

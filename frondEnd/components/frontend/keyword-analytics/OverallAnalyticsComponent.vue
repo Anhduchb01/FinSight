@@ -53,7 +53,7 @@
           {{ $t("body.keyword.loading") }}
         </div>
       </div>
-      <apexchart class="box-data-chart" id="category-keyword-chart" height="288" width="308" type="bar" :options="optionChartColumn" :series="seriesChartColumn" v-else-if="arrChartColumnLib &&arrChartColumnLib.length" />
+      <apexchart class="box-data-chart" id="category-keyword-chart" height="288" width="308" type="bar" :options="optionChartColumn" :series="seriesChartColumn" v-else-if="arrChartColumnAI &&arrChartColumnAI.length" />
       <div class="box-data-chart" id="category-keyword-chart" style="width: 348px; min-height: 60px;" v-else>
         <div class="loadding-chart" id="loading-chart-column">Cannot get data, please try again</div>
       </div>
@@ -72,7 +72,7 @@ export default {
       arrChartColumnLib: [1],
       optionChartColumn: {},
       arrChartColumnAI: [],
-      year: parseInt(this.$route.query.year) || 2022,
+      year: parseInt(this.$route.query.year) || '2023/06',
       flagChartColumn: true,
       arrLib: [],
       arrAI: [],
@@ -180,9 +180,14 @@ export default {
       ObjDataDraw.sumKeywordAI = 0;
       ObjDataDraw.sumKeywordLib = 0;
       let year = String(this.year);
+      console.log('arrOverviewChart')
+      console.log(this.arrOverviewChart)
+      console.log(year)
       for (let index = 0; index < this.arrOverviewChart.length; index++) {
         if (year === this.arrOverviewChart[index].year) {
+          console.log('true')
           ObjDataDraw = this.arrOverviewChart[index];
+          console.log(ObjDataDraw)
         }
       }
       return [ObjDataDraw.sumKeywordAI, ObjDataDraw.sumKeywordLib];
@@ -202,20 +207,20 @@ export default {
       for (let x = 0; x < this.arrChartColumnLib.length; x++) {
         if (this.arrChartColumnLib[x]._id === year) {
           for (let y = 0; y < this.arrChartColumnLib[x].value.length; y++) {
-            if (this.arrChartColumnLib[x].value[y].category === "news") {
+            if (this.arrChartColumnLib[x].value[y].category === "POS") {
               valueNewsLib = this.arrChartColumnLib[x].value[y].count;
             }
-            if (this.arrChartColumnLib[x].value[y].category === "event") {
+            if (this.arrChartColumnLib[x].value[y].category === "NEU") {
               valueEventLib = this.arrChartColumnLib[x].value[y].count;
             }
             if (
-              this.arrChartColumnLib[x].value[y].category === "publications"
+              this.arrChartColumnLib[x].value[y].category === "NEG"
             ) {
               valuePublicationsLib = this.arrChartColumnLib[x].value[y].count;
             }
-            if (this.arrChartColumnLib[x].value[y].category === "other") {
-              valueOtherLib = this.arrChartColumnLib[x].value[y].count;
-            }
+            // if (this.arrChartColumnLib[x].value[y].category === "other") {
+            //   valueOtherLib = this.arrChartColumnLib[x].value[y].count;
+            // }
           }
           break;
         }
@@ -223,18 +228,18 @@ export default {
       for (let x = 0; x < this.arrChartColumnAI.length; x++) {
         if (this.arrChartColumnAI[x]._id === year) {
           for (let y = 0; y < this.arrChartColumnAI[x].value.length; y++) {
-            if (this.arrChartColumnAI[x].value[y].category === "news") {
+            if (this.arrChartColumnAI[x].value[y].category === "POS") {
               valueNewsAI = this.arrChartColumnAI[x].value[y].count;
             }
-            if (this.arrChartColumnAI[x].value[y].category === "event") {
+            if (this.arrChartColumnAI[x].value[y].category === "NEU") {
               valueEventAI = this.arrChartColumnAI[x].value[y].count;
             }
-            if (this.arrChartColumnAI[x].value[y].category === "publications") {
+            if (this.arrChartColumnAI[x].value[y].category === "NEG") {
               valuePublicationsAI = this.arrChartColumnAI[x].value[y].count;
             }
-            if (this.arrChartColumnAI[x].value[y].category === "other") {
-              valueOtherAI = this.arrChartColumnAI[x].value[y].count;
-            }
+            // if (this.arrChartColumnAI[x].value[y].category === "other") {
+            //   valueOtherAI = this.arrChartColumnAI[x].value[y].count;
+            // }
           }
           break;
         }
@@ -243,7 +248,7 @@ export default {
       return [
         {
           name: "AI",
-          data: [valueNewsAI, valueEventAI, valuePublicationsAI, valueOtherAI],
+          data: [valueNewsAI, valueEventAI, valuePublicationsAI],
         },
         {
           name: "Library",
@@ -251,7 +256,7 @@ export default {
             valueNewsLib,
             valueEventLib,
             valuePublicationsLib,
-            valueOtherLib,
+        
           ],
         },
       ];
@@ -280,51 +285,51 @@ export default {
           for (let x = 0; x < this.arrChartColumnLib.length; x++) {
             for (let y = 0; y < this.arrChartColumnLib[x].value.length; y++) {
               try {
-                if (this.arrChartColumnLib[x].value[y].category === "news") {
+                if (this.arrChartColumnLib[x].value[y].category === "POS") {
                   countNewsLib += this.arrChartColumnLib[x].value[y].count;
                   this.arrChartColumnLib[x].value[y].count = countNewsLib;
                 }
-                if (this.arrChartColumnLib[x].value[y].category === "event") {
+                if (this.arrChartColumnLib[x].value[y].category === "NEU") {
                   countEventLib += this.arrChartColumnLib[x].value[y].count;
                   this.arrChartColumnLib[x].value[y].count = countEventLib;
                 }
                 if (
-                  this.arrChartColumnLib[x].value[y].category === "publications"
+                  this.arrChartColumnLib[x].value[y].category === "NEG"
                 ) {
                   countPublicationsLib +=
                     this.arrChartColumnLib[x].value[y].count;
                   this.arrChartColumnLib[x].value[y].count =
                     countPublicationsLib;
                 }
-                if (this.arrChartColumnLib[x].value[y].category === "other") {
-                  countOtherLib += this.arrChartColumnLib[x].value[y].count;
-                  this.arrChartColumnLib[x].value[y].count = countOtherLib;
-                }
+                // if (this.arrChartColumnLib[x].value[y].category === "other") {
+                //   countOtherLib += this.arrChartColumnLib[x].value[y].count;
+                //   this.arrChartColumnLib[x].value[y].count = countOtherLib;
+                // }
               } catch (error) {}
             }
           }
           for (let x = 0; x < this.arrChartColumnAI.length; x++) {
             for (let y = 0; y < this.arrChartColumnAI[x].value.length; y++) {
               try {
-                if (this.arrChartColumnAI[x].value[y].category === "news") {
+                if (this.arrChartColumnAI[x].value[y].category === "POS") {
                   countNewsAI += this.arrChartColumnAI[x].value[y].count;
                   this.arrChartColumnAI[x].value[y].count = countNewsAI;
                 }
-                if (this.arrChartColumnAI[x].value[y].category === "event") {
+                if (this.arrChartColumnAI[x].value[y].category === "NEU") {
                   countEventAI += this.arrChartColumnAI[x].value[y].count;
                   this.arrChartColumnAI[x].value[y].count = countEventAI;
                 }
                 if (
-                  this.arrChartColumnAI[x].value[y].category === "publications"
+                  this.arrChartColumnAI[x].value[y].category === "NEG"
                 ) {
                   countPublicationsAI +=
                     this.arrChartColumnAI[x].value[y].count;
                   this.arrChartColumnAI[x].value[y].count = countPublicationsAI;
                 }
-                if (this.arrChartColumnAI[x].value[y].category === "other") {
-                  countOtherAI += this.arrChartColumnAI[x].value[y].count;
-                  this.arrChartColumnAI[x].value[y].count = countOtherAI;
-                }
+                // if (this.arrChartColumnAI[x].value[y].category === "other") {
+                //   countOtherAI += this.arrChartColumnAI[x].value[y].count;
+                //   this.arrChartColumnAI[x].value[y].count = countOtherAI;
+                // }
               } catch (error) {}
             }
           }
@@ -360,7 +365,7 @@ export default {
                 },
               },
               xaxis: {
-                categories: ["News", "Event", "Publications", "Other"],
+                categories: ["POS", "NEU", "NEG"],
               },
               yaxis: {
                 labels: {
@@ -538,7 +543,7 @@ export default {
     this.$watch(
       () => this.$route.query.year,
       (toQuerys, previousQuerys) => {
-        this.year = parseInt(this.$route.query.year) || 2022;
+        this.year = parseInt(this.$route.query.year) || '2023/06';
       }
     );
   },

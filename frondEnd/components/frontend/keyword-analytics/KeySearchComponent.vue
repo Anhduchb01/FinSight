@@ -724,50 +724,50 @@ export default {
   //     geo :  this.$route.query.geo || "" ,
   //     gprop : this.$route.query.gprop || "",
   //     time: this.$route.query.time || "today 12-m" ,
-  mounted() {
-    this.checkKeywordInput();
-    this.$watch(
-      () => this.$route.query.key,
-      (toQuerys, previousQuerys) => {
-        this.key = this.$route.query.key;
-        this.checkKeywordInput();
-      }
-    );
-    this.$watch("key", (newKey) => {});
-    this.$watch("geoOption", (newGeo) => {
-      this.$router.push({
-        query: {
-          geo: this.geoOption.value,
-          gprop: this.$route.query.gprop,
-          key: this.$route.query.key,
-          time: this.$route.query.time,
-          year: this.$route.query.year,
-        },
-      });
-    });
-    this.$watch("gpropOption", (newGprop) => {
-      this.$router.push({
-        query: {
-          geo: this.$route.query.geo,
-          gprop: this.gpropOption.value,
-          key: this.$route.query.key,
-          time: this.$route.query.time,
-          year: this.$route.query.year,
-        },
-      });
-    });
-    this.$watch("timeOption", (newTime) => {
-      this.$router.push({
-        query: {
-          geo: this.$route.query.geo,
-          gprop: this.$route.query.gprop,
-          key: this.$route.query.key,
-          time: this.timeOption.value,
-          year: this.$route.query.year,
-        },
-      });
-    });
-  },
+  // mounted() {
+  //   this.checkKeywordInput();
+  //   this.$watch(
+  //     () => this.$route.query.key,
+  //     (toQuerys, previousQuerys) => {
+  //       this.key = this.$route.query.key;
+  //       this.checkKeywordInput();
+  //     }
+  //   );
+  //   this.$watch("key", (newKey) => {});
+  //   this.$watch("geoOption", (newGeo) => {
+  //     this.$router.push({
+  //       query: {
+  //         geo: this.geoOption.value,
+  //         gprop: this.$route.query.gprop,
+  //         key: this.$route.query.key,
+  //         time: this.$route.query.time,
+  //         year: this.$route.query.year,
+  //       },
+  //     });
+  //   });
+  //   this.$watch("gpropOption", (newGprop) => {
+  //     this.$router.push({
+  //       query: {
+  //         geo: this.$route.query.geo,
+  //         gprop: this.gpropOption.value,
+  //         key: this.$route.query.key,
+  //         time: this.$route.query.time,
+  //         year: this.$route.query.year,
+  //       },
+  //     });
+  //   });
+  //   this.$watch("timeOption", (newTime) => {
+  //     this.$router.push({
+  //       query: {
+  //         geo: this.$route.query.geo,
+  //         gprop: this.$route.query.gprop,
+  //         key: this.$route.query.key,
+  //         time: this.timeOption.value,
+  //         year: this.$route.query.year,
+  //       },
+  //     });
+  //   });
+  // },
 };
 </script>
 <style >

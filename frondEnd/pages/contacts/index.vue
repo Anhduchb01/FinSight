@@ -381,6 +381,7 @@ export default {
 @import "~static/css/styles.min.css";
 @import "~/static/css/homepage.css";
 @import "~/static/css/line.css";
+@import "~/static/css/tailwind.css"; 
 .img_header{
   
   width: 100%; /* Adjust this as per your needs */

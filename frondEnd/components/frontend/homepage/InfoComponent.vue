@@ -60,5 +60,5 @@
   </div>
 </template>
 <style scoped>
-@import "~/static/css/tailwind.css";
+/* @import "~/static/css/tailwind.css"; */
 </style>
