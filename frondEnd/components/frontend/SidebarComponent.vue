@@ -12,8 +12,11 @@
           <div class="screen__item screen--trigger menu-news" data-category="screen-one">
             <a style="text-transform: uppercase" class="screen__link" href="/news/">{{ $t("sidebar.news") }}</a>
           </div>
+          <div class="screen__item screen--trigger menu-overall-analytics" data-category="screen-one">
+            <a style="text-transform: uppercase" class="screen__link" href="/overall-analytics/?key=&page=1&geo=&time=now 1-H&gprop=">{{ $t("sidebar.overallAnalytics") }}</a>
+          </div>
           <div class="screen__item screen--trigger menu-keyword-analytics" data-category="screen-one">
-            <a style="text-transform: uppercase" class="screen__link" href="/keyword-analytics/?key=&page=1&geo=&time=now 1-H&gprop=">{{ $t("sidebar.KeywordAnalytics") }}</a>
+            <a style="text-transform: uppercase" class="screen__link" href="/keyword-analytics/?key=">{{ $t("sidebar.KeywordAnalytics") }}</a>
           </div>
           <div class="screen__item screen--trigger menu-contacts" data-category="screen-one">
             <a style="text-transform: uppercase" class="screen__link" href="/contacts">{{ $t("sidebar.contacts") }}</a>

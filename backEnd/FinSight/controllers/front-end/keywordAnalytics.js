@@ -63,15 +63,31 @@ router.get("/keyword-search", async (req, res) => {
 });
 
 router.get("/word-cloud?", async (req, res) => {
+  let list_date
   try {
-    if (myCache.has("word-cloud")) {
-      // console.log("load node -cache")
-      res.send(myCache.get("word-cloud"));
+    if (myCache.has("year-array")) {
+      list_date = myCache.get("year-array");
     } else {
-      // console.log("load db")
-      year = req.query.year || "2021";
+      list_date = await getYearArray();
+      myCache.set("year-array", list_date);
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  try {
+    let year 
+    if (req.query.year ==''|| req.query.year== null){
+      year = list_date[list_date.length -1];
+    }else{
+      year = req.query.year 
+    }
+    if (myCache.has("word-cloud-"+String(year))) {
+      console.log("load node -cache")
+      res.send(myCache.get("word-cloud-"+String(year)));
+    } else {
+      console.log("load db")
       const data = await generateWordCloud(year);
-      myCache.set("word-cloud", data);
+      myCache.set("word-cloud-"+String(year), data);
       res.send(data);
     }
   } catch (err) {
@@ -112,13 +128,29 @@ router.get("/year-array", async (req, res) => {
 });
 
 router.get("/generate-data-year", async (req, res) => {
+  let list_date
   try {
-    let year = req.query.year;
-    if (myCache.has("generate-data-year")) {
-      return res.send(myCache.get("generate-data-year"));
+    if (myCache.has("year-array")) {
+      list_date = myCache.get("year-array");
+    } else {
+      list_date = await getYearArray();
+      myCache.set("year-array", list_date);
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  try {
+    let year 
+    if (req.query.year ==''|| req.query.year== null){
+      year = list_date[list_date.length -1];
+    }else{
+      year = req.query.year 
+    }
+    if (myCache.has("generate-data-year-"+String(year))) {
+      return res.send(myCache.get("generate-data-year-"+String(year)));
     } else {
       let data = await generateDataByYear(year);
-      myCache.set("generate-data-year", data);
+      myCache.set("generate-data-year-"+String(year), data);
       res.send(data);
     }
   } catch (err) {
@@ -144,16 +176,16 @@ router.get("/count-total-tag-all-year", async (req, res) => {
 let arrName = []
 router.get("/count-top-tag", async (req, res) => {
   try {
-    if (myCache.has("count-top-tag")) {
-      return res.send(myCache.get("count-top-tag"));
+    let year = req.query.year;
+    if (myCache.has("count-top-tag-"+String(year))) {
+      return res.send(myCache.get("count-top-tag-"+String(year)));
     } else {
-      let year = req.query.year;
       const data = await countTopTag(year);
       //Lấy key của top tag
       for (let index = 0; index < data.length; index++) {
         arrName.push(data[index]._id.name)
       }
-      myCache.set("count-top-tag", data);
+      myCache.set("count-top-tag-"+String(year), data);
       res.send(data);
     }
   } catch (err) {

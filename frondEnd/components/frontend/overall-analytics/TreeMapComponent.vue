@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       checkLoadingKeyTreeMap: true,
-      year: 2023,
+      year: this.$route.query.year|| '',
       flagTreeMap: false,
       result: [],
       showKeyWordByMap: false,
@@ -174,7 +174,7 @@ export default {
       () => this.$route.query.year,
       (toQuerys, previousQuerys) => {
         if (this.treeChart) {
-          this.year = parseInt(this.$route.query.year) || 2023;
+          this.year = this.$route.query.year|| '';
           this.result = [];
           this.treeChart.dispose();
           this.generateTreemap();

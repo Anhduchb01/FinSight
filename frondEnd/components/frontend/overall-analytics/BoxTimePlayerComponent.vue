@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       yearArray: [],
-      year: parseInt(this.$route.query.year) || '2023/06', 
+      year: this.$route.query.year || '', 
     };
   },
   components: {
@@ -105,6 +105,7 @@ export default {
       HTTP.get("/year-array")
         .then((response) => {
           this.yearArray = response.data
+          this.year = this.yearArray[this.yearArray.length -1]
         })
         .catch((e) => {
           this.errors.push(e);

@@ -11,7 +11,7 @@ const { limits } = require("chroma-js");
 async function generateWordCloud(time) {
     let year = '2023/12/31'
     if (time) {
-        year = time + '/12/31'
+        year = time + '/31'
     }
     const countTable = await Tagmap.aggregate([
         { "$match": { year: { "$lt": year } } },
@@ -65,7 +65,7 @@ async function generateWordCloud(time) {
 async function generateDataByYear(time) {
     let year = '2023/12/31'
     if (time) {
-        year = time + '/12/31'
+        year = time + '/31'
     }
     const result = await Tagmap.aggregate([
         { "$match": { year: { "$lt": year } } },
@@ -236,7 +236,7 @@ async function countTopTag(time) {
     {
         let year = '2023/12/31'
         if (time) {
-            year = time + '/12/31'
+            year = time + '/31'
         }
         const result = await Tagmap.aggregate([
             { "$match": { year: { "$lt": year } } },
@@ -258,7 +258,13 @@ async function countTopTag(time) {
                 "$project": {
                     // "_id": 0,
                     // "tag_id": 1,
-                    "year": { $arrayElemAt: [{ "$split": ["$year", "/"] }, 0] },
+                    "year": {
+                        $concat: [
+                          { $arrayElemAt: [{ $split: ["$year", "/"] }, 0] },
+                          "/",
+                          { $arrayElemAt: [{ $split: ["$year", "/"] }, 1] }
+                        ]
+                        },
                     "tags.name": 1,
                     // "post.category": 1
                 }

@@ -21,6 +21,10 @@ import Snackbar from 'awesome-snackbar'
 
 import VueLazyLoadVideo from 'vue-lazyload-video'
 
+import FeatherIcon from '../components/core/FeatherIcon.vue'
+
+
+Vue.component(FeatherIcon.name, FeatherIcon)
 // Register Components
 // LazyVideo & LazyVideoAsGIF
 Vue.use(VueLazyLoadVideo)

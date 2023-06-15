@@ -72,7 +72,7 @@ export default {
       arrChartColumnLib: [1],
       optionChartColumn: {},
       arrChartColumnAI: [],
-      year: parseInt(this.$route.query.year) || '2023/06',
+      year: this.$route.query.year || '',
       flagChartColumn: true,
       arrLib: [],
       arrAI: [],
@@ -538,12 +538,19 @@ export default {
     },
   },
   mounted() {
+    HTTP.get("/year-array")
+        .then((response) => {
+          this.year =response.data[response.data.length -1]
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     this.tagByCategory();
     this.countTotalKeywordByYear();
     this.$watch(
       () => this.$route.query.year,
       (toQuerys, previousQuerys) => {
-        this.year = parseInt(this.$route.query.year) || '2023/06';
+        this.year = this.$route.query.year || '';
       }
     );
   },

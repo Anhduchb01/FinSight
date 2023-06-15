@@ -90,9 +90,17 @@
                   </span>
                 </nuxt-link>
               </li> -->
+              
 
+              <li id="menu-overal-analytics" class="main-menu__item">
+                <nuxt-link :to="localeLocation( {name:'overall-analytics',query:{geo:'',gprop:'', key:'',time:'',year:''}} )">
+                  <span class="main-menu__link">
+                    <span>{{ $t("header.overallAnalytics") }}</span>
+                  </span>
+                </nuxt-link>
+              </li>
               <li id="menu-keyword-analytics" class="main-menu__item">
-                <nuxt-link :to="localeLocation( {name:'keyword-analytics',query:{geo:'',gprop:'', key:'',time:'today 12-m',year:2022} } )">
+                <nuxt-link :to="localeLocation( {name:'keyword-analytics',query:{ key:''} } )">
                   <span class="main-menu__link">
                     <span>{{ $t("header.KeywordAnalytics") }}</span>
                   </span>
@@ -220,8 +228,6 @@ export default {
 @import "~/static/css/homepage.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css";
-
-@import "~/static/css/homepage.css";
 @media only screen and (min-width: 1366px) {
   .header-resize {
     max-width: 1170px;

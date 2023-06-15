@@ -299,84 +299,12 @@
           </ul>
         </div>
       </div>
-      <div style="display: flex;width: 1560px">
-        <div style="  display: flex;  padding-bottom: 15px;  align-self: center;  padding: 0px;  margin-bottom: 20px;  justify-content: space-between;" class="col-lg-4 col-xl-9 text-right top-10">
-          <div class="option-select-gg-trend">
-            <v-select class="vue-select1" name="select1" :options="optionGeo" v-model="geoOption"></v-select>
-          </div>
-          <div class="option-select-gg-trend">
-            <v-select class="vue-select1" name="select1" :options="optionTime" v-model="timeOption"></v-select>
-          </div>
-          <div class="option-select-gg-trend">
-            <v-select class="vue-select1" name="select1" :options="optionGprop" v-model="gpropOption"></v-select>
-          </div>
-        </div>
-        <!-- <div style="padding: 0px 0px 0px 30px" class="col-lg-4 col-xl-3">
-          <div style="display: flex">
-            <h5 class="catalog__title top-10">{{ $t("body.keyword.ResultSearch") }}</h5>
-            <div class="svg-loader" :style="svgLoader">
-              <svg class="svg-container" height="32" width="32" viewBox="0 0 100 100">
-                <circle class="loader-svg bg" cx="50" cy="50" r="45" />
-                <circle class="loader-svg animate" cx="50" cy="50" r="45" />
-              </svg>
-            </div>
-          </div>
-        </div>-->
-      </div>
-      <div style="display: flex;width: 1560px;">
-        <div class="col-lg-8 col-xl-9 p-0">
-          <div class="row offset-30 box-content-search">
-            <div id="content-google-trend-time" class="col-sm-6 col-xl-12 bottom-20 google-trend-display" v-if="showContentGoogleTrend">
-              <iframe id="trends-widget-1" title="trends-widget-1" :src="'https://trends.google.com.vn:443/trends/embed/explore/TIMESERIES?req=%7B%22comparisonItem%22%3A%5B%7B%22keyword%22%3A%22' +key +'%22%2C%22geo%22%3A%22' +geoOption.value +'%22%2C%22time%22%3A%22' +timeOption.value +'%22%7D%5D%2C%22category%22%3A0%2C%22property%22%3A%22' +gpropOption.value +'%22%7D&amp;tz=-420&amp;eq=date%3Dnow%25207-d%26geo%3DVN%26q%3Dcats'" width="100%" frameborder="0" scrolling="0" style="border-radius: 2px;box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 0px,  rgba(0, 0, 0, 0.24) 0px 2px 2px 0px;height: 423px;"></iframe>
-            </div>
-            <div id="content-google-trend-area" class="col-sm-6 col-xl-12 bottom-20 google-trend-display" v-if="showContentGoogleTrend">
-              <iframe style="border-radius: 2px;box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 0px,  rgba(0, 0, 0, 0.24) 0px 2px 2px 0px;height: 423px;" id="trends-widget-1" title="trends-widget-1" :src="'https://trends.google.com/trends/embed/explore/GEO_MAP?req=%7B%22comparisonItem%22%3A%5B%7B%22keyword%22%3A%22'+key+'%22%2C%22geo%22%3A%22'+geoOption.value+'%22%2C%22time%22%3A%22'+timeOption.value+'%22%7D%5D%2C%22category%22%3A0%2C%22property%22%3A%22'+gpropOption.value+'%22%7D&amp;tz=-420'" width="100%" frameborder="0" scrolling="0"></iframe>
-            </div>
-            <div id="content-google-trend-related-topic" class="col-sm-6 col-xl-6 bottom-20 google-trend-display" v-if="showContentGoogleTrend">
-              <iframe style="border-radius: 2px;box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 0px,  rgba(0, 0, 0, 0.24) 0px 2px 2px 0px;height: 400px;" id="trends-widget-1" title="trends-widget-1" :src="'https://trends.google.com.vn:443/trends/embed/explore/RELATED_TOPICS?req=%7B%22comparisonItem%22%3A%5B%7B%22keyword%22%3A%22'+key+'%22%2C%22geo%22%3A%22'+geoOption.value+'%22%2C%22time%22%3A%22'+timeOption.value+'%22%7D%5D%2C%22category%22%3A0%2C%22property%22%3A%22'+gpropOption.value+'%22%7D&amp;tz=-420&amp;eq=date%3Dnow%25201-H%26geo%3DSA%26q%3Dcats'" width="100%" frameborder="0" scrolling="0"></iframe>
-            </div>
-            <div id="content-google-trend-related-word" class="col-sm-6 col-xl-6 google-trend-display" v-if="showContentGoogleTrend">
-              <iframe style="border-radius: 2px;box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 0px,  rgba(0, 0, 0, 0.24) 0px 2px 2px 0px;height: 400px;" id="trends-widget-1" title="trends-widget-1" :src="'https://trends.google.com.vn:443/trends/embed/explore/RELATED_QUERIES?req=%7B%22comparisonItem%22%3A%5B%7B%22keyword%22%3A%22'+key+'%22%2C%22geo%22%3A%22'+geoOption.value+'%22%2C%22time%22%3A%22'+timeOption.value+'%22%7D%5D%2C%22category%22%3A0%2C%22property%22%3A%22'+gpropOption.value+'%22%7D&amp;tz=-420&amp;eq=date%3Dnow%25201-H%26geo%3DSA%26q%3Dcats'" width="100%" frameborder="0" scrolling="0"></iframe>
-            </div>
-          </div>
-        </div>
-        <!-- <div style="padding-left: 30px" class="col-lg-8 col-xl-3">
-          <div class="aside-holder">
-            <div class="shop__aside-close">
-              <svg class="icon">
-                <use xlink:href="#close" />
-              </svg>
-            </div>
-            <div class="shop-aside">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="new-item">
-                    <div id="result-search-post" class="row align-items-center" v-if="
-                        resultCrawdataByKeyword &&
-                        resultCrawdataByKeyword.length
-                      ">
-                      <div class="col-12 bottom-20" v-for="(data, index) in resultCrawdataByKeyword" :key="index">
-                        <div class="new-item__description box-result-search-post">
-                          <span class="new-item__price">
-                            <a style="text-decoration: none; color: black" target="_blank" :href="data.url">{{ formatUrl(data.url) }}</a>
-                          </span>
-                          <h6 class="new-item__title title-result-search-post">
-                            <a target="_blank" :href="data.url">{{data.title}}</a>
-                          </h6>
-                          <span style="color: black" class="new-item__price">{{formatDescriptionForListGoogle(data.desciption)}}</span>
-                        </div>
-                        <div>{{ resultCrawdataByKeyword }}</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>-->
+
+      
+        
       </div>
     </div>
-  </div>
+  
 </template>
 <script>
 import { HTTP } from "../../../static/baseAPI.js";

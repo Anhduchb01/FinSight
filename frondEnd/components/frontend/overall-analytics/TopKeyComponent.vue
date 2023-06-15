@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       checkLoadingTopKey: true,
-      year: parseInt(this.$route.query.year) || 2023,
+      year: this.$route.query.year|| '',
       arrValue: [],
       arrName: [],
       flagChartBar: true,
@@ -168,7 +168,7 @@ export default {
     this.$watch(
       () => this.$route.query.year,
       (toQuerys, previousQuerys) => {
-        this.year = parseInt(this.$route.query.year) || 2023;
+        this.year = this.$route.query.year || 2023;
         this.countTopKeyword();
       }
     );

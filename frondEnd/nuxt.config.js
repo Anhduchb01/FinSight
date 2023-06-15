@@ -160,7 +160,8 @@ module.exports = {
             "playground": "playground",
             "KeywordAnalytics": "Keyword Analytics",
             "contacts": "contacts",
-            
+            "overallAnalytics":"Overtall Analytics"
+      
           },
           "sidebar": {
             "home": "HOME",
@@ -168,6 +169,7 @@ module.exports = {
             "playground": "PLAYGROUND",
           
             "KeywordAnalytics": "KEYWORD ANALYTICS",
+            "overallAnalytics":"OVERALL ANALYTICS",
             "Documents": "Documents",
             "Information": "Information",
             "Additionaldocs": "Additional docs",
@@ -215,6 +217,7 @@ module.exports = {
                   },
             "playground": {},
             "keyword": {
+              "keywordAnalytics": "Keyword Analytics",
               "ResultSearch": "Google Search",
               "Search": "Search...",
               "KeywordSearch":" Keyword Search",
@@ -278,14 +281,16 @@ module.exports = {
             "home": "Trang chủ",
             "news": "Tin tức",
             "playground": "PlayGround",
-            "KeywordAnalytics": "Phân tích KeyWord",
-            "contacts": "Liên hệ"
+            "KeywordAnalytics": "Phân tích từ khóa",
+            "contacts": "Liên hệ",
+            "overallAnalytics":"Phân tích chung"
           },
           "sidebar": {
             "home": "Trang chủ",
             "news": "Tin tức",
             "playground": "playground",
-            "KeywordAnalytics": "Phân tích KeyWord",
+            "KeywordAnalytics": "Phân tích từ khóa",
+            "overallAnalytics":"Phân tích chung",
             "Documents":"Tài liệu",
             "Information":"Thông tin",
             "Additionaldocs":"Bài viết thêm",
@@ -337,10 +342,11 @@ module.exports = {
         
             },
             "keyword": {
+              "keywordAnalytics": "Phân tích từ khóa",
               "ResultSearch": "Google Search",
               "Search": "Search...",
               "KeywordSearch":" Keyword Search",
-              "OverallAnalytics":"Overall Analytics",
+              "OverallAnalytics":"Phân tích chung",
               "wordCloud":"WORD CLOUD",
               "topKeyword":"TOP 25 KEYWORDS",
               "overviewKeyword": "OVERVIEW KEYWORD",
