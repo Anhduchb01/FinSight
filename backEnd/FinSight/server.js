@@ -37,6 +37,7 @@ const homePageController = require('./controllers/front-end/homePageController')
 const newsController = require('./controllers/front-end/newsController');
 const newsDetailController = require('./controllers/front-end/newsDetailController');
 const keywordAnalytics = require('./controllers/front-end/keywordAnalytics');
+const overallAnalytics = require('./controllers/front-end/overallAnalytics');
 const contacts = require('./controllers/front-end/contactController');
 const middleware = require('./middleware');
 const newsletter = require('./controllers/front-end/newsLetterController');
@@ -98,11 +99,11 @@ app.use('/', sortingController)
 app.use('/', settingController);
 app.use('/', osUtilsController);
 app.use('/', manageTagController);
-app.use('/',keywordAnalytics)
+// app.use('/',keywordAnalytics)
+app.use('/',overallAnalytics)
 app.use('/', homePageController);
 app.use('/', newsController);
 app.use('/', newsDetailController);
-app.use('/', keywordAnalytics);
 app.use('/', contacts);
 app.use('/', newsletter);
 // app.use('/', playground);

@@ -24,23 +24,92 @@ async function getYearArray() {
 
 
 async function getArticleHasTag(text, numberPage) {
-    var tag_id = await Tag.findOne({ "name": text })
+
+    var regex = new RegExp('^' + text + '$', 'i');
+    var tag_id = await Tag.findOne({ "name": { $regex: regex } })
+    console.log(tag_id)
     var articles = await Tagmap.aggregate([{ "$match": { tag_id: ObjectId(tag_id._id) } }, { "$group": { _id: "$article_id" } }, { "$lookup": { from: "posts", localField: "_id", foreignField: "_id", as: "article" } }, {
         "$project": {
             "_id": 1,
             "article.title": 1,
-            "article.description": 1,
+            "article.content": 1,
             "article.timeCreatePostOrigin": 1,
-            "article.contenthtml": 1,
-            "article.isTag": 1,
-            "article.isTagAi": 1,
+            "article.content_html": 1,
+            "article.urlPageCrawl": 1,
+            "article.category": 1,
+            "article.type": 1,
         }
-    }, { "$sort": { "article.isTag": 1, "article.isTagAi": 1, 'article.timeCreatePostOrigin': -1 } },
-    { "$skip": (numberPage - 1) * 16 },
-    { "$limit": 16 },
+    }, { "$sort": { 'article.timeCreatePostOrigin': -1 } },
+    { "$skip": (numberPage - 1) * 8 },
+    { "$limit": 8 },
     ])
     
     return articles
+}
+async function getTimeLineOfTag(text) {
+
+    var regex = new RegExp('^' + text + '$', 'i');
+    var tag_id = await Tag.findOne({ "name": { $regex: regex } })
+    console.log(tag_id)
+    var timeline = await Tagmap.aggregate([
+        {
+          '$match': {
+            'tag_id': ObjectId(tag_id._id)
+          }
+        }, {
+          '$group': {
+            '_id': '$article_id'
+          }
+        }, {
+          '$lookup': {
+            'from': 'posts', 
+            'localField': '_id', 
+            'foreignField': '_id', 
+            'as': 'article'
+          }
+        }, {
+          '$project': {
+            '_id': 1, 
+            'article.timeCreatePostOrigin': 1, 
+            'article.category': 1
+          }
+        }, {
+          '$unwind': '$article'
+        }, {
+          '$group': {
+            '_id': '$article.timeCreatePostOrigin', 
+            'articles': {
+              '$push': {
+                'category': '$article.category'
+              }
+            }
+          }
+        }
+      ])
+    let result = []
+    
+    for (let i =0;i<timeline.length;i++){
+        let objTimeLine = {}
+        let arrCountDate = {}
+        arrCountDate.POS = 0
+        arrCountDate.NEG = 0
+        arrCountDate.NEU = 0
+        let arrCategory = timeline[i].articles
+        for (let j =0;j<arrCategory.length;j++){
+            
+            if (arrCategory[j].category=='POS'){
+                arrCountDate.POS +=1
+            }else if (arrCategory[j].category=='NEU'){
+                arrCountDate.NEG +=1
+            }else {
+                arrCountDate.NEU +=1
+            }
+        }
+        let time =timeline[i]._id
+        objTimeLine[time] = arrCountDate
+        result.push(objTimeLine)
+    }
+    return result
 }
 
 function sortObject(obj) {
@@ -120,4 +189,4 @@ async function recommendArticle(article_id) {
 
 
 
-module.exports = { getArticleHasTag, getYearArray, recommendArticle }
+module.exports = { getArticleHasTag, getYearArray, recommendArticle ,getTimeLineOfTag}
