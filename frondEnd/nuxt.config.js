@@ -160,7 +160,7 @@ module.exports = {
             "playground": "playground",
             "KeywordAnalytics": "Keyword Analytics",
             "contacts": "contacts",
-            "overallAnalytics":"Overtall Analytics"
+            "overallAnalytics":"Overall Analytics"
       
           },
           "sidebar": {
