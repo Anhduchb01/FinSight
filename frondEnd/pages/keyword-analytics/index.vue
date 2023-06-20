@@ -401,6 +401,8 @@ export default {
 					page: this.page
 				},
 			});
+			this.getStatisticTag()
+			this.getTimelineOfTag()
 			this.getArticleHasTag(this.page);
 		},
 		searchDataPost() {
@@ -449,12 +451,13 @@ export default {
 			if (this.key != null || this.key != "" || this.key != undefined) {
 				HTTP.get("get-statistic-tag", { params: { text: this.key } })
 					.then((response) => {
+
 						this.show = true;
 						this.totalPost = response.data.totalPost
 						this.numberPOS = response.data.percentPOS
 						this.numberNEU = response.data.percentNEU
 						this.numberNEG = response.data.percentNEG
-						this.arrSource = response.data.arrSource
+						this.arrSource = response.data.arrSource 
 					})
 					.catch((e) => {
 						this.errors.push(e);
