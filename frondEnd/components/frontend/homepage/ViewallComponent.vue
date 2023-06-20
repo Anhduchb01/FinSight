@@ -15,88 +15,11 @@
       </div>
       <div id="box-featured-news" v-if="results && results.length " class="row offset-30">
         <div class="col-lg-6 col-xl-3" v-for="result of results" :key="result._id">
-          <div class="news-item news-item--style-1 news-item--small" v-if="result.hotPoint >= Number(pointRequiredForTag) && result.view >= Number(viewRequiredForTag)">
-            <a :href="'/news/?id='+ result._id">
-              <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;position: absolute;font-size: 12px;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">🔥 Hot</span>
-              <span style="color:#e0e6ed;margin-left: 75px;margin-top: 5px;padding: 4px 12px;position: absolute;font-size: 12px;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">👀 Interested</span>
-              <div class="news-item__img">
-                <img v-if="getAllImage(result.image_url) !=''" class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
-                <img v-else class="img--bg" src="~/static/img/logo-waterportal.png" alt="img" />
-              </div>
-            </a>
-            <div class="news-item__content">
-              <div class="box-title-des">
-                <h6 class="news-item__title">
-                  <a :href="'/news/?id='+ result._id">{{result.title}}</a>
-                </h6>
-                <p>{{result.content}}</p>
-              </div>
-              <div class="news-item__details">
-                <span class="news-item__date">{{result.timeCreatePostOrigin}}</span>
-                <a style="text-decoration: none;" :href="'https://www.'+getHostName(result.url)" target="_blank">
-                  <span style="color:#767F7F;">{{getHostName(result.url)}}</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="news-item news-item--style-1 news-item--small" v-else-if="result.hotPoint >= Number(pointRequiredForTag)">
-            <div class="news-item news-item--style-1 news-item--small">
-              <a :href="'/news/?id='+ result._id">
-                <div class="news-item__img">
-                  <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;font-size: 12px;position: absolute;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">🔥 Hot</span>
-                  <img v-if="getAllImage(result.image_url) !=''" class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
-                  <img v-else class="img--bg" src="~/static/img/logo-waterportal.png" alt="img" />
-                </div>
-              </a>
-              <div class="news-item__content">
-                <div class="box-title-des">
-                  <h6 class="news-item__title">
-                    <a :href="'/news/?id='+ result._id">{{result.title}}</a>
-                  </h6>
-                  <p>{{formatDescription(result.content)}}</p>
-                </div>
-                <div class="news-item__details">
-                  <span class="news-item__date">{{result.timeCreatePostOrigin}}</span>
-                  <a style="text-decoration: none;" :href="'https://www.'+getHostName(result.url)" target="_blank">
-                    <span style="color:#767F7F;">{{getHostName(result.url)}}</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="news-item news-item--style-1 news-item--small" v-else-if="result.view >= Number(viewRequiredForTag)">
-            <div class="news-item news-item--style-1 news-item--small">
-              <a :href="'/news/?id='+ result._id">
-                <div class="news-item__img">
-                  <span style="color:#e0e6ed;margin-left: 5px;margin-top: 5px;padding: 4px 12px;font-size: 12px;position: absolute;border-radius: 21px;background: #1b2e4b;font-size: 12px;letter-spacing: 1px;" class="w-currency align-self-center">👀 Interested</span>
-                  <img v-if="getAllImage(result.image_url) !=''" class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
-                  <img v-else class="img--bg" src="~/static/img/logo-waterportal.png" alt="img" />
-                </div>
-              </a>
-              <div class="news-item__content">
-                <div class="box-title-des">
-                  <h6 class="news-item__title">
-                    <a :href="'/news/?id='+ result._id">{{result.title}}</a>
-                  </h6>
-                  <p>{{formatDescription(result.content)}}</p>
-                </div>
-                <div class="news-item__details">
-                  <span class="news-item__date">{{result.timeCreatePostOrigin}}</span>
-                  <a style="text-decoration: none;" :href="'https://www.'+getHostName(result.url)" target="_blank">
-                    <span style="color:#767F7F;">{{getHostName(result.url)}}</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="news-item news-item--style-1 news-item--small" v-else>
+          <div class="news-item news-item--style-1 news-item--small" >
             <div class="news-item news-item--style-1 news-item--small">
               <div v-on:click="gotoDetailNew(result._id)">
                 <div class="news-item__img">
-                  <img v-if="getAllImage(result.image_url) !=''" class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
-                  <img v-else class="img--bg" src="~/static/img/logo-waterportal.png" alt="img" />
+                  <img  class="img--bg" :src="getAllImage(result.image_url)" alt="img" />
                 </div>
               </div>
               <div class="news-item__content">
@@ -108,8 +31,8 @@
                 </div>
                 <div class="news-item__details">
                   <span class="news-item__date">{{result.timeCreatePostOrigin}}</span>
-                  <a style="text-decoration: none;" :href="'https://www.'+getHostName(result.url)" target="_blank">
-                    <span style="color:#767F7F;">{{getHostName(result.url)}}</span>
+                  <a style="text-decoration: none;" :href="'https://www.'+result.urlPageCrawl" target="_blank">
+                    <span style="color:#767F7F;">{{result.urlPageCrawl}}</span>
                   </a>
                 </div>
               </div>
@@ -173,15 +96,7 @@ export default {
       }
       return description;
     },
-     getHostName(value){
-        var parser = document.createElement('a');
-        parser.href = value;
-        let namePage = parser.hostname
-        let removeChart = namePage.substr(0, 4)
-        if (removeChart === 'www.') namePage = namePage.substr(4, namePage.length)
-        if (namePage === 'waterdata.usgs.gov') namePage = 'usgs.gov'
-        return namePage
-    },  
+     
   },
   mounted() {
     HTTP.get(`home/getnews`)

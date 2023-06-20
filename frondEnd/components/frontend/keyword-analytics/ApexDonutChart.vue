@@ -1,5 +1,6 @@
 <template>
 	<!-- <div class="card" > -->
+
         <b-card>
           <b-card-title class="mb-1">
             Tỉ lệ Sentiment
@@ -8,12 +9,7 @@
             Spending on various categories
           </b-card-sub-title> -->
       
-          <vue-apex-charts
-            type="donut"
-            height="350"
-            :options="donutChart.chartOptions"
-            :series="donutChart.series"
-          />
+          <apexchart type="donut" height="350" :options="donutChart.chartOptions" :series="donutChart.series"/>
         </b-card>
 	<!-- </div> -->
 </template>
@@ -22,20 +18,22 @@
 import {
 	BCard, BCardTitle, BCardSubTitle,
 } from 'bootstrap-vue'
-import VueApexCharts from 'vue-apexcharts'
-// import apexChatData from './apexChartData'
-
 export default {
+	props: [
+		"totalPost",
+		"numberPOS",
+		"numberNEG",
+		"numberNEU"
+	],
 	components: {
-		VueApexCharts,
 		BCard,
 		BCardTitle,
 		BCardSubTitle,
 	},
-	data() {
-		return {
-			donutChart: {
-				series: [85, 16, 50],
+	computed:{
+		donutChart() {
+			return {
+				series: [this.numberPOS, this.numberNEG, this.numberNEU],
 				chartOptions: {
 					legend: {
 						show: true,
@@ -68,22 +66,23 @@ export default {
 										fontSize: '1rem',
 										fontFamily: 'Montserrat',
 										formatter(val) {
-											// eslint-disable-next-line radix
-											return `${parseInt(val)}%`
+											return `${parseInt(val)}%`;
 										},
 									},
 									total: {
 										show: true,
 										fontSize: '1.5rem',
-										label: 'Operational',
+										label: 'Sentiment',
 										formatter() {
-											return '31%'
+											return '100%';
 										},
+										
 									},
 								},
 							},
 						},
 					},
+
 					labels: ['Tích cực', 'Tiêu cực', 'Trung tinh'],
 					responsive: [
 						{
@@ -116,6 +115,7 @@ export default {
 												},
 												total: {
 													fontSize: '1.5rem',
+													
 												},
 											},
 										},
@@ -128,9 +128,17 @@ export default {
 						},
 					],
 				},
-			},
+			}
+		}
+	
+
+	},
+	data() {
+		return {
+			
 		}
 	},
+
 }
 </script>
 <style>
@@ -138,9 +146,9 @@ export default {
   border-radius: 2px;
     box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
 } */
-.card{
+.card {
 	border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 2px 0px;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 2px 0px;
 	height: 100%;
 	padding: 1.5rem;
 }

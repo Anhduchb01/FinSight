@@ -21,30 +21,160 @@ async function getYearArray() {
     const yearArrays = yearArray.map(year => year._id).sort(order)
     return yearArrays
 }
+async function getArticleHasTag(text,numberPage) {
+
+  var regex = new RegExp('^' + text + '$', 'i');
+  var tag_id = await Tag.findOne({ "name": { $regex: regex } })
+  console.log(tag_id)
+  var articles = await Tagmap.aggregate([
+    {
+      "$match": {
+        "tag_id": ObjectId(tag_id._id)
+      }
+    },
+    {
+      "$group": {
+        "_id": "$article_id"
+      }
+    },
+    {
+      "$lookup": {
+        "from": "posts",
+        "localField": "_id",
+        "foreignField": "_id",
+        "as": "article"
+      }
+    },
+    {
+      "$unwind": "$article"
+    },
+    {
+      "$project": {
+        "_id": 1,
+        "timeCreatePostOrigin": "$article.timeCreatePostOrigin",
+        "content_html": "$article.content_html",
+        "urlPageCrawl": "$article.urlPageCrawl",
+        "category": "$article.category",
+        "type": "$article.type",
+        "title": "$article.title",
+        "timeCreatePostOrigin": "$article.timeCreatePostOrigin",
+        "author": "$article.author",
+        "image_url": "$article.image_url",
+        "content": "$article.content",
 
 
-async function getArticleHasTag(text, numberPage) {
+      }
+    },
+    {
+      "$sort": {
+        "timeCreatePostOrigin": -1
+      }
+    },
+    {
+      "$skip": (parseInt(numberPage) - 1) * 8
+    },
+    {
+      "$limit": 8
+    }
+  ]
+    
+    )
+    
+  
+  return articles
+}
+
+
+async function getStatisticTag(text) {
 
     var regex = new RegExp('^' + text + '$', 'i');
     var tag_id = await Tag.findOne({ "name": { $regex: regex } })
     console.log(tag_id)
-    var articles = await Tagmap.aggregate([{ "$match": { tag_id: ObjectId(tag_id._id) } }, { "$group": { _id: "$article_id" } }, { "$lookup": { from: "posts", localField: "_id", foreignField: "_id", as: "article" } }, {
-        "$project": {
+    var articles = await Tagmap.aggregate([
+        {
+          "$match": {
+            "tag_id": ObjectId(tag_id._id)
+          }
+        },
+        {
+          "$group": {
+            "_id": "$article_id"
+          }
+        },
+        {
+          "$lookup": {
+            "from": "posts",
+            "localField": "_id",
+            "foreignField": "_id",
+            "as": "article"
+          }
+        },
+        {
+          "$unwind": "$article"
+        },
+        {
+          "$project": {
             "_id": 1,
-            "article.title": 1,
-            "article.content": 1,
-            "article.timeCreatePostOrigin": 1,
-            "article.content_html": 1,
-            "article.urlPageCrawl": 1,
-            "article.category": 1,
-            "article.type": 1,
+            "timeCreatePostOrigin": "$article.timeCreatePostOrigin",
+            "content_html": "$article.content_html",
+            "urlPageCrawl": "$article.urlPageCrawl",
+            "category": "$article.category",
+            "type": "$article.type"
+          }
+        },
+        {
+          "$sort": {
+            "timeCreatePostOrigin": -1
+          }
+        },
+        
+      ]
+      
+      )
+      let totalPost = articles.length
+      console.log(totalPost)
+      let numberPOS = 0
+      let numberNEG = 0
+      let numberNEU = 0
+      
+      let numberCafef = 0
+      let numberCafebiz = 0
+      let numberBaoDauTu = 0
+      let numberVneconomy = 0
+      let arrSource = []
+      for (let i = 0; i < articles.length; i++) {
+
+        let article = articles[i]
+        if (article.category == 'POS') {
+          numberPOS += 1
+        } else if (article.category == 'NEG') {
+          numberNEG += 1
+        } else {
+          numberNEU += 1
         }
-    }, { "$sort": { 'article.timeCreatePostOrigin': -1 } },
-    { "$skip": (numberPage - 1) * 8 },
-    { "$limit": 8 },
-    ])
+        if (article.urlPageCrawl == 'cafef') {
+          numberCafef += 1
+        } else if (article.urlPageCrawl == 'cafebiz') {
+          numberCafebiz += 1
+        } else if (article.urlPageCrawl == 'vneconomy') {
+          numberVneconomy += 1
+        } else if (article.urlPageCrawl == 'baodautu') {
+          numberBaoDauTu += 1
+        }
+
+      }
+
+     let percentPOS = Math.round(numberPOS /totalPost * 100)
+     let percentNEU = Math.round(numberNEU /totalPost * 100)
+     let percentNEG = Math.round(numberNEG /totalPost * 100)
+      if (numberCafef == 0 && numberCafebiz == 0 && numberBaoDauTu == 0 && numberVneconomy == 0) {
+       arrSource = []
+      } else {
+       arrSource.push(numberCafef, numberCafebiz, numberBaoDauTu, numberVneconomy)
+      }
+
     
-    return articles
+    return {totalPost:totalPost,percentPOS:percentPOS,percentNEG:percentNEG,percentNEU:percentNEU,arrSource:arrSource}
 }
 async function getTimeLineOfTag(text) {
 
@@ -87,8 +217,12 @@ async function getTimeLineOfTag(text) {
         }
       ])
     let result = []
-    
+    let timelinePOS = []
+    let timelineNEG = []
+    let timelineNEU = []
+    let timelineDate = []
     for (let i =0;i<timeline.length;i++){
+        timelineDate.push(timeline[i]._id)
         let objTimeLine = {}
         let arrCountDate = {}
         arrCountDate.POS = 0
@@ -105,11 +239,12 @@ async function getTimeLineOfTag(text) {
                 arrCountDate.NEU +=1
             }
         }
-        let time =timeline[i]._id
-        objTimeLine[time] = arrCountDate
-        result.push(objTimeLine)
+        timelinePOS.push(arrCountDate.POS)
+        timelineNEG.push(arrCountDate.NEG)
+        timelineNEU.push(arrCountDate.NEU)
+
     }
-    return result
+    return [timelineDate,timelinePOS,timelineNEG,timelineNEU]
 }
 
 function sortObject(obj) {
@@ -189,4 +324,4 @@ async function recommendArticle(article_id) {
 
 
 
-module.exports = { getArticleHasTag, getYearArray, recommendArticle ,getTimeLineOfTag}
+module.exports = { getArticleHasTag, getYearArray, recommendArticle ,getTimeLineOfTag,getStatisticTag}

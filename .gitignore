@@ -4,3 +4,4 @@ env/**
 myenv
 .env
 env
+**/package-lock.json

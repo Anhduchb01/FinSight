@@ -5,7 +5,7 @@
       <!-- title and subtitle -->
       <div>
         <b-card-sub-title class="mb-25">
-          Thống kê theo nguồn
+          Thống kê theo nguồn 
         </b-card-sub-title>
         <!-- <b-card-title class="font-weight-bolder">
           $74,382.72
@@ -30,12 +30,7 @@
     </b-card-header>
 
     <b-card-body>
-      <vue-apex-charts
-        type="bar"
-        height="350"
-        :options="barChart.chartOptions"
-        :series="barChart.series"
-      />
+      <apexchart type="bar" height="350" :options="barChart.chartOptions" :series="barChart.series"/>
     </b-card-body>
   </b-card>
 <!-- </div> -->
@@ -43,65 +38,71 @@
 
 <script>
 import {
-  BCard, BCardHeader, BCardBody, BCardSubTitle, BCardTitle,
+	BCard, BCardHeader, BCardBody, BCardSubTitle, BCardTitle,
 } from 'bootstrap-vue'
-// import VueApexCharts from 'vue-apexcharts'
-// import flatPickr from 'vue-flatpickr-component'
-// import apexChatData from './apexChartData'
-
 export default {
-  components: {
+	props: [
+		"arrSource",
+	],
+	components: {
+		BCard,
+		BCardHeader,
+		// flatPickr,
+		BCardBody,
+		BCardSubTitle,
+		BCardTitle,
+	},
+	computed:{
+		barChart() {
+			return{
+				series: [
+					{
+						data: this.arrSource,
+					},
+				],
+				chartOptions: {
+					chart: {
+						toolbar: {
+							show: false,
+						},
+					},
+					colors: '#008FFB',
+					plotOptions: {
+						bar: {
+							horizontal: true,
+							barHeight: '30%',
+							endingShape: 'rounded',
 
-    BCard,
-    BCardHeader,
-    // flatPickr,
-    BCardBody,
-    BCardSubTitle,
-    BCardTitle,
-  },
-  data() {
-    return {
-      barChart: {
-    series: [
-      {
-        data: [700, 350, 480, 600],
-      },
-    ],
-    chartOptions: {
-      chart: {
-        toolbar: {
-          show: false,
-        },
-      },
-      colors:'#008FFB',
-      plotOptions: {
-        bar: {
-          horizontal: true,
-          barHeight: '30%',
-          endingShape: 'rounded',
-        },
-      },
-      grid: {
-        xaxis: {
-          lines: {
-            show: false,
-          },
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      xaxis: {
-        categories: ['CafeF','CafeBiz','Báo Đầu Tư','VnEconomy'],
-      },
-      yaxis: {
-        // opposite: isRtl,
-      },
-    },
-  },
-      rangePicker: ['2019-05-01', '2019-05-10'],
-    }
-  },
+						},
+					},
+					grid: {
+						xaxis: {
+							lines: {
+								show: true,
+							},
+						},
+					},
+					dataLabels: {
+						enabled: true,
+					},
+					xaxis: {
+						categories: ['CafeF', 'CafeBiz', 'Báo Đầu Tư', 'VnEconomy'],
+					},
+					yaxis: {
+						// opposite: isRtl,
+					},
+					
+				},
+			}
+		}
+
+	},
+	data() {
+		return {
+
+			rangePicker: ['2019-05-01', '2019-05-10'],
+		}
+	},
 }
 </script>
 <style>
@@ -109,10 +110,10 @@ export default {
   border-radius: 2px;
     box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
 } */
-.card{
+.card {
 	border-radius: 2px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 2px 0px;
-    height: 100%;
-    padding: 1.5rem;
+	box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 0px, rgba(0, 0, 0, 0.24) 0px 2px 2px 0px;
+	height: 100%;
+	padding: 1.5rem;
 }
 </style>
