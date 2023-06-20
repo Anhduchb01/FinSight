@@ -9,22 +9,7 @@
         </b-card-title>
         <!-- <b-card-sub-title>Commercial networks</b-card-sub-title> -->
       </div>
-      <!--/ title and subtitle -->
-
-      <!-- datepicker -->
-      <!-- <div class="d-flex align-items-center">
-        <feather-icon
-          icon="CalendarIcon"
-          size="16"
-        />
-        <flat-pickr
-          v-model="rangePicker"
-          :config="{ mode: 'range'}"
-          class="form-control flat-picker bg-transparent border-0 shadow-none"
-          placeholder="YYYY-MM-DD"
-        />
-      </div> -->
-      <!-- datepicker -->
+     
     </b-card-header>
 
     <b-card-body>
@@ -38,35 +23,38 @@
 import {
   BCard, BCardHeader, BCardBody, BCardTitle, BCardSubTitle,
 } from 'bootstrap-vue'
-import flatPickr from 'vue-flatpickr-component'
-
 export default {
+  props: [
+    "resultTimeline",
+  ],
   components: {
     BCard,
-    // VueApexCharts,
     BCardHeader,
     BCardBody,
     BCardTitle,
     BCardSubTitle,
-    flatPickr,
+    // flatPickr,
   },
-  data() {
-    return {
-      series: [
+  computed: {
+    series() {
+      return [
         {
           name: 'Tích cực',
-          data: [100, 120, 90, 170, 130, 160, 140, 240, 220, 180, 270, 280, 375],
+          data: this.resultTimeline[1],
         },
         {
           name: 'Tiêu cực',
-          data: [60, 80, 70, 110, 80, 100, 90, 180, 160, 140, 200, 220, 275],
+          data: this.resultTimeline[2],
         },
         {
           name: 'Trung tinh',
-          data: [20, 40, 30, 70, 40, 60, 50, 140, 120, 100, 140, 180, 220],
-        },
-      ],
-      chartOptions: {
+          data: this.resultTimeline[3],
+        }
+      ]
+
+    },
+    chartOptions() {
+      return {
         chart: {
           toolbar: {
             show: false,
@@ -94,22 +82,7 @@ export default {
           },
         },
         xaxis: {
-          categories: [
-            '7/12',
-            '8/12',
-            '9/12',
-            '10/12',
-            '11/12',
-            '12/12',
-            '13/12',
-            '14/12',
-            '15/12',
-            '16/12',
-            '17/12',
-            '18/12',
-            '19/12',
-            '20/12',
-          ],
+          categories: this.resultTimeline[0]
         },
         yaxis: {
           // opposite: isRtl
@@ -122,8 +95,15 @@ export default {
           shared: false,
         },
         colors: ['#38C477', '#F2543D', '#808080'],
-      },
-    
+      }
+    }
+
+  },
+  data() {
+    return {
+
+
+
       rangePicker: ['2019-05-01', '2019-05-10'],
     }
   },

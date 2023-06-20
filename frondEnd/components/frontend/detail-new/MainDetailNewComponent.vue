@@ -25,7 +25,8 @@
               </div>
             </div>        
             <div id="content-post" class="col-12">
-              <div class="content-post" v-html="results.content_html"></div>
+              <div class="content-post" v-html="results.content_html">
+              </div>
             </div>
           </div>
           <div class="row top-50">
@@ -244,6 +245,11 @@ export default {
     },
 
     alignImage() {
+      const divElement = document.querySelector('.content-post');
+
+      var h2Elements = divElement.getElementsByTagName("h2");
+      console.log(h2Elements)
+      h2Elements[0].style.fontSize='2rem'
       var div = document.getElementById("content-post");
       var arrImage = div.getElementsByTagName("img");
       for (let i = 0; i < arrImage.length; i++) {
@@ -318,7 +324,6 @@ export default {
       }
     },
     getAllImage(value) {
-      console.log(value)
       if (value === undefined) {
         return require("~/static/img/news1.jpg");
       }
@@ -382,8 +387,8 @@ export default {
     HTTP.get(`detail-new/` + this.id)
       .then((response) => {      
         this.results = response.data[0];    
-        setTimeout(() => this.alignImage(), 0);
-        setTimeout(() => this.addClickImg(), 0);
+        setTimeout(() => this.alignImage(), 2);
+        setTimeout(() => this.addClickImg(), 2);
       })
       .catch((e) => {
         this.errors.push(e);
