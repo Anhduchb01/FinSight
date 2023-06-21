@@ -21,6 +21,27 @@ async function getYearArray() {
     const yearArrays = yearArray.map(year => year._id).sort(order)
     return yearArrays
 }
+
+
+async function getArticleHasTagAdmin(text, numberPage) {
+  var tag_id = await Tag.findOne({ "name": text })
+  var articles = await Tagmap.aggregate([{ "$match": { tag_id: ObjectId(tag_id._id) } }, { "$group": { _id: "$article_id" } }, { "$lookup": { from: "posts", localField: "_id", foreignField: "_id", as: "article" } }, {
+      "$project": {
+          "_id": 1,
+          "article.title": 1,
+          "article.content": 1,
+          "article.timeCreatePostOrigin": 1,
+          "article.content_html": 1,
+          "article.isTag": 1,
+          "article.isTagAi": 1,
+      }
+  }, { "$sort": { "article.isTag": 1, "article.isTagAi": 1, 'article.timeCreatePostOrigin': -1 } },
+  { "$skip": (numberPage - 1) * 16 },
+  { "$limit": 16 },
+  ])
+  
+  return articles
+}
 async function getArticleHasTag(text,numberPage) {
 
   var regex = new RegExp('^' + text + '$', 'i');
@@ -324,4 +345,4 @@ async function recommendArticle(article_id) {
 
 
 
-module.exports = { getArticleHasTag, getYearArray, recommendArticle ,getTimeLineOfTag,getStatisticTag}
+module.exports = { getArticleHasTag, getYearArray, recommendArticle ,getTimeLineOfTag,getStatisticTag ,getArticleHasTagAdmin}

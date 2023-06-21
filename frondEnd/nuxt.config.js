@@ -19,31 +19,31 @@ module.exports = {
       // { rel: 'icon', type: 'image/x-icon', href: '/logo-w-tab.svg' }
     ],
     script: [
-      // {
-      //   src: "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js",
-      //   type: "text/javascript"
-      // },
-      // {
-      //   src:
-      //     "https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js",
-      //   type: "text/javascript"
-      // },
+      {
+        src: "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js",
+        type: "text/javascript"
+      },
+      {
+        src:
+          "https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js",
+        type: "text/javascript"
+      },
       
-      // {
-      //   src:
-      //     "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
-      //   type: "text/javascript"
-      // },
-      // {
-      //   src:
-      //     "https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js",
-      //   type: "text/javascript"
-      // },
-      // {
-      //   src:
-      //     "/assetsAdmin/backend/assets/js/app.js",
-      //   type: "text/javascript"
-      // },
+      {
+        src:
+          "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js",
+        type: "text/javascript"
+      },
+      {
+        src:
+          "https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js",
+        type: "text/javascript"
+      },
+      {
+        src:
+          "/assetsAdmin/backend/assets/js/app.js",
+        type: "text/javascript"
+      },
       // {
       //   src:
       //     "/assetsAdmin/backend/bootstrap/js/bootstrap.min.js",

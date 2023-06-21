@@ -24,7 +24,7 @@
       <div class="w-shadow-top"></div>
       <div class="mt-container mx-auto ps ps--active-y" style="padding: 0px">
         <div id="memory-chart" class>
-          <VueApexCharts type="area" height="350" :options="chartOptions" :series="series" />
+          <apexchart type="area" height="350" :options="chartOptions" :series="series" />
         </div>
       </div>
       <div class="w-shadow-bottom" style="display: none"></div>

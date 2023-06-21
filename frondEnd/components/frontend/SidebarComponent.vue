@@ -13,7 +13,7 @@
             <a style="text-transform: uppercase" class="screen__link" href="/news/">{{ $t("sidebar.news") }}</a>
           </div>
           <div class="screen__item screen--trigger menu-overall-analytics" data-category="screen-one">
-            <a style="text-transform: uppercase" class="screen__link" href="/overall-analytics/?key=&page=1&geo=&time=now 1-H&gprop=">{{ $t("sidebar.overallAnalytics") }}</a>
+            <a style="text-transform: uppercase" class="screen__link" href="/overall-analytics/?key=&page=1">{{ $t("sidebar.overallAnalytics") }}</a>
           </div>
           <div class="screen__item screen--trigger menu-keyword-analytics" data-category="screen-one">
             <a style="text-transform: uppercase" class="screen__link" href="/keyword-analytics/?key=">{{ $t("sidebar.KeywordAnalytics") }}</a>
