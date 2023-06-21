@@ -79,14 +79,11 @@ export default {
         });
     },
     pushKey(ev) {      
-      document.getElementById("keySearch").scrollIntoView({ behavior: "smooth" });
+      
       this.$router.push({
+        path: '/keyword-analytics',
         query: {
-          geo: this.$route.query.geo,
-          gprop: this.$route.query.gprop,
           key: ev.target.currentText,
-          time: this.$route.query.time,
-          year: this.$route.query.year,
         },
       });
     },

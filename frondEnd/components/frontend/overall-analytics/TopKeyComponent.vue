@@ -133,16 +133,10 @@ export default {
   },
   methods: {
     pushKey(keyword) {
-      document
-        .getElementById("keySearch")
-        .scrollIntoView({ behavior: "smooth" });
       this.$router.push({
+        path: '/keyword-analytics',
         query: {
-          geo: this.$route.query.geo,
-          gprop: this.$route.query.gprop,
           key: keyword,
-          time: this.$route.query.time,
-          year: this.$route.query.year,
         },
       });
     },
