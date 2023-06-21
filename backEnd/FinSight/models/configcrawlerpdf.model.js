@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-var ConfigCrawlerPDFs = new mongoose.Schema({
+var ConfigCrawlerPDF = new mongoose.Schema({
   titlePage:{ type: String },
   urlPage:{ type: String },
   namePage: { type: String },
@@ -25,4 +25,4 @@ var ConfigCrawlerPDFs = new mongoose.Schema({
   id_pdf: { type: String },
 });
 
-mongoose.model("ConfigCrawlerPDFs", ConfigCrawlerPDFs);
+mongoose.model("ConfigCrawlerPDF", ConfigCrawlerPDF);

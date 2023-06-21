@@ -161,7 +161,7 @@ itemsEditCrawlerPDF.push({
     httpHeader: dataHTTPHeader,
     number_page_query: 20,
     article_url_query: '#ContentPlaceHolder1_AnalyzeReportList1_rptData_itemTR_',
-    article_url_query1: arrObjQuery[i].title_query,
+    article_url_query1: '#ContentPlaceHolder1_AnalyzeReportList1_rptData_altitemTR_',
     title_query:' > td:nth-child(2) > a::text',
     timeCreatePostOrigin_query: ' > td.Item_DateItem::text',
     source: '> td:nth-child(3)::text',
