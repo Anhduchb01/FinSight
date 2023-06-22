@@ -1,7 +1,7 @@
 <template>
   <div :key="modelDark" class="widget-content">
     <div v-if="series" id="chart-2">
-      <VueApexCharts type="donut" height="350" :options="chartOptions" :series="series" class="Chart-Total-Post" />
+      <apexchart type="donut" height="350" :options="chartOptions" :series="series" class="Chart-Total-Post" />
     </div>
   </div>
 </template>

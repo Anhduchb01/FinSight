@@ -1,7 +1,7 @@
 <template>
   <div class="widget-content">
     <div id="uniqueVisits" v-if="posts.length ">
-      <VueApexCharts
+      <apexchart
         type="bar"
         height="350"
         :options="chartOptions"

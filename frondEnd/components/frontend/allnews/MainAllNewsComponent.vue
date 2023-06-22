@@ -330,7 +330,7 @@
             <div class="col-md-6 col-lg-12 bottom-50">
               <h5 class="blog__title">{{ $t("body.news.Tags") }}</h5>
               <div id="top-tags">
-                <a v-for="(tag,index) in resultsTopTags" :key="index" class="tag" style="font-weight:normal" :href="'/keyword-analytics/?geo=&gprop=&key='+tag._id.name+'&time=now%201-H&year=2022'">#{{tag._id.name}} ({{tag.count}})</a>
+                <a v-for="(tag,index) in resultsTopTags" :key="index" class="tag" style="font-weight:normal" :href="'/keyword-analytics?key='+tag._id.name">#{{tag._id.name}} ({{tag.count}})</a>
               </div>
             </div>
             <div class="col-md-6 col-lg-12">

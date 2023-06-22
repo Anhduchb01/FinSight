@@ -2,7 +2,7 @@ const request = require("request");
 const express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
-const { getArticleHasTag } = require('../../service/front-end/articleService')
+const { getArticleHasTagAdmin } = require('../../service/front-end/articleService')
 const { getStatisticTag, getListTag, updateScoreTag, addTag, getEditTag } = require('../../service/front-end/tagService')
 const { getListGenerateHistory, getListTagHistory, applyResultTagHistory, mergeResultTagHistory, getDataStatusCharSelectFilter, getListTagSame, getDataProcessTag, savePercentTagVerify, getPercentTagVerify } = require('../../service/admin/manageTag/manageTag.js')
 const { createModel, listModel, deleteModel, updateModel, createModelDefault, listModelDefault,updateModelPlayGround  ,clearModelPlayGround} = require('../../service/admin/manageTag/modelTag.js');
@@ -23,7 +23,7 @@ router.get("/tags", async (req, res) => {
 // api GET: get article which has tag 
 router.get("/tags/article", async (req, res) => {
     let number = req.query.page || 1
-    const articles = await getArticleHasTag(req.query.text, number);
+    const articles = await getArticleHasTagAdmin(req.query.text, number);
     res.send(articles);
 });
 

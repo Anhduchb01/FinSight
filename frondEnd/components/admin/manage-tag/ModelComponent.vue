@@ -37,7 +37,7 @@
                       </div>
                       <div class="w-summary-button">
                         <div style="display: block;">
-                          <svg v-on:click="executeModel('en', result.lib.name)" class="icon-model play" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <svg  v-on:click="executeModel('en', result.lib.name)" class="icon-model play" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <title>Execute</title>
                             <polygon points="5 3 19 12 5 21 5 3" />
                           </svg>
@@ -81,7 +81,7 @@
                       </div>
                       <div class="w-summary-button">
                         <div style="display: block;">
-                          <svg class="icon-model play" v-on:click="executeModelBert('default')" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <svg :class="{'locked':lock}" class="icon-model play" v-on:click="executeModelBert('default')" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1abc9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <title>Execute</title>
                             <polygon points="5 3 19 12 5 21 5 3" />
                           </svg>
@@ -352,6 +352,7 @@ export default {
       listModelTag1: [],
       listModelTagEN: [],
       listModelTagJP: [],
+      lock:false
     };
   },
   methods: {
@@ -405,12 +406,14 @@ export default {
     },
     executeModel(type, name) {},
     executeModelBert(name) {
+      this.lock = true  
       if (name === "default") {
         HTTP.get(
           "models/ai/execute?id=default&time=2021/12/06 17:42:30&page=finsight"
         )
           .then((response) => {
             this.resultExcuteNearbaseEN = response.data;
+            
           })
           .catch(Error);
       }

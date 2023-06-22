@@ -41,8 +41,8 @@
                   </div>
                   <div id="element-tagais" class="col-md-12">              
                     <a class="tag" v-for="(tag,index) in resultsTag.tag" :key="'resultsTag'+index" href>
-                      <a class="tag" style="color: #00997d" v-if="resultsTag.same.includes(tag.name)" :href="'/keyword-analytics/?geo=&gprop=&key='+tag.name+'&time=now%201-H&year=2022'">#{{tag.name}} <span style="   font-size: 11px; font-weight: 400;">({{tag.type}})</span></a>
-                      <a class="tag" v-else :href="'/keyword-analytics/?geo=&gprop=&key='+tag.name+'&time=now%201-H&year=2022'">#{{tag.name}} <span style="   font-size: 11px; font-weight: 400;">({{tag.type}})</span></a>
+                      <a class="tag" style="color: #00997d" v-if="resultsTag.same.includes(tag.name)" :href="'/keyword-analytics?key='+tag.name">#{{tag.name}} <span style="   font-size: 11px; font-weight: 400;">({{tag.type}})</span></a>
+                      <a class="tag" v-else :href="'/keyword-analytics?key='+tag.name">#{{tag.name}} <span style="   font-size: 11px; font-weight: 400;">({{tag.type}})</span></a>
                     </a>
                   </div>
                 </div>
@@ -59,8 +59,8 @@
                   </div>
                   <div id="element-tagais" class="col-md-12">
                     <a class="tag" v-for="(tagai,index) in resultsTag.tagai" :key="'resultsTagAi'+index">
-                      <a class="tag" style="color: #00997d" v-if="resultsTag.same.includes(tagai.name)" :href="'/keyword-analytics/?geo=&gprop=&key='+tagai.name+'&time=now%201-H&year=2021'">#{{tagai.name}} <span style="    font-size: 11px; font-weight: 400;">({{tagai.type}})</span></a>
-                      <a class="tag" v-else :href="'/keyword-analytics/?geo=&gprop=&key='+tagai.name+'&time=now%201-H&year=2021'">#{{tagai.name}} <span style="    font-size: 11px; font-weight: 400;">({{tagai.type}})</span></a>
+                      <a class="tag" style="color: #00997d" v-if="resultsTag.same.includes(tagai.name)" :href="'/keyword-analytics?key='+tagai.name">#{{tagai.name}} <span style="    font-size: 11px; font-weight: 400;">({{tagai.type}})</span></a>
+                      <a class="tag" v-else :href="'/keyword-analytics?key='+tagai.name">#{{tagai.name}} <span style="    font-size: 11px; font-weight: 400;">({{tagai.type}})</span></a>
                     </a>
                   </div>
                 </div>
@@ -176,7 +176,7 @@
             <div class="col-md-6 col-lg-12 bottom-50">
               <h5 class="blog-post__subtitle">{{$t('body.news.Tags')}}</h5>
               <div id="top-tags">
-                <a v-for="(tag,index) in resultsTopTags" :key="'resultsTopTags'+index" class="tag" style="font-weight:normal" :href="'/keyword-analytics/?geo=&gprop=&key='+tag._id.name+'&time=now%201-H&year=2022'">#{{tag._id.name}} ({{tag.count}})</a>
+                <a v-for="(tag,index) in resultsTopTags" :key="'resultsTopTags'+index" class="tag" style="font-weight:normal" :href="'/keyword-analytics?key='+tag._id.name">#{{tag._id.name}} ({{tag.count}})</a>
               </div>
             </div>
             <div class="col-md-6 col-lg-12">

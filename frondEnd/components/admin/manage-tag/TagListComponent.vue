@@ -532,11 +532,11 @@
                       <p class="note-title" :data-note-title="result.article[0].title">{{result.article[0].title}}</p>
                       <p class="meta-time">{{result.article[0].timeCreatePostOrigin}}</p>
                       <div class="note-description-content">
-                        <p class="note-description">{{result.article[0].description}}</p>
+                        <p class="note-description">{{result.article[0].content}}</p>
                       </div>
                     </div>
                     <div class="note-action" style="justify-content: space-between;display: flex;">
-                      <span style="align-self: center;" :class="'badge badge-'+ colorStatusTagPost[index]">{{statusTagPost[index]}}/2</span>
+                      <span style="align-self: center;" :class="'badge badge-'+ colorStatusTagPost[index]">{{index+1}}/2</span>
                       <svg v-on:click="generateEngTag(result._id)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 fav-note">
                         <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
                       </svg>
@@ -907,8 +907,8 @@ export default {
       for (let i = 0; i < this.TagArticle.length; i++) {
         if (this.TagArticle[i]._id === id) {
           title = this.TagArticle[i].article[0].title;
-          description = this.TagArticle[i].article[0].description;
-          this.contentHTML = this.TagArticle[i].article[0].contenthtml;
+          description = this.TagArticle[i].article[0].content;
+          this.contentHTML = this.TagArticle[i].article[0].content_html;
           break;
         }
       }
