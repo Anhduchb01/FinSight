@@ -139,7 +139,7 @@ router.get('/tags/get-tag-same', async (req, res) => {
 
 // api GET: execute lib model 
 router.get("/models/lib/execute", async (req, res) => {
-    let result =request(`http://localhost:5000/process-tag/model-lib?language=${req.query.language}&page=finsight`, async function (error, response, body) {
+    let result =request(`http://localhost:5000/process-tag/model-lib?page=finsight`, async function (error, response, body) {
         if (error != null) {
             await Model.updateOne({ "name": req.query.name }, { "status": 0 })
         }

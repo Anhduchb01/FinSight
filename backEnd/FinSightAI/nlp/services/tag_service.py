@@ -63,7 +63,7 @@ def predict_tag_lib(text):
     tags = generate_lib_tag(text)
 
     return tags
-        
+   
 def process_tag_lib():
     ''' Use libraries to generate tag '''
     timeExcute = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -96,7 +96,7 @@ def process_tag_lib():
         # article = get_unprocess_tag_article_lib(language)
         # if exist article
         if article:
-            text = article["description"] # Get description of Article
+            text = article["content"] # Get content of Article
             if text == None or text == '':
                     break
             # If exist text
@@ -108,8 +108,24 @@ def process_tag_lib():
                     # Generate tag by language
                     tags = []
                     
-                    tags = generate_lib_tag(text)
-                    for tag in tags:
+                    
+                    text_process = split_sentence(text)
+                    print(len(text.split(" ")))
+                    print(len(text_process))
+            
+                    tags_array = []
+                    tags_name_array = []
+                    for sentence in text_process:
+                        tags = generate_lib_tag(sentence)
+                        for tag in tags:
+                            if tag["name"] not in tags_name_array:
+                                tags_array.append(tag)
+                                tags_name_array.append(tag["name"])
+                        for tag in tags_array:
+                            for tag1 in tags_array:
+                                if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
+                                    tags_array.remove(tag1)
+                    for tag in tags_array:
                         listTagMapHistory = []
                         tag_exit = historyTag_collection.find_one({"model_id": 'Library (Underthesea)','name':tag['name']})
                         if tag_exit:
@@ -151,7 +167,7 @@ def process_tag_lib():
    
     listTag = historyTag_collection.find({'model_id':'Library (Underthesea)'})
     model_old = model_collection.find_one({"name": "Library (Underthesea)"})
-    total = len(listTag)
+    total = len(list(listTag))
     lastTotalTag = model_old['totalTag']
 
     model_collection.update_one({"name": "Library (Underthesea)"}, {"$set": {"status": 0,'totalTag':total,'lastTotalTag':lastTotalTag}})
@@ -272,8 +288,6 @@ def process_tag_ai(id,timeModel):
             if article:
                 
                 text = article["content"]
-
-                print(len(text.split()))
                 if text == None or text == '':
                     break
                 year = get_time_article(article)
@@ -354,8 +368,7 @@ def process_tag_ai(id,timeModel):
         cursor.close()
         print('predict - ok')
         listTag = historyTag_collection.find({"model_id": id})
-        listTag = list(cursor)
-        total = len(listTag)
+        total = len(list(listTag))
         model_collection.update_one({"name":"AI NER Base"}, {"$set": {"status": 0,'totalTag':total}})
     
             
@@ -382,7 +395,7 @@ def process_tag_ai(id,timeModel):
                 if flagArticle == False:
                     continue
             if article:
-                text = article["description"]
+                text = article["content"]
                 if len(text.split())==0:
                     break
                 year = get_time_article(article)
@@ -444,8 +457,7 @@ def process_tag_ai(id,timeModel):
     
         listTag = historyTag_collection.find({"model_id": id})
         model_old = model_collection.find_one({"_id": ObjectId(id)})
-        listTag = list(cursor)
-        total = len(listTag)
+        total = len(list(listTag))
         lastTotalTag = model_old['totalTag']
 
         model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 0,'totalTag':total,'lastTotalTag':lastTotalTag}})

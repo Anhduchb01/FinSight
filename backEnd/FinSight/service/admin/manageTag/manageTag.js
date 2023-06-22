@@ -95,7 +95,7 @@ async function applyResultTagHistory(idModel, time) {
         
         await Post.updateMany({ }, { $unset: { isTag: "" } })
         
-        let dataHistoryGenerateTag = await HistoryGenerateTag.find({ 'model_id': idModel, time: time })
+        let dataHistoryGenerateTag = await HistoryGenerateTag.find({ 'model_id': idModel })
         let arrayDataHistoryGenerateTag = dataHistoryGenerateTag[0].listArticleHasProcessed
         for (let k = 0; k < arrayDataHistoryGenerateTag.length; k++) {
             let idArticleHasProcessed = arrayDataHistoryGenerateTag[k].article_id
@@ -106,7 +106,7 @@ async function applyResultTagHistory(idModel, time) {
         }
     } else {
         await Post.updateMany({  }, { $unset: { isTagAi: "" } })
-        let dataHistoryGenerateTag = await HistoryGenerateTag.find({ 'model_id': idModel, time: time })
+        let dataHistoryGenerateTag = await HistoryGenerateTag.find({ 'model_id': idModel })
         let arrayDataHistoryGenerateTag = dataHistoryGenerateTag[0].listArticleHasProcessed
         for (let k = 0; k < arrayDataHistoryGenerateTag.length; k++) {
             let idArticleHasProcessed = arrayDataHistoryGenerateTag[k].article_id

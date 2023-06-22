@@ -90,7 +90,6 @@ def __remove_special_character(text):
     text = text.replace("/", " ")
     text = text.replace(":", " ")
     text = text.replace(",", " ")
-    text = text.replace("."," ")
     text = text.replace("'"," ")
     text = text.replace('"'," ")
     return text

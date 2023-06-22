@@ -6,41 +6,46 @@ from underthesea import ner
 # Stop word
 stop_word = ["Việt Nam"]
 
+def group_entities(entities):
+	grouped_entities = []
+	current_entity = None
 
+	for entity in entities:
+		if entity['entity'].startswith('B-'):
+			if current_entity:
+				grouped_entities.append(current_entity)
+			current_entity = {'type': entity['entity'][2:], 'start': entity['start'], 'end': entity['end'], 'name': entity['word']}
+		elif entity['entity'].startswith('I-'):
+			if current_entity and current_entity['type'] == entity['entity'][2:]:
+				current_entity['end'] = entity['end']
+				current_entity['name'] += " "+ entity['word']
+			else:
+				if current_entity:
+					grouped_entities.append(current_entity)
+				current_entity = None
+
+	if current_entity:
+		grouped_entities.append(current_entity)
+
+	return grouped_entities
 def generate_lib_tag(text):
-    ''' Public method generate English Tags with Libraries '''
-    text = __remove_special_character(text)
-    # Split text -> token
-    result = ner(text, deep=True)
-    # Generate Tags
-    tags = []
-    # Merge libraries Tags
-    seen_tag = set()
-    for obj in result:
-        if obj['word'] not in seen_tag:
-            tags.append(obj)
-            seen_tag.add(obj['word'])
-    # Filter Tags
-    grouped_entities = {}
-
-    for entity in tags:
-        entity_type = entity['entity'][2:]
-        if entity_type not in grouped_entities:
-            grouped_entities[entity_type] = {'type': entity_type, 'name': ''}
-        grouped_entities[entity_type]['name'] += ' ' + entity['word']
-        grouped_entities[entity_type]['name'] = grouped_entities[entity_type]['name'].strip()
-
-    result = list(grouped_entities.values())
-    return result
+	''' Public method generate English Tags with Libraries '''
+	text = __remove_special_character(text)
+	entities = ner(text, deep=True)
+	grouped_entities = group_entities(entities)
+	return grouped_entities
 
 
 def __remove_special_character(text):
-    ''' Remove special characters from text before generate tag  '''
-    if(">>" in text):
-        text = text.split('>>')[1]
-    text = text.replace(" (", ", ")
-    text = text.replace(")", " ")
-    text = text.replace("/", " , ")
-    text = text.replace(":", " , ")
-    text = text.replace("\n", ' , ')
-    return text
+	''' Remove special characters '''
+	if (">>" in text):
+		text = text.split('>>')[1]
+	text = text.replace("(", " ")
+	text = text.replace(")", " ")
+	text = text.replace("/", " ")
+	text = text.replace('\\', " ")
+	text = text.replace(":", " ")
+	text = text.replace(",", " ")
+	text = text.replace("'"," ")
+	text = text.replace('"'," ")
+	return text
