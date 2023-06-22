@@ -105,7 +105,7 @@
 <script>
 import vueCustomScrollbar from "vue-custom-scrollbar";
 import "vue-custom-scrollbar/dist/vueScrollbar.css";
-import { HTTP } from "../../../static/baseAPIAdmin.js";;
+import { HTTP } from "../../../static/baseAPI.js";;
 export default {
   components: {
     vueCustomScrollbar,

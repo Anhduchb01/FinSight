@@ -103,7 +103,7 @@
   </div>
 </template>
 <script>
-import { HTTP } from "../../../static/baseAPIAdmin.js";
+import { HTTP } from "../../../static/baseAPI.js";
 import HorizontalScroll from "vue-horizontal-scroll";
 import "vue-horizontal-scroll/dist/vue-horizontal-scroll.css";
 export default {

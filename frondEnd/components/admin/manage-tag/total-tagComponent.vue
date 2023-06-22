@@ -233,7 +233,7 @@
   </div>
 </template>
 <script>
-import { HTTP } from "../../../static/baseAPIAdmin.js";
+import { HTTP } from "../../../static/baseAPI.js";
 
 import KeywordOverTimeComponent from "~/components/admin/manage-tag/KeywordOverTimeComponent.vue";
 export default {

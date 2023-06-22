@@ -646,7 +646,7 @@
 </template>
 <script>
 import Snackbar from "awesome-snackbar";
-import { HTTP } from "../../../static/baseAPIAdmin.js";
+import { HTTP } from "../../../static/baseAPI.js";
 export default {
   computed: {
     conditionLoading() {

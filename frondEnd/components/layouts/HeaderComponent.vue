@@ -258,7 +258,7 @@
 </template>
 <script>
 import moment from "moment";
-import { HTTP } from "~/static/baseAPIAdmin.js";
+import { HTTP } from "~/static/baseAPI.js";
 export default {
   data() {
     return {

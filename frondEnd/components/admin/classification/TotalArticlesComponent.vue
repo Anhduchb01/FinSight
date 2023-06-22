@@ -80,7 +80,7 @@
   </div>
 </template>
 <script>
-import { HTTP } from "../../../static/baseAPIAdmin.js";
+import { HTTP } from "../../../static/baseAPI.js";
 import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {

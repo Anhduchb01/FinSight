@@ -222,7 +222,7 @@
   </div>
 </template>
 <script>
-import { HTTP } from "../../../static/baseAPIAdmin.js";
+import { HTTP } from "../../../static/baseAPI.js";
 import FeaturedNews from "/components/frontend/playground/FeaturedNewsComponent.vue";
 import axios from "axios";
 import { CollapseTransition } from "@ivanv/vue-collapse-transition";

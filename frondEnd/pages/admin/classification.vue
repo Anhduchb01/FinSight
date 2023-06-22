@@ -206,7 +206,7 @@
 import TotalArticles from "~/components/admin/classification/TotalArticlesComponent.vue";
 import Models from "~/components/admin/classification/ModelsComponent.vue";
 import ListArticle from "~/components/admin/classification/ListArticleComponent.vue";
-import { HTTP } from "../../static/baseAPIAdmin.js";
+import { HTTP } from "../../static/baseAPI.js";
 // import OverallAnalytics from "../../components/frontend/keyword-analytics/OverallAnalyticsComponent.vue";
 export default {
   layout: "admin",

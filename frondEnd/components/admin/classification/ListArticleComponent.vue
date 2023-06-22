@@ -357,7 +357,7 @@
   </div>
 </template>
 <script>
-import { HTTP } from "../../../static/baseAPIAdmin.js";
+import { HTTP } from "../../../static/baseAPI.js";
 export default {
   props: [
     "listModelBaseOrigin",

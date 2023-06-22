@@ -811,7 +811,7 @@
 </template>
 <script>
 import Snackbar from "awesome-snackbar";
-import { HTTP } from "../../../static/baseAPIAdmin.js";
+import { HTTP } from "../../../static/baseAPI.js";
 import ScheduleCrawl from "~/components/admin/crawler/ScheduleCrawlComponent.vue";
 import moment from "moment";
 export default {

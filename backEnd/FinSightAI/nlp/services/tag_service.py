@@ -8,8 +8,7 @@ from slugify import slugify
 from ..utilities.datetime_ultility import get_time_article
 from ..repositories.article_repository import ckeck_database_article_repository,get_unprocess_tag_article_lib, get_unprocess_tag_article_ai, count_unprocess_tag_article_ai, update_article , find_model,update_status_model , get_tag_verify ,get_data_article_for_tag,get_data_article_for_evaluate_tag
 from ..services.ai.nlp.bert_model import generate_keyword, split_sentence ,initialization_model,initialization_model_evaluate
-from ..services.ai.nlp.tags_eng_model import generate_eng_tag
-from ..services.ai.nlp.tags_jp_model import generate_jp_tag
+from .ai.nlp.tags_lib_model import generate_lib_tag
 from datasets import load_dataset ,load_metric ,Dataset,  DatasetDict
 import pandas as pd
 from transformers import AutoTokenizer , DataCollatorForTokenClassification , TrainingArguments, AutoModelForTokenClassification , AutoConfig , AutoModelForSequenceClassification
@@ -24,7 +23,7 @@ from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 from evaluate import evaluator
 from datasets import Sequence, Value ,ClassLabel
-
+from underthesea import ner
 current_path = Path(__file__).parent.parent.joinpath('ai_model')
 
 import os
@@ -61,7 +60,7 @@ def ckeck_database_tag_service(page):
 
 def predict_tag_lib(text):
     
-    tags = generate_eng_tag(text)
+    tags = generate_lib_tag(text)
 
     return tags
         
@@ -98,10 +97,10 @@ def process_tag_lib():
         # if exist article
         if article:
             text = article["description"] # Get description of Article
-            if len(text.split()==0):
+            if text == None or text == '':
                     break
             # If exist text
-            if text:
+            if text != None or text != '':
                 # print("PROCESS: https://finsight.sinka.vn/detail-new/" + str(article["_id"]) + " " + "-" + " " + str(datetime.datetime.now(pytz.timezone("Asia/Ho_Chi_Minh"))), flush=True)
                 # Try get tag from libaries, then save result to database
                 try:
@@ -109,7 +108,7 @@ def process_tag_lib():
                     # Generate tag by language
                     tags = []
                     
-                    tags = generate_eng_tag(text)
+                    tags = generate_lib_tag(text)
                     for tag in tags:
                         listTagMapHistory = []
                         tag_exit = historyTag_collection.find_one({"model_id": 'Library (Underthesea)','name':tag['name']})
@@ -275,10 +274,10 @@ def process_tag_ai(id,timeModel):
                 text = article["content"]
 
                 print(len(text.split()))
-                if len(text.split()) ==0:
+                if text == None or text == '':
                     break
                 year = get_time_article(article)
-                if text:
+                if text != None or text != '':
                     # split big sentences to small sentences. 
                     text_process = split_sentence(text)
                     try:

@@ -65,7 +65,7 @@ font-size: 23px;margin-bottom: -43px;color:black">Maibox is empty</h1>
   </div>
 </template>
 <script>
-import { HTTP } from "../../../static/baseAPIContact.js";
+import { HTTP } from "../../../static/baseAPI.js";
 export default {
   data() {
     return {
