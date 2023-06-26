@@ -318,7 +318,7 @@ export default {
 			return this.page;
 		},
 		totalNews: function () {
-			return Math.ceil(this.totalPost / 12);
+			return Math.ceil(this.totalPost / 8);
 		},
 	},
 	methods: {
@@ -356,7 +356,6 @@ export default {
     //         return decodeURIComponent(name[1]);
     // },
     getAllImage(value) {
-      console.log(value)
       if (value == undefined) {
         return require("~/static/img/news1.jpg");
       }
@@ -468,11 +467,28 @@ export default {
 		getTimelineOfTag() {
 			console.log('this key :', this.key)
 			if (this.key != null || this.key != "" || this.key != undefined) {
-				console.log(this.key)
 				HTTP.get("get-timeline-of-tag", { params: { text: this.key } })
 					.then((response) => {
 						this.showTimeline = true;
 						this.resultTimeline = response.data;
+            var max = -Infinity;
+
+            // Iterate over each array starting from index 1
+            for (var i = 1; i < 4; i++) {
+              var currentArray = this.resultTimeline[i];
+
+              // Find the maximum value in the current array
+              var arrayMax = Math.max(...currentArray);
+
+              // Update the max value if the current array's maximum is greater
+              if (arrayMax > max) {
+                max = arrayMax;
+              }
+            }
+            this.resultTimeline.push(max)
+            console.log(max)
+            console.log(Math.ceil(57 / 5))
+            
 					})
 					.catch((e) => {
 						this.errors.push(e);

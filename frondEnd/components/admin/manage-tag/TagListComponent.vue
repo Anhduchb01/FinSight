@@ -23,6 +23,19 @@
             <div class="box-inline" style="width: 35%;">
               <div style="width: 100%;align-items: center;display: flex;justify-content: space-between;height: 46px;">
                 <h5 class="mr-2" style="align-self: center;">Tag List</h5>
+                <button v-on:click="extractData()" style="height: 45px;white-space: nowrap;width:135px;" class="btn btn-primary btn-block">
+                  <svg style="display: none;" id="icon-loading-btn-apply-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
+                    <line x1="12" y1="2" x2="12" y2="6" />
+                    <line x1="12" y1="18" x2="12" y2="22" />
+                    <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                    <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                    <line x1="2" y1="12" x2="6" y2="12" />
+                    <line x1="18" y1="12" x2="22" y2="12" />
+                    <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                    <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+                  </svg>
+                  <span class="text-button-apply-2">Export Data</span>
+                </button>
                 <div class="blockui-animation-container" style="display: none;" id="loading-list-tag">
                   <span class="text-semibold">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin no-edge-top">
@@ -463,6 +476,14 @@
                         <input @change="getTagVerify()" v-model.lazy="modelPointEdit" id="model-point-edit" type="number" min="0" max="100" placeholder="Point Apply" class="form-control" />
                       </div>
                     </div>
+                    <div style="text-align: left;" class="box-switch">
+                            <label class="switch s-icons s-outline s-outline-primary">
+                              <input :checked="verifyAiLib" v-on:click="actionverifyAiLib()" class="input-edit-address" id="edit-cookies-page" type="checkbox" />
+                              <span class="slider round">
+                                <p class="pl-3" style="margin-left: 40px;white-space: nowrap;font-weight: 600;">Verify Tags by AI & Lib</p>
+                              </span>
+                            </label>
+                          </div>
                     <div class="mail-to">
                       <div>
                         <div id="box-score-news" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 21px;cursor: pointer;border-radius: 10px;">
@@ -647,6 +668,7 @@
 <script>
 import Snackbar from "awesome-snackbar";
 import { HTTP } from "../../../static/baseAPI.js";
+import { saveAs } from 'file-saver';
 export default {
   computed: {
     conditionLoading() {
@@ -674,6 +696,7 @@ export default {
   },
   data() {
     return {
+      verifyAiLib:false,
       language :'en',
       showLoading: true,
       dataTableLoading: true,
@@ -799,6 +822,21 @@ export default {
     };
   },
   methods: {
+    async extractData() {
+      this.showLoading = true;
+      try {
+        const response = await HTTP.get('getdata/tag').then((response) => {
+          console.log('ok')
+          this.showLoading = false;
+          const data = response.data.data;
+          const jsonBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+          saveAs(jsonBlob, 'data.json');
+      });
+        
+      } catch (error) {
+        console.error(error);
+      }
+    },
     saveTagVerify() {
       this.showLoading = true;
       this.dataTableLoading = true;
@@ -808,11 +846,17 @@ export default {
       HTTP.get("tags/save-percent-tag-verify", {
         params: {
           pointVerify: pointVerify1,
+          verifyAiLib : this.verifyAiLib
         },
       }).then((response) => {
         this.closeSettingModel();
         this.getDataProcessTag();
       });
+    },
+    actionverifyAiLib(){
+      this.verifyAiLib =! this.verifyAiLib
+      this.getTagVerify()
+
     },
     getTagVerify() {
       let pointVerify1 = this.modelPointEdit;
@@ -821,12 +865,13 @@ export default {
       HTTP.get("tags/get-percent-tag-verify", {
         params: {
           pointVerify: pointVerify1,
+          verifyAiLib : this.verifyAiLib
         },
       }).then((response) => {
-        let results = response.data;
-        let totaltags = results[0].length;
-        let tagVerify = results[1].length;
-        this.percentTagVerify = (Number(tagVerify) / Number(totaltags)) * 100;
+        // let results = response.data;
+        // let totaltags = results[0].length;
+        // let tagVerify = results[1].length;
+        this.percentTagVerify = Number( response.data) ;
         this.percentTagVerify = this.percentTagVerify.toFixed(0);
       });
     },

@@ -39,7 +39,7 @@ def generate_keyword(sequence, ner):
     keywords = []
     for i in output:
         
-        keyword = __remove_stop_word_en(i['word'])
+        keyword = __remove_stop_word(i['word'])
         
         if (keyword):
             if i['entity_group'] =='PERSON':
@@ -89,15 +89,13 @@ def __remove_special_character(text):
     text = text.replace(")", " ")
     text = text.replace("/", " ")
     text = text.replace(":", " ")
-    text = text.replace(",", " ")
     text = text.replace("'"," ")
     text = text.replace('"'," ")
     return text
 
-def __remove_stop_word_en(tag):
+def __remove_stop_word(tag):
     ''' Remove stop word '''
-    stop_word = ['Like Google Webfo', 'Google Map', 'Google Web', 'Google Map', "Page Last Modified", "Page Top",
-                 "Attached File", "Press Release", "Adobe Reader", "Image Credit",  "Related Links", "Last Updated"]
+    stop_word = ['Việt Nam', 'Việt', 'Nam']
     if ',' in tag:
         return None
     if (not tag[-1].isalpha()) and (not tag[-1].isnumeric()):
@@ -121,23 +119,4 @@ def __remove_stop_word_en(tag):
     tag = tag.replace("for","")
     tag = tag.replace("of","")
 
-    return tag
-def __remove_stop_word_jp(tag):
-    ''' Remove stop word '''
-    stop_word = []
-    if ',' in tag:
-        return None
-    # if (not tag[-1].isalpha()) and (not tag[-1].isnumeric()):
-    #     return None
-    if tag.startswith('#'):
-        return None
-    # if tag.endswith('Of'):
-    #     return None
-    if tag in stop_word:
-        return None
-    # if len(tag) < 3 :
-    #     return None
-    # if  len(tag.split(" ")) > 10:
-    #     return None
-    tag = tag.replace(" - ", "-")
     return tag

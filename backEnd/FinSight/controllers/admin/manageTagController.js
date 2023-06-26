@@ -105,12 +105,12 @@ router.get('/tags/merge-result-tag-history', async (req, res) => {
 })
 
 router.get('/tags/get-percent-tag-verify', async (req, res) => {
-    let data = await getPercentTagVerify(req.query.pointVerify)
+    let data = await getPercentTagVerify(req.query.pointVerify,req.query.verifyAiLib)
     res.send(data)
 })
 
 router.get('/tags/save-percent-tag-verify', async (req, res) => {
-    let data = await savePercentTagVerify(req.query.pointVerify)
+    let data = await savePercentTagVerify(req.query.pointVerify,req.query.verifyAiLib)
     res.send('finish')
 })
 router.get('/save-model-play-ground', async (req, res) => {
@@ -135,6 +135,18 @@ router.get('/tags/get-status-char-select-filter', async (req, res) => {
 router.get('/tags/get-tag-same', async (req, res) => {
     let data = await getListTagSame(req.query.charSelectFilter, req.query.idModelOne, req.query.timeOne, req.query.idModelTwo, req.query.timeTwo)
     res.send(data)
+})
+// api GET: execute lib model 
+router.get("/getdata/tag", async (req, res) => {
+    request(`http://localhost:5000/extract-data-for-tag`, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+          } else {
+            res.send(body);
+          }
+    })
+    
 })
 
 // api GET: execute lib model 

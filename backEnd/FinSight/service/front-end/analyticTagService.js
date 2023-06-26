@@ -15,6 +15,7 @@ async function generateWordCloud(time) {
     }
     const countTable = await Tagmap.aggregate([
         { "$match": { year: { "$lt": year } } },
+        
         { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
         {
             $unwind: {
@@ -256,8 +257,8 @@ async function countTopTag(time) {
             },
             {
                 "$project": {
-                    // "_id": 0,
-                    // "tag_id": 1,
+                    "_id": 0,
+                    "tag_id": 1,
                     "year": {
                         $concat: [
                           { $arrayElemAt: [{ $split: ["$year", "/"] }, 0] },
@@ -273,6 +274,7 @@ async function countTopTag(time) {
                 "$group": {
                     "_id": {
                         "name": "$tags.name",
+                        "tag_id":"$tag_id"
                     },
                     "count": { $sum: 1 },
                 }

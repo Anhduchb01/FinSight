@@ -175,12 +175,18 @@ def process_tag_lib():
    
 
     return {"data": "finish"}
-
+def extract_data_for_tag():
+    print('start evaluate')
+    tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('ner-vietnamese-electra-base'))
+    data = get_data_article_for_evaluate_tag(tokenizer)
+    dfdata = pd.DataFrame(data)
+    dsdata = Dataset.from_pandas(dfdata)
+    return data
 def evaluate_tag_ai(language, id):
     
     print('start evaluate')
     tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath(id))
-    data = get_data_article_for_evaluate_tag(language,tokenizer)
+    data = get_data_article_for_evaluate_tag(tokenizer)
     dfdata = pd.DataFrame(data)
     dsdata = Dataset.from_pandas(dfdata)
     print('load data ok ')
@@ -307,9 +313,13 @@ def process_tag_ai(id,timeModel):
                                 for tag1 in tags_array:
                                     if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
                                         tags_array.remove(tag1)
+                        if str(article["_id"])=="64802c14d677aac4425d628a":
+                            print(article["_id"])
+                            print(tags_array)
                             
                         # Insert tags
                         for tag in tags_array:
+    
                             listTagMapHistory = []
                             tag_exit = historyTag_collection.find_one({"model_id": str(id),'name':tag['name']})
                             # listTagHistory = findModelHistory['listTag']
@@ -326,18 +336,25 @@ def process_tag_ai(id,timeModel):
                             #             listTagMapHistory = tagInListTag['listTagMap']
                             #             slug = tagInListTag['slug']
                             #             break  
-
+                            if str(article["_id"])=="64802c14d677aac4425d628a":
+                                print(tag_exit)
                             if tag_exit:
                                 
                                 newScore = (float(tag["score"]) + float(tag_exit['score']) )/2
                                 listTagMapHistory = tag_exit['listTagMap']
                                 listTagMapHistory.append({ "article_id": article["_id"],  "year": year})
+                                if str(article["_id"])=="64802c14d677aac4425d628a":
+                                    print('tag_exit')
+                                    print(listTagMapHistory)
                                 historyTag_collection.update_one({"model_id": str(id),'name':tag['name']}, {"$set": {"listTagMap": listTagMapHistory,"score": newScore}})
                             else:
                                 
                                 slug_tag = slugify(tag["name"])
                                 score = float(tag["score"])
                                 listTagMapHistory.append({ "article_id": article["_id"],  "year": year})
+                                if str(article["_id"])=="64802c14d677aac4425d628a":
+                                    print('else')
+                                    print(listTagMapHistory)
                                 historyTag_collection.insert_one({'model_id':str(id), "name": tag["name"], "slug": slug_tag, "type": tag["type"], "score": score,"listTagMap": listTagMapHistory})
                             # tag_exit_goc = tags_collection.find_one({"name": tag["name"], 'source': '1'})
                             # # if tag_exit_goc:

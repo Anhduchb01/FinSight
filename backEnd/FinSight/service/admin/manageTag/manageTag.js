@@ -326,19 +326,93 @@ async function getListTagSame(charSelectFilter, idModelOne, timeOne, idModelTwo,
     return objdata
 }
 
-async function getPercentTagVerify(pointVerify) {
+async function getPercentTagVerify(pointVerify,verifyAiLib) {
+    
     pointVerify = Number(pointVerify / 100)
-    let tagVerify = await Tags.find({ score: { $gt: pointVerify } })
+    let tagVerify = 0
+    if(verifyAiLib==true|| verifyAiLib =='true'){
+        tagVerify = await Tags.aggregate([
+            {
+              $match: {
+                $or: [
+                  {
+                    score: {
+                      $gt: pointVerify,
+                    },
+                  },
+                  {
+                    score: null,
+                  },
+                ],
+              },
+            },
+            {
+              $group: {
+                _id: "$name",
+                count: {
+                  $sum: 1,
+                },
+              },
+            },
+            {
+              $match: {
+                count: 2,
+              },
+            },
+          ])
+
+    }else{
+        tagVerify = await Tags.find({ score: { $gt: pointVerify } })
+
+    }
+    
     let totalTagAi = await Tags.find({})
-    let data = [totalTagAi, tagVerify]
-    return data
+    let data = Math.ceil(tagVerify.length *100/ totalTagAi.length )
+    console.log('data', data)
+    return String(data)
 }
 
-async function savePercentTagVerify(pointVerify) {
+async function savePercentTagVerify(pointVerify,verifyAiLib) {
     pointVerify = Number(pointVerify / 100)
     let data = await Tags.find({ score: { $gt: pointVerify } })
-    await Tags.updateMany({ score: { $gt: pointVerify } }, { $set: { tagStatus: 0 } })
-    await Tags.updateMany({ score: { $lt: pointVerify } }, { $set: { tagStatus: 1 } })
+    if(verifyAiLib==true|| verifyAiLib =='true'){
+        await Tags.updateMany({ }, { $set: { tagStatus: 1 } })
+        await Tags.updateMany({ score: { $gt: pointVerify },tagStatus:1 }, { $set: { tagStatus: 0 } })
+        
+        const groupedTags = await Tags.aggregate([
+            {
+                $match:{
+                    tagStatus:1
+                }
+            },
+            {
+            $group: {
+                _id: "$name",
+                count: { $sum: 1 }
+            },
+            
+            },
+            {
+                $match: {
+                    count: 2
+                }
+            }
+        ])
+        for (const group of groupedTags) {
+            const name = group._id;
+            await Tags.updateMany({ name },  { $set: { tagStatus: 0 } });
+        }
+        
+
+    }else{
+        await Tags.updateMany({ }, { $set: { tagStatus: 1 } })
+        await Tags.updateMany({ score: { $gt: pointVerify },tagStatus:1 }, { $set: { tagStatus: 0 } })
+
+    }
+    
+
+   
+            
     return 'finish'
 }
 

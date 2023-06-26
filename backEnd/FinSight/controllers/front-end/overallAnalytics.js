@@ -12,7 +12,9 @@ const apicache = require('apicache')
 const Sorting = mongoose.model("Sorting");
 
 let cache = apicache.middleware
-
+process.on("exit", () => {
+  myCache.flushAll();
+});
 router.get("/get-article-has-tag", async (req, res) => {
   try {
     let text = req.query.key;

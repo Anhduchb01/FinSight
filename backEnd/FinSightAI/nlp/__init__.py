@@ -1,4 +1,4 @@
-from .services.tag_service import process_tag_lib,predict_tag_lib, process_tag_ai , run_process_training_tag,ckeck_database_tag_service,evaluate_tag_ai,predict_tag_ai
+from .services.tag_service import process_tag_lib,predict_tag_lib, process_tag_ai , run_process_training_tag,ckeck_database_tag_service,evaluate_tag_ai,predict_tag_ai,extract_data_for_tag
 from .services.classification_service import run_process_classification,run_predict_classification,run_process_training_classification,ckeck_database_classification_service
 from .services.ai_modelService.modelService import clone_model_ai,remove_model_ai,clone_model_classification_ai,remove_model_classification_ai
 from flask import Flask, jsonify, request,Blueprint
@@ -77,6 +77,10 @@ def evaluate_ai():
     
     str = evaluate_tag_ai(lang, id)
     return jsonify({"message": str})
+@nlp.route('/extract-data-for-tag', methods=['GET', 'POST'])
+def extract_data():
+    str = extract_data_for_tag()
+    return jsonify({"data":str})
 
 # Run Classification AI
 @nlp.route('/process-classification/model-ai', methods=['GET', 'POST'])

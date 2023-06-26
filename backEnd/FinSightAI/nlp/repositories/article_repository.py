@@ -220,9 +220,8 @@ def get_tag_verify(language):
 def get_data_article_for_tag(language,id,tokenizer): 
     # get name & type of name (tag)  of trained post 
     querylistArticleTag = tagmap_collection.aggregate([
-        {"$match": { 'language': language }},
         {"$lookup": {'from': "tags", 'localField': "tag_id", 'foreignField': "_id", 'as': "tags"}},
-        {'$unwind': {'path': "$tags",'preserveNullAndEmptyArrays': True}}, {"$match": {'tags.source':"1"}},
+        {'$unwind': {'path': "$tags",'preserveNullAndEmptyArrays': True}}, {"$match": {'tags.tagStatus':0}},
         {"$project": {"tags.name": 1,"tags.type": 1,"article_id": 1,}},
         {"$group": {"_id": "$article_id",'name': { "$push": "$tags.name" },'type': { "$push": "$tags.type" }}},
     ])
@@ -327,12 +326,11 @@ def get_data_article_for_tag(language,id,tokenizer):
                         arrayItemDataset.append(ObjItemDataset)
     print('Get data ok')
     return [arrayItemDataset,arrayIdArticleHasTraining]
-def get_data_article_for_evaluate_tag(language,tokenizer): 
+def get_data_article_for_evaluate_tag(tokenizer): 
     # get name & type of name (tag)  of trained post 
     querylistArticleTag = tagmap_collection.aggregate([
-        {"$match": { 'language': language }},
         {"$lookup": {'from': "tags", 'localField': "tag_id", 'foreignField': "_id", 'as': "tags"}},
-        {'$unwind': {'path': "$tags",'preserveNullAndEmptyArrays': True}}, {"$match": {'tags.source':"1"}},
+        {'$unwind': {'path': "$tags",'preserveNullAndEmptyArrays': True}}, {"$match": {'tags.tagStatus':0}},
         {"$project": {"tags.name": 1,"tags.type": 1,"article_id": 1,}},
         {"$group": {"_id": "$article_id",'name': { "$push": "$tags.name" },'type': { "$push": "$tags.type" }}},
     ])
@@ -344,17 +342,9 @@ def get_data_article_for_evaluate_tag(language,tokenizer):
     arrayItemDataset = [] 
     countArrayItem = 0
     countArticleTraining = 0
-    arrayIdArticleHasTraining = []
- 
-   
 
     # get each posts
-    for article in article_collection.find({'status':"0",'isTagAi':True,'languageCrawl':language}):
-        
-        
-        #post have not training
-    
-        
+    for article in article_collection.find({'status':"0",'isTagAi':True,}):       
         countArticleTraining = countArticleTraining + 1
         
         arrayNameTag = []
@@ -364,11 +354,11 @@ def get_data_article_for_evaluate_tag(language,tokenizer):
             if str(itemTag['_id']) == str(article['_id']) :
                 arrayNameTag = itemTag['name']
                 arrayTypeTag = itemTag['type']
-        descriptionArticle = article['description']
+        descriptionArticle = article['content']
         
-        splitSentence = tokenize.sent_tokenize(descriptionArticle)
+        splitSentence = descriptionArticle.split(".")
         for sentence in splitSentence:
-            sentence = sentence.replace('/',' / ')
+            sentence = __remove_special_character(sentence)
             splitText = []
             # splitText = nltk.word_tokenize(sentence)
             splitText = tokenizer.tokenize(sentence)
@@ -381,7 +371,6 @@ def get_data_article_for_evaluate_tag(language,tokenizer):
             for indexTag,tag in enumerate(arrayNameTag):
                 tag = tag.strip()
                 splitTag=[]
-                # splitTag = nltk.word_tokenize(tag)
                 splitTag = tokenizer.tokenize(tag)
                 lenSplitTag = len(splitTag)
                 for index,text in enumerate(splitText):
@@ -422,10 +411,18 @@ def get_data_article_for_evaluate_tag(language,tokenizer):
             if flagArrayTypeText == True:
                 countArrayItem = countArrayItem + 1
 
-                ObjItemDataset = {'id': str(countArrayItem) , 'tokens':splitText,'ner_tags':arrayTypeText}
+                ObjItemDataset = {'id': str(countArrayItem) , 'tokens':splitText,'pos_tags':[],'chunk_tags':[],'ner_tags':arrayTypeText}
                 arrayItemDataset.append(ObjItemDataset)
     print('Get data ok')
+    print(len(arrayItemDataset))
     return arrayItemDataset
 
 
-
+def __remove_special_character(text):
+    text = text.replace("(", " ")
+    text = text.replace(")", " ")
+    text = text.replace("/", " ")
+    text = text.replace(":", " ")
+    text = text.replace("'"," ")
+    text = text.replace('"'," ")
+    return text
