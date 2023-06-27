@@ -2,6 +2,7 @@ import scrapy
 from scrapy import Spider
 from ..items import VnNewsItem
 from datetime import datetime
+from scrapy.exceptions import CloseSpider
 class CafefSpider(Spider):
     name = 'cafef'
     allowed_domains = ['cafef.vn']
@@ -68,6 +69,8 @@ class CafefSpider(Spider):
             title = response.css(self.title_query+'::text').get()
             title = " ".join(title.split())
             title = self.formatString(title)
+            if title == '' or title == None:
+                yield None
             type = response.css(self.category_query+'::text').get()
             author = response.css(self.author_query+'::text').get()
             author = author.replace('Theo','')
@@ -100,6 +103,6 @@ class CafefSpider(Spider):
             yield item
             
         else:
-            yield None
+            raise CloseSpider("Stop Crawl because Condition timeCreatePostOrigin < last_timeCreatePostOrigin ")
             
 

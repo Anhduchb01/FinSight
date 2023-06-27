@@ -2,6 +2,7 @@ import scrapy
 from ..items import VnNewsItem
 from datetime import datetime
 import re
+from scrapy.exceptions import CloseSpider
 class VneconomySpider(scrapy.Spider):
     name = "vneconomy"
     allowed_domains = ["vneconomy.vn"]
@@ -60,7 +61,8 @@ class VneconomySpider(scrapy.Spider):
             print(title)
             print(response.url)
             print('not split title')
-        
+        if title == '' or title == None:
+            yield None
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
         timeCreatePostOrigin = timeCreatePostOrigin.replace('-','')
         timeCreatePostOrigin_compare = datetime.strptime(timeCreatePostOrigin, '%H:%M %d/%m/%Y')
@@ -100,4 +102,4 @@ class VneconomySpider(scrapy.Spider):
             )
             yield item
         else :
-            yield None
+            raise CloseSpider("Stop Crawl because Condition timeCreatePostOrigin < last_timeCreatePostOrigin ")

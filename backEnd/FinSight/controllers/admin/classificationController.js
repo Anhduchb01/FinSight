@@ -103,7 +103,18 @@ router.get("/classification/get-list-model-classification-history", async (req, 
     let data = await getListModelClassificationHistory()
     res.send(data)
 })
-
+// extract data for sentiment
+router.get("/getdata/sentiment", async (req, res) => {
+    request(`http://localhost:5000/extract-data-for-sentiment`, function (error, response, body) {
+        if (error) {
+            console.error(error);
+            res.status(500).send('Internal Server Error');
+          } else {
+            res.send(body);
+          }
+    })
+    
+})
 // execute model classification
 router.get("/models/classification/execute-model", async (req, res) => {
     let result =request(`http://localhost:5000/process-classification/model-ai?id=${req.query.id}&time=${req.query.time}&page=finsight`, async function (error, response, body) {

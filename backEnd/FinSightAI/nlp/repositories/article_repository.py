@@ -117,46 +117,34 @@ def find_model(filter):
     model = model_collection.find_one(filter)
     return model
 
-def get_article_verify(language):
-    ''' Get article which is unproccesed by ai tag '''
-    # article = article_collection.find({'languageCrawl':language , 'status':0,'classificationStatus':0})
-    # try:
-    #     article = []
-    #     for x in article_collection.find({'languageCrawl':language , 'status':"0",'classificationStatus':0,"isClassification":True}):
-    #         text_split_new_line = x['description'].split('\n')
-    #         for y in text_split_new_line:
-    #             item = {}
-    #             # y = y.replace("'", "")
-    #             # y = y.replace("\xa0", " ")
-    #             if y == '':
-    #                 continue
-    #             category = x.get('category', None)
-    #             if category:
-    #                 if x['category'] == 'news':
-    #                     item = {'text':y,'label':0}
-    #                 if x['category'] == 'event':
-    #                     item = {'text':y,'label':1}
-    #                 if x['category'] == 'publications':
-    #                     item = {'text':y,'label':2}
-    #                 if x['category'] == 'other':
-    #                     item = {'text':y,'label':3}
-    #             article.append(item)
-    #     return article
-    # except Exception as e:
-    #     print("ERROR: " + str(e))
-
+def extract_article_verify():
     try:
         article = []
-        for x in article_collection.find({'languageCrawl':language , 'status':"0",'classificationStatus':0,"isClassification":True}):
+        for x in article_collection.find({ 'status':"0",'classificationStatus':0,"isClassification":True}):
             item = {}
-            if x['category'] == 'news':
-                item = {'text_origin':x['description'],'label':0}
-            if x['category'] == 'event':
-                item = {'text_origin':x['description'],'label':1}
-            if x['category'] == 'publications':
-                item = {'text_origin':x['description'],'label':2}
-            if x['category'] == 'other':
-                item = {'text_origin':x['description'],'label':3}
+            if x['category'] == 'POS':
+                item = {'text_origin':x['title'],'label':'POS'}
+            if x['category'] == 'NEU':
+                item = {'text_origin':x['title'],'label':'NEU'}
+            if x['category'] == 'NEG':
+                item = {'text_origin':x['title'],'label':'NEG'}
+       
+            article.append(item)
+        return article
+    except Exception as e:
+        print("ERROR: " + str(e))
+def get_article_verify():
+    try:
+        article = []
+        for x in article_collection.find({ 'status':"0",'classificationStatus':0,"isClassification":True}):
+            item = {}
+            if x['category'] == 'POS':
+                item = {'text_origin':x['title'],'label':1}
+            if x['category'] == 'NEU':
+                item = {'text_origin':x['title'],'label':2}
+            if x['category'] == 'NEG':
+                item = {'text_origin':x['title'],'label':0}
+       
             article.append(item)
         return article
     except Exception as e:

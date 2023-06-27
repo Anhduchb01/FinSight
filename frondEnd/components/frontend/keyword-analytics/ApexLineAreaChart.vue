@@ -140,8 +140,9 @@ export default {
 								},
 								gridLines: {
 									display: true,
-									color: 'rgba(200, 200, 200, 0.2)',
-									zeroLineColor: 'rgba(200, 200, 200, 0.2)',
+									color: '#C5C5C5',
+									zeroLineColor: '#C5C5C5',
+									lineWidth : 0.8
 								},
 								ticks: {
 									fontColor: '#6e6b7b',
@@ -162,8 +163,9 @@ export default {
 								},
 								gridLines: {
 									display: true,
-									color: 'rgba(200, 200, 200, 0.2)',
-									zeroLineColor: 'rgba(200, 200, 200, 0.2)',
+									color: '#C5C5C5',
+									zeroLineColor: '#C5C5C5',
+									lineWidth : 0.8
 								},
 							},
 						],
@@ -237,6 +239,7 @@ export default {
 							pointShadowOffsetY: 1,
 							pointShadowBlur: 5,
 							pointShadowColor: 'rgba(0, 0, 0, 0.25)',
+							
 						},
 					],
 				},

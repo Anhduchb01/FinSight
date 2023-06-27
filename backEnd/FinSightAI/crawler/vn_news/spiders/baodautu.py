@@ -1,7 +1,7 @@
 import scrapy
 from ..items import VnNewsItem
 from datetime import datetime
-
+from scrapy.exceptions import CloseSpider
 class BaodautuSpider(scrapy.Spider):
     name = "baodautu"
     allowed_domains = ["baodautu.vn"]
@@ -38,11 +38,15 @@ class BaodautuSpider(scrapy.Spider):
             yield scrapy.Request(link,meta={'image_url': image_url}, callback=self.parse_article)
 
         # Increment the page number and follow the next page
-        current_page = int(response.url.split('/p')[-1])
-        next_page = current_page + 1
-
-        if next_page <= int(self.number_page_query):
+        if '/p' in response.url:
+            current_page = int(response.url.split('/p')[-1])
+            next_page = current_page + 1
             next_page_link = response.url.replace(f"p{current_page}", f"p{next_page}")
+        else:
+            current_page = 1
+            next_page = current_page + 1
+            next_page_link = response.url + f"p{next_page}"
+        if next_page <= 2:
             yield scrapy.Request(next_page_link, callback=self.parse)
     def formatString(self, text):
         text =  text.replace('"', '\"')  # escape double quotes
@@ -57,6 +61,8 @@ class BaodautuSpider(scrapy.Spider):
             title = self.formatString(title)
         except:
             print('not split title')
+        if title == '' or title == None:
+            yield None
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
         timeCreatePostOrigin = timeCreatePostOrigin.replace('-','')
         timeCreatePostOrigin = " ".join(timeCreatePostOrigin.split())
@@ -97,5 +103,5 @@ class BaodautuSpider(scrapy.Spider):
             )
             yield item
         else:
-            yield None
+            raise CloseSpider("Stop Crawl because Condition timeCreatePostOrigin < last_timeCreatePostOrigin ")
 

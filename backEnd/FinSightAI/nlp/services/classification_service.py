@@ -122,29 +122,29 @@ def run_process_training_classification(language, id):
 	# newDatasetTrain = dataset['train'].shard(num_shards=25000, index=1)
 	# newDatasetTest = dataset['test'].shard(num_shards=25000, index=1)
 	# del dataset['unsupervised']
-	arrayItem = get_article_verify(language)
+	arrayItem = get_article_verify()
 	# print(len(arrayItem))
 	# for idx, val in enumerate(arrayItem):
 	#     newDatasetTrain = newDatasetTrain.add_item(val)
 	#     newDatasetTest = newDatasetTest.add_item(val)
 	df = pd.DataFrame(arrayItem)
 	for i in range(len(df)):
-		df['text'][i] = get_split(df['text_origin'][i])
+		df['text_split'][i] = get_split(df['text_origin'][i])
 
-	df_data = pd.DataFrame(columns=['description','label'])
+	df_data = pd.DataFrame(columns=['title','label'])
 	text = []
 	label = []
 	for i in range(len(df)):
 		for j in range(len(df['text_split'][i])):
 			text.append(df['text_split'][i][j])
 			label.append(df['label'][i])
-	df_data['description'] = text
+	df_data['title'] = text
 	df_data['label'] =label
 
 	article = []
 	for i in range(len(df_data)):
 		item = {}
-		item = {'text':df_data['description'][i],'label':df_data['label'][i]}
+		item = {'text':df_data['title'][i],'label':df_data['label'][i]}
 		article.append(item)
 
 	df_model = pd.DataFrame(article)
@@ -170,33 +170,19 @@ def run_process_training_classification(language, id):
 	full_eval_dataset = tokenized_datasets["test"]
 	print('getmodel')
 	config = AutoConfig.from_pretrained(current_path.joinpath(id))
-	config.num_labels = 4
-	if language == 'en':
-		config.id2label = {
-		"0": "news",
-		"1": "event",
-		"2": "publications",
-		"3": "other"
-		}
-		config.label2id = {
-		"event": 1,
-		"news": 0,
-		"other": 3,
-		"publications": 2
-		}
-	else :
-		config.id2label = {
-		"0": "新着",
-		"1": "イベント",
-		"2": "出版物",
-		"3": "他の"
-		}
-		config.label2id = {
-		"イベント": 1,
-		"新着": 0,
-		"他の": 3,
-		"出版物": 2
-		}
+	config.num_labels = 3
+	
+	config.id2label = {
+	"0": "NEG",
+	"1": "POS",
+	"2": "NEU",
+	}
+	config.label2id = {
+	"POS": 1,
+	"NEG": 0,
+	"NEU": 2,
+	}
+	
 	model = AutoModelForSequenceClassification.from_config(config)
 	# model = AutoModelForSequenceClassification.from_pretrained(current_path.joinpath(id))
 	training_args = TrainingArguments(

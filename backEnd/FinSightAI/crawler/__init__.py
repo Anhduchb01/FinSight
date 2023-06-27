@@ -254,7 +254,7 @@ def _crawler_result(item, response, spider):
 	print(spider_counters[spider_name])
 	if spider.name == 'cafefpdf':
 		db.reports.insert_one(dict(item))
-	else:
+	else:	
 		db.posts.insert_one(dict(item))
 	# output_data.append(dict(item))
 

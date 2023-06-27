@@ -5,8 +5,8 @@
     <section style="width: 100%;height: 650px;" >
       <!-- <div class="container"> -->
       <picture>
-        <source srcset="~/static/img/fintech12.png" media="(min-width: 992px)" />
-        <img class="img--bg img_header" src="~/static/img/fintech12.png" alt="img" />
+        <source srcset="~/static/img/fintech11.jpg" media="(min-width: 992px)" />
+        <img class="img--bg img_header" src="~/static/img/fintech11.jpg" alt="img" />
       </picture>
       <!-- </div> -->
       <!-- <div class="container">

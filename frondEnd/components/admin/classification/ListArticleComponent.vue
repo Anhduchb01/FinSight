@@ -11,7 +11,7 @@
                 <option selected value="en">English</option>
                 <option value="jp">Japanese</option>
               </select> -->
-              <button style="height: 45px;white-space: nowrap;width:135px;" class="btn btn-primary btn-block">
+              <button v-on:click="extractData()" style="height: 45px;white-space: nowrap;width:135px;" class="btn btn-primary btn-block">
                   <svg style="display: none;" id="icon-loading-btn-apply-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-loader spin mr-2">
                     <line x1="12" y1="2" x2="12" y2="6" />
                     <line x1="12" y1="18" x2="12" y2="22" />
@@ -358,6 +358,7 @@
 </template>
 <script>
 import { HTTP } from "../../../static/baseAPI.js";
+import { saveAs } from 'file-saver';
 export default {
   props: [
     "listModelBaseOrigin",
@@ -477,6 +478,21 @@ export default {
     };
   },
   methods: {
+    async extractData() {
+      this.conditionLoading = true;
+      try {
+        const response = await HTTP.get('getdata/sentiment').then((response) => {
+          console.log('ok')
+          this.conditionLoading = false;
+          const data = response.data.data;
+          const jsonBlob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+          saveAs(jsonBlob, 'data.json');
+      });
+        
+      } catch (error) {
+        console.error(error);
+      }
+    },
     applyResultsTagOne() {
       if (this.modelSelect1 === null) {
       } else {

@@ -1,7 +1,7 @@
 import scrapy
 from ..items import VnNewsItem
 from datetime import datetime
-
+from scrapy.exceptions import CloseSpider
 class CafebizSpider(scrapy.Spider):
     name = "cafebiz"
     allowed_domains = ["cafebiz.vn"]
@@ -21,7 +21,7 @@ class CafebizSpider(scrapy.Spider):
         self.content_html_title_query = config['content_html_title_query']
         self.content_html_des_query = config['content_html_des_query']
         self.image_url_query = config['image_url_query']
-
+        self.count = 0
 
         self.origin_doamin = 'http://cafebiz.vn'
         self.start_urls = [
@@ -49,6 +49,7 @@ class CafebizSpider(scrapy.Spider):
         text = text.replace('/', '\/')  # escape forward slashes
         return text
     def parse_article(self, response):
+        print('ID number : ',self.count)
         # Extract information from the news article page
         title = response.css(self.title_query+'::text').get()
         try:
@@ -56,10 +57,13 @@ class CafebizSpider(scrapy.Spider):
             title = self.formatString(title)
         except:
             print('not split title')
+        if title == '' or title == None:
+            yield None
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
         timeCreatePostOrigin  = timeCreatePostOrigin.strip()
         timeCreatePostOrigin_compare = datetime.strptime(timeCreatePostOrigin, '%d/%m/%Y %H:%M %p')
         timeCreatePostOrigin = timeCreatePostOrigin_compare.strftime('%Y/%m/%d')
+        print(timeCreatePostOrigin)
         if self.last_date == "----/--/--":
             check_crawl_item = True
         else :
@@ -81,6 +85,7 @@ class CafebizSpider(scrapy.Spider):
             content_des_html = response.css(self.content_html_des_query).get()
             content_html =str(content_sum_html)+str(content_des_html)
             image_url = response.css(self.image_url_query+'::attr(src)').get()
+            
             item = VnNewsItem(
                 title=title,
                 timeCreatePostOrigin=str(timeCreatePostOrigin),
@@ -93,8 +98,8 @@ class CafebizSpider(scrapy.Spider):
                 url=response.url,
                 status="0",
             )
-            print('Title :',item.title)
+            self.count +=1
             yield item
         else:
-            yield None
+            raise CloseSpider("Stop Crawl because Condition timeCreatePostOrigin < last_timeCreatePostOrigin ")
 
