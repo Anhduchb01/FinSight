@@ -5,7 +5,7 @@
       <!-- title and subtitle -->
       <div>
         <b-card-sub-title class="mb-25">
-          Thống kê theo nguồn 
+		{{ $t("body.keyword.barChart") }}
         </b-card-sub-title>
         <!-- <b-card-title class="font-weight-bolder">
           $74,382.72

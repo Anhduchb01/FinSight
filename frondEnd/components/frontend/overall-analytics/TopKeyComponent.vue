@@ -55,7 +55,7 @@ export default {
 
             events: {
               dataPointMouseEnter: function (event) {
-                event.path[0].style.cursor = "pointer";
+                event.target.style.cursor = "pointer";
               },
               dataPointSelection: (event, chartContext, config) => {
                 // $('#popup-list-keyword').hide();

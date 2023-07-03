@@ -7,7 +7,6 @@ const NodeCache = require("node-cache");
 const myCache = new NodeCache();
 const { generateWordCloud, generateDataByYear, countTotalTagAllYear, countTopTag, countTagByCategoryAllYear } = require("../../service/front-end/analyticTagService");
 const { getArticleHasTag, getYearArray, getTimeLineOfTag ,getStatisticTag } = require("../../service/front-end/articleService");
-const multiLanguageSelect = require("../../service/front-end/multiLanguage");
 const apicache = require('apicache')
 const Sorting = mongoose.model("Sorting");
 

@@ -3,21 +3,13 @@ const request = require("request");
 const express = require("express");
 const mongoose = require("mongoose");
 var router = express.Router();
-const multiLanguageSelect = require("../../service/front-end/multiLanguage");
+
 const { getModelPlayGround } = require('../../service/front-end/playGround');
 const { getListContactSpam } = require("../../service/admin/contact/contactService");
 const Model = mongoose.model('Model')
 const dotenv = require('dotenv');
 dotenv.config();
-router.get("/playground/", async (req, res) => {
-  let language = req.cookies.language || "en";
-  let multiLanguage = multiLanguageSelect(language);
-  res.render("information-frontend/main/playground", {
-    language,
-    multiLanguage,
-    layout: './information-frontend/layouts/container'
-  });
-});
+
 
 // predict tags lib 
 router.post("/playground/predict-tags-lib", async (req, res) => {

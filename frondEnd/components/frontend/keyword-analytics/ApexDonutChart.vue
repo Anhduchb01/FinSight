@@ -2,9 +2,9 @@
 	<!-- <div class="card" > -->
 
         <b-card>
-          <b-card-title class="mb-1">
-            Tỉ lệ Sentiment
-          </b-card-title>
+          <b-card-sub-title class="mb-25">
+		{{ $t("body.keyword.donutChart") }}
+          </b-card-sub-title>
           <!-- <b-card-sub-title class="mb-2">
             Spending on various categories
           </b-card-sub-title> -->
@@ -83,7 +83,7 @@ export default {
 						},
 					},
 
-					labels: ['Tích cực', 'Tiêu cực', 'Trung tinh'],
+					labels: [this.$i18n.t('body.news.Positive'), this.$i18n.t('body.news.Negative'), this.$i18n.t('body.news.Neutral')],
 					responsive: [
 						{
 							breakpoint: 992,
@@ -138,6 +138,9 @@ export default {
 			
 		}
 	},
+	mounted(){
+		
+	}
 
 }
 </script>

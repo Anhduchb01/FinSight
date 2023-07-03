@@ -21,8 +21,23 @@ export default {
       default: null,
     },
   },
-  mounted() {
-    this.renderChart(this.data, this.options, this.plugins, this.styles)
+  mounted () {
+    this.renderLineChart();
   },
+  methods: {
+      renderLineChart() {
+          this.renderChart(this.data, this.options, this.plugins, this.styles);
+      }
+  },
+
+  watch: {
+    data () {
+        this.$nextTick(() => {
+            this.renderLineChart();
+        })
+    },
+    
+}
+  
 }
 </script>

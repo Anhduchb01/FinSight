@@ -14,9 +14,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: './static/assetsAdmin/img/logo.png' },
-      { rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
-      // { rel: 'icon', type: 'image/x-icon', href: '/logo-w-tab.svg' }
+      { rel: 'icon', type: 'image/x-icon', href: './static/img/logo.png' },
+
     ],
     script: [
       {
@@ -200,7 +199,13 @@ module.exports = {
               "desServices2": "Browsing live cameras installed in various places around the world.",
               "services3": "SURFACE WATER FLOW SIMULATION",
               "desServices3": "You can run surface water flow simulation with TeTTo application any where.",
-              "launch": "Launch"
+              "launch": "Launch",
+              "desServices1":"Ease to Track",
+              "desServices2":"Analytics Financial News",
+              "desServices3":"You can see overall analysis and key word analysis.",
+              "bigData": "Big Data",
+              "sentiment" :"Sentiment Analysis",
+              "keywordExtract":"Keyword Extract",
                   },
             "news": {
               "Categories": "Categories",
@@ -213,7 +218,10 @@ module.exports = {
               "desContact2": "Apply AI foi Financial news",
               "Contactus": "Contact Us",
               "Back": "Back",
-              "Next": "Next"
+              "Next": "Next",
+              "Positive" :"Positive",
+              "Neutral" :"Neutral",
+              "Negative" :"Negative",
                   },
             "playground": {},
             "keyword": {
@@ -221,6 +229,7 @@ module.exports = {
               "ResultSearch": "Google Search",
               "Search": "Search...",
               "KeywordSearch":" Keyword Search",
+              "news":"Related News",
               "OverallAnalytics":"Overall Analytics",
               "wordCloud":"WORD CLOUD",
               "topKeyword":"TOP 25 KEYWORDS",
@@ -232,9 +241,14 @@ module.exports = {
               "keywordTreeMap":"KEYWORD TREEMAP",
               "keywordOverTime":"KEYWORD OVER TIME",
               "percentKeyword":"Percent Keyword",
-              "messeage":"Sorry, we couldn't find any articles that match your selection"
+              "messeage":"Sorry, we couldn't find any articles that match your selection",
+              "messeageSearch" :"Sorry, we couldn't find any keyword that match your input",
+              "lineChart":"Statistics By TimeLine",
+              "donutChart": "Sentiment Rate",
+              "barChart" : "Statistics By Source",
                   },
             "contact": {
+              "contact":"Contact",
               "title":"Get in touch !",
               "officeTokyo":"Office Tokyo",
               "sendMessage":"Send Message",
@@ -314,29 +328,35 @@ module.exports = {
               "service": "service",
               "Other": "Other",
               "Services": "Services",
-              "viewAll": "viewAll",
+              "viewAll": "Xem Thêm",
               "services1": "services1",
-              "desServices1":
-              "desServices1",
+              "desServices1":"Dễ Dàng Theo Dõi",
+              "desServices2":"Phân tích tin tức tài chính",
+              "desServices3":"Bạn có thể xem phân tích chung về thị trường và cho tên công ty, tên người",
+              "bigData": "Dữ liệu lớn",
+              "sentiment" :"Phân tích cảm xúc",
+              "keywordExtract":"Trích xuất từ khóa", 
               "services2": "services2",
-              "desServices2":
-              "desServices2",
+
               "services3": "services3",
-              "desServices3":
-              "desServices3",
-              "launch": "launch"
+   
+              "launch": "launch",
+              
             },
             "news": {
-              "Categories": "Categories",
-              "Archive": "Archive",
-              "Tags": "Tags",
-              "Relatednews": "Relatednews",
-              "SourceLink": "SourceLink",
+              "Categories": "Nhóm Ngành",
+              "Archive": "Tháng năm",
+              "Tags": "Từ Khóa",
+              "Relatednews": "Tin tức liên quan",
+              "SourceLink": "Nguồn Link",
               "desContact1": "Tôi có thể giúp gì cho bạn!",
               "desContact2": "Ứng dụng AI trong tài chính",
               "Contactus": "Liên hệ",
-              "Back": "Back",
-              "Next": "Next"
+              "Back": "Quay lại",
+              "Next": "Tiếp theo",
+              "Positive" :"Tích cực",
+              "Neutral" :"Trung tính",
+              "Negative" :"Tiêu cực",
             },
             "playground":{
         
@@ -344,22 +364,28 @@ module.exports = {
             "keyword": {
               "keywordAnalytics": "Phân tích từ khóa",
               "ResultSearch": "Google Search",
-              "Search": "Search...",
-              "KeywordSearch":" Keyword Search",
+              "Search": "Tìm kiếm ...",
+              "KeywordSearch":"Tìm kiếm từ khóa",
+              "new":"Tin tức liên quan",
               "OverallAnalytics":"Phân tích chung",
               "wordCloud":"WORD CLOUD",
-              "topKeyword":"TOP 25 KEYWORDS",
+              "topKeyword":"TOP 25 Từ Khóa",
               "overviewKeyword": "OVERVIEW KEYWORD",
-              "KeywordByCategory": "KEYWORD BY CATEGORY",
-              "keyword":"Keyword",
-              "totalKeyword":"TOTAL KEYWORD",
+              "KeywordByCategory": "Từ Khóa theo Nhóm Ngành",
+              "keyword":"Từ Khóa",
+              "totalKeyword":"Tổng số Từ Khóa",
               "loading":"Loading",
               "keywordTreeMap":"KEYWORD TREEMAP",
-              "keywordOverTime":"KEYWORD OVER TIME",
-              "percentKeyword":"Percent Keyword",
-              "messeage":"Sorry, we couldn't find any articles that match your selection"
+              "keywordOverTime":"Từ Khóa theo thời gian",
+              "percentKeyword":"Tỉ lệ Từ khóa",
+              "messeage":"Xin lỗi, Chúng tôi không tìm thấy bài bài nào",
+              "messeageSearch" :"Xin lỗi, Chúng tôi không tìm thấy từ khóa đó",
+              "lineChart":"Thống kê theo thời gian",
+              "donutChart": "Tỉ lệ cảm xúc",
+              "barChart" : "Thống kê theo nguồn",
                   },
             "contact": {
+              "contact":"Liên hệ",
               "title":"Liên hệ",
               "officeTokyo":"Office Tokyo",
               "sendMessage":"Gửi tin nhắn",

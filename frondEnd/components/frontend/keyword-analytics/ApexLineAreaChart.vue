@@ -4,9 +4,9 @@
     <b-card-header>
       <!-- title and subtitle -->
       <div>
-        <b-card-title class="mb-1">
-          Line Chart
-        </b-card-title>
+        <b-card-sub-title class="mb-25">
+		{{ $t("body.keyword.lineChart") }}
+	</b-card-sub-title>
         <!-- <b-card-sub-title>Commercial networks</b-card-sub-title> -->
       </div>
      
@@ -185,7 +185,7 @@ export default {
 					datasets: [
 						{
 							data: this.resultTimeline[2],
-							label: 'Tiêu cực',
+							label: this.$i18n.t('body.news.Positive'),
 							borderColor: '#ff4961',
 							lineTension: 0.5,
 							pointStyle: 'circle',
@@ -204,7 +204,7 @@ export default {
 						},
 						{
 							data: this.resultTimeline[3],
-							label: 'Trung tính',
+							label: this.$i18n.t('body.news.Neutral'),
 							borderColor: '#666ee8',
 							lineTension: 0.5,
 							pointStyle: 'circle',
@@ -223,18 +223,18 @@ export default {
 						},
 						{
 							data: this.resultTimeline[1],
-							label: 'Tích cực',
-							borderColor: '#ffe802',
+							label: this.$i18n.t('body.news.Negative'),
+							borderColor: '#00997d',
 							lineTension: 0.5,
 							pointStyle: 'circle',
-							backgroundColor: '#ffe802',
+							backgroundColor: '#00997d',
 							fill: false,
 							pointRadius: 1,
 							pointHoverRadius: 5,
 							pointHoverBorderWidth: 5,
 							pointBorderColor: 'transparent',
 							pointHoverBorderColor: '#FFFFFF',
-							pointHoverBackgroundColor: '#ffe802',
+							pointHoverBackgroundColor: '#00997d',
 							pointShadowOffsetX: 1,
 							pointShadowOffsetY: 1,
 							pointShadowBlur: 5,

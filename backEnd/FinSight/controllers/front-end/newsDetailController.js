@@ -3,7 +3,7 @@ const express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const Post = mongoose.model("Post");
-const multiLanguageSelect = require("../../service/front-end/multiLanguage");
+
 
 
 router.get("/detail-new/:id",async (req, res) => {

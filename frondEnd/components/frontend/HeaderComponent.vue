@@ -93,7 +93,7 @@
               
 
               <li id="menu-overal-analytics" class="main-menu__item">
-                <nuxt-link :to="localeLocation( {name:'overall-analytics',query:{geo:'',gprop:'', key:'',time:'',year:''}} )">
+                <nuxt-link :to="localeLocation( {name:'overall-analytics',query:{year:''}} )">
                   <span class="main-menu__link">
                     <span>{{ $t("header.overallAnalytics") }}</span>
                   </span>

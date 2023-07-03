@@ -8,152 +8,14 @@
         <source srcset="~/static/img/fintech11.jpg" media="(min-width: 992px)" />
         <img class="img--bg img_header" src="~/static/img/fintech11.jpg" alt="img" />
       </picture>
-      <!-- </div> -->
-      <!-- <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <div class="align-container">
-              <div class="align-container__item">
-                <span class="hero-block__overlay">C</span>
-                <h1 class="hero-block__title">Contact Us</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
+
     </section>
-
-    <!-- section end-->
-    <section class="relative md:py-24 py-16">
-            <div class="container">
-                <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-[30px]">
-                    <div class="text-center px-6 mt-6">
-                        <div class="w-20 h-20 bg-indigo-600/5 text-indigo-600 rounded-xl text-3xl flex align-middle justify-center items-center shadow-sm dark:shadow-gray-800 mx-auto">
-                            <i class="uil uil-phone"></i>
-                        </div>
-
-                        <div class="content mt-7">
-                            <h5 class="title h5 text-xl font-medium">{{ $t("footer.phone") }}</h5>
-                            <p class="text-slate-400 mt-3">{{ $t("body.contact.text") }}</p>
-                            
-                            <div class="mt-5">
-                                <a href="tel:+84123456789" class="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">+84 123 456 789</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center px-6 mt-6">
-                        <div class="w-20 h-20 bg-indigo-600/5 text-indigo-600 rounded-xl text-3xl flex align-middle justify-center items-center shadow-sm dark:shadow-gray-800 mx-auto">
-                            <i class="uil uil-envelope"></i>
-                        </div>
-
-                        <div class="content mt-7">
-                            <h5 class="title h5 text-xl font-medium">{{ $t("footer.email") }}</h5>
-                            <p class="text-slate-400 mt-3">{{ $t("body.contact.text") }}</p>
-                            
-                            <div class="mt-5">
-                                <a href="mailto:contact@finsight.vn" class="btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">contact@finsight.vn</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-center px-6 mt-6">
-                        <div class="w-20 h-20 bg-indigo-600/5 text-indigo-600 rounded-xl text-3xl flex align-middle justify-center items-center shadow-sm dark:shadow-gray-800 mx-auto">
-                            <i class="uil uil-map-marker"></i>
-                        </div>
-
-                        <div class="content mt-7">
-                            <h5 class="title h5 text-xl font-medium">{{ $t("footer.location") }}</h5>
-                            <p class="text-slate-400 mt-3">1 Đại Cồ Việt <br> Hai Bà Trưng, Hà Nội</p>
-                            
-                            <div class="mt-5">
-                                <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14898.629479299434!2d105.8282794214234!3d21.006367283827256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac71294bf0ab%3A0xc7e2d20e5e04a9da!2zxJDhuqFpIEjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1686217993958!5m2!1svi!2s"
-                                data-type="iframe" class="video-play-icon read-more lightbox btn btn-link text-indigo-600 hover:text-indigo-600 after:bg-indigo-600 duration-500 ease-in-out">{{ $t("body.contact.viewon") }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div><!--end grid-->
-            </div><!--end container-->
-
-            <div class="container md:mt-24 mt-16">
-                <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
-                    <div class="lg:col-span-7 md:col-span-6">
-                        <img src="~/static/contact.svg" alt="">
-                    </div>
-
-                    <div class="lg:col-span-5 md:col-span-6 mt-8 md:mt-0">
-                        <div class="lg:ms-5">
-                            <div class="bg-white dark:bg-slate-900 rounded-md shadow dark:shadow-gray-800 p-6">
-                                <h3 class="mb-6 text-2xl leading-normal font-medium">{{ $t("body.contact.title") }}</h3>
-
-                                <form method="post" name="myForm" id="myForm" onsubmit="return validateForm()">
-                                    <p class="mb-0" id="error-msg"></p>
-                                    <div id="simple-msg"></div>
-                                    <div class="grid lg:grid-cols-12 lg:gap-6">
-                                        <div class="lg:col-span-6 mb-5">
-                                            <div class="ltr:text-left rtl:text-right">
-                                                <label for="name" class="font-semibold">{{ $t("body.contact.yourName") }}:</label>
-                                                <div class="form-icon relative mt-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user w-4 h-4 absolute top-3 start-4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                                    <input name="name" id="name" type="text" class="form-input ps-11" placeholder="Name :">
-                                                </div>
-                                            </div>
-                                        </div>
-        
-                                        <div class="lg:col-span-6 mb-5">
-                                            <div class="ltr:text-left rtl:text-right">
-                                                <label for="email" class="font-semibold">{{ $t("body.contact.yourEmail") }}:</label>
-                                                <div class="form-icon relative mt-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail w-4 h-4 absolute top-3 start-4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                                    <input name="email" id="email" type="email" class="form-input ps-11" placeholder="Email :">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-    
-                                    <div class="grid grid-cols-1">
-                                        <div class="mb-5">
-                                            <div class="ltr:text-left rtl:text-right">
-                                                <label for="subject" class="font-semibold">{{ $t("body.contact.yourQuestion") }}:</label>
-                                                <div class="form-icon relative mt-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book w-4 h-4 absolute top-3 start-4"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                                                    <input name="subject" id="subject" class="form-input ps-11" placeholder="Subject :">
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="mb-5">
-                                            <div class="ltr:text-left rtl:text-right">
-                                                <label for="comments" class="font-semibold">{{ $t("body.contact.yourComment") }}:</label>
-                                                <div class="form-icon relative mt-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle w-4 h-4 absolute top-3 start-4"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                                                    <textarea name="comments" id="comments" class="form-input ps-11 h-28" placeholder="Message :"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" id="submit" name="send" class="btn bg-indigo-600 hover:bg-indigo-700 border-indigo-600 hover:border-indigo-700 text-white rounded-md justify-center flex items-center">{{ $t("body.contact.sendMessage") }}</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end container-->
-        </section>
-        <div class="container-fluid relative">
-            <div class="grid grid-cols-1">
-                <div class="w-full leading-[0] border-0">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14898.629479299434!2d105.8282794214234!3d21.006367283827256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac71294bf0ab%3A0xc7e2d20e5e04a9da!2zxJDhuqFpIEjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1686217993958!5m2!1svi!2s" style="border:0" class="w-full h-[500px]" allowfullscreen></iframe>
-                </div>
-            </div><!--end grid-->
-        </div><!--end container-->
-        <!--end section-->
-    <!-- <section class="section contacts pb-0">
+    <section class="section contacts pb-0">
       <img class="contacts__bg" src="~/static/img/contacts-map.png" alt="map" />
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h4 class="contacts__title">{{ $t("body.contact.officeTokyo") }}</h4>
+            <h4 class="contacts__title">{{ $t("body.contact.contact") }}</h4>
             <div class="row">
               <div class="col-lg-4">
                 <div class="contacts-item">
@@ -163,8 +25,7 @@
                     </svg>
                   </div>
                   <div class="contacts-item__details">
-                    <a class="contacts-item__link" href="tel:+22628908002">+81-9003544216</a>
-                    <a class="contacts-item__link" href="tel:+22628908002">+81-9094313591</a>
+                    <a class="contacts-item__link" href="tel:+0123456789">0123456789</a>
                   </div>
                 </div>
               </div>
@@ -176,7 +37,7 @@
                     </svg>
                   </div>
                   <div class="contacts-item__details">
-                    <a class="contacts-item__link" href="mailto:transporteriumus@gmail.com">transporteriumus@gmail.com</a>
+                    <a class="contacts-item__link" href="mailto:contact@finsight.vn">contact@finsight.vn</a>
                   </div>
                 </div>
               </div>
@@ -189,7 +50,7 @@
                     </svg>
                   </div>
                   <div class="contacts-item__details">
-                    <span>345-1056, Kamikoshien, Nishinomiya-shi, Hyogo</span>
+                    <span>Số 1 Đại Cồ Việt, Hai Bà Trưng , Hà Nội</span>
                   </div>
                 </div>
               </div>
@@ -197,9 +58,9 @@
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
     <!-- section start-->
-    <!-- <section class="section">
+    <section class="section">
       <div class="container">
         <div class="row flex-column-reverse flex-lg-row" style="position: relative">
           <div id="overlay">
@@ -212,7 +73,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d439716.89885698335!2d139.5632660434781!3d35.64053722393551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b857628235d%3A0xcdd8aef709a2b520!2zVGjDoG5oIHBo4buRIFRva3lvLCBUw7RrecO0LCBOaOG6rXQgQuG6o24!5e0!3m2!1svi!2s!4v1620880290821!5m2!1svi!2s" style="    position: absolute;    width: 100%;    height: 100%;    top: 0px;left: 0px;border: none;" allowfullscreen loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14898.629479299434!2d105.8282794214234!3d21.006367283827256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac71294bf0ab%3A0xc7e2d20e5e04a9da!2zxJDhuqFpIEjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1686217993958!5m2!1svi!2s" style="    position: absolute;    width: 100%;    height: 100%;    top: 0px;left: 0px;border: none;" allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="col-lg-6">
             <form class="form contact-form" id="ajax-form" action="javascript:void(0);" method="post" autocomplete="off">
@@ -280,7 +141,8 @@
         </div>
       </div>
     </section>
-    <recaptcha @error="onError" @success="onSuccess" @expired="onExpired" /> -->
+
+   
     <Footer />
   </div>
 </template>
