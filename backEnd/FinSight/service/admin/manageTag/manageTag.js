@@ -380,13 +380,15 @@ async function savePercentTagVerify(pointVerify,verifyAiLib) {
     pointVerify = Number(pointVerify / 100)
     let data = await Tags.find({ score: { $gt: pointVerify } })
     if(verifyAiLib==true|| verifyAiLib =='true'){
+        console.log(verifyAiLib)
+        console.log('true')
         await Tags.updateMany({ }, { $set: { tagStatus: 1 } })
         await Tags.updateMany({ score: { $gt: pointVerify },tagStatus:1 }, { $set: { tagStatus: 0 } })
         
         const groupedTags = await Tags.aggregate([
             {
                 $match:{
-                    tagStatus:0
+                    tagStatus:1,
                 }
             },
             {
@@ -404,13 +406,22 @@ async function savePercentTagVerify(pointVerify,verifyAiLib) {
         ])
         for (const group of groupedTags) {
             const name = group._id;
-            await Tags.updateMany({ name },  { $set: { tagStatus: 0 } });
+            await Tags.updateMany({ name :name},  { $set: { tagStatus: 0 } });
         }
         
 
     }else{
+        console.log(verifyAiLib)
+        console.log('false')
         await Tags.updateMany({ }, { $set: { tagStatus: 1 } })
         await Tags.updateMany({ score: { $gt: pointVerify },tagStatus:1 }, { $set: { tagStatus: 0 } })
+        const listTag = await Tags.find({ tagStatus: 0 }).exec();
+
+        for (const tag of listTag) {
+        const name = tag.name;
+        await Tags.updateMany({ name: name }, { $set: { tagStatus: 0 } });
+        }
+
 
     }
     
