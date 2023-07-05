@@ -24,6 +24,14 @@ async function generateWordCloud(time) {
             }
         },
         {
+            $match: {
+              $or: [
+                { "tags.tagStatus": 0 },
+                { "tags.tagStatus": 1 }
+              ]
+            }
+        },
+        {
             "$project": {
                 "tags.name": 1,
             }
@@ -77,6 +85,14 @@ async function generateDataByYear(time) {
                 preserveNullAndEmptyArrays: true
             }
         },
+        {
+            "$match": {
+              $or: [
+                { "tags.tagStatus": 0 },
+                { "tags.tagStatus": 1 }
+              ]
+            }
+       },
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
@@ -128,7 +144,10 @@ async function countTotalTagAllYear() {
                 path: "$tags",
                 preserveNullAndEmptyArrays: true
             }
-        }, { "$match": { "tags.source": '0' } },
+        }, { "$match": { "tags.source": '0',"$or": [
+            { "tags.tagStatus": 0 },
+            { "tags.tagStatus": 1 }
+          ] } },
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
@@ -184,7 +203,10 @@ async function countTotalTagAllYear() {
                 path: "$tags",
                 preserveNullAndEmptyArrays: true
             }
-        }, { "$match": { "tags.source": '1' } },
+        }, { "$match": { "tags.source": '1',"$or": [
+            { "tags.tagStatus": 0 },
+            { "tags.tagStatus": 1 }
+          ] } },
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
@@ -248,6 +270,14 @@ async function countTopTag(time) {
                     preserveNullAndEmptyArrays: true
                 }
             },
+            {
+                $match: {
+                  $or: [
+                    { "tags.tagStatus": 0 },
+                    { "tags.tagStatus": 1 }
+                  ]
+                }
+              },
             { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
             {
                 $unwind: {
@@ -295,7 +325,12 @@ async function countTagByCategoryAllYear() {
                 path: "$tags",
                 preserveNullAndEmptyArrays: true
             }
-        }, { "$match": { "tags.source": '0' } },
+        }, {
+            "$match": { "tags.source": '0' ,"$or": [
+            { "tags.tagStatus": 0 },
+            { "tags.tagStatus": 1 }
+          ]} 
+        },
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
@@ -359,7 +394,10 @@ async function countTagByCategoryAllYear() {
                 path: "$tags",
                 preserveNullAndEmptyArrays: true
             }
-        }, { "$match": { "tags.source": '1' } },
+        }, { "$match": { "tags.source": '1' ,"$or": [
+            { "tags.tagStatus": 0 },
+            { "tags.tagStatus": 1 }
+          ]} },
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {

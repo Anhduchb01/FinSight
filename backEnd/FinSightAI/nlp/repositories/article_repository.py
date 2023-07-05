@@ -150,11 +150,11 @@ def get_article_verify():
     except Exception as e:
         print("ERROR: " + str(e))
 
-def get_tag_verify(language):
+def get_tag_verify():
+    
     lisTag = tagmap_collection.aggregate([
-        {"$match": { 'language': language }},
         {"$lookup": {'from': "tags", 'localField': "tag_id", 'foreignField': "_id", 'as': "tags"}},
-        {'$unwind': {'path': "$tags",'preserveNullAndEmptyArrays': True}}, {"$match": {'tags.source':"1"}},
+        {'$unwind': {'path': "$tags",'preserveNullAndEmptyArrays': True}}, {"$match": {'tags.source':"1","tags.tagStatus": 0}},
         {"$project": {"tags.name": 1,"tags.type": 1,}},
         {"$group": {"_id": {"name": "$tags.name","type": "$tags.type",},"count": {'$sum': 1},} }, {"$sort": {"count": -1}},
     ])
@@ -195,10 +195,9 @@ def get_tag_verify(language):
                 arrayNerTags.append(0)
                 arrayToken.append('.')
                 countArrayItem = countArrayItem + 1
-                if language == 'en':
-                    objItem = {'id': str(countArrayItem) , 'tokens':arrayToken,'pos_tags':[],'chunk_tags':[],'ner_tags':arrayNerTags}
-                if language == 'jp':
-                    objItem = {'id': str(countArrayItem) , 'tokens':arrayToken,'ner_tags':arrayNerTags}
+                
+                objItem = {'id': str(countArrayItem) , 'tokens':arrayToken,'pos_tags':[],'chunk_tags':[],'ner_tags':arrayNerTags}
+                
                 tag.append(objItem)
                 objItem = {}
                 arrayToken = []

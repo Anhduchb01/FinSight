@@ -476,40 +476,27 @@ def run_process_training_tag(language, id):
     timeExcute = str(timeExcute)
     arrayIdArticleHasTraining = []
     tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath(id))
+    timeExcute = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+    timeExcute = str(timeExcute)
+    arrayIdArticleHasTraining = []
+    tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath(id))
     if language == 'en':
         update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 1}})
         try:
-            # raw_datasets = load_dataset("conll2003")
-            # newDatasetTrain = raw_datasets['train'].shard(num_shards=25000, index=0)
-            # newDatasetValidation = raw_datasets['validation'].shard(num_shards=25000, index=0)
-            # # newDatasetTrain = raw_datasets['train']
-            # # newDatasetValidation = raw_datasets['validation']
-            
-            arrayGetDataTrain =  get_data_article_for_tag(language,id,tokenizer)
-            arrayItem =  arrayGetDataTrain[0]
-            arrayIdArticleHasTraining =  arrayGetDataTrain[1]
-            print(len(arrayItem))
-            # lenArrayItem = len(arrayItem)
-            # percentTrain =  math.ceil((lenArrayItem/100)*70)
-            # for indexItem,item in enumerate(arrayItem):
-            #     if indexItem < percentTrain :
-            #         newDatasetTrain = newDatasetTrain.add_item(item)
-            #     else:
-            #         newDatasetValidation = newDatasetValidation.add_item(item)
-            # raw_datasets['train'] = newDatasetTrain
-            # raw_datasets['validation'] = newDatasetValidation
-            
-            df = pd.DataFrame(arrayItem)
-            
-            train, test = train_test_split(df, test_size=0.2,)
-            tds = Dataset.from_pandas(train)
-            vds = Dataset.from_pandas(test)
-
             raw_datasets = DatasetDict()
+            arrayItem = get_tag_verify()
+            newDatasetTrain = Dataset.from_dict({"tokens": [], "ner_tags": []})
+            newDatasetValidation =Dataset.from_dict({"tokens": [], "ner_tags": []})
 
-            raw_datasets['train'] = tds
-            raw_datasets['validation'] = vds
+            for i in arrayItem:
+                newDatasetTrain = newDatasetTrain.add_item({"tokens": i["tokens"], "ner_tags": i["ner_tags"]})
+                newDatasetValidation = newDatasetValidation.add_item({"tokens": i["tokens"], "ner_tags": i["ner_tags"]})
+
+            raw_datasets['train'] = newDatasetTrain
+            raw_datasets['test'] = newDatasetValidation
+
             ner_feature = raw_datasets["train"].features["ner_tags"]
+
             # label_names = ner_feature.feature.names
 
             label_names = [
@@ -591,37 +578,47 @@ def run_process_training_tag(language, id):
                 id2label=id2label,
                 label2id=label2id,
             )
-            # batch_size =16
+            batch_size =2
             args = TrainingArguments(
-                './ai_model/'+id,
+                current_path.joinpath(id),
                 evaluation_strategy="epoch",
+                logging_strategy = 'steps',
                 save_strategy="epoch",
                 learning_rate=2e-5,
                 num_train_epochs=1,
                 weight_decay=0.01,
                 logging_dir='./logs',           
                 logging_steps=100,
-                # per_device_train_batch_size=batch_size,
-                # per_device_eval_batch_size=batch_size,  
-                load_best_model_at_end=True, 
+                logging_first_step = True,
+                per_device_train_batch_size=batch_size,
+                per_device_eval_batch_size=batch_size,  
             )
             from transformers import Trainer
-
+            print('start trainer')
+            
             trainer = Trainer(
                 model=model,
                 args=args,
                 train_dataset=tokenized_datasets["train"],
-                eval_dataset=tokenized_datasets["validation"],
+                eval_dataset=tokenized_datasets["test"],
                 data_collator=data_collator,
                 compute_metrics=compute_metrics,
                 tokenizer=tokenizer,
+           
             )
-            numberCheckPoint = math.ceil(len(tokenized_datasets["train"])/8)
+            numberCheckPoint = math.ceil(len(tokenized_datasets["train"])/batch_size)
             trainer.train()
+            for obj in trainer.state.log_history:
+                print(obj)
+           
+            
+            print('Train Finish')
             os.chdir(current_path)
             os.rename(id, "rename")
             destination = shutil.copytree(current_path.joinpath('rename/checkpoint-'+str(numberCheckPoint)), current_path.joinpath(id))
             remove = shutil.rmtree(current_path.joinpath('rename'))
+                        
+            
             print('evaluate')
             point = trainer.evaluate()
             print(point['eval_accuracy'])
@@ -629,8 +626,12 @@ def run_process_training_tag(language, id):
             model = find_model({"_id": ObjectId(id)})
             lastScore = model['score']
             update_status_model({"_id": ObjectId(id)}, {"$set": {"lastScore": lastScore,'time':timeExcute, "score": pointModel, "status": 0,"articleHasTraining":arrayIdArticleHasTraining}})
+           
+                        
+
+
+
         except Exception as e:
             print("ERROR: " + str(e))
             update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 2}})
-
     

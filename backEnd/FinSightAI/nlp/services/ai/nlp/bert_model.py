@@ -95,7 +95,6 @@ def __remove_special_character(text):
 
 def __remove_stop_word(tag):
     ''' Remove stop word '''
-    stop_word = ['Việt Nam', 'Việt', 'Nam']
     if ',' in tag:
         return None
     if (not tag[-1].isalpha()) and (not tag[-1].isnumeric()):
@@ -104,8 +103,6 @@ def __remove_stop_word(tag):
         return None
     
     if tag.endswith('Of'):
-        return None
-    if tag in stop_word:
         return None
     if len(tag) < 3 :
         return None

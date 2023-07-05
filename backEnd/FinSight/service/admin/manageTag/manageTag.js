@@ -331,6 +331,7 @@ async function getPercentTagVerify(pointVerify,verifyAiLib) {
     pointVerify = Number(pointVerify / 100)
     let tagVerify = 0
     if(verifyAiLib==true|| verifyAiLib =='true'){
+        console.log('have lib')
         tagVerify = await Tags.aggregate([
             {
               $match: {
@@ -362,11 +363,14 @@ async function getPercentTagVerify(pointVerify,verifyAiLib) {
           ])
 
     }else{
+        console.log('not lib')
         tagVerify = await Tags.find({ score: { $gt: pointVerify } })
 
     }
+    console.log(tagVerify.length)
     
     let totalTagAi = await Tags.find({})
+    console.log(totalTagAi.length)
     let data = Math.ceil(tagVerify.length *100/ totalTagAi.length )
     console.log('data', data)
     return String(data)
@@ -382,7 +386,7 @@ async function savePercentTagVerify(pointVerify,verifyAiLib) {
         const groupedTags = await Tags.aggregate([
             {
                 $match:{
-                    tagStatus:1
+                    tagStatus:0
                 }
             },
             {
