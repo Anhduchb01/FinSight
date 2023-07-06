@@ -8,7 +8,7 @@ import time
 import nltk 
 from nltk import tokenize
 from transformers import BertTokenizer
-
+import re
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -313,7 +313,7 @@ def get_data_article_for_tag(language,id,tokenizer):
                         arrayItemDataset.append(ObjItemDataset)
     print('Get data ok')
     return [arrayItemDataset,arrayIdArticleHasTraining]
-def get_data_article_for_evaluate_tag(tokenizer): 
+def get_data_article_for_evaluate_tag(): 
     # get name & type of name (tag)  of trained post 
     querylistArticleTag = tagmap_collection.aggregate([
         {"$lookup": {'from': "tags", 'localField': "tag_id", 'foreignField': "_id", 'as': "tags"}},
@@ -348,7 +348,9 @@ def get_data_article_for_evaluate_tag(tokenizer):
             sentence = __remove_special_character(sentence)
             splitText = []
             # splitText = nltk.word_tokenize(sentence)
-            splitText = tokenizer.tokenize(sentence)
+            # splitText = tokenizer.tokenize(sentence)
+            # splitText = sentence.split(" ")
+            splitText = [word for word in sentence.split(" ") if word]
             # mảng text và type của câu 
             arrayTypeText = []
             for typeText in splitText : 
@@ -358,7 +360,9 @@ def get_data_article_for_evaluate_tag(tokenizer):
             for indexTag,tag in enumerate(arrayNameTag):
                 tag = tag.strip()
                 splitTag=[]
-                splitTag = tokenizer.tokenize(tag)
+                tag = __remove_special_character(tag)
+                # splitTag = tag.split(" ")
+                splitTag= [word for word in tag.split(" ") if word]
                 lenSplitTag = len(splitTag)
                 for index,text in enumerate(splitText):
                     stringText = ''
@@ -396,10 +400,11 @@ def get_data_article_for_evaluate_tag(tokenizer):
                                     if typeOfText == 'MISC' :
                                         arrayTypeText[numberText] = 8
             if flagArrayTypeText == True:
-                countArrayItem = countArrayItem + 1
-
-                ObjItemDataset = {'id': str(countArrayItem) , 'tokens':splitText,'pos_tags':[],'chunk_tags':[],'ner_tags':arrayTypeText}
-                arrayItemDataset.append(ObjItemDataset)
+                
+                if len(arrayTypeText) >0 :
+                    countArrayItem = countArrayItem + 1
+                    ObjItemDataset = {'id': str(countArrayItem) , 'tokens':splitText,'pos_tags':[],'chunk_tags':[],'ner_tags':arrayTypeText}
+                    arrayItemDataset.append(ObjItemDataset)
     print('Get data ok')
     print(len(arrayItemDataset))
     return arrayItemDataset
@@ -412,4 +417,12 @@ def __remove_special_character(text):
     text = text.replace(":", " ")
     text = text.replace("'"," ")
     text = text.replace('"'," ")
+    text = text.replace('\r\n'," ")
+    text = text.replace(']'," ")
+    text = text.replace('['," ")
+    text = text.replace("-","")
+    text = text.replace("\\ufeff", "")
+    text = text.replace('\\'," ")
+    text = re.sub(r'\s{3,}', ' ', text)
+    text = text.strip()
     return text

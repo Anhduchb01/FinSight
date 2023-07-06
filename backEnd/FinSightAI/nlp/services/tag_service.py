@@ -25,7 +25,7 @@ from evaluate import evaluator
 from datasets import Sequence, Value ,ClassLabel
 from underthesea import ner
 current_path = Path(__file__).parent.parent.joinpath('ai_model')
-
+import re
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -176,9 +176,8 @@ def process_tag_lib():
 
     return {"data": "finish"}
 def extract_data_for_tag():
-    print('start evaluate')
-    tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('ner-vietnamese-electra-base'))
-    data = get_data_article_for_evaluate_tag(tokenizer)
+    print('start extract data')
+    data = get_data_article_for_evaluate_tag()
     dfdata = pd.DataFrame(data)
     dsdata = Dataset.from_pandas(dfdata)
     return data
@@ -186,7 +185,7 @@ def evaluate_tag_ai(language, id):
     
     print('start evaluate')
     tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath(id))
-    data = get_data_article_for_evaluate_tag(tokenizer)
+    data = get_data_article_for_evaluate_tag()
     dfdata = pd.DataFrame(data)
     dsdata = Dataset.from_pandas(dfdata)
     print('load data ok ')
