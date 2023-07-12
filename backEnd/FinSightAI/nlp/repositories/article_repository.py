@@ -382,20 +382,20 @@ def get_data_article_for_evaluate_tag():
                                 typeOfText =  arrayTypeTag[indexTag]
                                 flagArrayTypeText = True
                                 if indexText == 0:
-                                    if typeOfText == 'PER' :
-                                        arrayTypeText[numberText] = 1
                                     if typeOfText == 'ORG' :
-                                        arrayTypeText[numberText] = 3
+                                        arrayTypeText[numberText] = 1
                                     if typeOfText == 'LOC' :
+                                        arrayTypeText[numberText] = 3
+                                    if typeOfText == 'PER' :
                                         arrayTypeText[numberText] = 5
                                     if typeOfText == 'MISC' :
                                         arrayTypeText[numberText] = 7
                                 else:
-                                    if typeOfText == 'PER' :
-                                        arrayTypeText[numberText] = 2
                                     if typeOfText == 'ORG' :
-                                        arrayTypeText[numberText] = 4
+                                        arrayTypeText[numberText] = 2
                                     if typeOfText == 'LOC' :
+                                        arrayTypeText[numberText] = 4
+                                    if typeOfText == 'PER' :
                                         arrayTypeText[numberText] = 6
                                     if typeOfText == 'MISC' :
                                         arrayTypeText[numberText] = 8
