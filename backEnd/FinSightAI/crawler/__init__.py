@@ -17,6 +17,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 DB_URL = os.environ.get('DB_URL')
+DB_Name = os.environ.get('DB_Name')
 client = MongoClient(DB_URL)
 crawler = Blueprint('crawler', __name__)
 import crochet
@@ -252,10 +253,14 @@ def _crawler_result(item, response, spider):
 	spider_counters[spider_name] += 1
 	print('Item Count')
 	print(spider_counters[spider_name])
-	if spider.name == 'cafefpdf':
+	print(DB_URL)
+	print(DB_Name)
+	if str(spider.name) == 'cafefpdf':
+		print('pdf')
 		db.reports.insert_one(dict(item))
 	else:	
 		db.posts.insert_one(dict(item))
+		# print(list(db.posts.find({})))
 	# output_data.append(dict(item))
 
 def _crawler_closed(spider):
@@ -281,23 +286,3 @@ def _crawler_closed(spider):
 			
 	spider_counters[spider_name] = 0
 
-# @crawler.route('/schedule/cafef', methods=['POST'])
-# def schedule_cafef():
-#     # Get the schedule configuration from the request body
-#     schedule_config = request.json
-	
-#     # Update the scheduler with the new configuration
-#     scheduler.reschedule_job('cafef_job', trigger=schedule_config)
-#     # Schedule the Cafef spider when the app starts
-#     schedule_cafef_spider()
-	
-#     # Start the scheduler and the Flask app
-#     scheduler.start()
-	
-#     # Return a success message to the client
-#     return {'message': f'Scheduled Cafef spider with {schedule_config}'}
-
-
-# def schedule_cafef_spider():
-#     # Schedule the Cafef spider to run every hour by default
-#     scheduler.add_job(crawl_cafef, 'interval', hours=1, id='cafef_job')

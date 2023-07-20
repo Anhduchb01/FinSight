@@ -79,7 +79,6 @@ router.post("/crawpage-cafef", async (req, res) => {
     })
       .catch(async (error) => {
         console.log(error.response.data.error)
-        console.log(error.response.data.error)
         saveLogAction('cafef', 'Error', error.response.data.error)
         await Crawler.updateOne(
           { addressPage: "cafef" },

@@ -105,7 +105,7 @@ async function createModel(time, name, idModelParent, sourceModel) {
     else{ 
         modelParent = await Model.findOne({ _id: ObjectID(idModelParent) })
     }   
-    let model = { "time": time, "name": name, "language": modelParent.language, status: 0, score: 0, isAi: 1, isSystem: 1, source: sourceModel, lastScore: modelParent.lastScore , score : modelParent.score,lastTotalTag:modelParent.lastTotalTag,totalTag: modelParent.totalTag,articleHasTraining:[]}
+    let model = { "time": time, "name": name, status: 0, score: 0, isAi: 1, isSystem: 1, source: sourceModel, lastScore: modelParent.lastScore , score : modelParent.score,lastTotalTag:modelParent.lastTotalTag,totalTag: modelParent.totalTag,articleHasTraining:[]}
     let id = await Model.create(model)
     let nameFileModel = id._id
     if (sourceModel === 'tag') {
@@ -151,37 +151,6 @@ async function updateModel(id, name) {
     await Model.updateOne({ "_id": id }, { "name": name })
 }
 // Choose model to play ground
-async function updateModelPlayGround(idModel,language){
-   
-    if (idModel=='defaultEN' || idModel=='defaultJP') {
-        await Model.updateMany({ "source":"tag" ,"language":language},{$set:{"isPlayGround":0}})
-            
-        if (idModel=='defaultEN'){
-            
-            
-            
-            await Model.updateOne({ "name": 'AI NER Base (English)' },{$set:{"isPlayGround":1}})
-        }
-        if (idModel=='defaultJP'){
-            
-            
-            await Model.updateOne({ "name": 'AI NER Base (Japanese)' },{$set:{"isPlayGround":1}})
-            }
-        
-
-    }
-    else{
-        model_choose = await Model.find({ "_id": ObjectID(idModel) })
-        model_choose_source = model_choose[0].source
-        await Model.updateMany({ "source":model_choose_source ,"language":language },{$set:{"isPlayGround":0}})
-        await Model.updateOne({ "_id": ObjectID(idModel) },{$set:{"isPlayGround":1}})
-    }
-    
-}
-async function clearModelPlayGround(language,source){
-    await Model.updateMany({ "language": language,"source":source },{$set:{"isPlayGround":0}})
-    
-}
 
 
-module.exports = { createModelDefault, listModelDefault, createModel, listModel, deleteModel, updateModel ,updateModelPlayGround,clearModelPlayGround}
+module.exports = { createModelDefault, listModelDefault, createModel, listModel, deleteModel, updateModel }

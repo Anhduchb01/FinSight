@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 var tagmap = new mongoose.Schema({
   article_id: { type: mongoose.Schema.Types.ObjectId },
   tag_id: { type: mongoose.Schema.Types.ObjectId },
-  language: { type: String },
   year: { type: String },
   // dateLastCrawler: { type: String },
   // statusPageCrawl: { type: String },

@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 var Model = new mongoose.Schema({
     time: {type:String},
-    language: {type: String},
     name: {type:String},
     status: {type:Number},
     lastScore: {type:Number},

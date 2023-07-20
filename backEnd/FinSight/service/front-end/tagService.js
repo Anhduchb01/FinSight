@@ -21,11 +21,10 @@ function tagExist(arr, tag_name, tag_type) {
 }
 
 async function getTopTag(lang) {
-    var language = lang || "en"
+
     {
 
         const result = await Tagmap.aggregate([
-            // { "$match": { language: language } },
             { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
             {
                 $unwind: {
@@ -64,9 +63,8 @@ async function getTopTag(lang) {
 }
 
 async function getListTag(charSelectFilter) {
-    if (charSelectFilter !== 'Japanese') {
+    
         const lisTag = await Tagmap.aggregate([
-            { "$match": { language: 'en' } },
             { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
             {
                 $unwind: {
@@ -97,7 +95,7 @@ async function getListTag(charSelectFilter) {
         }
         let data = lisTag
         return data
-    } 
+    
 }
 
 async function getTagOfArticle(article_id) {

@@ -19,8 +19,8 @@ def initialization_model(id):
     if id == 'default':
         # BERT default model
         print(current_path)
-        model = AutoModelForTokenClassification.from_pretrained(current_path.joinpath('ner-vietnamese-electra-base'))
-        tokenizer= AutoTokenizer.from_pretrained(current_path.joinpath('ner-vietnamese-electra-base'))
+        model = AutoModelForTokenClassification.from_pretrained(current_path.joinpath('ner-default'))
+        tokenizer= AutoTokenizer.from_pretrained(current_path.joinpath('ner-default'))
         ner = pipeline("ner", model=model, tokenizer=tokenizer, aggregation_strategy="simple")
     else:
         # Saved model

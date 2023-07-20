@@ -124,28 +124,28 @@ def run_process_training_classification(language, id):
 	# del dataset['unsupervised']
 	try:
 		arrayItem = get_article_verify(language)
-		df = pd.DataFrame(arrayItem)
-		df['text_split'] = '' 
-		for i in range(len(df)):
-			df['text_split'][i] = get_split(df['text_origin'][i])
+		# df = pd.DataFrame(arrayItem)
+		# df['text_split'] = '' 
+		# for i in range(len(df)):
+		# 	df['text_split'][i] = get_split(df['text_origin'][i])
 
-		df_data = pd.DataFrame(columns=['content','label'])
-		text = []
-		label = []
-		for i in range(len(df)):
-			for j in range(len(df['text_split'][i])):
-				text.append(df['text_split'][i][j])
-				label.append(df['label'][i])
-		df_data['content'] = text
-		df_data['label'] =label
+		# df_data = pd.DataFrame(columns=['content','label'])
+		# text = []
+		# label = []
+		# for i in range(len(df)):
+		# 	for j in range(len(df['text_split'][i])):
+		# 		text.append(df['text_split'][i][j])
+		# 		label.append(df['label'][i])
+		# df_data['content'] = text
+		# df_data['label'] =label
 
-		article = []
-		for i in range(len(df_data)):
-			item = {}
-			item = {'text':df_data['content'][i],'label':df_data['label'][i]}
-			article.append(item)
+		# article = []
+		# for i in range(len(df_data)):
+		# 	item = {}
+		# 	item = {'text':df_data['content'][i],'label':df_data['label'][i]}
+		# 	article.append(item)
 
-		df_model = pd.DataFrame(article)
+		df_model = pd.DataFrame(arrayItem)
 		train, test = train_test_split(df_model, test_size=0.2,random_state=42)
 		tds = Dataset.from_pandas(train)
 		vds = Dataset.from_pandas(test)
@@ -158,13 +158,15 @@ def run_process_training_classification(language, id):
 		# dataset['test'] = newDatasetTest
 		tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath(id))
 		def tokenize_function(examples):
-			return tokenizer(examples["text"], padding="max_length", truncation=True)
+			return tokenizer(examples["text"], padding="max_length", truncation=True,max_length=128)
 
 		tokenized_datasets = dataset.map(tokenize_function, batched=True)
 		# small_train_dataset = tokenized_datasets["train"].shuffle(seed=42).select(range(1000))
 		# small_eval_dataset = tokenized_datasets["test"].shuffle(seed=42).select(range(1000))
 		full_train_dataset = tokenized_datasets["train"]
 		full_eval_dataset = tokenized_datasets["test"]
+		print('length train',len(full_train_dataset))
+		print('length test',len(full_eval_dataset))
 		print('getmodel')
 		config = AutoConfig.from_pretrained(current_path.joinpath(id))
 		config.num_labels = 3
@@ -184,27 +186,28 @@ def run_process_training_classification(language, id):
 		# model = AutoModelForSequenceClassification.from_pretrained(current_path.joinpath(id))
 		training_args = TrainingArguments(
 			output_dir='./ai_model/'+str(id),     # output directory
-			num_train_epochs=1,              # total number of training epochs
-			# per_device_train_batch_size=1,   # batch size per device during training
-			# per_device_eval_batch_size=4,    # batch size for evaluation
-			# warmup_steps=500,                # number of warmup steps for learning rate scheduler
-			# weight_decay=0.01,               # strength of weight decay
+			 per_device_train_batch_size=2,   
+			 per_device_eval_batch_size=2,    
+			 warmup_steps=500,                
+			 weight_decay=0.01,               
 			evaluation_strategy="epoch",
-			logging_dir='./logs',            # directory for storing logs
+			logging_dir='./logs',          
 			logging_steps=100,
 			save_strategy='epoch',
+			learning_rate=2e-5,
+    			num_train_epochs=2,
 			load_best_model_at_end=True, 
 		)
-		metric = load_metric("accuracy")
-
-		def compute_metrics(eval_pred):
-			logits, labels = eval_pred
-			predictions = np.argmax(logits[0], axis=-1)
+		def compute_metrics(eval_preds):
+			metric = load_metric("glue", "mrpc")
+			logits, labels = eval_preds
+			predictions = np.argmax(logits, axis=-1)
+			print(predictions)
 			return metric.compute(predictions=predictions, references=labels)
 
 		trainer = Trainer(model=model, args=training_args, train_dataset=full_train_dataset,
 						eval_dataset=full_eval_dataset, compute_metrics=compute_metrics)
-		numberCheckPoint = math.ceil(len(full_train_dataset))
+		numberCheckPoint = math.ceil(len(full_train_dataset)/2)
 		trainer.train()
 		trainer.save
 		time.sleep(15)

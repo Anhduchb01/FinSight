@@ -18,8 +18,8 @@ def initialization_model(id):
     
     if id == 'default':
         # BERT default model
-        model = RobertaForSequenceClassification.from_pretrained("wonrax/phobert-base-vietnamese-sentiment")
-        tokenizer = AutoTokenizer.from_pretrained("wonrax/phobert-base-vietnamese-sentiment", use_fast=False)
+        model = RobertaForSequenceClassification.from_pretrained(current_path.joinpath('semtiment-default'))
+        tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('semtiment-default'), use_fast=False)
         classificator = pipeline("text-classification",tokenizer=tokenizer, model=model,return_all_scores=True)
     else:
         # Saved model

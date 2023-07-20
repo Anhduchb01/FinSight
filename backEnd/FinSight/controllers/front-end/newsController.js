@@ -26,14 +26,12 @@ router.get("/get-all-news", async (req, res) => {
     
     if (type === '' | type == null) {
       totalPost = await Post.find({
-        // languageCrawl: language,
         title: { $regex: String(key), $options: "i" },
         timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
         status: '0',
       });
       if (category === 'POS') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
           status: '0',
@@ -46,7 +44,6 @@ router.get("/get-all-news", async (req, res) => {
       }
       if (category === 'NEG') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
           status: '0',
@@ -59,7 +56,6 @@ router.get("/get-all-news", async (req, res) => {
       }
       if (category === 'NEU') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
           status: '0',
@@ -72,7 +68,6 @@ router.get("/get-all-news", async (req, res) => {
       }
       if (category === '') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
           status: '0',
@@ -85,7 +80,6 @@ router.get("/get-all-news", async (req, res) => {
     
     }else if(type =='Khác'){
       totalPost = await Post.find({
-        // languageCrawl: language,
         title: { $regex: String(key), $options: "i" },
         type: null,
         timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
@@ -93,7 +87,6 @@ router.get("/get-all-news", async (req, res) => {
       });
       if (category === 'POS') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           type: null,
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
@@ -107,7 +100,6 @@ router.get("/get-all-news", async (req, res) => {
       }
       if (category === 'NEG') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           type: null,
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
@@ -121,7 +113,6 @@ router.get("/get-all-news", async (req, res) => {
       }
       if (category === 'NEU') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           type: null,
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
@@ -148,7 +139,6 @@ router.get("/get-all-news", async (req, res) => {
       }
     } else {
       totalPost = await Post.find({
-        // languageCrawl: language,
         title: { $regex: String(key), $options: "i" },
         type: type,
         timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
@@ -156,7 +146,6 @@ router.get("/get-all-news", async (req, res) => {
       });
       if (category === 'POS') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           type: type,
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
@@ -170,7 +159,6 @@ router.get("/get-all-news", async (req, res) => {
       }
       if (category === 'NEG') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           type: type,
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
@@ -184,7 +172,6 @@ router.get("/get-all-news", async (req, res) => {
       }
       if (category === 'NEU') {
         postDisplay = await Post.find({
-          // languageCrawl: language,
           title: { $regex: String(key), $options: "i" },
           type: type,
           timeCreatePostOrigin: { $regex: String(archive), $options: "i" },
@@ -233,8 +220,7 @@ router.get("/get-tags", async (req, res) => {
 
 router.get("/top-tag", async (req, res) => {
   try {
-    let language = req.cookies.language || "en";
-    const top_tag = await getTopTag(language);
+    const top_tag = await getTopTag();
     return res.send(top_tag);
   } catch (err) {
     console.log(err)
@@ -288,7 +274,6 @@ router.get("/top-archive", async (req, res) => {
         {
           $match: {
             $and: [
-              // { languageCrawl: { $in: [language] } },
               { type: null},
               { status: { $in: ['0'] } },
             ],
@@ -304,7 +289,6 @@ router.get("/top-archive", async (req, res) => {
           $match: {
                 
             $and: [
-              // { languageCrawl: { $in: [language] } },
               { isClassification: true},
               { status: { $in: ['0'] } },
             ],

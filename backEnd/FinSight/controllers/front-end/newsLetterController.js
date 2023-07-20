@@ -12,7 +12,6 @@ const Post = mongoose.model("Post");
 
 async function getPostSendMailNewsLetter() {
   let postData = await Post.find({
-    "languageCrawl": "en",
     status: '0',
   }, (err, docs) => {
     if (!err) {

@@ -77,6 +77,8 @@ router.get("/models/classification/get-list-model", async (req, res) => {
 
 // api PUT: change BERT model name with ID
 router.put("/models/classification/update-model/:id", async (req, res) => {
+    console.log(req.params.id)
+    console.log(req.body.name)
     await updateModelClassification(req.params.id, req.body.name)
     res.send({ "message": "model has updated successfully" })
 })
@@ -99,7 +101,6 @@ router.delete("/models/classification/delete-model/:id", async (req, res) => {
 })
 
 router.get("/classification/get-list-model-classification-history", async (req, res) => {
-    let language = req.query.language
     let data = await getListModelClassificationHistory()
     res.send(data)
 })
@@ -129,7 +130,7 @@ router.get("/models/classification/execute-model", async (req, res) => {
 })
 // training model classification
 router.get("/models/classification/training-model", async (req, res) => {
-    let result =request(`http://localhost:5000/training-classification/model-ai?language=${req.query.language}&id=${req.query.id}&page=finsight`, async function (error, response, body) {
+    let result =request(`http://localhost:5000/training-classification/model-ai?id=${req.query.id}&page=finsight`, async function (error, response, body) {
         if (error) { await Model.updateOne({"_id": ObjectID(req.query.id)}, { "status": 2 })}
         console.log(body)
     })

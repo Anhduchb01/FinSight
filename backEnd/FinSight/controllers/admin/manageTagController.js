@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const { getArticleHasTagAdmin } = require('../../service/front-end/articleService')
 const { getStatisticTag, getListTag, updateScoreTag, addTag, getEditTag } = require('../../service/front-end/tagService')
 const { getListGenerateHistory, getListTagHistory, applyResultTagHistory, mergeResultTagHistory, getDataStatusCharSelectFilter, getListTagSame, getDataProcessTag, savePercentTagVerify, getPercentTagVerify } = require('../../service/admin/manageTag/manageTag.js')
-const { createModel, listModel, deleteModel, updateModel, createModelDefault, listModelDefault,updateModelPlayGround  ,clearModelPlayGround} = require('../../service/admin/manageTag/modelTag.js');
+const { createModel, listModel, deleteModel, updateModel, createModelDefault, listModelDefault  } = require('../../service/admin/manageTag/modelTag.js');
 const { ObjectID } = require("bson");
 const Model = mongoose.model('Model')
 var _ = require('lodash');
@@ -113,14 +113,8 @@ router.get('/tags/save-percent-tag-verify', async (req, res) => {
     let data = await savePercentTagVerify(req.query.pointVerify,req.query.verifyAiLib)
     res.send('finish')
 })
-router.get('/save-model-play-ground', async (req, res) => {
-    let data = await updateModelPlayGround(req.query.idModel,req.query.language)
-    res.send('finish')
-})
-router.get('/clear-model-play-ground', async (req, res) => {
-    let data = await clearModelPlayGround(req.query.language, req.query.source)
-    res.send('finish')
-})
+
+
 
 router.get('/tags/get-data-process-tag', async (req, res) => {
     let data = await getDataProcessTag(req.query.idModelOne, req.query.timeOne, req.query.idModelTwo, req.query.timeTwo)
@@ -151,30 +145,32 @@ router.get("/getdata/tag", async (req, res) => {
 
 // api GET: execute lib model 
 router.get("/models/lib/execute", async (req, res) => {
+    await Model.updateOne({ "name": "Library (Underthesea)" }, { "status": 1 })
     let result =request(`http://localhost:5000/process-tag/model-lib?page=finsight`, async function (error, response, body) {
-        if (error != null) {
-            await Model.updateOne({ "name": req.query.name }, { "status": 0 })
+        if (error) {
+            await Model.updateOne({ "name": "Library (Underthesea)"}, { "status":2 })
         }
     })
     res.send('request execute cussess')
 })
 router.get("/models/ai/execute", async (req, res) => {
     let id = req.query.id
+    if (id === 'default') { await Model.updateOne({ "name": 'AI NER Base' }, { "status": 1 }) }
+    else { await Model.updateOne({ "_id": ObjectID(id) }, { "status": 1}) }
     request(`http://localhost:5000/process-tag/model-ai?id=${req.query.id}&time=${req.query.time}&page=finsight`, async function (error, response, body) {
-    if (error != null) {
-   
-            if (id === 'default') { await Model.updateOne({ "name": 'AI NER Base' }, { "status": 0 }) }
-            else { await Model.updateOne({ "_id": ObjectID(id) }, { "status": 0 }) }
+    if (error) {
+            if (id === 'default') { await Model.updateOne({ "name": 'AI NER Base' }, { "status": 2 }) }
+            else { await Model.updateOne({ "_id": ObjectID(id) }, { "status": 2}) }
         }
     })
     res.send('request execute cussess')
 })
 //evaluate model tag
 router.get("/models/ai/evaluate", async (req, res) => {
-    request(`http://localhost:5000/evaluate-tag/model-ai?language=${req.query.language}&id=${req.query.id}&page=finsight`, async function (error, response, body) {
-        if (error != null) {
+    request(`http://localhost:5000/evaluate-tag/model-ai?id=${req.query.id}&page=finsight`, async function (error, response, body) {
+        if (error) {
             
-                await Model.updateOne({ "_id": ObjectID(req.query.id) }, { "status": 0 }) 
+                await Model.updateOne({ "_id": ObjectID(req.query.id) }, { "status": 2 }) 
             }
 
         res.send(body)
@@ -184,17 +180,18 @@ router.get("/models/ai/evaluate", async (req, res) => {
 // training model tag
 
 router.get("/models/tag/training-model", async (req, res) => {
-    await request(`http://localhost:5000/training-tag/model-ai?language=${req.query.language}&id=${req.query.id}&page=finsight`, async function (error, response, body) {
+    await Model.updateOne({ "_id": ObjectID(req.query.id) }, { "status": 1 })
+    await request(`http://localhost:5000/training-tag/model-ai?id=${req.query.id}&page=finsight`, async function (error, response, body) {
         if (error) { await Model.updateOne({ "_id": ObjectID(req.query.id) }, { "status": 2 }) }
-        console.log(body)
+
     })
     res.send('request train cussess')
 })
 
 // router.get('/get-article', async (req, res) => {
 //     let number = req.query.page;
-//     let totalPost = await Post.find({ "$and": [{ "languageCrawl": "en", "status": "0" }] }).count();
-//     let postDisplay = await Post.find({ "$and": [{ "languageCrawl": "en", "status": "0" }] })
+//     let totalPost = await Post.find({ "$and": [{  "status": "0" }] }).count();
+//     let postDisplay = await Post.find({ "$and": [{ "status": "0" }] })
 //         .limit(8)
 //         .skip((number - 1) * 8);
 //     let arrDataPost = [postDisplay, totalPost];

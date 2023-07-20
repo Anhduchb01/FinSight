@@ -7,7 +7,6 @@ var post = new mongoose.Schema({
   urlimage: { type: String },
   contenthtml: { type: String },
   urlPageCrawl: { type: String },
-  languageCrawl: { type: String },
   timeCrawlPage: { type: String },
   timeCreatePostOrigin: { type: String },
   category: { type: String },

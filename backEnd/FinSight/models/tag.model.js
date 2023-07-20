@@ -5,7 +5,6 @@ var tags = new mongoose.Schema({
   type: {type: String},
   score: {type: Number},
   source:{type: String},
-  language:{type: String},
   tagStatus:{type: Number}
 });
 

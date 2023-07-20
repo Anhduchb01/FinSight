@@ -123,11 +123,11 @@ def extract_article_verify():
         for x in article_collection.find({ 'status':"0",'classificationStatus':0,"isClassification":True}):
             item = {}
             if x['category'] == 'POS':
-                item = {'text_origin':x['title'],'label':'POS'}
+                item = {'text_origin':__remove_special_character(x['title']),'label':'POS'}
             if x['category'] == 'NEU':
-                item = {'text_origin':x['title'],'label':'NEU'}
+                item = {'text_origin':__remove_special_character(x['title']),'label':'NEU'}
             if x['category'] == 'NEG':
-                item = {'text_origin':x['title'],'label':'NEG'}
+                item = {'text_origin':__remove_special_character(x['title']),'label':'NEG'}
        
             article.append(item)
         return article
@@ -139,11 +139,11 @@ def get_article_verify():
         for x in article_collection.find({ 'status':"0",'classificationStatus':0,"isClassification":True}):
             item = {}
             if x['category'] == 'POS':
-                item = {'text_origin':x['title'],'label':1}
+                item = {'text':__remove_special_character(x['title']),'label':1}
             if x['category'] == 'NEU':
-                item = {'text_origin':x['title'],'label':2}
+                item = {'text':__remove_special_character(x['title']),'label':2}
             if x['category'] == 'NEG':
-                item = {'text_origin':x['title'],'label':0}
+                item = {'text':__remove_special_character(x['title']),'label':0}
        
             article.append(item)
         return article
@@ -411,18 +411,30 @@ def get_data_article_for_evaluate_tag():
 
 
 def __remove_special_character(text):
-    text = text.replace("(", " ")
-    text = text.replace(")", " ")
-    text = text.replace("/", " ")
-    text = text.replace(":", " ")
-    text = text.replace("'"," ")
-    text = text.replace('"'," ")
-    text = text.replace('\r\n'," ")
-    text = text.replace(']'," ")
-    text = text.replace('['," ")
-    text = text.replace("-","")
+    # text = text.replace("(", " ")
+    # text = text.replace(")", " ")
+    # text = text.replace(",", " ")
+    # text = text.replace(".", " ")
+    # text = text.replace("/", " ")
+    # ext = text.replace("”", " ")
+    # ext = text.replace("“", " ")
+    # text = text.replace(":", " ")
+    # text = text.replace("'"," ")
+    # text = text.replace('"'," ")
+    # text = text.replace('’'," ")
+    # text = text.replace("'"," ")
+    # text = text.replace("+", " ")
+    # text = text.replace("–", " ")
+    # text = text.replace("%", " ")
+    # text = text.replace('\r\n'," ")
+    # text = text.replace(']'," ")
+    # text = text.replace('['," ")
+    # text = text.replace("-","")
+    text = re.findall(r'\b\w+\b', text, re.UNICODE)
+    text = ' '.join(text)
     text = text.replace("\\ufeff", "")
     text = text.replace('\\'," ")
     text = re.sub(r'\s{3,}', ' ', text)
     text = text.strip()
     return text
+
