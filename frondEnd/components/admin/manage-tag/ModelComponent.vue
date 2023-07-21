@@ -409,6 +409,15 @@ export default {
 		};
 	},
 	methods: {
+    trainModel(id) {  
+      HTTP.get(`/models/tag/training-model?id=${id}`).then((response) => {
+        this.getListModel()
+      })   
+      .catch(Error);
+
+		
+		
+	},
 		deleteModel() {
 
 			HTTP.delete(
@@ -539,6 +548,7 @@ export default {
 						message: [["color", "#fff"]],
 					},
 				});
+        this.getListModel()
 
 			});
 

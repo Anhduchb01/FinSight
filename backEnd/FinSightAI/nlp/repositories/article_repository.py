@@ -355,7 +355,7 @@ def get_data_article_for_evaluate_tag():
             arrayTypeText = []
             for typeText in splitText : 
                 flagArrayTypeText = False 
-                arrayTypeText.append(0)
+                arrayTypeText.append(8)
             #get tag for each name in sentence
             for indexTag,tag in enumerate(arrayNameTag):
                 tag = tag.strip()
@@ -383,22 +383,22 @@ def get_data_article_for_evaluate_tag():
                                 flagArrayTypeText = True
                                 if indexText == 0:
                                     if typeOfText == 'ORG' :
-                                        arrayTypeText[numberText] = 1
+                                        arrayTypeText[numberText] = 2
                                     if typeOfText == 'LOC' :
-                                        arrayTypeText[numberText] = 3
+                                        arrayTypeText[numberText] = 0
                                     if typeOfText == 'PER' :
-                                        arrayTypeText[numberText] = 5
+                                        arrayTypeText[numberText] = 3
                                     if typeOfText == 'MISC' :
-                                        arrayTypeText[numberText] = 7
+                                        arrayTypeText[numberText] = 1
                                 else:
                                     if typeOfText == 'ORG' :
-                                        arrayTypeText[numberText] = 2
+                                        arrayTypeText[numberText] = 6
                                     if typeOfText == 'LOC' :
                                         arrayTypeText[numberText] = 4
                                     if typeOfText == 'PER' :
-                                        arrayTypeText[numberText] = 6
+                                        arrayTypeText[numberText] = 7
                                     if typeOfText == 'MISC' :
-                                        arrayTypeText[numberText] = 8
+                                        arrayTypeText[numberText] = 5
             if flagArrayTypeText == True:
                 
                 if len(arrayTypeText) >0 :
@@ -430,10 +430,11 @@ def __remove_special_character(text):
     # text = text.replace(']'," ")
     # text = text.replace('['," ")
     # text = text.replace("-","")
-    text = re.findall(r'\b\w+\b', text, re.UNICODE)
-    text = ' '.join(text)
     text = text.replace("\\ufeff", "")
     text = text.replace('\\'," ")
+    text = re.findall(r'\b\w+\b', text, re.UNICODE)
+    text = ' '.join(text)
+    
     text = re.sub(r'\s{3,}', ' ', text)
     text = text.strip()
     return text

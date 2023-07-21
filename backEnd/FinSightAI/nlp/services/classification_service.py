@@ -71,7 +71,6 @@ def run_process_classification(id, timeModel):
 
 	classificator = initialization_model(id)
 
-	# Excute English
 	cursor_en =article_collection.find({'status':"0"},no_cursor_timeout=True).batch_size(20)
 	for article in tqdm(cursor_en):
 		ArticleHasProcessed = historyClassification_collection.find_one({"model_id": str(id),'article_id':ObjectId(article['_id'])})
@@ -115,15 +114,15 @@ def run_process_classification(id, timeModel):
 	return {"data": "finish"}
 
 # Training Model
-def run_process_training_classification(language, id):
+def run_process_training_classification(id):
 	
-	update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 1}})
-	# dataset = load_dataset('imdb')
-	# newDatasetTrain = dataset['train'].shard(num_shards=25000, index=1)
-	# newDatasetTest = dataset['test'].shard(num_shards=25000, index=1)
-	# del dataset['unsupervised']
-	try:
-		arrayItem = get_article_verify(language)
+		update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 1}})
+		# dataset = load_dataset('imdb')
+		# newDatasetTrain = dataset['train'].shard(num_shards=25000, index=1)
+		# newDatasetTest = dataset['test'].shard(num_shards=25000, index=1)
+		# del dataset['unsupervised']
+		# try:
+		arrayItem = get_article_verify()
 		# df = pd.DataFrame(arrayItem)
 		# df['text_split'] = '' 
 		# for i in range(len(df)):
@@ -146,7 +145,7 @@ def run_process_training_classification(language, id):
 		# 	article.append(item)
 
 		df_model = pd.DataFrame(arrayItem)
-		train, test = train_test_split(df_model, test_size=0.2,random_state=42)
+		train, test = train_test_split(df_model, test_size=0.2,random_state=42,stratify=Target)
 		tds = Dataset.from_pandas(train)
 		vds = Dataset.from_pandas(test)
 
@@ -156,7 +155,7 @@ def run_process_training_classification(language, id):
 		dataset['test'] = vds
 		# dataset['train'] = newDatasetTrain
 		# dataset['test'] = newDatasetTest
-		tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath(id))
+		tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('sentiment-default'))
 		def tokenize_function(examples):
 			return tokenizer(examples["text"], padding="max_length", truncation=True,max_length=128)
 
@@ -172,9 +171,9 @@ def run_process_training_classification(language, id):
 		config.num_labels = 3
 		
 		config.id2label = {
-		"0": "NEG",
-		"1": "POS",
-		"2": "NEU",
+		0: "NEG",
+		1: "POS",
+		2: "NEU",
 		}
 		config.label2id = {
 		"POS": 1,
@@ -184,37 +183,52 @@ def run_process_training_classification(language, id):
 		
 		model = AutoModelForSequenceClassification.from_config(config)
 		# model = AutoModelForSequenceClassification.from_pretrained(current_path.joinpath(id))
+		batch_size = 2
+		num_epochs = 2
 		training_args = TrainingArguments(
-			output_dir='./ai_model/'+str(id),     # output directory
-			 per_device_train_batch_size=2,   
-			 per_device_eval_batch_size=2,    
-			 warmup_steps=500,                
-			 weight_decay=0.01,               
-			evaluation_strategy="epoch",
-			logging_dir='./logs',          
+			output_dir=current_path.joinpath(id),     # output directory
+			per_device_train_batch_size=batch_size,   
+			per_device_eval_batch_size=batch_size,                 
+			weight_decay=0.01,               
+			logging_dir='./logs',  
+			logging_strategy = 'steps',        
 			logging_steps=100,
+			evaluation_strategy="epoch",
 			save_strategy='epoch',
 			learning_rate=2e-5,
-    			num_train_epochs=2,
-			load_best_model_at_end=True, 
+			num_train_epochs=num_epochs,
+			logging_first_step = True,
 		)
+		metric = load_metric("glue", "mrpc")
 		def compute_metrics(eval_preds):
-			metric = load_metric("glue", "mrpc")
 			logits, labels = eval_preds
 			predictions = np.argmax(logits, axis=-1)
-			print(predictions)
+			print('metric',metric.compute(predictions=predictions, references=labels))
 			return metric.compute(predictions=predictions, references=labels)
 
 		trainer = Trainer(model=model, args=training_args, train_dataset=full_train_dataset,
 						eval_dataset=full_eval_dataset, compute_metrics=compute_metrics)
-		numberCheckPoint = math.ceil(len(full_train_dataset)/2)
+		numberCheckPoint = num_epochs*math.ceil(len(full_train_dataset)/batch_size)
+		print('start train')
 		trainer.train()
-		trainer.save
-		time.sleep(15)
+		print('Finish Trainer')
+		for obj in trainer.state.log_history:
+			print(obj)
 		os.chdir(current_path)
 		os.rename(id, "rename")
+		print('start copy')
 		destination = shutil.copytree(current_path.joinpath('rename/checkpoint-'+str(numberCheckPoint)), current_path.joinpath(id))
+		# file_paths = [
+		# 	'tokenizer_config.json',
+		# 	'special_tokens_map.json',
+		# 	'added_tokens.json',
+		# 	'bpe.codes',
+		# 	'vocab.txt'
+		# ]
+		# for file_path in file_paths:
+		# 	shutil.copy2(current_path.joinpath('rename/'+str(file_path)), current_path.joinpath(id))
 		remove = shutil.rmtree(current_path.joinpath('rename'))
+		print('finish copy')
 		time.sleep(15)
 		print('evaluate')
 		point = trainer.evaluate()
@@ -223,7 +237,7 @@ def run_process_training_classification(language, id):
 		model = find_model({"_id": ObjectId(id)})
 		lastScore = model['score']
 		update_status_model({"_id": ObjectId(id)}, {"$set": {"lastScore": lastScore, "score": pointModel, "status": 0}})
-	except Exception as e:
-            print("ERROR: " + str(e))
-            update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 2}})
+	# except Exception as e:
+		#     print("ERROR: " + str(e))
+		#     update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 2}})
 

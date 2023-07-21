@@ -9,7 +9,8 @@ const { createModel, listModel, deleteModel, updateModel, createModelDefault, li
 const { ObjectID } = require("bson");
 const Model = mongoose.model('Model')
 var _ = require('lodash');
-
+const dotenv = require('dotenv');
+dotenv.config();
 router.get("/admin/manage-tag", (req, res) => {
     res.render("admin/main/manage-tag", { title: 'Tag' });
 });
@@ -180,7 +181,10 @@ router.get("/models/ai/evaluate", async (req, res) => {
 // training model tag
 
 router.get("/models/tag/training-model", async (req, res) => {
+
     await Model.updateOne({ "_id": ObjectID(req.query.id) }, { "status": 1 })
+    console.log('request training tag js success')
+    console.log(`API : ${process.env.API_URL}/training-tag/model-ai?id=${req.query.id}&page=finsight`)
     await request(`http://localhost:5000/training-tag/model-ai?id=${req.query.id}&page=finsight`, async function (error, response, body) {
         if (error) { await Model.updateOne({ "_id": ObjectID(req.query.id) }, { "status": 2 }) }
 

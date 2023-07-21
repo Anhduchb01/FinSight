@@ -22,16 +22,17 @@ def initialization_model(id):
         model = AutoModelForTokenClassification.from_pretrained(current_path.joinpath('ner-default'))
         tokenizer= AutoTokenizer.from_pretrained(current_path.joinpath('ner-default'))
         ner = pipeline("ner", model=model, tokenizer=tokenizer, aggregation_strategy="simple")
+        return ner
     else:
         # Saved model
-        print('not')
         model = AutoModelForTokenClassification.from_pretrained(current_path.joinpath(id))
-        tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath(id))
-        ner = pipeline("ner", model=model, tokenizer=tokenizer, aggregation_strategy="simple")
-    
-    return ner
+        return model
 
-def generate_keyword(sequence, ner):
+
+    
+    
+
+def generate_keyword_default(sequence, ner):
     ''' Using transformer to generate tag  '''
     sequence = __remove_special_character(sequence)
     
@@ -55,6 +56,59 @@ def generate_keyword(sequence, ner):
         if (keyword['name'] not in tags):
             tags.append(keyword)
     return tags
+def generate_keyword(sequence,  tokenizer, model):
+
+    ''' Using transformer to generate tag  '''
+    text_split = sequence.split()
+    encoding = tokenizer(text_split,truncation=True, is_split_into_words=True,padding='max_length',max_length=128,return_tensors="pt")
+    outputs   = model(**encoding)
+    predicted_labels = outputs.logits.argmax(dim=-1).squeeze().cpu().numpy()
+    actual_word_labels = predicted_labels[1 : len(text_split) + 1]
+    entities = []
+    current_entity = None
+    import torch.nn.functional as F
+    probs = F.softmax(outputs.logits, dim=-1)
+    actual_word_probs = probs[0][1: len(text_split) + 1].max(dim=-1).values.cpu().detach().numpy()
+    id2label = {0: 'B-LOCATION',
+            1: 'B-MISCELLANEOUS',
+            2: 'B-ORGANIZATION',
+            3: 'B-PERSON',
+            4: 'I-LOCATION',
+            5: 'I-MISCELLANEOUS',
+            6: 'I-ORGANIZATION',
+            7: 'I-PERSON',
+            8: 'O'}
+    for word, label_id, prob in zip(text_split, actual_word_labels, actual_word_probs):
+        label = id2label[label_id]
+
+        if label == "O":
+            # The current word is outside of any entity, reset the current_entity
+            current_entity = None
+        else :
+            print('else')
+            print(label)
+            label_type, entity_type = label.split("-")
+        
+            if label_type == "B":
+                # The current word is the beginning of a new entity
+                if entity_type =='PERSON':
+                    label = 'PER'
+                elif entity_type =='ORGANIZATION':
+                    label = 'ORG'
+                elif entity_type =='LOCATION':
+                    label = 'LOC'
+                else:
+                    label = 'MISC'
+                    
+                    
+                current_entity = {'name': word, 'type': label, 'score': round(prob, 4)}
+                entities.append(current_entity)
+            elif label_type == "I" and current_entity is not None:
+                # The current word is inside an entity, add it to the current_entity
+                current_entity['name'] += " " + word
+                current_entity['score'] = round((prob+current_entity['score'])/2,4)
+    return current_entity
+    
 
 def split_sentence(text):
     ''' Split big sentences to small sentences. Max sentences < 300 word '''

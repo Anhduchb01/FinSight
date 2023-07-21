@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const {savePercentArticleVerify, getPercentArticleVerify, getListModelClassificationHistory, applyArticleHasProcessed, getListArticle,getDataFlowChart,getArticleSelectPopup,getArticleSelect ,getEditArticle,createModelDefault,createModel,listModelClassification,updateModelClassification,deleteModelClassification,queryArticleClassificationSuccess, getArticleAppend} = require('../../service/admin/classification/classification')
 const Model = mongoose.model('Model')
 const { ObjectID } = require("bson");
-
+const dotenv = require('dotenv');
+dotenv.config();
 
 router.get("/admin/classification", (req, res) => {
     res.render("admin/main/classification", { title: 'Classification' });
@@ -130,9 +131,11 @@ router.get("/models/classification/execute-model", async (req, res) => {
 })
 // training model classification
 router.get("/models/classification/training-model", async (req, res) => {
+    console.log('request training classification js success')
+    console.log(`API : ${process.env.API_URL}/training-classification/model-ai?id=${req.query.id}&page=finsight`)
+    await Model.updateOne({"_id": ObjectID(req.query.id)}, { "status": 1 })
     let result =request(`http://localhost:5000/training-classification/model-ai?id=${req.query.id}&page=finsight`, async function (error, response, body) {
         if (error) { await Model.updateOne({"_id": ObjectID(req.query.id)}, { "status": 2 })}
-        console.log(body)
     })
     res.send('request train cussess')
 })

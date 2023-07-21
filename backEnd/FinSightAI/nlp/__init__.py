@@ -135,9 +135,8 @@ def process_training_tag():
     ''' Execute AI model to generate tag '''
     page = request.args.get('page')
     ckeck_database_tag_service(page)
-    lang = request.args.get('language') 
     id = request.args.get('id') 
-    str = run_process_training_tag(lang, id)
+    str = run_process_training_tag(id)
     return jsonify({"message": str})
 
 
@@ -145,11 +144,13 @@ def process_training_tag():
 @nlp.route('/training-classification/model-ai', methods=['GET', 'POST'])
 def process_training_classification():
     ''' Execute AI model to generate tag '''
+    print('start training')
     page = request.args.get('page')
-    ckeck_database_classification_service(page)
-    lang = request.args.get('language') 
+    ckeck_database_classification_service()
+    print('page',page)
     id = request.args.get('id') 
-    str = run_process_training_classification(lang, id)
+    print('id',id)
+    str = run_process_training_classification(id)
     return jsonify({"message": str})
 
 @nlp.route('/process-classification/clone-model-ai', methods=['GET', 'POST'])

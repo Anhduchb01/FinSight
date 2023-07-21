@@ -330,7 +330,7 @@ export default {
   },
   methods: {
     trainModel(id) {  
-      HTTP.get(`/models/tag/training-model?id=${id}`).then((response) => {
+      HTTP.get(`/models/classification/training-model?id=${id}`).then((response) => {
         this.listModel()
       })   
       .catch(Error);
