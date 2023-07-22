@@ -253,13 +253,22 @@ def _crawler_result(item, response, spider):
 	spider_counters[spider_name] += 1
 	print('Item Count')
 	print(spider_counters[spider_name])
-	print(DB_URL)
-	print(DB_Name)
+	title = dict(item).get('title')
+	content = dict(item).get('content')
+	print(dict(item).get('title'))
 	if str(spider.name) == 'cafefpdf':
 		print('pdf')
 		db.reports.insert_one(dict(item))
 	else:	
-		db.posts.insert_one(dict(item))
+		try:
+			if len(title.split()) >= 3 and len(content.split())>=3:
+				db.posts.insert_one(dict(item))
+			else :
+				print(' len of split title and connten < 3')
+		except:
+			print('not have title and content')
+
+		
 		# print(list(db.posts.find({})))
 	# output_data.append(dict(item))
 
@@ -270,6 +279,7 @@ def _crawler_closed(spider):
 	global spider_counters
 	spider_name = spider.name
 	print('finish crawl '+str(spider_name))
+	print('number of posts crawled'+str(spider_counters[spider_name]))
 	db.crawlers.update_one({"addressPage":spider_name}, {'$set': {'increasePost': str(spider_counters[spider_name])}})
 	if str(spider_name) == 'cafefpdf':
 		print('ok')

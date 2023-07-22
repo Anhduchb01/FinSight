@@ -6,7 +6,7 @@ mongoose.connect(`${process.env.DB_URL}`, {
     useUnifiedTopology: true,
     keepAlive: true, }, (err) => {
     if (!err) { console.log('MongoDB Connection Succeeded.'+`${process.env.DB_URL}`) }
-    else { console.log('Error in DB connection : ' + err) }
+    else { console.log('Error in DB connection : '+`${process.env.DB_URL}` + err) }
 });
 
 

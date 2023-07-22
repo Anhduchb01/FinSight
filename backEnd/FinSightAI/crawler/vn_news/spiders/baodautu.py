@@ -33,11 +33,13 @@ class BaodautuSpider(scrapy.Spider):
         article_links = response.css(self.article_url_query+'::attr(href)').getall()
         article_img = response.css(self.image_url_query+'::attr(src)').getall()
         # Follow each article URL and parse the article page
+        print('response.url',response.url)
         for link, image_url in zip(article_links, article_img):
        
             yield scrapy.Request(link,meta={'image_url': image_url}, callback=self.parse_article)
 
         # Increment the page number and follow the next page
+
         if '/p' in response.url:
             current_page = int(response.url.split('/p')[-1])
             next_page = current_page + 1
@@ -46,7 +48,8 @@ class BaodautuSpider(scrapy.Spider):
             current_page = 1
             next_page = current_page + 1
             next_page_link = response.url + f"p{next_page}"
-        if next_page <= 2:
+        if next_page <= self.number_page_query : 
+            print('response.url',response.url)
             yield scrapy.Request(next_page_link, callback=self.parse)
     def formatString(self, text):
         text =  text.replace('"', '\"')  # escape double quotes
@@ -58,10 +61,13 @@ class BaodautuSpider(scrapy.Spider):
         title = response.css(self.title_query+'::text').get()
         try:
             title = " ".join(title.split())
+            if len(title.split()) < 3:
+                yield None      
             title = self.formatString(title)
         except:
             print('not split title')
-        if title == '' or title == None:
+            yield None
+        if title == '' or title is  None :
             yield None
         timeCreatePostOrigin = response.css(self.timeCreatePostOrigin_query+'::text').get()
         timeCreatePostOrigin = timeCreatePostOrigin.replace('-','')
@@ -85,10 +91,19 @@ class BaodautuSpider(scrapy.Spider):
             content_des = response.css(self.content_des_query+' ::text').getall()
             content =str(content_sum)  + str(content_des)
             content = self.formatString(content)
+            try:
+                if len(content.split()) < 3:
+                    yield None
+            except:
+                print('not split title')
+                yield None
+            if content == '' or content is  None :
+                yield None
             content_sum_html = response.css(self.content_html_title_query).get()
             content_des_html = response.css(self.content_html_des_query).get()
             content_html =str(content_sum_html)+str(content_des_html)
             image_url = response.meta['image_url']
+            print()
             item = VnNewsItem(
                 title=title,
                 timeCreatePostOrigin=str(timeCreatePostOrigin),
