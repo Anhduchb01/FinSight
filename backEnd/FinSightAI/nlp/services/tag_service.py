@@ -90,7 +90,7 @@ def process_tag_lib():
 			for articleHasProcessed in arrayArticleHasProcessed:
 				if str(articleHasProcessed['article_id']) == str(article['_id']):
 					flagArticle = False
-					break
+			
 			if flagArticle == False:
 				continue
 			# Get unprocess article
@@ -99,7 +99,7 @@ def process_tag_lib():
 			if article:
 				text = article["content"] # Get content of Article
 				if text == None or text == '':
-						break
+						continue
 				# If exist text
 				if text != None or text != '':
 					# print("PROCESS: https://finsight.sinka.vn/detail-new/" + str(article["_id"]) + " " + "-" + " " + str(datetime.datetime.now(pytz.timezone("Asia/Ho_Chi_Minh"))), flush=True)
@@ -107,13 +107,8 @@ def process_tag_lib():
 					try:
 						year = get_time_article(article) # Get year of article
 						# Generate tag by language
-						tags = []
-						
-						
+						tags = []	
 						text_process = split_sentence(text)
-						print(len(text.split(" ")))
-						print(len(text_process))
-				
 						tags_array = []
 						tags_name_array = []
 						for sentence in text_process:
