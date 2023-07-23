@@ -7,7 +7,11 @@ const Sorting = mongoose.model("Sorting");
 var dayjs = require("dayjs");
 const { queryArticle } = require('../../service/admin/sorting/sorting')
 
+router.get("/", (req, res) => {
+    message = "<h1>API FINSIGHT</h1>"
+    res.send(message);
 
+});
 router.get("/admin/contact-us", (req, res) => {
   try {
     res.render("admin/main/contact-us", { title: 'Contact Us' });
