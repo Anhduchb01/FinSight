@@ -113,12 +113,12 @@ def run_process_classification(id, timeModel):
 			update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 0}})
 		return {"data": "finish"}
 	except Exception as e:
-            print("ERROR: " + str(e))
-            if id == 'default':
-                model_collection.update_one({"name": "AI Sentiment Analysis Base"}, {"$set": {"status": 2}})
-            
-            else:
-                model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 2}})
+			print("ERROR: " + str(e))
+			if id == 'default':
+				model_collection.update_one({"name": "AI Sentiment Analysis Base"}, {"$set": {"status": 2}})
+			
+			else:
+				model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 2}})
 
 # Training Model
 def run_process_training_classification(id):
@@ -240,7 +240,7 @@ def run_process_training_classification(id):
 			model = find_model({"_id": ObjectId(id)})
 			lastScore = model['score']
 			update_status_model({"_id": ObjectId(id)}, {"$set": {"lastScore": lastScore, "score": pointModel, "status": 0}})
-	except Exception as e:
-		    print("ERROR: " + str(e))
-		    update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 2}})
+		except Exception as e:
+				print("ERROR: " + str(e))
+				update_status_model({"_id": ObjectId(id)}, {"$set": {"status": 2}})
 
