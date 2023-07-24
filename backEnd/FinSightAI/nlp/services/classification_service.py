@@ -187,7 +187,7 @@ def run_process_training_classification(id):
 			model = AutoModelForSequenceClassification.from_config(config)
 			# model = AutoModelForSequenceClassification.from_pretrained(current_path.joinpath(id))
 			batch_size = 2
-			num_epochs = 2
+			num_epochs = 5
 			training_args = TrainingArguments(
 				output_dir=current_path.joinpath(id),     # output directory
 				per_device_train_batch_size=batch_size,   

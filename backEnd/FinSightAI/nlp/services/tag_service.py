@@ -167,6 +167,7 @@ def process_tag_lib():
 		lastTotalTag = model_old['totalTag']
 
 		model_collection.update_one({"name": "Library (Underthesea)"}, {"$set": {"status": 0,'totalTag':total,'lastTotalTag':lastTotalTag}})
+		return {"data": "finish"}
 	except Exception as e:
             print("ERROR: " + str(e)) 
             model_collection.update_one({"name": "Library (Underthesea)"}, {"$set": {"status": 2}})
@@ -175,7 +176,7 @@ def process_tag_lib():
 
    
 
-	return {"data": "finish"}
+	
 def extract_data_for_tag():
 	print('start extract data')
 	data = get_data_article_for_evaluate_tag()
@@ -589,7 +590,7 @@ def run_process_training_tag( id):
 			return flattened_results
 		model = AutoModelForTokenClassification.from_pretrained(current_path.joinpath('ner-default'),num_labels=len(id2label))
 		batch_size =2
-		number_epochs = 2
+		number_epochs = 5
 		args = TrainingArguments(
 			output_dir=current_path.joinpath(id),
 			evaluation_strategy="epoch",
