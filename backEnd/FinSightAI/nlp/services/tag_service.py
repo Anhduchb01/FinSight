@@ -85,20 +85,19 @@ def process_tag_lib():
    
 	cursor = article_collection.find({'status':"0"},no_cursor_timeout=True)
 	for article in tqdm(cursor):
-		flagArticle = True
 		for articleHasProcessed in arrayArticleHasProcessed:
 			if str(articleHasProcessed['article_id']) == str(article['_id']):
-				flagArticle = False
-				break
-		if flagArticle == False:
-			continue
+				continue
+		# if flagArticle == False:
+		# 	continue
 		# Get unprocess article
 		# article = get_unprocess_tag_article_lib(language)
 		# if exist article
 		if article:
 			text = article["content"] # Get content of Article
 			if text == None or text == '':
-					break
+					print('id None Articale',str(article['_id']))
+					continue
 			# If exist text
 			if text != None or text != '':
 				# print("PROCESS: https://finsight.sinka.vn/detail-new/" + str(article["_id"]) + " " + "-" + " " + str(datetime.datetime.now(pytz.timezone("Asia/Ho_Chi_Minh"))), flush=True)

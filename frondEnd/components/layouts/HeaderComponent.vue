@@ -94,7 +94,7 @@
                   </svg>
                 </a>
               </li>
-              <li id="menu-sorting" class="menu single-menu" :class="{ 'active' : namePage === 'admin-sorting___en' }">
+              <!-- <li id="menu-sorting" class="menu single-menu" :class="{ 'active' : namePage === 'admin-sorting___en' }">
                 <a href="/admin/sorting" class="dropdown-toggle">
                   <div class="hover-content">
                     <img class="image-logo-header logo-sorting" style="width: 23px; height: 23px" src="~/static/assetsAdmin/img/sorting.png" />
@@ -118,7 +118,7 @@
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </a>
-              </li>
+              </li> -->
               <li id="menu-setting" class="menu single-menu" :class="{ 'active' : namePage === 'admin-setting___en' }">
                 <a href="/admin/setting" class="dropdown-toggle">
                   <div class="hover-content">
