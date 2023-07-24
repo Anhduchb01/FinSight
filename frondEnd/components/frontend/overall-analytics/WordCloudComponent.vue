@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       checkLoadingWorldClound: true,
-      year: this.$route.query.year || '',
+      year: this.$route.query.year || '2023/07',
       result: [],
       showWordClound: false,
       showCannotData: false,
