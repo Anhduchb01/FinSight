@@ -1,5 +1,5 @@
 <template>
-  <div class="container md:mt-24 mt-16">
+  <div class="container md:mt-24 mt-16" style="padding-top: 2%;">
     <b-row class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
       <b-col class="lg:col-span-5 md:col-span-6 order-1 md:order-2">
         <div class="lg:ms-8">
@@ -9,7 +9,6 @@
 
       <b-col class="lg:col-span-7 md:col-span-6 mt-8 md:mt-0 order2 md:order-1">
         <div class="lg:me-5">
-          <h6 class="text-indigo-600 text-sm font-bold uppercase mb-2">{{ $t("body.home.desServices1") }}</h6>
           <h3 class="mb-4 md:text-3xl md:leading-normal text-2xl leading-normal font-semibold">
             
             <br />{{ $t("body.home.desServices2") }}

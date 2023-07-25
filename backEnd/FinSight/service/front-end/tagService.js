@@ -26,12 +26,21 @@ async function getTopTag(lang) {
 
         const result = await Tagmap.aggregate([
             { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
+
             {
                 $unwind: {
                     path: "$tags",
                     preserveNullAndEmptyArrays: true
                 }
             },
+            {
+                $match: {
+                  $or: [
+                    { "tags.tagStatus": 0 },
+                    { "tags.tagStatus": 1 }
+                  ]
+                }
+              },
             { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
             {
                 $unwind: {
