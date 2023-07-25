@@ -180,7 +180,23 @@ router.get("/count-total-tag-all-year", async (req, res) => {
 let arrName = []
 router.get("/count-top-tag", async (req, res) => {
   try {
-    let year = req.query.year;
+    let list_date
+    try {
+      if (myCache.has("year-array")) {
+        list_date = myCache.get("year-array");
+      } else {
+        list_date = await getYearArray();
+        myCache.set("year-array", list_date);
+      }
+    } catch (err) {
+      console.log(err)
+    }
+    let year
+    if (req.query.year == '' || req.query.year == null) {
+      year = list_date[list_date.length - 1];
+    } else {
+      year = req.query.year
+    }
     if (myCache.has("count-top-tag-" + String(year))) {
       return res.send(myCache.get("count-top-tag-" + String(year)));
     } else {
@@ -212,10 +228,6 @@ router.get("/count-tag-by-category-all-year", async (req, res) => {
   }
 });
 function checkKeyword(key) {
-  // var keySearch = ['Circle Of Blue', 'United States', 'Brett Walton', 'Water News', 'Jet Propulsion Laboratory', 'Goddard Space Flight Center'
-  //   , 'North America', 'S. Geological Survey', 'J. Carl Ganter', 'U.S. Geological Survey', 'Great Lakes', 'Keith Schneider'
-  //   , 'Codi Kozacek', 'New York', 'National Weather Service', 'Carl Ganter', 'Central Valley', '環境省', 'Environmental Protection Agency', 'United Nations'
-  //   , 'North Carolina', 'Kaye Lafond', 'Water Policy & Politics', 'Colorado River', 'U.S. Environmental Protection Agency'];
   for (let i = 0; i < arrName.length; i++) {
     if (key === arrName[i]) {
       return true;

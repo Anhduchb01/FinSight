@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       checkLoadingKeyTreeMap: true,
-      year: this.$route.query.year|| '2023/07',
+      year: this.$route.query.year|| '',
       flagTreeMap: false,
       result: [],
       showKeyWordByMap: false,

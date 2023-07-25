@@ -74,20 +74,22 @@ export default {
   },
   methods: {
     queryData() {
-      HTTP.get("query-fix-data", { params: { number: this.dataInput } })
-        .then((response) => {})
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      // HTTP.get("query-fix-data", { params: { number: this.dataInput } })
+      //   .then((response) => {})
+      //   .catch((e) => {
+      //     this.errors.push(e);
+      //   });
+      console.log('Data')
     },
     queryDataClassification() {
-      HTTP.get("query-fix-data-classification", {
-        params: { number: this.dataInput },
-      })
-        .then((response) => {})
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      // HTTP.get("query-fix-data-classification", {
+      //   params: { number: this.dataInput },
+      // })
+      //   .then((response) => {})
+      //   .catch((e) => {
+      //     this.errors.push(e);
+      //   });
+      console.log('Data Classification')
     },
     clearAllData() {
       this.$swal({

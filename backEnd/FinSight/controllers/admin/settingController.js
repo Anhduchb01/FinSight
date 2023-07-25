@@ -14,9 +14,6 @@ const HistoryClassification = mongoose.model("HistoryClassification");
 const HistoryGenerateTag = mongoose.model("HistoryGenerateTag");
 const TagHistorys = mongoose.model("TagHistorys");
 const Sorting = mongoose.model("Sorting");
-const { queryArticle } = require('../../service/admin/sorting/sorting')
-
-
 
 function formatTime() {
   let timeCrawlPage = dayjs().format("YYYY/MM/DD h:mm:ss");
@@ -94,53 +91,12 @@ router.delete("/delete-all-log", (req, res) => {
 });
 
 router.get("/query-fix-data", async (req, res) => {
-  let number = req.query.number
-  let arrayPost = []
-  number = Number(number)
-  if (number > 8) number = 8
-  //get data config sorting
-  let dataConfigSort = await Sorting.find({})
-  let percentLaster = dataConfigSort[0].percentLaster;
-  let percentViewed = dataConfigSort[0].percentViewed;
-  let pointDecreasePerDay = dataConfigSort[0].pointDecreasePerDay;
-  let pointIncreasePerView = dataConfigSort[0].pointIncreasePerView;
-  let pointRequiredForTag = dataConfigSort[0].pointRequiredForTag;
-  let viewRequiredForTag = dataConfigSort[0].viewRequiredForTag;
-
-  let array = await queryArticle(percentLaster, percentViewed, pointDecreasePerDay, pointIncreasePerView, pointRequiredForTag, viewRequiredForTag)
-  arrayPost = array[0]
-  for (let index = 0; index < number; index++) {
-    let id = arrayPost[index]._id
-    await Post.updateMany({ _id: ObjectID(id) }, { $unset: { isTag: "" } })
-    await Post.updateMany({ _id: ObjectID(id) }, { $unset: { isTagAi: "" } })
-    await Tagmap.remove({ article_id: ObjectID(id) })
-  }
+  res.end("success");
 });
 
 
 router.get("/query-fix-data-classification", async (req, res) => {
-  let number = req.query.number
-  let arrayPost = []
-  number = Number(number)
-  if (number > 8) number = 8
-  //get data config sorting
-  let dataConfigSort = await Sorting.find({})
-  let percentLaster = dataConfigSort[0].percentLaster;
-  let percentViewed = dataConfigSort[0].percentViewed;
-  let pointDecreasePerDay = dataConfigSort[0].pointDecreasePerDay;
-  let pointIncreasePerView = dataConfigSort[0].pointIncreasePerView;
-  let pointRequiredForTag = dataConfigSort[0].pointRequiredForTag;
-  let viewRequiredForTag = dataConfigSort[0].viewRequiredForTag;
-
-  let array = await queryArticle(percentLaster, percentViewed, pointDecreasePerDay, pointIncreasePerView, pointRequiredForTag, viewRequiredForTag)
-  arrayPost = array[0]
-  for (let index = 0; index < number; index++) {
-    let id = arrayPost[index]._id
-    await Post.updateMany({ _id: ObjectID(id) }, { $unset: { isClassification: "",category: "",classificationScore: "",classificationStatus: "" } })
-  }
+  res.end("success");
 });
-// await Tag.remove({ })
-// await Tagmap.remove({})
-// });/query-fix-data-classification
 
 module.exports = router;

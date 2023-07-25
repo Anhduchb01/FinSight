@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       yearArray: [],
-      year: this.$route.query.year || '2023/07', 
+      year: this.$route.query.year || '', 
     };
   },
   components: {

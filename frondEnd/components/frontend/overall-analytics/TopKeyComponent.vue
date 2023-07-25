@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       checkLoadingTopKey: true,
-      year: this.$route.query.year|| '2023/07',
+      year: this.$route.query.year|| '',
       arrValue: [],
       arrName: [],
       flagChartBar: true,

@@ -205,7 +205,7 @@
                 </div>
               </div>
             </div>
-            <a v-if="check" class="footer-notify" href="/admin/contact-us">
+            <a v-if="check" class="footer-notify" href="/">
               <div class="see-more-notify">
                 <span>View all messages</span>
                 <svg style="width: 17px;height: 17px;margin-right: 0px;color: #05988a;fill: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-down">
