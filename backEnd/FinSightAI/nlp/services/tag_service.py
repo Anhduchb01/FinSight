@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 from slugify import slugify
 from ..utilities.datetime_ultility import get_time_article
 from ..repositories.article_repository import ckeck_database_article_repository,get_unprocess_tag_article_lib, get_unprocess_tag_article_ai, count_unprocess_tag_article_ai, update_article , find_model,update_status_model , get_tag_verify ,get_data_article_for_tag,get_data_article_for_evaluate_tag
-from ..services.ai.nlp.bert_model import generate_keyword, split_sentence ,initialization_model,initialization_model_evaluate ,generate_keyword_default
+from ..services.ai.nlp.bert_model import generate_keyword, split_sentence, split_sentence_create ,initialization_model,initialization_model_evaluate ,generate_keyword_default
 from .ai.nlp.tags_lib_model import generate_lib_tag
 from datasets import load_dataset ,load_metric ,Dataset,  DatasetDict
 import pandas as pd
@@ -390,7 +390,7 @@ def process_tag_ai(id,timeModel):
 			timeExcute = timeModel
 			historyGenerateTag_collection.insert_one({ "time": timeModel, "model_id": str(id),'listArticleHasProcessed':listArticleHasProcessed})
 		model = initialization_model(id)
-		tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('sentiment-default'))
+		tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('ner-default'))
 		print('load model - ok')
 		cursor  =article_collection.find({'status':"0"},no_cursor_timeout=True).batch_size(20)
 		for article in tqdm(cursor):
@@ -409,20 +409,22 @@ def process_tag_ai(id,timeModel):
 				year = get_time_article(article)
 				if text:
 					# split big sentences to small sentences. 
-					text_process = split_sentence(text)
+					# text_process = split_sentence(text)
+					text_process = split_sentence_create(text)
 					try:
 						tags_array = []
 						tags_name_array = []
 						for sentence in text_process:
-							tags = generate_keyword(sentence, tokenizer, model)
-							for tag in tags:
-								if tag["name"] not in tags_name_array:
-									tags_array.append(tag)
-									tags_name_array.append(tag["name"])
-							for tag in tags_array:
-								for tag1 in tags_array:
-									if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
-										tags_array.remove(tag1)
+							if len(sentence.split())> 5:
+								tags = generate_keyword(sentence, tokenizer, model)
+								for tag in tags:
+									if tag["name"] not in tags_name_array:
+										tags_array.append(tag)
+										tags_name_array.append(tag["name"])
+								for tag in tags_array:
+									for tag1 in tags_array:
+										if tag["name"] in tag1["name"] and len(tag["name"]) < len(tag1["name"]):
+											tags_array.remove(tag1)
 						# Insert tags
 						for tag in tags_array:
 
