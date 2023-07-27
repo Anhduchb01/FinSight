@@ -216,11 +216,11 @@ async function getDataFlowChart() {
 async function getArticleSelect(number, idModel, time) {
 
     if (idModel === 'default') {
-        data = await HistoryClassification.find({ 'model_id': idModel }).limit(number * 10).sort({ article_id: 1 });
+        data = await HistoryClassification.find({ 'model_id': idModel }).skip((number - 1) * 10).limit(10).sort({ article_id: 1 });
         result = await HistoryClassification.aggregate([{ "$match": { 'model_id': idModel } }, { "$group": { _id: "$category", count: { $sum: 1 } } }])
     }
     else {
-        data = await HistoryClassification.find({ 'model_id': idModel, time: time }).limit(number * 10).sort({ article_id: 1 });
+        data = await HistoryClassification.find({ 'model_id': idModel, time: time }).skip((number - 1) * 10).limit(10).sort({ article_id: 1 });
         result = await HistoryClassification.aggregate([{ "$match": { 'model_id': idModel, time: time } }, { "$group": { _id: "$category", count: { $sum: 1 } } }])
     }
     return [data, result]

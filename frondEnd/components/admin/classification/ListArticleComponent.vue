@@ -115,10 +115,9 @@
               <div class="mt-2 mb-2">
                 <p style="margin: 0px;font-size: 12px;">Number Of Article</p>
                 <div class="progress progress-sm progress-bar-stack m-0" style="border-radius: 30px;" id="human-active">
-                  <div class="bg-success bg-positive" id="newsTotalOne" role="progressbar" :title="valueNews2" :style="'width:'+valueNews2Progressbar +'%; transition: 1.5s;background-color: #38C477 !important !important'" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-primary bg-negative" id="eventTotalOne" role="progressbar" :title="valueEvent2" :style="'width:'+ valueEvent2Progressbar +'%; transition: 1.5s;background-color: #F2543D!important'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-info bg-neutral" id="publicationsTotalOne" role="progressbar" :title="valuePublications2" :style="'width:'+ valuePublications2Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  <div class="bg-secondary" id="otherTotalOne" role="progressbar" :title="valueOther2" :style="'width:'+ valueOther2Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-success bg-positive" id="newsTotalOne" role="progressbar" :title="valuePOS2" :style="'width:'+ valuePOS2Progressbar +'%;'" style="transition: 1.5s;background-color: #38C477 !important" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-primary bg-negative" id="eventTotalOne" role="progressbar" :title="valueNEG2" :style="'width:'+ valueNEG2Progressbar +'%; transition: 1.5s;background-color: #F2543D!important'" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="bg-info bg-neutral" id="publicationsTotalOne" role="progressbar" :title="valueNEU2" :style="'width:'+ valueNEU2Progressbar +'%; transition: 1.5s;'" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
               </div>
             </div>
@@ -213,7 +212,7 @@
             </div>
           </div>
           <div class="fistRunArticle box-inline" style="width: 25%;">
-            <div v-for="data in datas1" :key="data._id" style="height: 100px;padding: 15px 0px">
+            <div v-for="data in datas1" :key="'data1'+data._id" style="height: 100px;padding: 15px 0px">
               <div id="box-score-news" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
                 <div id="process-score-news" class="progress-bar bg-primary" role="progressbar" :style="'width: '+(data.classificationScore.POS * 100).toFixed(0)+'%;transition: 1s;background-color: #38C477 !important;border-color: #38C477;'" aria-valuemin="0" aria-valuemax="100">
                   <div class="progress-title">
@@ -245,32 +244,25 @@
             </div>
           </div>
           <div class="secondRunArticle box-inline" style="width: 25%;">
-            <div v-for="data in datas2" :key="data._id" style="height: 100px;padding: 15px 0px">
-              <div id="box-score-news" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;">
-                <div id="process-score-news" class="progress-bar bg-primary" role="progressbar" :style="'width: '+(data.classificationScore.news * 100).toFixed(0)+'%;transition: 1s;background-color: #79db72 !important;border-color: #79db72;'" aria-valuemin="0" aria-valuemax="100">
+            <div v-for="data in datas2" :key="'data2'+data._id" style="height: 100px;padding: 15px 0px">
+              <div id="box-score-news" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
+                <div id="process-score-news" class="progress-bar bg-primary" role="progressbar" :style="'width: '+(data.classificationScore.POS * 100).toFixed(0)+'%;transition: 1s;background-color: #38C477 !important;border-color: #38C477;'" aria-valuemin="0" aria-valuemax="100">
                   <div class="progress-title">
-                    <span class="value-show">{{(data.classificationScore.news * 100).toFixed(0)}}%</span>
+                    <span class="value-show">{{(data.classificationScore.POS * 100).toFixed(0)}}%</span>
                   </div>
                 </div>
               </div>
-              <div id="box-score-event" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;">
-                <div id="process-score-event" class="progress-bar bg-primary" role="progressbar" :style="'width:'+(data.classificationScore.event * 100).toFixed(0)+'%;transition: 1s;background-color: #578ef7 !important;border-color: #578ef7;'" aria-valuemin="0" aria-valuemax="100">
+              <div id="box-score-event" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
+                <div id="process-score-event" class="progress-bar bg-primary" role="progressbar" :style="'width:'+(data.classificationScore.NEG * 100).toFixed(0)+'%;transition: 1s;background-color: #F2543D !important;border-color: #F2543D;'" aria-valuemin="0" aria-valuemax="100">
                   <div class="progress-title">
-                    <span class="value-show">{{(data.classificationScore.event * 100).toFixed(0)}}%</span>
+                    <span class="value-show">{{(data.classificationScore.NEG * 100).toFixed(0)}}%</span>
                   </div>
                 </div>
               </div>
-              <div id="box-score-publications" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;">
-                <div id="process-score-publications" class="progress-bar bg-primary" role="progressbar" :style="'width:'+(data.classificationScore.publications * 100).toFixed(0)+'%;transition: 1s;background-color: #00dde1 !important;border-color: #00dde1;'" aria-valuemin="0" aria-valuemax="100">
+              <div id="box-score-publications" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;margin-bottom: 10px;cursor: pointer;border-radius: 10px;justify-content: end;">
+                <div id="process-score-publications" class="progress-bar bg-primary" role="progressbar" :style="'width:'+(data.classificationScore.NEU * 100).toFixed(0)+'%;transition: 1s;background-color: #696969 !important;border-color: #696969;'" aria-valuemin="0" aria-valuemax="100">
                   <div class="progress-title">
-                    <span class="value-show">{{(data.classificationScore.publications * 100).toFixed(0)}}%</span>
-                  </div>
-                </div>
-              </div>
-              <div id="box-score-other" class="progress progress-box-score" style="width: 100%;margin: 0px;height: 10px;cursor: pointer;border-radius: 10px;">
-                <div id="process-score-other" class="progress-bar bg-primary" role="progressbar" :style="'width: '+(data.classificationScore.other * 100).toFixed(0)+'%;transition: 1s;background-color: #a259cb !important;border-color: #a259cb;'" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-title">
-                    <span class="value-show">{{(data.classificationScore.other * 100).toFixed(0)}}%</span>
+                    <span class="value-show">{{(data.classificationScore.NEU * 100).toFixed(0)}}%</span>
                   </div>
                 </div>
               </div>
@@ -402,31 +394,23 @@ export default {
         return 0;
       }
     },
-
-    valueNews2Progressbar() {
-      if (this.valueNews2 != 0) {
-        return (this.valueNews2 / this.totalCategory2) * 100;
+    valuePOS2Progressbar() {
+      if (this.valuePOS2 != 0) {
+        return (this.valuePOS2 / this.totalCategory2) * 100;
       } else {
         return 0;
       }
     },
-    valueEvent2Progressbar() {
-      if (this.valueEvent2 != 0) {
-        return (this.valueEvent2 / this.totalCategory2) * 100;
+    valueNEG2Progressbar() {
+      if (this.valueNEG2 != 0) {
+        return (this.valueNEG2 / this.totalCategory2) * 100;
       } else {
         return 0;
       }
     },
-    valuePublications2Progressbar() {
-      if (this.valuePublications2 != 0) {
-        return (this.valuePublications2 / this.totalCategory2) * 100;
-      } else {
-        return 0;
-      }
-    },
-    valueOther2Progressbar() {
-      if (this.valueOther != 0) {
-        return (this.valueOther2 / this.totalCategory) * 100;
+    valueNEU2Progressbar() {
+      if (this.valueNEU2 != 0) {
+        return (this.valueNEU2 / this.totalCategory2) * 100;
       } else {
         return 0;
       }
@@ -451,7 +435,6 @@ export default {
       articleScore: [],
       description: [],
       page: 1,
-      language: "en",
       countPageScrollTable: 1,
 
       datas1: [],
@@ -465,10 +448,10 @@ export default {
       datas2: [],
       processValue2: [],
       totalCategory2: 0,
-      valueNews2: 0,
-      valueEvent2: 0,
-      valuePublications2: 0,
-      valueOther2: 0,
+      valuePOS2: 0,
+      valueNEG2: 0,
+      valueNEU2: 0,
+   
       listModelClassificationHistory: [],
       listModelClassificationHistory1: [],
       listModelClassificationHistory2: [],
@@ -543,7 +526,7 @@ export default {
     },
     settingPointModel() {
       this.result = [];
-      let language = this.language;
+
       let pointVerify = this.modelPointEdit;
       if (pointVerify > 100) {
         pointVerify = 100;
@@ -562,7 +545,7 @@ export default {
       });
     },
     getTagVerify() {
-      let language = this.language;
+
       let pointVerify = this.modelPointEdit;
       if (pointVerify > 100) {
         pointVerify = 100;
@@ -674,7 +657,7 @@ export default {
         })
           .then((response) => {
             // var data = ;
-            this.datas1 = response.data[0];
+            this.datas1 = this.datas1.concat(response.data[0]);
             this.processValue1 = response.data[1];
             this.valuePOS1 = 0;
             this.valueNEG1 = 0;
@@ -715,24 +698,26 @@ export default {
           },
         })
           .then((response) => {
-            this.datas2 = response.data[0];
+            this.datas2 = this.datas2.concat(response.data[0]);
             this.processValue2 = response.data[1];
-            this.valueNews2 = 0;
-            this.valueEvent2 = 0;
-            this.valuePublications2 = 0;
-            this.valueOther2 = 0;
+    
+            this.valuePOS2 = 0;
+            this.valueNEG2 = 0;
+            this.valueNEU2 = 0;
+  
             this.totalCategory2 = 0;
             for (let index = 0; index < this.processValue2.length; index++) {
               this.totalCategory2 += this.processValue2[index].count;
               if (this.processValue2[index]._id === "POS") {
-                this.valueNews2 = this.processValue2[index].count;
+                this.valuePOS2 = this.processValue1[index].count;
               }
               if (this.processValue2[index]._id === "NEG") {
-                this.valueEvent2 = this.processValue2[index].count;
+                this.valueNEG2 = this.processValue2[index].count;
               }
-              if (this.processValue2[index]._id === "NEU") {
-                this.valuePublications2 = this.processValue2[index].count;
+              if (this.processValue1[index]._id === "NEU") {
+                this.valueNEU2 = this.processValue2[index].count;
               }
+              
             }
           })
           .catch((e) => {
@@ -767,7 +752,7 @@ export default {
     getArticle() {
       // this.conditionLoading = true;
       HTTP.get(`classification/get-article`, {
-        params: { page: this.countPageScrollTable, language: this.language },
+        params: { page: this.countPageScrollTable },
       }).then((response) => {
         var data = response.data[1];
         this.result = this.result.concat(data);
