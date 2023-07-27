@@ -89,7 +89,6 @@ export default {
   },
   methods: {      
     getAllImage(value) {
-      console.log(value)
       if (value === undefined) {
         return require("~/static/img/news1.jpg");
       }
@@ -113,9 +112,6 @@ export default {
     HTTP.get(`home/getnews`)
       .then((response) => {
         this.results = response.data
-        console.log(this.results)
-          // (this.pointRequiredForTag = response.data[1]),
-          // (this.viewRequiredForTag = response.data[2]);
       })
       .catch((e) => {
         this.errors.push(e);

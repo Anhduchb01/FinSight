@@ -460,7 +460,6 @@ export default {
     //         return decodeURIComponent(name[1]);
     // },
     getAllImage(value) {
-      console.log(value)
       if (value === undefined) {
         return require("~/static/img/news1.jpg");
       }
@@ -470,13 +469,6 @@ export default {
       if (value === null) {
         return require("~/static/img/news1.jpg");
       }
-      // let newString = "";
-      // let stringImage = value.split("\n");
-      // for (let index = 0; index < value.length; index++) {
-      //   newString = stringImage[0];
-      // }
-      // if (newString === "")
-      //   newString = require("~/static/img/news.jpg");
       return value;
     },
     formatTimeAgo(date) {

@@ -133,10 +133,12 @@ def remove_model():
 @nlp.route('/training-tag/model-ai', methods=['GET', 'POST'])
 def process_training_tag():
     ''' Execute AI model to generate tag '''
+    print('start training model tag')
     page = request.args.get('page')
     ckeck_database_tag_service(page)
     id = request.args.get('id') 
     str = run_process_training_tag(id)
+    print('finish training model tag')
     return jsonify({"message": str})
 
 

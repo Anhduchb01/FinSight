@@ -10,11 +10,16 @@ const { limits } = require("chroma-js");
 
 async function generateWordCloud(time) {
     let year = '2023/12/31'
+    let last_year =  '2023/01/01'
     if (time) {
         year = time + '/31'
+        last_year = time + '/01'
     }
     const countTable = await Tagmap.aggregate([
-        { "$match": { year: { "$lt": year } } },
+        { "$match": { "$and": [
+            { "year": { "$lt": year } },
+            { "year": { "$gt": last_year } }
+          ] } },
         
         { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
         {
@@ -73,11 +78,17 @@ async function generateWordCloud(time) {
 
 async function generateDataByYear(time) {
     let year = '2023/12/31'
+    let last_year =  '2023/01/01'
     if (time) {
         year = time + '/31'
+        last_year = time + '/01'
     }
+    
     const result = await Tagmap.aggregate([
-        { "$match": { year: { "$lt": year } } },
+        { "$match": { "$and": [
+            { "year": { "$lt": year } },
+            { "year": { "$gt": last_year } }
+          ] } },
         { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
         {
             $unwind: {
@@ -257,12 +268,17 @@ async function countTotalTagAllYear() {
 
 async function countTopTag(time) {
     {
+        let last_year =  '2023/01/01'
         let year = '2023/12/31'
         if (time) {
             year = time + '/31'
+            last_year = time + '/01'
         }
         const result = await Tagmap.aggregate([
-            { "$match": { year: { "$lt": year } } },
+            { "$match": { "$and": [
+                { "year": { "$lt": year } },
+                { "year": { "$gt": last_year } }
+              ] } },
             { "$lookup": { from: "tags", localField: "tag_id", foreignField: "_id", as: "tags" } },
             {
                 $unwind: {
@@ -304,7 +320,6 @@ async function countTopTag(time) {
                 "$group": {
                     "_id": {
                         "name": "$tags.name",
-                        "tag_id":"$tag_id"
                     },
                     "count": { $sum: 1 },
                 }

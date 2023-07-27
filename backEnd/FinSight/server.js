@@ -22,26 +22,22 @@ const server = require('http').createServer(app)
 // admin Controller
 const dashboardController = require('./controllers/admin/dashboardController');
 const crawlerController = require('./controllers/admin/crawlerController');
-// const rssFetcherController = require('./controllers/admin/rssFetcherController');
-const contactUsController = require('./controllers/admin/contactUsController');
+
 const settingController = require('./controllers/admin/settingController');
 const loginController = require('./controllers/admin/loginController');
 const manageTagController = require('./controllers/admin/manageTagController');
 const osUtilsController = require('./controllers/admin/osUtilsController')
 const classificationController = require('./controllers/admin/classificationController')
-const sortingController = require('./controllers/admin/sortingController')
 const pagesErrorController = require('./controllers/admin/pagesErrorController')
 // front-end Controller
 // front-end Controller
 const homePageController = require('./controllers/front-end/homePageController');
 const newsController = require('./controllers/front-end/newsController');
 const newsDetailController = require('./controllers/front-end/newsDetailController');
-const keywordAnalytics = require('./controllers/front-end/keywordAnalytics');
+
 const overallAnalytics = require('./controllers/front-end/overallAnalytics');
-const contacts = require('./controllers/front-end/contactController');
 const middleware = require('./middleware');
-const newsletter = require('./controllers/front-end/newsLetterController');
-const playground = require('./controllers/front-end/playgroundController');
+
 
 // admin service
 
@@ -93,9 +89,9 @@ app.use('/', middleware);
 app.use('/', dashboardController);
 app.use('/', crawlerController);
 // app.use('/', rssFetcherController);
-app.use('/', contactUsController);
+
 app.use('/', classificationController);
-app.use('/', sortingController)
+
 app.use('/', settingController);
 app.use('/', osUtilsController);
 app.use('/', manageTagController);
@@ -104,8 +100,7 @@ app.use('/',overallAnalytics)
 app.use('/', homePageController);
 app.use('/', newsController);
 app.use('/', newsDetailController);
-app.use('/', contacts);
-app.use('/', newsletter);
+
 // app.use('/', playground);
 
 // app.use('/', pagesErrorController);

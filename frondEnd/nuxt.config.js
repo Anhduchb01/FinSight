@@ -7,14 +7,14 @@ module.exports = {
    // SSR: https://nuxtjs.org/docs/features/rendering-modes
   ssr: false,
   head: {
-    title: 'finsight',
+    title: 'FinSight',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: './static/img/logo.png' },
+      { rel: 'icon', type: 'image/x-icon', href: '/img/logo.ico' },
 
     ],
     script: [

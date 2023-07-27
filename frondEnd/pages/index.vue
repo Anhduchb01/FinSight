@@ -96,7 +96,7 @@ html {
 .video-container {
   position: relative;
   width: 100%;
-  height: 0;
+  height: 100vh;
   padding-bottom: 56.25%; /* 16:9 aspect ratio (change this value based on your video's aspect ratio) */
 }
 
@@ -105,19 +105,18 @@ html {
   top: 0;
   left: 0;
   width: 100%;
-  height: 91%;
+  height: 100%;
   object-fit: cover;
 }
 
 .overlay {
   position: absolute;
-  bottom: 120px;
+  bottom: 15%;
   left: 50%;
   transform: translateX(-50%);
   background-color: white;
 
   /* background-color: rgba(255, 255, 255, 0); */
-    font-family: Roboto;
     width: auto;
     visibility: visible;
     background-image: none;
@@ -144,7 +143,6 @@ html {
   font-weight: bold;
 }
 .firstdesHeader {
-  font-family: Poppins;
     /* display: inline-block; */
     visibility: visible;
     text-align: center;
@@ -158,8 +156,7 @@ html {
 
 }
 .namedesHeader{
-  
-    font-family: Lato;
+
     cursor: pointer;
     /* display: inline-block; */
     visibility: visible;
@@ -177,13 +174,9 @@ html {
     white-space: normal;
     width: 660px;
     height: auto;
-  
     opacity: 1;
-
 }
 .lastdesHeader{
-
-    font-family: Karla;
     /* display: inline-block; */
     visibility: visible;
     text-align: center;

@@ -72,7 +72,7 @@ export default {
       arrChartColumnLib: [1],
       optionChartColumn: {},
       arrChartColumnAI: [],
-      year: this.$route.query.year || '',
+      year: this.$route.query.year || '2023/07',
       flagChartColumn: true,
       arrLib: [],
       arrAI: [],
