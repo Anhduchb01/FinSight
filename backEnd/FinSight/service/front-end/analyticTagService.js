@@ -37,6 +37,11 @@ async function generateWordCloud(time) {
             }
         },
         {
+            $match: {
+              "tags.type":"ORG"
+            }
+        },
+        {
             "$project": {
                 "tags.name": 1,
             }
@@ -104,6 +109,12 @@ async function generateDataByYear(time) {
               ]
             }
        },
+       {
+        $match: {
+          "tags.type":"ORG"
+        }
+    },
+       
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
@@ -159,6 +170,11 @@ async function countTotalTagAllYear() {
             { "tags.tagStatus": 0 },
             { "tags.tagStatus": 1 }
           ] } },
+          {
+            $match: {
+              "tags.type":"ORG"
+            }
+        },
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
@@ -218,6 +234,11 @@ async function countTotalTagAllYear() {
             { "tags.tagStatus": 0 },
             { "tags.tagStatus": 1 }
           ] } },
+          {
+            $match: {
+              "tags.type":"ORG"
+            }
+        },
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
@@ -294,6 +315,11 @@ async function countTopTag(time) {
                   ]
                 }
               },
+              {
+                $match: {
+                "tags.type":"ORG"
+                }
+            },
             { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
             {
                 $unwind: {
@@ -346,6 +372,12 @@ async function countTagByCategoryAllYear() {
             { "tags.tagStatus": 1 }
           ]} 
         },
+        {
+            $match: {
+              "tags.type":"ORG"
+            }
+        },
+        
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
@@ -413,6 +445,11 @@ async function countTagByCategoryAllYear() {
             { "tags.tagStatus": 0 },
             { "tags.tagStatus": 1 }
           ]} },
+          {
+            $match: {
+              "tags.type":"ORG"
+            }
+        },
         { "$lookup": { from: "posts", localField: "article_id", foreignField: "_id", as: "post" } },
         {
             $unwind: {
