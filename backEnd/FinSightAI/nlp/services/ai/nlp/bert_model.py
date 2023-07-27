@@ -85,10 +85,7 @@ def generate_keyword(sequence,  tokenizer, model):
             # The current word is outside of any entity, reset the current_entity
             current_entity = None
         else :
-            print('else')
-            print(label)
             label_type, entity_type = label.split("-")
-        
             if label_type == "B":
                 # The current word is the beginning of a new entity
                 if entity_type =='PERSON':
@@ -99,15 +96,13 @@ def generate_keyword(sequence,  tokenizer, model):
                     label = 'LOC'
                 else:
                     label = 'MISC'
-                    
-                    
                 current_entity = {'name': word, 'type': label, 'score': round(prob, 4)}
                 entities.append(current_entity)
             elif label_type == "I" and current_entity is not None:
                 # The current word is inside an entity, add it to the current_entity
                 current_entity['name'] += " " + word
                 current_entity['score'] = round((prob+current_entity['score'])/2,4)
-    return current_entity
+    return entities
     
 
 def split_sentence(text):
@@ -117,7 +112,7 @@ def split_sentence(text):
     text_split_new_line = text.split('\n')
     text_split_by_dot = []
     for t in text_split_new_line:
-        if (len(t.split()) > 300):
+        if (len(t.split()) > 100):
             text_split = t.split('.')
             text_split_by_dot += text_split
         else:
@@ -125,7 +120,7 @@ def split_sentence(text):
     join_text = ''
     for t in text_split_by_dot:
         if (len(t.split(' ')) > 5):
-            if ((len(join_text.split(' ')) + len(t.split(' '))) < 300):
+            if ((len(join_text.split(' ')) + len(t.split(' '))) < 100):
                 join_text += t
                 
             else:
@@ -133,6 +128,11 @@ def split_sentence(text):
                 join_text = ''
     if (join_text):
         text_process.append(join_text)
+    return text_process
+def split_sentence_create(text):
+    ''' Split big sentences to small sentences. Max sentences < 300 word '''
+    text = __remove_special_character1(text)
+    text_process = text.split('.')
     return text_process
 
 def __remove_special_character(text):
@@ -145,6 +145,30 @@ def __remove_special_character(text):
     text = text.replace(":", " ")
     text = text.replace("'"," ")
     text = text.replace('"'," ")
+    return text
+import re
+def __remove_special_character1(text):
+    text = text.replace("(", " ")
+    text = text.replace(")", " ")
+    text = text.replace(",", " ")
+    text = text.replace("/", " ")
+    ext = text.replace("”", " ")
+    ext = text.replace("“", " ")
+    text = text.replace(":", " ")
+    text = text.replace("'"," ")
+    text = text.replace('"'," ")
+    text = text.replace('’'," ")
+    text = text.replace("'"," ")
+    text = text.replace("+", " ")
+    text = text.replace("–", " ")
+    text = text.replace("%", " ")
+    text = text.replace('\r\n'," ")
+    text = text.replace(']'," ")
+    text = text.replace('['," ")
+    text = text.replace("-","")
+    text = text.replace("\\ufeff", "")
+    text = text.replace('\\'," ")
+    text = text.strip()
     return text
 
 def __remove_stop_word(tag):

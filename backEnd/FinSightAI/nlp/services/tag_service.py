@@ -7,7 +7,7 @@ from bson.objectid import ObjectId
 from slugify import slugify
 from ..utilities.datetime_ultility import get_time_article
 from ..repositories.article_repository import ckeck_database_article_repository,get_unprocess_tag_article_lib, get_unprocess_tag_article_ai, count_unprocess_tag_article_ai, update_article , find_model,update_status_model , get_tag_verify ,get_data_article_for_tag,get_data_article_for_evaluate_tag
-from ..services.ai.nlp.bert_model import generate_keyword, split_sentence ,initialization_model,initialization_model_evaluate ,generate_keyword_default
+from ..services.ai.nlp.bert_model import generate_keyword, split_sentence, split_sentence_create ,initialization_model,initialization_model_evaluate ,generate_keyword_default
 from .ai.nlp.tags_lib_model import generate_lib_tag
 from datasets import load_dataset ,load_metric ,Dataset,  DatasetDict
 import pandas as pd
@@ -272,7 +272,7 @@ def process_tag_ai(id,timeModel):
 	try : 
 
 		if id == 'default':
-			
+		
 			model_collection.update_one({"name": "AI NER Base"}, {"$set": {"status": 1}})
 			findModelBase = historyGenerateTag_collection.find_one({"model_id": str(id)})
 			if findModelBase:
@@ -290,14 +290,14 @@ def process_tag_ai(id,timeModel):
 				for articleHasProcessed in arrayArticleHasProcessed:
 					if str(articleHasProcessed['article_id']) == str(article['_id']):
 						flagArticle = False
+						break
 				if flagArticle == False:
 					continue
 				if article:
 					
 					text = article["content"]
 					if text == None or text == '':
-						print('id None Articale',str(article['_id']))
-						continue
+						break
 					year = get_time_article(article)
 					if text != None or text != '':
 						# split big sentences to small sentences. 
@@ -379,9 +379,7 @@ def process_tag_ai(id,timeModel):
 			print('predict - ok')
 			listTag = historyTag_collection.find({"model_id": id})
 			total = len(list(listTag))
-			model_collection.update_one({"name":"AI NER Base"}, {"$set": {"status": 0,'totalTag':total}})
-		
-				
+			model_collection.update_one({"name":"AI NER Base"}, {"$set": {"status": 0,'totalTag':total}})		
 		else:
 			model_collection.update_one({"_id": ObjectId(id)}, {"$set": {"status": 1}})
 			findModelBase = historyGenerateTag_collection.find_one({"model_id": str(id),'time':timeModel})
@@ -393,7 +391,7 @@ def process_tag_ai(id,timeModel):
 				timeExcute = timeModel
 				historyGenerateTag_collection.insert_one({ "time": timeModel, "model_id": str(id),'listArticleHasProcessed':listArticleHasProcessed})
 			model = initialization_model(id)
-			tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('sentiment-default'))
+			tokenizer = AutoTokenizer.from_pretrained(current_path.joinpath('ner-default'))
 			print('load model - ok')
 			cursor  =article_collection.find({'status':"0"},no_cursor_timeout=True).batch_size(20)
 			for article in tqdm(cursor):
@@ -413,7 +411,7 @@ def process_tag_ai(id,timeModel):
 					year = get_time_article(article)
 					if text:
 						# split big sentences to small sentences. 
-						text_process = split_sentence(text)
+						text_process = split_sentence_create(text)
 						try:
 							tags_array = []
 							tags_name_array = []

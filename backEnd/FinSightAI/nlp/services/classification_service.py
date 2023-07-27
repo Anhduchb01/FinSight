@@ -148,7 +148,7 @@ def run_process_training_classification(id):
 			# 	article.append(item)
 
 			df_model = pd.DataFrame(arrayItem)
-			train, test = train_test_split(df_model, test_size=0.2,random_state=42,stratify=Target)
+			train, test = train_test_split(df_model, test_size=0.2,random_state=42)
 			tds = Dataset.from_pandas(train)
 			vds = Dataset.from_pandas(test)
 
@@ -202,13 +202,24 @@ def run_process_training_classification(id):
 				num_train_epochs=num_epochs,
 				logging_first_step = True,
 			)
-			metric = load_metric("glue", "mrpc")
+			from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
 			def compute_metrics(eval_preds):
 				logits, labels = eval_preds
 				predictions = np.argmax(logits, axis=-1)
-				print('metric',metric.compute(predictions=predictions, references=labels))
-				return metric.compute(predictions=predictions, references=labels)
+				accuracy = accuracy_score(labels, predictions)
+				precision = precision_score(labels, predictions, average='weighted')
+				recall = recall_score(labels, predictions, average='weighted')
+				f1 = f1_score(labels, predictions, average='weighted')
 
+				metrics_dict = {
+					'accuracy': accuracy,
+					'precision': precision,
+					'recall': recall,
+					'f1': f1
+				}
+
+				return metrics_dict
 			trainer = Trainer(model=model, args=training_args, train_dataset=full_train_dataset,
 							eval_dataset=full_eval_dataset, compute_metrics=compute_metrics)
 			numberCheckPoint = num_epochs*math.ceil(len(full_train_dataset)/batch_size)
